@@ -122,7 +122,7 @@
     /* gap: 20px; */
 }
 
-#left-bot-header div {
+#left-bot-header>div {
     padding: 0 16px;
     line-height: 50px;
 }
