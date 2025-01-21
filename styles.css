@@ -21,7 +21,7 @@
 #timkiem-header {
     /* display: flex; */
     border: 1px solid rgba(0, 0, 0, 0.3);
-    padding: 8px 12px;
+    padding: 8px 10px;
     border-radius: 20px;
     position: relative;
     flex: 2;
@@ -126,7 +126,25 @@
     padding: 0 16px;
     line-height: 50px;
 }
-
+#left-bot-header>div:hover{
+    background-color: #2399ed;
+    cursor: pointer;
+}
+#left-bot-header>div:hover .icon-up i{
+    /* transform: translate(-2px); */
+    transform: rotate(180deg);
+    content: '\f0dd';
+}
+#left-bot-header>div:hover .icon-up{
+    transform: translateY(-2px);
+}
+#left-bot-header .icon-up i{
+    transition: transform 0.1s ease;    
+}
+.icon-up{
+    padding: 0;
+    transform: translateY(3px);    
+}
 #right-bot-header {
     color: white;
     display: flex;
