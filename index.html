@@ -19,9 +19,36 @@
                     Logo
                 </div>
                 <div id="timkiem-header">
-                    <input type="text" name="timkiem" id="timkiem" placeholder="Tìm kiếm sản phẩm" size="33">
-                    <div>
+                    <div id="filter" onclick="display_filter()">
+                        <i class="fa-solid fa-filter"  style="color: white;"></i>
+                    </div>
+                    <input type="text" name="timkiem" id="timkiem" placeholder="Tìm kiếm sản phẩm">
+                    <div id="find">
                         <i class="fa-solid fa-magnifying-glass" style="color: white;"></i>
+                    </div>
+                    <div id="filter-menu" >
+                        <div style="float: right; cursor: pointer;" onclick="display_filter()"><i class="fa-solid fa-xmark"></i></div>
+                        <div id="filter-price">
+                            <h3>Price</h3>
+                            <input type="text" placeholder="min price">
+                            <input type="text" placeholder="max price">
+                        </div>
+                        <div id="filter-category">
+                            <h3>Category</h3>
+                            <div><label for="">Skincare</label><input type="checkbox" name="" id=""></div>
+                            <div><label for="">Makeup</label><input type="checkbox" name="" id=""></div>
+                            <div><label for="">Haircare</label><input type="checkbox" name="" id=""></div>
+                            <div><label for="">Bodycare</label><input type="checkbox" name="" id=""></div>
+                        </div>
+                        <div id="filter-brand">
+                            <h3>Brand</h3>
+                            <div><label for="">L'Oreal</label><input type="checkbox" name="" id=""></div>
+                            <div><label for="">Dove</label><input type="checkbox" name="" id=""></div>
+                            <div><label for="">la roche-posay</label><input type="checkbox" name="" id=""></div>
+                        </div>
+                        <div id="filter-reset" style="display: flex; justify-content: center;">
+                            <button> RESET </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -97,5 +124,25 @@
         </div>
     </div>
 </body>
+<script>
+    function display_filter() {
+     var a = document.getElementById('filter-menu');
+     if (a.style.display === 'none') {
+         a.style.display = 'block';
+     } else {
+         a.style.display = 'none';
+     }
+ }
+ 
+
+    document.addEventListener('mousedown', function (event) {
+        const A = document.getElementById('timkiem-header');
+        const B = document.getElementById('filter-menu');
+        if (A && !A.contains(event.target)) {
+        B.style.display = 'none';
+        }
+    });
+
+ </script>
 
 </html>

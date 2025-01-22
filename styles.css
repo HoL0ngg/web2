@@ -19,12 +19,14 @@
 }
 
 #timkiem-header {
-    /* display: flex; */
+    display: flex;
     border: 1px solid rgba(0, 0, 0, 0.3);
-    padding: 8px 10px;
+    padding: 8px 12px;
     border-radius: 20px;
     position: relative;
     flex: 2;
+    align-items: center;
+    justify-content: center;
 }
 
 #timkiem-header input {
@@ -32,8 +34,8 @@
     outline: none;
 }
 
-#timkiem-header div {
-    background-color: #2399ed;
+#find {
+    background-color: #5cb3f1;
     height: 100%;
     /* width: 100%; */
     position: absolute;
@@ -45,6 +47,117 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#find:hover{
+    cursor: pointer;
+    background-color: #2399ed;
+}
+
+#filter{
+    background-color: #5cb3f1;
+    height: 100%;
+    /* width: 100%; */
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 0 10px;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+#filter:hover{
+    cursor: pointer;
+    background-color: #2399ed;
+}
+
+#filter-menu{
+    border: solid 1px #5cb3f1;
+    border-bottom-left-radius: 20%;
+    border-bottom-right-radius: 20%;
+    position: absolute;
+    height: fit-content;
+    width: 78%;
+    top: 100%;
+    background-color: #5cb3f1;
+    display: none;
+    z-index: 1;
+}
+#filter-menu div{
+    padding: 5px;
+    margin: 10px;
+}
+#filter-menu input[type="checkbox"]{
+    appearance: none;
+    /* Bỏ kiểu mặc định */
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid white;
+    cursor: pointer;
+}
+#filter-menu input[type="text"]{
+    width: 95%;
+    padding: 5px;
+    margin-top: 3px;
+    border: 2px solid white;
+    border-radius: 5px;
+    background-color: #5cb3f1;
+    color: white;
+}
+
+#filter-menu [type="text"]::placeholder{
+    color: white;
+}
+
+#filter-menu input[type="checkbox"]:checked::before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: white;
+}
+#filter-menu button{
+    border-radius: 10%;
+    height: 35px;
+    width: 100px;
+    color: white;
+    border: solid white;
+    background-color: #5cb3f1;
+}
+
+#filter-category div{
+    display: flex;
+    justify-content: space-between;
+}
+#filter-brand div{
+    display: flex;
+    justify-content: space-between;
+}
+#filter-reset{
+    display: flex;
+    justify-content: center;
+}
+#filter-reset>button{
+    cursor: pointer;
+}
+#filter-reset>button:hover{
+    cursor: pointer;
+    background-color: #2399ed;
+}
+
+
+#filter-price,
+#filter-category,
+#filter-brand{
+    border-bottom: solid 1px gray;
+    border-width: 50%;
+    text-align: center;
 }
 
 #left-header,
