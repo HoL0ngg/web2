@@ -70,36 +70,67 @@
     cursor: pointer;
 }
 
+#filter-exit:hover{
+    color: #2399ed;
+}
+
 #filter:hover{
     cursor: pointer;
     background-color: #2399ed;
 }
 
 #filter-menu{
-    border: solid 1px #5cb3f1;
-    border-bottom-left-radius: 20%;
-    border-bottom-right-radius: 20%;
+  
+    color: #5cb3f1;
     position: absolute;
-    height: fit-content;
+    height: 0px;
     width: 78%;
     top: 100%;
-    background-color: #5cb3f1;
-    display: none;
+    background-color: white;
     z-index: 1;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    transition: height 0.5s ease-in-out;
+}
+
+#filter-menu.active{
+    height: 600px;
+    border: solid 1px #5cb3f1;
 }
 #filter-menu div{
     padding: 5px;
     margin: 10px;
 }
-#filter-menu input[type="checkbox"]{
+
+#filter-menu input[type="checkbox"] {
     appearance: none;
-    /* Bỏ kiểu mặc định */
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    border: 2px solid white;
+    width: 17px;
+    height: 17px;
+    border: 2px solid #5cb3f1;
+    border-radius: 4px;
+    background-color: white;
     cursor: pointer;
+    position: relative;
 }
+
+#filter-menu input[type="checkbox"]:checked {
+    background-color: #5cb3f1;
+    border-color: #5cb3f1;
+}
+
+#filter-menu input[type="checkbox"]:checked::after {
+    content: "✔";
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    position: absolute;
+    top: -4px;
+    left: 1px;
+}
+
+
+
+
 #filter-menu input[type="text"]{
     width: 95%;
     padding: 5px;
@@ -112,15 +143,6 @@
 
 #filter-menu [type="text"]::placeholder{
     color: white;
-}
-
-#filter-menu input[type="checkbox"]:checked::before {
-    content: '';
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: white;
 }
 #filter-menu button{
     border-radius: 10%;
@@ -155,7 +177,7 @@
 #filter-price,
 #filter-category,
 #filter-brand{
-    border-bottom: solid 1px gray;
+    border-bottom: solid 2px #79c7ff;
     border-width: 50%;
     text-align: center;
 }

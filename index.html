@@ -27,7 +27,7 @@
                         <i class="fa-solid fa-magnifying-glass" style="color: white;"></i>
                     </div>
                     <div id="filter-menu" >
-                        <div style="float: right; cursor: pointer;" onclick="display_filter()"><i class="fa-solid fa-xmark"></i></div>
+                        <div id="filter-exit" style="float: right; cursor: pointer;" onclick="display_filter()"><i class="fa-solid fa-xmark"></i></div>
                         <div id="filter-price">
                             <h3>Price</h3>
                             <input type="text" placeholder="min price">
@@ -46,7 +46,7 @@
                             <div><label for="">Dove</label><input type="checkbox" name="" id=""></div>
                             <div><label for="">la roche-posay</label><input type="checkbox" name="" id=""></div>
                         </div>
-                        <div id="filter-reset" style="display: flex; justify-content: center;">
+                        <div id="filter-reset">
                             <button> RESET </button>
                         </div>
                     </div>
@@ -125,24 +125,10 @@
     </div>
 </body>
 <script>
+
     function display_filter() {
-     var a = document.getElementById('filter-menu');
-     if (a.style.display === 'none') {
-         a.style.display = 'block';
-     } else {
-         a.style.display = 'none';
-     }
- }
- 
-
-    document.addEventListener('mousedown', function (event) {
-        const A = document.getElementById('timkiem-header');
-        const B = document.getElementById('filter-menu');
-        if (A && !A.contains(event.target)) {
-        B.style.display = 'none';
-        }
-    });
-
+    document.getElementById("filter-menu").classList.toggle("active");
+}
  </script>
 
 </html>
