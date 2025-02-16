@@ -50,12 +50,12 @@
     justify-content: center;
 }
 
-#find:hover{
+#find:hover {
     cursor: pointer;
     background-color: #2399ed;
 }
 
-#filter{
+#filter {
     background-color: #5cb3f1;
     height: 100%;
     /* width: 100%; */
@@ -71,12 +71,12 @@
     cursor: pointer;
 }
 
-#filter:hover{
+#filter:hover {
     cursor: pointer;
     background-color: #2399ed;
 }
 
-#filter-menu{
+#filter-menu {
     border: solid 1px #5cb3f1;
     border-bottom-left-radius: 20%;
     border-bottom-right-radius: 20%;
@@ -88,11 +88,13 @@
     display: none;
     z-index: 1;
 }
-#filter-menu div{
+
+#filter-menu div {
     padding: 5px;
     margin: 10px;
 }
-#filter-menu input[type="checkbox"]{
+
+#filter-menu input[type="checkbox"] {
     appearance: none;
     /* Bỏ kiểu mặc định */
     width: 10px;
@@ -101,7 +103,8 @@
     border: 2px solid white;
     cursor: pointer;
 }
-#filter-menu input[type="text"]{
+
+#filter-menu input[type="text"] {
     width: 95%;
     padding: 5px;
     margin-top: 3px;
@@ -111,7 +114,7 @@
     color: white;
 }
 
-#filter-menu [type="text"]::placeholder{
+#filter-menu [type="text"]::placeholder {
     color: white;
 }
 
@@ -123,7 +126,8 @@
     border-radius: 50%;
     background-color: white;
 }
-#filter-menu button{
+
+#filter-menu button {
     border-radius: 10%;
     height: 35px;
     width: 100px;
@@ -132,22 +136,26 @@
     background-color: #5cb3f1;
 }
 
-#filter-category div{
+#filter-category div {
     display: flex;
     justify-content: space-between;
 }
-#filter-brand div{
+
+#filter-brand div {
     display: flex;
     justify-content: space-between;
 }
-#filter-reset{
+
+#filter-reset {
     display: flex;
     justify-content: center;
 }
-#filter-reset>button{
+
+#filter-reset>button {
     cursor: pointer;
 }
-#filter-reset>button:hover{
+
+#filter-reset>button:hover {
     cursor: pointer;
     background-color: #2399ed;
 }
@@ -155,7 +163,7 @@
 
 #filter-price,
 #filter-category,
-#filter-brand{
+#filter-brand {
     border-bottom: solid 1px gray;
     border-width: 50%;
     text-align: center;
@@ -175,7 +183,7 @@
 }
 
 #taikhoan-container {
-    display: flex;    
+    display: flex;
     gap: 12px;
     align-items: center;
     justify-content: start;
@@ -184,7 +192,7 @@
     /* border-radius: 20px; */
     min-width: 140px;
     height: 42px;
-    cursor: pointer; 
+    cursor: pointer;
     overflow: hidden;
     /* color: #5cb3f1;    */
 }
@@ -244,26 +252,33 @@
 #left-bot-header>div {
     padding: 0 16px;
     line-height: 50px;
+    transition: background-color 0.2s ease;
 }
-#left-bot-header>div:hover{
+
+#left-bot-header>div:hover {
     background-color: #2399ed;
     cursor: pointer;
 }
-#left-bot-header>div:hover .icon-up i{
+
+#left-bot-header>div:hover .icon-up i {
     /* transform: translate(-2px); */
     transform: rotate(180deg);
     content: '\f0dd';
 }
-#left-bot-header>div:hover .icon-up{
+
+#left-bot-header>div:hover .icon-up {
     transform: translateY(-2px);
 }
-#left-bot-header .icon-up i{
-    transition: transform 0.1s ease;    
+
+#left-bot-header .icon-up i {
+    transition: transform 0.1s ease;
 }
-.icon-up{
+
+.icon-up {
     padding: 0;
-    transform: translateY(3px);    
+    transform: translateY(3px);
 }
+
 #right-bot-header {
     color: white;
     display: flex;
@@ -272,11 +287,12 @@
 
 
 /* Register */
-*{
+* {
     box-sizing: border-box;
 }
-#register-wrapper{
-    display: none;    
+
+#register-wrapper {
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -284,11 +300,11 @@
     bottom: 0;
 }
 
-#register-container{
+#register-container {
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%,-50%);    
+    transform: translate(-50%, -50%);
     border: 2px solid rgba(0, 0, 0, 0.3);
     border-radius: 5px;
     width: 30%;
@@ -296,16 +312,17 @@
     padding-bottom: 20px;
 }
 
-.form-title{
-    text-align: center;   
-    height: 50px; 
+.form-title {
+    text-align: center;
+    height: 50px;
 }
 
-.form-title h2{    
-    width: 90%;  
+.form-title h2 {
+    width: 90%;
     margin: 20px auto;
 }
-.btn-close{
+
+.btn-close {
     position: absolute;
     top: 0;
     right: 0;
@@ -315,24 +332,27 @@
     cursor: pointer;
     border-radius: 3px;
 }
-.error{
+
+.error {
     color: red;
     margin: 7px;
     text-align: left;
     padding-left: 28px;
     font-size: 1.1rem;
 }
-.input-field{
+
+.input-field {
     /* display: flex;
     flex-direction: column;    
     justify-self: center;  */
     width: 100%;
-    margin-top: 20px;  
+    margin-top: 20px;
     /* border: 2px solid #0063EC;     */
     position: relative;
-    text-align: center;    
+    text-align: center;
 }
-.input-field label{
+
+.input-field label {
     position: absolute;
     left: 32px;
     top: 50%;
@@ -342,31 +362,38 @@
     pointer-events: none;
     font-size: 1.2rem;
     background-color: white;
-    padding: 0px 4px;    
+    padding: 0px 4px;
 }
-.input-field input:focus + label, .input-field input:valid + label{    
+
+.input-field input:focus+label,
+.input-field input:valid+label {
     top: 0;
     color: #1a73e8;
     font-size: 1rem;
 }
-.input-field input:focus{    
+
+.input-field input:focus {
     outline-color: #1a73e8;
     background-color: white;
 }
-.input-field input[type=text],input[type=password]{
+
+.input-field input[type=text],
+input[type=password] {
     border-radius: 17px;
     border: 2px solid #dadce0;
-    padding: 17px;    
+    padding: 17px;
     height: 50px;
-    width: 90%;   
-    font-size: 1.1rem;    
+    width: 90%;
+    font-size: 1.1rem;
 }
-.input-btn-wrapper{
+
+.input-btn-wrapper {
     justify-self: center;
     margin-top: 15px;
     margin-bottom: 10px;
 }
-.btn{
+
+.btn {
     width: 200px;
     height: 45px;
     border-radius: 7px;
@@ -375,27 +402,145 @@
     cursor: pointer;
     border: none;
     text-align: center;
-    line-height: 30px;    
+    line-height: 30px;
     color: white;
     margin-top: 10px;
 }
-.btn:hover{
+
+.btn:hover {
     opacity: 0.82;
 }
 
 /* Banner */
-#banner{
+#banner {
     /* border: 2px solid red; */
     height: 450px;
     width: 100%;
     object-fit: fill;
 }
-#banner img{
+
+#banner img {
     width: 100%;
     height: 100%;
 }
+
+.swiper {
+    width: 80%;
+    height: 600px;
+}
+
+.swiper-slide {
+    display: flex !important;
+    justify-content: center;
+    /* Căn giữa ngang */
+    align-items: center;
+    /* Căn giữa dọc */
+    width: 80%;
+    margin: 10px auto;
+}
+
+.swiper-slide img {
+    max-width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#information {
+    margin-top: 100px;
+    width: 100%;
+    height: 280px;
+    padding-top: 60px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #0063EC;
+}
+
+#information p {
+    padding: 30px;
+    font-size: large;
+}
+
+#information input {
+    outline: none;
+    border: none;
+    padding: 10px;
+    padding-right: 70px;
+    border-radius: 10px;
+    font-size: large;
+}
+
+#input-information {
+    position: relative;
+    /* width: max-content; */
+}
+
+#input-information>button {
+    position: absolute;
+    right: 0;
+    width: 60px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #0063EC;
+    ;
+    transition: opacity 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+#input-information>button:hover {
+    opacity: 0.7;
+}
+
+#footer {
+    background-color: #243a58;
+    ;
+    padding-bottom: 20px;
+}
+
+#footer-container {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.footer-item {
+    width: 25%;
+    align-self: center;
+    padding: 30px 30px 0 30px;
+}
+
+#footer #footer-container .footer-item img {
+    align-self: center;
+    width: 140px;
+}
+
+
+#footer #footer-container .footer-item h4 {
+    color: #F9D529;
+    padding-bottom: 15px;
+    margin: 15px 0;
+    border-bottom: 3px solid #F9D529;
+}
+
+#footer .footer-item a,
+#footer .footer-item p {
+    text-decoration: none;
+    color: white;
+    font-size: 11pt;
+    line-height: 35px;
+    transition: 0.5s;
+}
+
+#footer .footer-item a:hover {
+    padding-left: 10px;
+    color: #F9D529;
+}
+
 /* Login */
-#login-wrapper{
+#login-wrapper {
     display: none;
     position: fixed;
     top: 0;
@@ -403,11 +548,12 @@
     right: 0;
     bottom: 0;
 }
-#login-container{
+
+#login-container {
     position: absolute;
     left: 50%;
     top: 45%;
-    transform: translate(-50%,-50%);    
+    transform: translate(-50%, -50%);
     border: 2px solid rgba(0, 0, 0, 0.3);
     border-radius: 5px;
     width: 30%;
@@ -415,55 +561,65 @@
     padding: 20px;
 }
 
-#login-container a{
+#login-container a {
     text-decoration: none;
     font-weight: 700;
     color: #0063EC;
 }
-.eye-icon{
+
+.eye-icon {
     position: absolute;
     right: 35px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
 }
-.fa-key,.fa-phone,.fa-user{    
+
+.fa-key,
+.fa-phone,
+.fa-user {
     font-size: 1rem;
     margin: 0px 5px;
-    
+
 }
-.fa-circle-exclamation{
+
+.fa-circle-exclamation {
     margin-right: 5px;
     font-size: 1rem;
 }
+
 /* Logout */
-#logout{
+#logout {
     display: none;
     border: 2px solid rgba(0, 0, 0, 0.5);
     border-radius: 5px;
     font-size: 1.2rem;
-    width: fit-content;  
-    text-align: center;  
+    width: fit-content;
+    text-align: center;
     position: absolute;
     top: 50px;
     right: 345px;
     background-color: white;
 }
-#logout span{
+
+#logout span {
     width: 100%;
     display: inline-block;
     padding: 7px;
     cursor: pointer;
 }
-#logout span:first-child{
-    border-bottom: 2px solid rgba(0, 0, 0, 0.3);        
+
+#logout span:first-child {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.3);
 }
-#logout span:hover{
-    background-color: #5cb3f1;    
+
+#logout span:hover {
+    background-color: #5cb3f1;
 }
+
 /* Toast */
-#toast{
-    display: none;    
+#toast {
+    display: none;
     position: fixed;
     min-width: 270px;
     min-height: 80px;
@@ -475,14 +631,26 @@
     padding-left: 10px;
     text-align: center;
     line-height: 70px;
-    animation: fadein 1s ,fadeout 1s 2.5s;
+    animation: fadein 1s, fadeout 1s 2.5s;
     z-index: 100;
     font-size: 1.1rem;
 }
-@keyframes fadein{
-    from{top: calc(30px - 70px); opacity: 0;}
-    to{top: 30px; opacity: 1;}
+
+@keyframes fadein {
+    from {
+        top: calc(30px - 70px);
+        opacity: 0;
+    }
+
+    to {
+        top: 30px;
+        opacity: 1;
+    }
 }
-@keyframes fadeout{        
-    to{top: calc(30px - 70px); opacity: 0;}
+
+@keyframes fadeout {
+    to {
+        top: calc(30px - 70px);
+        opacity: 0;
+    }
 }

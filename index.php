@@ -11,6 +11,9 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
 </head>
 
 <body>
@@ -126,12 +129,81 @@ session_start();
             </div>
         </div>
     </div>
+
     <div id="banner">
         <img src="img/img1.jpg" alt="img1">
         <img src="img/img2.png" alt="img2">
     </div>
-    <div id="content"></div>
 
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="img/img1.jpg"></div>
+            <div class="swiper-slide"><img src="img/img2.png"></div>
+            <div class="swiper-slide"><img src="img/img1.jpg"></div>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            loop: true,
+            autoplay: {
+                delay: 30000000
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev"
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true
+            }
+        });
+    </script>
+
+    <div id="information">
+        <h2>Nhận thông tin khuyến mãi mới nhất</h2>
+        <p>Để lại email của bạn để nhận những thông tin khuyến mãi mới nhất từ chúng tôi</p>
+        <div id="input-information">
+            <input type="email" name="email-info" id="email-info" placeholder="Email của bạn">
+            <button onclick="checkEmailkhuyenmai()" id="emailkhuyenmai">
+                <i class="fa-solid fa-arrow-right" style="color: white;"></i>
+            </button>
+        </div>
+    </div>
+    <div id="footer">
+        <div id="footer-container">
+            <div class="footer-item">
+                <img src="Logo-DH-Sai-Gon-SGU-flat.webp" alt="">
+            </div>
+            <div class="footer-item">
+                <h4>Thông tin hữu ích</h4>
+                <a href="">Kiểm tra size quạt</a>
+                <br>
+                <a href="">Hướng dẫn bảo hành</a>
+                <br>
+                <a href="">Quy định đổi quạt</a>
+            </div>
+            <div class="footer-item">
+                <h4>Giới thiệu</h4>
+                <a href="">Quan niệm về quạt</a>
+                <br>
+                <a href="">Danh sách cửa hàng</a>
+                <br>
+                <a href="">Dành cho đại lý</a>
+            </div>
+            <div class="footer-item">
+                <h4>Thông tin liên hệ</h4>
+                <p>Địa chỉ: 273 An Dương Vương, P3, Quận 5, TP.HCM</p>
+                <p>Số điện thoại: 0912345JQK</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="content"></div>
     <!-- Login -->
     <!--  action="handles/handleLogin.php" -->
     <div id="login-wrapper">

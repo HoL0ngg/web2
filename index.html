@@ -20,14 +20,15 @@
                 </div>
                 <div id="timkiem-header">
                     <div id="filter" onclick="display_filter()">
-                        <i class="fa-solid fa-filter"  style="color: white;"></i>
+                        <i class="fa-solid fa-filter" style="color: white;"></i>
                     </div>
                     <input type="text" name="timkiem" id="timkiem" placeholder="Tìm kiếm sản phẩm">
                     <div id="find">
                         <i class="fa-solid fa-magnifying-glass" style="color: white;"></i>
                     </div>
-                    <div id="filter-menu" >
-                        <div id="filter-exit" style="float: right; cursor: pointer;" onclick="display_filter()"><i class="fa-solid fa-xmark"></i></div>
+                    <div id="filter-menu">
+                        <div style="float: right; cursor: pointer;" onclick="display_filter()"><i
+                                class="fa-solid fa-xmark"></i></div>
                         <div id="filter-price">
                             <h3>Price</h3>
                             <input type="text" placeholder="min price">
@@ -46,7 +47,7 @@
                             <div><label for="">Dove</label><input type="checkbox" name="" id=""></div>
                             <div><label for="">la roche-posay</label><input type="checkbox" name="" id=""></div>
                         </div>
-                        <div id="filter-reset">
+                        <div id="filter-reset" style="display: flex; justify-content: center;">
                             <button> RESET </button>
                         </div>
                     </div>
@@ -106,7 +107,7 @@
                     <div>Trang chủ</div>
                     <div>Giới thiệu</div>
                     <div style="display: flex; align-items: center; gap: 8px;">
-                        <div>Sản phẩm</div>                        
+                        <div>Sản phẩm</div>
                         <div class="icon-up"><i class="fa-solid fa-sort-up"></i></div>
                     </div>
                     <div>Tin tức</div>
@@ -123,12 +124,7 @@
             </div>
         </div>
     </div>
+    <script src="js/script.js"></script>
 </body>
-<script>
-
-    function display_filter() {
-    document.getElementById("filter-menu").classList.toggle("active");
-}
- </script>
 
 </html>
