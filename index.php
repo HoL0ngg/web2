@@ -33,7 +33,8 @@ session_start();
                         <i class="fa-solid fa-magnifying-glass" style="color: white;"></i>
                     </div>
                     <div id="filter-menu">
-                        <div style="float: right; cursor: pointer;" onclick="display_filter()"><i class="fa-solid fa-xmark"></i></div>
+                        <div style="float: right; cursor: pointer;" onclick="display_filter()"><i
+                                class="fa-solid fa-xmark"></i></div>
                         <div id="filter-price">
                             <h3>Price</h3>
                             <input type="text" placeholder="min price">
@@ -41,10 +42,10 @@ session_start();
                         </div>
                         <div id="filter-category">
                             <h3>Category</h3>
-                            <div><label for="">Skincare</label><input type="checkbox" name="" id=""></div>
-                            <div><label for="">Makeup</label><input type="checkbox" name="" id=""></div>
-                            <div><label for="">Haircare</label><input type="checkbox" name="" id=""></div>
-                            <div><label for="">Bodycare</label><input type="checkbox" name="" id=""></div>
+                            <div><label for="skincare">Skincare</label><input type="checkbox" name="skincare" id="skincare"></div>
+                            <div><label for="makeup">Makeup</label><input type="checkbox" name="makeup" id="makeup"></div>
+                            <div><label for="haircare">Haircare</label><input type="checkbox" name="haircare" id="haircare"></div>
+                            <div><label for="bodycare">Bodycare</label><input type="checkbox" name="bodycare" id="bodycare"></div>
                         </div>
                         <div id="filter-brand">
                             <h3>Brand</h3>
@@ -53,7 +54,8 @@ session_start();
                             <div><label for="">la roche-posay</label><input type="checkbox" name="" id=""></div>
                         </div>
                         <div id="filter-reset" style="display: flex; justify-content: center;">
-                            <button> RESET </button>
+                            <button onclick="clearInputField('#filter-menu ')"> Reset </button>
+                            <!-- <button>Tìm kiếm</button> -->
                         </div>
                     </div>
                 </div>
@@ -130,10 +132,10 @@ session_start();
         </div>
     </div>
 
-    <div id="banner">
+    <!-- <div id="banner">
         <img src="img/img1.jpg" alt="img1">
         <img src="img/img2.png" alt="img2">
-    </div>
+    </div> -->
 
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
@@ -150,7 +152,7 @@ session_start();
         var swiper = new Swiper(".mySwiper", {
             loop: true,
             autoplay: {
-                delay: 30000000
+                delay: 3000
             },
             navigation: {
                 nextEl: ".swiper-button-next",

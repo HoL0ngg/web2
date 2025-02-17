@@ -252,7 +252,14 @@ function clearInputField(selector) {
 
     inputFields.forEach(input => {
         if (input != "" && input.type != "submit") {
-            input.value = "";
+            switch(input.type){
+                case 'text':
+                    input.value = "";
+                    break;
+                case 'checkbox':
+                    input.checked = false;
+                    break;
+            }
         }
     });
 }
@@ -286,30 +293,25 @@ function Logout() {
         logout.style.display = 'none';
     });
 }
-function display_filter() {
-    var a = document.getElementById('filter-menu');
-    if (a.style.display === 'none') {
-        a.style.display = 'block';
-    } else {
-        a.style.display = 'none';
-    }
-}
 
-document.addEventListener('mousedown', function (event) {
-    const A = document.getElementById('timkiem-header');
-    const B = document.getElementById('filter-menu');
-    if (A && !A.contains(event.target)) {
-        B.style.display = 'none';
-    }
-});
+function display_filter() {
+    document.getElementById("filter-menu").classList.toggle("active");
+}
+// document.addEventListener('mousedown', function (event) {
+//     const A = document.getElementById('timkiem-header');
+//     const B = document.getElementById('filter-menu');
+//     if (A && !A.contains(event.target)) {
+//         B.style.display = 'none';
+//     }
+// });
 window.onload = function () {
     closeButton();
-    display_filter();
+    // display_filter();
     startAnimation();
     loginNotification();
     registerNotification();
     getUsername();
     closeWithoutButton("register-container");
-    closeWithoutButton("login-container");
+    closeWithoutButton("login-container");    
     openLoginForm();
 }
