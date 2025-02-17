@@ -137,6 +137,12 @@ session_start();
         <img src="img/img2.png" alt="img2">
     </div> -->
 
+    <div class="marquee-container">
+        <div class="marquee-content">
+            Đây là nội dung chạy chữ. Bạn có thể thay đổi nội dung này.
+        </div>
+    </div>
+
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
             <div class="swiper-slide"><img src="img/img1.jpg"></div>

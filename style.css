@@ -1,6 +1,7 @@
-:root{
+:root {
     --swiper-navigation-size: 30px !important;
 }
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -75,16 +76,16 @@
 }
 
 
-#filter-exit:hover{
+#filter-exit:hover {
     color: #2399ed;
 }
 
-#filter:hover{
+#filter:hover {
     cursor: pointer;
     background-color: #2399ed;
 }
 
-#filter-menu{
+#filter-menu {
     /* display: none; */
     color: #5cb3f1;
     position: absolute;
@@ -98,11 +99,12 @@
     transition: height 0.5s ease-in-out;
 }
 
-#filter-menu.active{
+#filter-menu.active {
     height: 550px;
     border: solid 1px #5cb3f1;
 }
-#filter-menu div{
+
+#filter-menu div {
     padding: 5px;
     margin: 7px;
 }
@@ -134,7 +136,7 @@
 }
 
 
-#filter-menu input[type="text"]{
+#filter-menu input[type="text"] {
     width: 95%;
     padding: 7px;
     margin-top: 3px;
@@ -144,10 +146,11 @@
     color: white;
 }
 
-#filter-menu [type="text"]::placeholder{
+#filter-menu [type="text"]::placeholder {
     color: white;
 }
-#filter-menu button{
+
+#filter-menu button {
     border-radius: 10%;
     height: 40px;
     width: 120px;
@@ -157,25 +160,30 @@
     font-size: 1.2rem;
 }
 
-#filter-menu label{
+#filter-menu label {
     cursor: pointer;
 }
-#filter-category div{
+
+#filter-category div {
     display: flex;
     justify-content: space-between;
 }
-#filter-brand div{
+
+#filter-brand div {
     display: flex;
     justify-content: space-between;
 }
-#filter-reset{
+
+#filter-reset {
     display: flex;
     justify-content: center;
 }
-#filter-reset>button{
+
+#filter-reset>button {
     cursor: pointer;
 }
-#filter-reset>button:hover{
+
+#filter-reset>button:hover {
     cursor: pointer;
     background-color: #2399ed;
 }
@@ -302,6 +310,7 @@
     color: white;
     display: flex;
     gap: 10px;
+    animation: ring 1s ease infinite;
 }
 
 
@@ -452,25 +461,96 @@ input[type=password] {
 
 .swiper-slide {
     display: flex !important;
-    justify-content: center;    
-    align-items: center;    
+    justify-content: center;
+    align-items: center;
     width: 80%;
-    margin: 0 auto;    
+    margin: 0 auto;
 }
+
 .swiper-slide img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-.swiper:hover .swiper-button-prev, .swiper:hover .swiper-button-next{
+
+.swiper:hover .swiper-button-prev,
+.swiper:hover .swiper-button-next {
     opacity: 1;
 
 }
-.swiper-button-next, .swiper-button-prev{
+
+.swiper-button-next,
+.swiper-button-prev {
     font-size: 1px !important;
     opacity: 0;
     transition: opacity 0.3s ease;
 }
+
+.marquee-container {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    background-color: #f0f0f0;
+    padding: 10px 0;
+}
+
+.fa-phone-volume {
+    animation: ring 1s ease infinite;
+}
+
+@keyframes ring {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    30% {
+        transform: rotate(-10deg);
+        scale: 1.3;
+    }
+
+    45% {
+        transform: rotate(0deg);
+        scale: 1;
+    }
+
+    60% {
+        transform: rotate(10deg);
+        scale: 1.3;
+    }
+
+    75% {
+        transform: rotate(0deg);
+        scale: 1;
+    }
+
+    100% {
+        transform: rotate(0deg);
+        scale: 1;
+    }
+}
+
+.marquee-content {
+    display: inline-block;
+    /* padding-left: 50%; */
+    /* Bắt đầu từ bên phải */
+    animation: marquee 20s linear infinite;
+}
+
+.marquee-container:hover .marquee-content {
+    animation-play-state: paused;
+    /* Dừng animation khi hover */
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
 #information {
     margin-top: 100px;
     width: 100%;
@@ -519,9 +599,16 @@ input[type=password] {
     opacity: 0.7;
 }
 
+#hihi {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    position: absolute;
+}
+
 #footer {
     background-color: #243a58;
-    ;
     padding-bottom: 20px;
 }
 
