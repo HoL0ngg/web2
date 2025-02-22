@@ -371,12 +371,8 @@
 }
 
 .input-field {
-    /* display: flex;
-    flex-direction: column;    
-    justify-self: center;  */
     width: 100%;
-    margin-top: 20px;
-    /* border: 2px solid #0063EC;     */
+    margin-top: 20px;    
     position: relative;
     text-align: center;
 }
@@ -688,7 +684,7 @@ input[type=password] {
     transform: translateY(-50%);
     cursor: pointer;
 }
-
+.fa-lock,
 .fa-key,
 .fa-phone,
 .fa-user {
@@ -731,8 +727,29 @@ input[type=password] {
 #logout span:hover {
     background-color: #5cb3f1;
 }
+/* Change password */
 
 /* Toast */
+#changepassword-wrapper{
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+}
+#changepassword-container{
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    width: 30%;
+    background-color: white;
+    padding: 20px;
+}
 #toast {
     display: none;
     position: fixed;

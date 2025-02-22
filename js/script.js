@@ -48,6 +48,7 @@ function openLoginForm() {
         .then(data => {
             if (data.success) {
                 Logout();
+                openChangePasswordForm();
             }
             else {
                 document.getElementById("taikhoan-container").addEventListener('click', function () {
@@ -118,22 +119,22 @@ function checkRegister() {
     let isValid = true;
     if (!validatePhone(phone.value)) {
         phoneErr.innerHTML = icon + 'Số điện thoại không hợp lệ!';
-        phone.focus();
+        if(isValid) phone.focus();
         isValid = false;
     }
     if (!validateUsername(username.value)) {
         usernameErr.innerHTML = icon + 'Tên tài khoản tối thiểu là 6 kí tự!';
-        username.focus();
+        if(isValid) username.focus();
         isValid = false;
     }
     if (!validatePassword(password.value)) {
         passwordErr.innerHTML = icon + 'Mật khẩu tối thiểu là 8 kí tự!';
-        password.focus();
+        if(isValid) password.focus();
         isValid = false;
     }
     if (!validateRepassword(password.value, repassword.value)) {
         repasswordErr.innerHTML = icon + 'Mật khẩu nhập lại không khớp!';
-        repassword.focus();
+        if(isValid) repassword.focus();
         isValid = false;
     }
     return isValid;
@@ -150,12 +151,12 @@ function checkLogin() {
     passwordErr.innerHTML = "";
     if (!validateUsername(username.value)) {
         usernameErr.innerHTML = icon + 'Tên đăng nhập tối thiểu là 6 kí tự!';
-        username.focus();
+        if(isValid) username.focus();
         isValid = false;
     }
     if (!validatePassword(password.value)) {
         passwordErr.innerHTML = icon + 'Mật khẩu tối thiểu là 8 kí tự!';
-        password.focus();
+        if(isValid) password.focus();
         isValid = false;
     }
     return isValid;
@@ -293,7 +294,68 @@ function Logout() {
         logout.style.display = 'none';
     });
 }
+function checkChangePassword(){
+    let currentPass = document.getElementById("currentpass");
+    let newPass = document.getElementById("newpass");
+    let renewPass = document.getElementById("renewpass");
+    let currentPassErr = document.getElementById("currentpassErr");
+    let newPassErr = document.getElementById("newpassErr");
+    let renewPassErr = document.getElementById("renewpassErr"); 
+    currentPassErr.innerHTML = "";
+    newPassErr.innerHTML = "";
+    renewPassErr.innerHTML = "";   
+    let isValid = true;
+    let icon = '<i class="fa-sharp fa-solid fa-circle-exclamation"></i>';
+    if(!validatePassword(currentPass.value)){
+        currentPassErr.innerHTML = icon + 'Mật khẩu tối thiểu là 8 kí tự!';
+        if(isValid) currentPass.focus();
+        isValid = false;
+    }
+    if(!validatePassword(newPass.value)){
+        newPassErr.innerHTML = icon + 'Mật khẩu tối thiểu là 8 kí tự!';
+        if(isValid) newPass.focus();
+        isValid = false;
+    }
+    if(!validatePassword(renewPass.value)){
+        renewPassErr.innerHTML = icon + 'Mật khẩu tối thiểu là 8 kí tự';
+        if(isValid) renewPass.focus();
+        isValid = false;
+    }
+    if(newPass.value !== renewPass.value){
+        renewPassErr.innerHTML = icon + 'Mật khẩu nhập lại không khớp!';
+        if(isValid) renewPass.focus();
+        isValid = false;
+    }
+    console.log(isValid);
+    
+    return isValid;
 
+}
+// function changePasswordNotification(){
+//     let frmChangePassword = document.frmChangePass;
+//     frmChangePassword.addEventListener("submit", function(event){
+//         event.preventDefault();
+
+//         let frmData = new FormData(frmChangePassword); 
+//         fetch("handles/handleChangePassword.php", {
+//             method: "POST",
+//             body: frmData
+//         })
+
+//         .then(response => response.json())
+//         .then(data =>{
+
+//         })
+//     });
+// }
+function openChangePasswordForm(){
+    let btnChangePass = document.getElementById("btnChangepass");
+    let changePassWrapper = document.getElementById("changepassword-wrapper");
+    btnChangePass.addEventListener("click", function(){
+        changePassWrapper.style.display = 'block';
+        changePassWrapper.style.backdropFilter = 'brightness(0.8)';
+    });
+}
 function display_filter() {
     document.getElementById("filter-menu").classList.toggle("active");
 }
@@ -312,6 +374,8 @@ window.onload = function () {
     registerNotification();
     getUsername();
     closeWithoutButton("register-container");
-    closeWithoutButton("login-container");    
+    closeWithoutButton("login-container");  
+    closeWithoutButton("changepassword-container");
+    
     openLoginForm();
 }

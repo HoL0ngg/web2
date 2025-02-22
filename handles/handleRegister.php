@@ -9,7 +9,7 @@
         $phone = trim($_POST["reg-phone"]);
         $username = trim($_POST["reg-username"]);
         $password = $_POST["reg-password"]; // No trimming here to prevent character loss
-        // var_dump($password);
+
         if (!empty($phone)) {
             $sql_phonenum = "SELECT * FROM user_table WHERE phone = ?";
             $stmt_check = $conn->prepare($sql_phonenum);
