@@ -1,20 +1,20 @@
 // BANNER
-const images = document.querySelectorAll("#banner img");
-console.log(images);
-let currentIndex = 0;
-function showImage(index) {
-    if (index >= 0 && index < images.length) {
-        images.forEach(img => img.style.display = 'none');
-        images[index].style.display = 'block';
-    }
-}
-function startAnimation() {
-    showImage(currentIndex);
-    setInterval(() => {
-        currentIndex = (currentIndex + 1) % images.length;
-        showImage(currentIndex);
-    }, 3000);
-}
+// const images = document.querySelectorAll("#banner img");
+// console.log(images);
+// let currentIndex = 0;
+// function showImage(index) {
+//     if (index >= 0 && index < images.length) {
+//         images.forEach(img => img.style.display = 'none');
+//         images[index].style.display = 'block';
+//     }
+// }
+// function startAnimation() {
+//     showImage(currentIndex);
+//     setInterval(() => {
+//         currentIndex = (currentIndex + 1) % images.length;
+//         showImage(currentIndex);
+//     }, 3000);
+// }
 // FORM
 function togglePasswordStatus(element) {
     let passwordInput = element.parentElement.querySelector("input");
@@ -47,8 +47,7 @@ function openLoginForm() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                Logout();
-                openChangePasswordForm();
+                Logout();                
             }
             else {
                 document.getElementById("taikhoan-container").addEventListener('click', function () {
@@ -67,6 +66,11 @@ function getUsername() {
         .then(data => {
             if (data.success) {
                 document.getElementById("taikhoan-container").innerHTML = `Xin chào, ${data.username}`;
+            }
+            else{
+                document.getElementById("taikhoan-container").innerHTML = 
+                `<i class="fa-solid fa-user" style="color: #6794c1;"></i>
+                        <div style="color: #5cb3f1;">Tài khoản</div>`;
             }
         })
         .catch(error => console.error("Lỗi:", error));
@@ -94,7 +98,6 @@ function validatePassword(password) {
     let reg = /.{8,}/;
     return reg.test(password);
 }
-// console.log(validateUsername("nghiatrong"));
 
 function validateRepassword(password, repassword) {
     return password === repassword;
@@ -191,8 +194,8 @@ function loginNotification() {
                 if (data.success) {
                     showToast(data.message, data.success);
                     // document.getElementById("login-wrapper").style.display = 'none';
-                    getUsername();
                     setTimeout(() => {
+                        getUsername();
                         window.location.href = "../index.php";
                     }, 1900); // Chờ 2 giây trước khi điều hướng     
                 }
@@ -235,8 +238,6 @@ function registerNotification() {
         }
     })
 }
-// let element = document.getElementById("register-container");
-// console.log(element);
 
 function closeWithoutButton(element) {
     let close = document.getElementById(element);
@@ -246,8 +247,7 @@ function closeWithoutButton(element) {
         }
     });
 }
-function clearInputField(selector) {
-    // console.log(document.getElementById("frmRegister"));        
+function clearInputField(selector) {         
     let inputFields = document.querySelectorAll(selector + "input");
     console.log(inputFields);
 
@@ -265,16 +265,6 @@ function clearInputField(selector) {
     });
 }
 
-function getUsername() {
-    fetch("handles/getSession.php")
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                document.getElementById("taikhoan-container").innerHTML = `Xin chào, ${data.username}`;
-            }
-        })
-        .catch(error => console.error("Lỗi:", error));
-}
 function Logout() {
     let taikhoan = document.getElementById("taikhoan-container");
     let logout = document.getElementById("logout");
@@ -331,25 +321,37 @@ function checkChangePassword(){
     return isValid;
 
 }
-// function changePasswordNotification(){
-//     let frmChangePassword = document.frmChangePass;
-//     frmChangePassword.addEventListener("submit", function(event){
-//         event.preventDefault();
+function changePasswordNotification(){
+    let frmChangePassword = document.frmChangePass;
+    frmChangePassword.addEventListener("submit", function(event){
+        event.preventDefault();
 
-//         let frmData = new FormData(frmChangePassword); 
-//         fetch("handles/handleChangePassword.php", {
-//             method: "POST",
-//             body: frmData
-//         })
+        if(checkChangePassword()){
+            let frmData = new FormData(frmChangePassword); 
+        fetch("handles/handleChangePassword.php", {
+            method: "POST",
+            body: frmData
+        })
 
-//         .then(response => response.json())
-//         .then(data =>{
+        .then(response => response.json())
+        .then(data =>{
+            showToast(data.message,data.success);
+            if(data.success){
+                setTimeout(()=>{
+                    getUsername();
+                    document.getElementById("changepassword-wrapper").style.display = 'none';
+                    document.getElementById("login-wrapper").style.display = 'block';
+                    document.getElementById("login-wrapper").style.backdropFilter = 'brightness(0.8)';
+                },2000)
+            }            
 
-//         })
-//     });
-// }
+        })
+        .catch(error => console.error("Loi: ", error));
+        }
+    });
+}
 function openChangePasswordForm(){
-    let btnChangePass = document.getElementById("btnChangepass");
+    let btnChangePass = document.getElementById("btnChangePass");
     let changePassWrapper = document.getElementById("changepassword-wrapper");
     btnChangePass.addEventListener("click", function(){
         changePassWrapper.style.display = 'block';
@@ -359,23 +361,15 @@ function openChangePasswordForm(){
 function display_filter() {
     document.getElementById("filter-menu").classList.toggle("active");
 }
-// document.addEventListener('mousedown', function (event) {
-//     const A = document.getElementById('timkiem-header');
-//     const B = document.getElementById('filter-menu');
-//     if (A && !A.contains(event.target)) {
-//         B.style.display = 'none';
-//     }
-// });
 window.onload = function () {
-    closeButton();
-    // display_filter();
-    startAnimation();
+    closeButton();     
     loginNotification();
     registerNotification();
-    getUsername();
+    // getUsername();
     closeWithoutButton("register-container");
     closeWithoutButton("login-container");  
     closeWithoutButton("changepassword-container");
-    
+    openChangePasswordForm();
+    changePasswordNotification();
     openLoginForm();
 }

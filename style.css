@@ -8,7 +8,7 @@
 }
 
 #top-header {
-    height: 60px;
+    height: 65px;
     display: flex;
     width: 80%;
     margin: 0 auto;
@@ -20,6 +20,7 @@
     height: 50px;
     margin-top: 4px;
     background-color: #79c7ff;
+    font-size: 1.2rem;
 }
 
 #timkiem-header {
@@ -309,7 +310,7 @@
 #right-bot-header {
     color: white;
     display: flex;
-    gap: 10px;
+    gap: 7px;
     animation: ring 1s ease infinite;
 }
 
@@ -729,7 +730,6 @@ input[type=password] {
 }
 /* Change password */
 
-/* Toast */
 #changepassword-wrapper{
     display: none;
     position: fixed;
@@ -750,6 +750,7 @@ input[type=password] {
     background-color: white;
     padding: 20px;
 }
+/* Toast */
 #toast {
     display: none;
     position: fixed;
@@ -760,7 +761,7 @@ input[type=password] {
     transform: translateX(-50%);
     border: 2px solid rgba(0, 0, 0, 0.3);
     border-radius: 7px;
-    padding-left: 10px;
+    padding: 10px;
     text-align: center;
     line-height: 70px;
     animation: fadein 1s, fadeout 1s 2.5s;

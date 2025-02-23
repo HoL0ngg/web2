@@ -330,7 +330,7 @@ session_start();
                     <div class="error" id="renewpassErr"></div>
 
                     <div class="input-btn-wrapper">
-                        <input type="submit" class="btn" value="Đổi mật khẩu" name="btnRegister">
+                        <input type="submit" class="btn" value="Đổi mật khẩu" name="btnChangePassword">
                     </div>
                 </div>
             </form>
