@@ -81,10 +81,22 @@ session_start();
                 </div>
             </div>
             <div id="right-header">
-                <div style="border: 3px solid #5cb3f1;border-radius: 20px;">
+                <div style="border: 3px solid #5cb3f1;border-radius: 20px;position: relative">
                     <div id="taikhoan-container">
-                        <i class="fa-solid fa-user" style="color: #6794c1;"></i>
-                        <div style="color: #5cb3f1;">Tài khoản</div>
+                        <?php
+                        if (isset($_SESSION["username"])) {
+                            echo "Xin chào, " . $_SESSION["username"];
+                        } else {
+                            echo '<i class="fa-solid fa-user" style="color: #6794c1;"></i>
+                                <div style="color: #5cb3f1;">Tài khoản</div>';
+                        }
+                        ?>
+                    </div>
+
+                    <!-- Logout -->
+                    <div id="logout">
+                        <span id="btnChangePass">Đổi mật khẩu</span><br>
+                        <span><a href="handles/logout.php" style="text-decoration: none; color: black">Đăng xuất</a></span>
                     </div>
                 </div>
                 <div>
@@ -293,11 +305,7 @@ session_start();
             </form>
         </div>
     </div>
-    <!-- Logout -->
-    <div id="logout">
-        <span id="btnChangePass">Đổi mật khẩu</span><br>
-        <span><a href="handles/logout.php" style="text-decoration: none; color: black">Đăng xuất</a></span>
-    </div>
+
     <!-- Change Password -->
     <div id="changepassword-wrapper">
         <div id="changepassword-container">

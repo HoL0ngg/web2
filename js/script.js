@@ -195,7 +195,7 @@ function loginNotification() {
                     showToast(data.message, data.success);
                     // document.getElementById("login-wrapper").style.display = 'none';
                     setTimeout(() => {
-                        getUsername();
+                        // getUsername();
                         window.location.href = "../index.php";
                     }, 1900); // Chờ 2 giây trước khi điều hướng     
                 }
@@ -337,8 +337,7 @@ function changePasswordNotification(){
         .then(data =>{
             showToast(data.message,data.success);
             if(data.success){
-                setTimeout(()=>{
-                    getUsername();
+                setTimeout(()=>{                    
                     document.getElementById("changepassword-wrapper").style.display = 'none';
                     document.getElementById("login-wrapper").style.display = 'block';
                     document.getElementById("login-wrapper").style.backdropFilter = 'brightness(0.8)';
@@ -358,6 +357,16 @@ function openChangePasswordForm(){
         changePassWrapper.style.backdropFilter = 'brightness(0.8)';
     });
 }
+window.addEventListener("scroll", function(){
+    if(window.scrollY > 50){
+        this.document.getElementById("top-header").style.height = '65px';
+        // this.document.getElementById("bot-header").style.height = '55px';
+    }
+    else{
+        this.document.getElementById("top-header").style.height = '80px';
+        // this.document.getElementById("bot-header").style.height = '60px';
+    }
+});
 function display_filter() {
     document.getElementById("filter-menu").classList.toggle("active");
 }
