@@ -22,8 +22,6 @@
 
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            // echo $password . " " . $row["password"];
-            echo $password == $row["password"];
             if (password_verify($password, $row["password"])) {
                 $_SESSION["username"] = $username;
                 $response["success"] = true;

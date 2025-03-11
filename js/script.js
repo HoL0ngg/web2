@@ -1,20 +1,20 @@
 // BANNER
-const images = document.querySelectorAll("#banner img");
-console.log(images);
-let currentIndex = 0;
-function showImage(index) {
-    if (index >= 0 && index < images.length) {
-        images.forEach(img => img.style.display = 'none');
-        images[index].style.display = 'block';
-    }
-}
-function startAnimation() {
-    showImage(currentIndex);
-    setInterval(() => {
-        currentIndex = (currentIndex + 1) % images.length;
-        showImage(currentIndex);
-    }, 3000);
-}
+// const images = document.querySelectorAll("#banner img");
+// console.log(images);
+// let currentIndex = 0;
+// function showImage(index) {
+//     if (index >= 0 && index < images.length) {
+//         images.forEach(img => img.style.display = 'none');
+//         images[index].style.display = 'block';
+//     }
+// }
+// function startAnimation() {
+//     showImage(currentIndex);
+//     setInterval(() => {
+//         currentIndex = (currentIndex + 1) % images.length;
+//         showImage(currentIndex);
+//     }, 3000);
+// }
 // FORM
 function togglePasswordStatus(element) {
     let passwordInput = element.parentElement.querySelector("input");
@@ -67,6 +67,11 @@ function getUsername() {
             if (data.success) {
                 document.getElementById("taikhoan-container").innerHTML = `Xin chào, ${data.username}`;
             }
+            else {
+                document.getElementById("taikhoan-container").innerHTML =
+                    `<i class="fa-solid fa-user" style="color: #6794c1;"></i>
+                        <div style="color: #5cb3f1;">Tài khoản</div>`;
+            }
         })
         .catch(error => console.error("Lỗi:", error));
 }
@@ -93,7 +98,6 @@ function validatePassword(password) {
     let reg = /.{8,}/;
     return reg.test(password);
 }
-// console.log(validateUsername("nghiatrong"));
 
 function validateRepassword(password, repassword) {
     return password === repassword;
@@ -118,22 +122,22 @@ function checkRegister() {
     let isValid = true;
     if (!validatePhone(phone.value)) {
         phoneErr.innerHTML = icon + 'Số điện thoại không hợp lệ!';
-        phone.focus();
+        if (isValid) phone.focus();
         isValid = false;
     }
     if (!validateUsername(username.value)) {
         usernameErr.innerHTML = icon + 'Tên tài khoản tối thiểu là 6 kí tự!';
-        username.focus();
+        if (isValid) username.focus();
         isValid = false;
     }
     if (!validatePassword(password.value)) {
         passwordErr.innerHTML = icon + 'Mật khẩu tối thiểu là 8 kí tự!';
-        password.focus();
+        if (isValid) password.focus();
         isValid = false;
     }
     if (!validateRepassword(password.value, repassword.value)) {
         repasswordErr.innerHTML = icon + 'Mật khẩu nhập lại không khớp!';
-        repassword.focus();
+        if (isValid) repassword.focus();
         isValid = false;
     }
     return isValid;
@@ -150,12 +154,12 @@ function checkLogin() {
     passwordErr.innerHTML = "";
     if (!validateUsername(username.value)) {
         usernameErr.innerHTML = icon + 'Tên đăng nhập tối thiểu là 6 kí tự!';
-        username.focus();
+        if (isValid) username.focus();
         isValid = false;
     }
     if (!validatePassword(password.value)) {
         passwordErr.innerHTML = icon + 'Mật khẩu tối thiểu là 8 kí tự!';
-        password.focus();
+        if (isValid) password.focus();
         isValid = false;
     }
     return isValid;
@@ -190,8 +194,8 @@ function loginNotification() {
                 if (data.success) {
                     showToast(data.message, data.success);
                     // document.getElementById("login-wrapper").style.display = 'none';
-                    getUsername();
                     setTimeout(() => {
+                        // getUsername();
                         window.location.href = "../index.php";
                     }, 1900); // Chờ 2 giây trước khi điều hướng     
                 }
@@ -238,8 +242,6 @@ function registerNotification() {
         }
     })
 }
-// let element = document.getElementById("register-container");
-// console.log(element);
 
 function closeWithoutButton(element) {
     let close = document.getElementById(element);
@@ -250,7 +252,6 @@ function closeWithoutButton(element) {
     });
 }
 function clearInputField(selector) {
-    // console.log(document.getElementById("frmRegister"));        
     let inputFields = document.querySelectorAll(selector + "input");
     console.log(inputFields);
 
@@ -268,16 +269,6 @@ function clearInputField(selector) {
     });
 }
 
-function getUsername() {
-    fetch("handles/getSession.php")
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                document.getElementById("taikhoan-container").innerHTML = `Xin chào, ${data.username}`;
-            }
-        })
-        .catch(error => console.error("Lỗi:", error));
-}
 function Logout() {
     let taikhoan = document.getElementById("taikhoan-container");
     let logout = document.getElementById("logout");
@@ -297,25 +288,101 @@ function Logout() {
         logout.style.display = 'none';
     });
 }
+function checkChangePassword() {
+    let currentPass = document.getElementById("currentpass");
+    let newPass = document.getElementById("newpass");
+    let renewPass = document.getElementById("renewpass");
+    let currentPassErr = document.getElementById("currentpassErr");
+    let newPassErr = document.getElementById("newpassErr");
+    let renewPassErr = document.getElementById("renewpassErr");
+    currentPassErr.innerHTML = "";
+    newPassErr.innerHTML = "";
+    renewPassErr.innerHTML = "";
+    let isValid = true;
+    let icon = '<i class="fa-sharp fa-solid fa-circle-exclamation"></i>';
+    if (!validatePassword(currentPass.value)) {
+        currentPassErr.innerHTML = icon + 'Mật khẩu tối thiểu là 8 kí tự!';
+        if (isValid) currentPass.focus();
+        isValid = false;
+    }
+    if (!validatePassword(newPass.value)) {
+        newPassErr.innerHTML = icon + 'Mật khẩu tối thiểu là 8 kí tự!';
+        if (isValid) newPass.focus();
+        isValid = false;
+    }
+    if (!validatePassword(renewPass.value)) {
+        renewPassErr.innerHTML = icon + 'Mật khẩu tối thiểu là 8 kí tự';
+        if (isValid) renewPass.focus();
+        isValid = false;
+    }
+    if (newPass.value !== renewPass.value) {
+        renewPassErr.innerHTML = icon + 'Mật khẩu nhập lại không khớp!';
+        if (isValid) renewPass.focus();
+        isValid = false;
+    }
+    console.log(isValid);
 
+    return isValid;
+
+}
+function changePasswordNotification() {
+    let frmChangePassword = document.frmChangePass;
+    frmChangePassword.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        if (checkChangePassword()) {
+            let frmData = new FormData(frmChangePassword);
+            fetch("handles/handleChangePassword.php", {
+                method: "POST",
+                body: frmData
+            })
+
+                .then(response => response.json())
+                .then(data => {
+                    showToast(data.message, data.success);
+                    if (data.success) {
+                        setTimeout(() => {
+                            document.getElementById("changepassword-wrapper").style.display = 'none';
+                            document.getElementById("login-wrapper").style.display = 'block';
+                            document.getElementById("login-wrapper").style.backdropFilter = 'brightness(0.8)';
+                        }, 2000)
+                    }
+
+                })
+                .catch(error => console.error("Loi: ", error));
+        }
+    });
+}
+function openChangePasswordForm() {
+    let btnChangePass = document.getElementById("btnChangePass");
+    let changePassWrapper = document.getElementById("changepassword-wrapper");
+    btnChangePass.addEventListener("click", function () {
+        changePassWrapper.style.display = 'block';
+        changePassWrapper.style.backdropFilter = 'brightness(0.8)';
+    });
+}
+window.addEventListener("scroll", function () {
+    if (window.scrollY > 50) {
+        this.document.getElementById("top-header").style.height = '65px';
+        // this.document.getElementById("bot-header").style.height = '55px';
+    }
+    else {
+        this.document.getElementById("top-header").style.height = '80px';
+        // this.document.getElementById("bot-header").style.height = '60px';
+    }
+});
 function display_filter() {
     document.getElementById("filter-menu").classList.toggle("active");
 }
-// document.addEventListener('mousedown', function (event) {
-//     const A = document.getElementById('timkiem-header');
-//     const B = document.getElementById('filter-menu');
-//     if (A && !A.contains(event.target)) {
-//         B.style.display = 'none';
-//     }
-// });
 window.onload = function () {
     closeButton();
-    // display_filter();
-    startAnimation();
     loginNotification();
     registerNotification();
-    getUsername();
+    // getUsername();
     closeWithoutButton("register-container");
     closeWithoutButton("login-container");
+    closeWithoutButton("changepassword-container");
+    openChangePasswordForm();
+    changePasswordNotification();
     openLoginForm();
 }

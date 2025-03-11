@@ -17,8 +17,133 @@ session_start();
 </head>
 
 <body>
+    <div id="header">
+        <div id="top-header">
+            <div id="left-header">
+                <div style="flex: 1;">
+                    <img src="" alt="">
+                    Logo
+                </div>
+                <div id="timkiem-header">
+                    <div id="filter" onclick="display_filter()">
+                        <i class="fa-solid fa-filter" style="color: white;"></i>
+                    </div>
+                    <input type="text" name="timkiem" id="timkiem" placeholder="Tìm kiếm sản phẩm">
+                    <div id="find">
+                        <i class="fa-solid fa-magnifying-glass" style="color: white;"></i>
+                    </div>
+                    <div id="filter-menu">
+                        <div style="float: right; cursor: pointer;" onclick="display_filter()"><i
+                                class="fa-solid fa-xmark"></i></div>
+                        <div id="filter-price">
+                            <h3>Price</h3>
+                            <input type="text" placeholder="min price">
+                            <input type="text" placeholder="max price">
+                        </div>
+                        <div id="filter-category">
+                            <h3>Category</h3>
+                            <div><label for="skincare">Skincare</label><input type="checkbox" name="skincare" id="skincare"></div>
+                            <div><label for="makeup">Makeup</label><input type="checkbox" name="makeup" id="makeup"></div>
+                            <div><label for="haircare">Haircare</label><input type="checkbox" name="haircare" id="haircare"></div>
+                            <div><label for="bodycare">Bodycare</label><input type="checkbox" name="bodycare" id="bodycare"></div>
+                        </div>
+                        <div id="filter-brand">
+                            <h3>Brand</h3>
+                            <div><label for="">L'Oreal</label><input type="checkbox" name="" id=""></div>
+                            <div><label for="">Dove</label><input type="checkbox" name="" id=""></div>
+                            <div><label for="">la roche-posay</label><input type="checkbox" name="" id=""></div>
+                        </div>
+                        <div id="filter-reset" style="display: flex; justify-content: center;">
+                            <button onclick="clearInputField('#filter-menu ')"> Reset </button>
+                            <!-- <button>Tìm kiếm</button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="infomation-header">
+                <div>
+                    <div>
+                        <i class="fa-solid fa-phone-volume"></i>
+                    </div>
+                    <div>
+                        <div style="color: #6794c1;">Hotline:</div>
+                        <div style="color: #5cb3f1;">1900 1080</div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div>
+                        <div style="color: #6794c1;">Email:</div>
+                        <div style="color: #5cb3f1;">longcute@gmail.com</div>
+                    </div>
+                </div>
+            </div>
+            <div id="right-header">
+                <div style="border: 3px solid #5cb3f1;border-radius: 20px;position: relative">
+                    <div id="taikhoan-container">
+                        <?php
+                        if (isset($_SESSION["username"])) {
+                            echo "Xin chào, " . $_SESSION["username"];
+                        } else {
+                            echo '<i class="fa-solid fa-user" style="color: #6794c1;"></i>
+                                <div style="color: #5cb3f1;">Tài khoản</div>';
+                        }
+                        ?>
+                    </div>
 
-    <?php include('header.php'); ?>
+                    <!-- Logout -->
+                    <div id="logout">
+                        <span id="btnChangePass">Đổi mật khẩu</span><br>
+                        <span><a href="handles/logout.php" style="text-decoration: none; color: black">Đăng xuất</a></span>
+                    </div>
+                </div>
+                <div>
+                    <div style="position: relative;">
+                        <i class="fa-regular fa-heart fa-xl"></i>
+                        <div
+                            style="position: absolute; top: -16px; right: -8px; background-color: #c8edf7; border-radius: 100%; width: 16px; height: 16px; text-align: center;">
+                            0</div>
+                    </div>
+                </div>
+                <div>
+                    <div id="cart-container">
+                        <div style="position: relative;">
+                            <i class="fa-solid fa-bag-shopping fa-xl" style="color: white;"></i>
+                            <div
+                                style="position: absolute; top: -16px; right: -8px; background-color: #c8edf7; border-radius: 100%; width: 16px; height: 16px; text-align: center;">
+                                0</div>
+                        </div>
+                        <div style="color: white;">Giỏ hàng</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="bot-header">
+            <div>
+                <div id="left-bot-header">
+                    <div>Trang chủ</div>
+                    <div>Giới thiệu</div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div>Sản phẩm</div>
+                        <div class="icon-up"><i class="fa-solid fa-sort-up"></i></div>
+                    </div>
+                    <div>Tin tức</div>
+                    <div>Liên hệ</div>
+                </div>
+                <div id="right-bot-header">
+                    <div>
+                        <i class="fa-solid fa-bolt-lightning"></i>
+                    </div>
+                    <div>
+                        Flash Sale
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- <div id="banner">
         <img src="img/img1.jpg" alt="img1">
         <img src="img/img2.png" alt="img2">
@@ -180,12 +305,48 @@ session_start();
             </form>
         </div>
     </div>
-    <!-- Logout -->
-    <div id="logout">
-        <span>Đổi mật khẩu</span><br>
-        <span><a href="handles/logout.php" style="text-decoration: none; color: black">Đăng xuất</a></span>
+
+    <!-- Change Password -->
+    <div id="changepassword-wrapper">
+        <div id="changepassword-container">
+            <form method="post" name="frmChangePass" onsubmit="return checkChangePassword()">
+                <div class="form-title">
+                    <h2>ĐỔI MẬT KHẨU</h2>
+                    <div class="btn-close">x</div>
+                </div>
+
+                <div class="input-field-wrapper">
+                    <div class="input-field">
+                        <input type="password" name="currentpass" id="currentpass" required>
+                        <label for="currentpass"><span><i class="fa-solid fa-lock"></i>Nhập mật khẩu hiện tại</label>
+                        <span class="eye-icon" onclick="togglePasswordStatus(this)"><i class="fa-regular fa-eye"></i></span>
+                    </div>
+                    <div class="error" id="currentpassErr"></div>
+
+                    <div class="input-field">
+                        <input type="password" name="newpass" id="newpass" required>
+                        <label for="newpass"><span><i class="fa-solid fa-lock"></i>Nhập mật khẩu mới</label>
+                        <span class="eye-icon" onclick="togglePasswordStatus(this)"><i class="fa-regular fa-eye"></i></span>
+                    </div>
+                    <div class="error" id="newpassErr"></div>
+
+                    <div class="input-field">
+                        <input type="password" name="renewpass" id="renewpass" required>
+                        <label for="renewpass"><span><i class="fa-solid fa-lock"></i>Nhập lại mật khẩu mới</label>
+                        <span class="eye-icon" onclick="togglePasswordStatus(this)"><i class="fa-regular fa-eye"></i></span>
+                    </div>
+                    <div class="error" id="renewpassErr"></div>
+
+                    <div class="input-btn-wrapper">
+                        <input type="submit" class="btn" value="Đổi mật khẩu" name="btnChangePassword">
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
+
     <script src="js/script.js"></script>
+
 </body>
 
 </html>

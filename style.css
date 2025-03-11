@@ -6,20 +6,32 @@
     box-sizing: border-box;
     margin: 0;
 }
+#header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    background-color: white;    
+    
+}
 
 #top-header {
-    height: 60px;
+    height: 80px;
     display: flex;
     width: 80%;
     margin: 0 auto;
     /* gap: 40px; */
     justify-content: space-between;
+    transition: all 0.2s ease-in-out;
 }
 
 #bot-header {
-    height: 50px;
+    height: 55px;
     margin-top: 4px;
     background-color: #79c7ff;
+    font-size: 1.2rem;
+    /* transition: height 0.3s ease-in-out; */
 }
 
 #timkiem-header {
@@ -220,7 +232,7 @@
     min-width: 140px;
     height: 42px;
     cursor: pointer;
-    overflow: hidden;
+    overflow: hidden;    
     /* color: #5cb3f1;    */
 }
 
@@ -309,7 +321,7 @@
 #right-bot-header {
     color: white;
     display: flex;
-    gap: 10px;
+    gap: 7px;
     animation: ring 1s ease infinite;
 }
 
@@ -371,12 +383,8 @@
 }
 
 .input-field {
-    /* display: flex;
-    flex-direction: column;    
-    justify-self: center;  */
     width: 100%;
-    margin-top: 20px;
-    /* border: 2px solid #0063EC;     */
+    margin-top: 20px;    
     position: relative;
     text-align: center;
 }
@@ -492,6 +500,7 @@ input[type=password] {
     white-space: nowrap;
     background-color: #f0f0f0;
     padding: 10px 0;
+    margin-top: 135px;
 }
 
 .fa-phone-volume {
@@ -660,7 +669,7 @@ input[type=password] {
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 10;
+    z-index: 100;
 }
 
 #login-container {
@@ -688,7 +697,7 @@ input[type=password] {
     transform: translateY(-50%);
     cursor: pointer;
 }
-
+.fa-lock,
 .fa-key,
 .fa-phone,
 .fa-user {
@@ -711,10 +720,11 @@ input[type=password] {
     width: fit-content;
     text-align: center;
     position: absolute;
-    top: 50px;
-    right: 345px;
+    top: 42px;
+    right: 10px;
     background-color: white;
-    z-index: 2;
+    z-index: 10;
+    /* width: inherit; */
 }
 
 #logout span {
@@ -731,7 +741,28 @@ input[type=password] {
 #logout span:hover {
     background-color: #5cb3f1;
 }
+/* Change password */
 
+#changepassword-wrapper{
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+}
+#changepassword-container{
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    width: 30%;
+    background-color: white;
+    padding: 20px;
+}
 /* Toast */
 #toast {
     display: none;
@@ -743,7 +774,7 @@ input[type=password] {
     transform: translateX(-50%);
     border: 2px solid rgba(0, 0, 0, 0.3);
     border-radius: 7px;
-    padding-left: 10px;
+    padding: 10px;
     text-align: center;
     line-height: 70px;
     animation: fadein 1s, fadeout 1s 2.5s;
