@@ -206,6 +206,10 @@ function loginNotification() {
     });
 }
 
+document.getElementById('cart-container').addEventListener('click', (e) => {
+    window.location.href = "cart.php";
+})
+
 function registerNotification() {
     let frmRegister = document.frmRegister;
     // console.log(frmRegister);    
@@ -252,7 +256,7 @@ function clearInputField(selector) {
 
     inputFields.forEach(input => {
         if (input != "" && input.type != "submit") {
-            switch(input.type){
+            switch (input.type) {
                 case 'text':
                     input.value = "";
                     break;
@@ -312,6 +316,6 @@ window.onload = function () {
     registerNotification();
     getUsername();
     closeWithoutButton("register-container");
-    closeWithoutButton("login-container");    
+    closeWithoutButton("login-container");
     openLoginForm();
 }

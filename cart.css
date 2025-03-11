@@ -1,0 +1,20 @@
+#cart {
+    width: 80%;
+    margin: 14px auto;
+}
+
+#info p {
+    margin-bottom: 12px;
+    font-size: 16px;
+}
+
+#payment {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 32px;
+}
+
+#payment i {
+    user-select: none;
+    cursor: pointer;
+}
