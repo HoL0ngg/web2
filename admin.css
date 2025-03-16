@@ -2,7 +2,15 @@
     box-sizing: border-box;
     margin: 0;
 }
-
+body{
+    background-color: var(--grey );
+}
+:root{
+    --blue: #3C91E6;
+    --grey: #eee;
+    --dark: #342E37;
+    --light: #F9F9F9;
+}
 #container {
     display: flex;
     width: 100%;
@@ -11,9 +19,9 @@
 
 #container-left {
     width: 20%;
-    background-color: #f1f1f1;
-    padding: 20px;
-    border-right: 1px solid #ccc;
+    background-color: var(--light);
+    padding-left: 15px;
+    /* border-right: 1px solid #ccc; */
 }
 
 #logo {
@@ -26,25 +34,60 @@
 #menu {
     width: 100%;
     height: 65%;
+    background: var(--light);
 }
 
 #menu ul {
     list-style-type: none;
-    padding: 0;
+    padding: 0; 
+    width: 100%;
+
 }
 
 #menu ul li {
-    padding: 10px 0;
-    border-bottom: 1px solid #ccc;
-    text-align: center;
+    padding: 4px;
+    background: transparent;
+    /* border-bottom: 1px solid #ccc;     */
     text-decoration: none;
+    font-size: 1.1rem;        
+    border-radius: 48px 0 0 48px;   
+    height: 48px;      
+    display: flex;
+    align-items: center;   
 }
+#menu ul li.active{
+    background: var(--grey);
 
+}
+#menu ul li.active a{
+    color: var(--blue);
+}
+/* #menu ul li.active::before{
+    content: '';
+    position: absolute;
+} */
 #menu ul li a {
     text-decoration: none;
     color: #333;
+    width: 100%;    
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-radius: 48px;
+    color: var(--dark);
+    background: var(--light);
 }
-
+#menu ul li a .fa-solid{
+    min-width: 40px;
+    display: flex;
+    justify-content: center;
+}
+#menu ul li a:hover{
+    color: var(--blue);
+}
+.text{
+    margin-left: 12px;
+}
 #footer {
     width: 100%;
     height: 20%;

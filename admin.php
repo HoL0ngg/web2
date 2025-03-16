@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 </head>
 
 <body>
@@ -13,16 +15,48 @@
             <div id="logo">
                 <img src="img/logo.png" alt="logo">
             </div>
+
             <div id="menu">
                 <ul>
-                    <li><a href="index.php">Trang chủ</a></li>
-                    <li><a href="admin.php?page=product">Sản phẩm</a></li>
-                    <li><a href="admin.php?page=category">Danh mục</a></li>
-                    <li><a href="admin.php?page=user">Người dùng</a></li>
-                    <li><a href="admin.php?page=order">Đơn hàng</a></li>
-                    <li><a href="admin.php?page=staticstic">Thống kê</a></li>
+                    <li class="active">
+                        <a href="index.php">
+                            <i class="fa-solid fa-house"></i>
+                            <span class="text">Trang chủ</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin.php?page=product">
+                            <i class="fa-solid fa-cart-plus"></i>
+                            <span class="text">Sản phẩm</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin.php?page=category">
+                            <i class="fa-solid fa-list"></i>
+                            <span class="text">Danh mục</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin.php?page=user">
+                            <i class="fa-solid fa-user"></i>
+                            <span class="text">Người dùng</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin.php?page=order">
+                            <i class="fa-solid fa-box-open"></i>
+                            <span class="text">Đơn hàng</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin.php?page=staticstic">
+                            <i class="fa-solid fa-chart-simple"></i>
+                            <span class="text">Thống kê</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
+
             <div id="footer">
                 <div id="admin-info">
                     <p>Xin chào: <span>admin</span></p>
@@ -52,6 +86,7 @@
             }
             ?>
         </div>
+        <script src="js/admin.js"></script>
 </body>
 
 </html>
