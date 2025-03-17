@@ -385,4 +385,5 @@ window.onload = function () {
     openChangePasswordForm();
     changePasswordNotification();
     openLoginForm();
+    
 }

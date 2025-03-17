@@ -20,10 +20,40 @@ body{
 #container-left {
     width: 20%;
     background-color: var(--light);
-    padding-left: 15px;
+    padding-left: 7px;
     /* border-right: 1px solid #ccc; */
+    position: relative;
+}
+#container-left:hover #hideSideBar{
+    /* display: block; */
+    visibility: visible;
+    opacity: 1;
 }
 
+#hideSideBar .fa-arrow-left{
+    font-size: 1.3rem;
+ }
+#hideSideBar.hidden{
+    width: 60px;
+}
+#hideSideBar{
+    padding-left: 20px;    
+    position: absolute;
+    left: 100%;
+    top: 60%;
+    transform: translateX(-45%);
+    background-color: var(--light);
+    border-radius: 0 30px 30px 0;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    align-items: center; 
+    opacity: 0;   
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+}
 #logo {
     width: 100%;
     margin-bottom: 20px;
@@ -53,7 +83,8 @@ body{
     border-radius: 48px 0 0 48px;   
     height: 48px;      
     display: flex;
-    align-items: center;   
+    align-items: center;
+    overflow: hidden;   
 }
 #menu ul li.active{
     background: var(--grey);
@@ -92,10 +123,31 @@ body{
     width: 100%;
     height: 20%;
     text-align: center;
-    padding: 20px;
+    padding: 7px;
     border-top: 1px solid #ccc;
 }
-
+#footer a {
+    /* border: 2px solid red; */
+    text-decoration: none;
+    color: #333;
+    width: 100%;    
+    height: 30px;
+    display: flex;
+    align-items: center;
+    /* border-radius: 48px; */
+    color: var(--dark);
+    background: var(--light);
+    overflow: hidden;
+    font-size: 1.1rem;
+}
+#footer a .fa-solid{
+    min-width: 40px;
+    display: flex;
+    justify-content: center;
+}
+#footer a:hover{
+    color: var(--blue);
+}
 #container-right {
     width: 80%;
     padding: 20px;

@@ -464,7 +464,7 @@ input[type=password] {
 .swiper {
     width: 80%;
     height: 450px;
-    /* margin: 0px; */
+    margin: 135px;
 }
 
 .swiper-slide {
@@ -538,16 +538,15 @@ input[type=password] {
     }
 }
 
-.marquee-content {
+/* .marquee-content {
     display: inline-block;
-    /* padding-left: 50%; */
-    /* Bắt đầu từ bên phải */
+    padding-left: 50%;
     animation: marquee 20s linear infinite;
 }
 
 .marquee-container:hover .marquee-content {
     animation-play-state: paused;
-    /* Dừng animation khi hover */
+    Dừng animation khi hover
 }
 
 @keyframes marquee {
@@ -558,7 +557,7 @@ input[type=password] {
     100% {
         transform: translateX(-100%);
     }
-}
+} */
 
 #information {
     margin-top: 100px;

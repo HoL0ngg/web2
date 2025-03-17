@@ -16,12 +16,13 @@
                 <img src="img/logo.png" alt="logo">
             </div>
 
+            <div id="hideSideBar"><i class="fa-solid fa-arrow-left"></i></div>
             <div id="menu">
                 <ul>
                     <li class="active">
-                        <a href="index.php">
+                        <a href="admin.php">
                             <i class="fa-solid fa-house"></i>
-                            <span class="text">Trang chủ</span>
+                            <span class="text">Trang tổng quan</span>
                         </a>
                     </li>
                     <li>
@@ -58,12 +59,18 @@
             </div>
 
             <div id="footer">
+
                 <div id="admin-info">
                     <p>Xin chào: <span>admin</span></p>
                 </div>
+
                 <div id="admin-logout">
-                    <a href="logout.php">Đăng xuất</a>
+                    <a href="index.php">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span class="text">Đăng xuất</span>
+                    </a>
                 </div>
+
             </div>
         </div>
         <div id="container-right">
@@ -71,7 +78,7 @@
             if (isset($_GET['page'])) {
                 $page = $_GET['page'];
                 if ($page == 'product') {
-                    include('product.php');
+                    // include('product.php');
                 } elseif ($page == 'category') {
                     include('category.php');
                 } elseif ($page == 'user') {
@@ -86,7 +93,8 @@
             }
             ?>
         </div>
-        <script src="js/admin.js"></script>
+    </div>
+    <script src="js/admin.js"></script>
 </body>
 
 </html>
