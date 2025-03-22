@@ -155,7 +155,7 @@ session_start();
         </div>
     </div> -->
 
-    <div class="swiper mySwiper">
+    <div class="swiper banner-swiper">
         <div class="swiper-wrapper">
             <div class="swiper-slide"><img src="img/img1.jpg"></div>
             <div class="swiper-slide"><img src="img/img2.png"></div>
@@ -166,8 +166,56 @@ session_start();
         <div class="swiper-pagination"></div>
     </div>
 
+
+    <div style="width: 100%; text-align: center; font-size: 2.6em; font-weight: 700">
+        Đánh giá người sử dụng
+    </div>
+    <div class="swiper review-swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="https://fit.sgu.edu.vn/site/wp-content/uploads/2019/01/thanhsang.jpg" alt="Người 1" />
+                <h3>Nguyễn Thanh Sang</h3>
+                <p>Sản phẩm rất tốt, dịch vụ tuyệt vời!</p>
+            </div>
+            <div class="swiper-slide">
+                <img src="https://fit.sgu.edu.vn/site/wp-content/uploads/2019/01/thanhsang.jpg" alt="Người 2" />
+                <h3>Nguyễn Thanh Sang</h3>
+                <p>Giao hàng nhanh, đáng tiền.</p>
+            </div>
+            <div class="swiper-slide">
+                <img src="https://fit.sgu.edu.vn/site/wp-content/uploads/2019/01/thanhsang.jpg" alt="Người 3" />
+                <h3>Nguyễn Thanh Sang</h3>
+                <p>Chất lượng vượt mong đợi.</p>
+            </div>
+            <div class="swiper-slide">
+                <img src="https://fit.sgu.edu.vn/site/wp-content/uploads/2019/01/thanhsang.jpg" alt="Người 3" />
+                <h3>Nguyễn Thanh Sang</h3>
+                <p>Chất lượng vượt mong đợi.</p>
+            </div>
+            <div class="swiper-slide">
+                <img src="https://fit.sgu.edu.vn/site/wp-content/uploads/2019/01/thanhsang.jpg" alt="Người 3" />
+                <h3>Nguyễn Thanh Sang</h3>
+                <p>Chất lượng vượt mong đợi.</p>
+            </div>
+            <div class="swiper-slide">
+                <img src="https://fit.sgu.edu.vn/site/wp-content/uploads/2019/01/thanhsang.jpg" alt="Người 3" />
+                <h3>Nguyễn Thanh Sang</h3>
+                <p>Chất lượng vượt mong đợi.</p>
+            </div>
+            <div class="swiper-slide">
+                <img src="https://fit.sgu.edu.vn/site/wp-content/uploads/2019/01/thanhsang.jpg" alt="Người 3" />
+                <h3>Nguyễn Thanh Sang</h3>
+                <p>Chất lượng vượt mong đợi.</p>
+            </div>
+        </div>
+    </div>
     <script>
-        var swiper = new Swiper(".mySwiper", {
+        const swiper_title = new Swiper(".banner-swiper", {
+            grabCursor: true,
+            keyboard: {
+                enabled: true, // Kích hoạt phím mũi tên
+                onlyInViewport: true, // Chỉ hoạt động khi slider trong tầm nhìn
+            },
             loop: true,
             autoplay: {
                 delay: 3000
@@ -182,21 +230,33 @@ session_start();
             }
         });
     </script>
-
-    <div id="information">
-        <h2>Nhận thông tin khuyến mãi mới nhất</h2>
-        <p>Để lại email của bạn để nhận những thông tin khuyến mãi mới nhất từ chúng tôi</p>
-        <div id="input-information">
-            <input type="email" name="email-info" id="email-info" placeholder="Email của bạn">
-            <button onclick="checkEmailkhuyenmai()" id="emailkhuyenmai">
-                <i class="fa-solid fa-arrow-right" style="color: white;"></i>
-            </button>
-        </div>
-    </div>
+    <script>
+        const swiper = new Swiper('.review-swiper', {
+            slidesPerView: 3, // Hiển thị 4 slide cùng lúc
+            spaceBetween: 30, // Khoảng cách giữa các slide
+            grabCursor: true, // Hiển thị con trỏ kéo
+            loop: true, // Lặp lại danh sách
+            autoplay: {
+                delay: 3000, // Tự động chuyển slide sau 3 giây
+            },
+            breakpoints: {
+                // Responsive
+                320: {
+                    slidesPerView: 1, // 1 slide trên màn hình nhỏ
+                },
+                640: {
+                    slidesPerView: 2, // 2 slide trên màn hình vừa
+                },
+                1024: {
+                    slidesPerView: 4, // 4 slide trên màn hình lớn
+                },
+            },
+        });
+    </script>
     <div id="footer">
         <div id="footer-container">
             <div class="footer-item">
-                <img src="Logo-DH-Sai-Gon-SGU-flat.webp" alt="">
+                <img src="" alt="">
             </div>
             <div class="footer-item">
                 <h4>Thông tin hữu ích</h4>
