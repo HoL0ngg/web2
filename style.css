@@ -497,13 +497,13 @@ input[type=password] {
 
 .review-swiper {
     width: 90%;
-    margin: 20px 0;
-    height: 400px;
+    margin: 32px 0;
+    height: 300px;
 }
 
 .review-swiper .swiper-slide {
     background: #fff;
-    border: 2px solid #f0f0f0;
+    border: 2px solid #a7a7a7;
     border-radius: 10px;
     padding: 20px;
     text-align: center;
@@ -512,8 +512,8 @@ input[type=password] {
 }
 
 .review-swiper .swiper-slide img {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     margin-bottom: 10px;
 }
@@ -524,7 +524,7 @@ input[type=password] {
 }
 
 .review-swiper .swiper-slide p {
-    font-size: 14px;
+    font-size: 16px;
     color: #666;
 }
 
