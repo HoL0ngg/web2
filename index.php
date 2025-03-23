@@ -154,7 +154,6 @@ session_start();
             Đây là nội dung chạy chữ. Bạn có thể thay đổi nội dung này.
         </div>
     </div> -->
-
     <div class="swiper banner-swiper">
         <div class="swiper-wrapper">
             <div class="swiper-slide"><img src="img/img1.jpg"></div>
@@ -165,7 +164,6 @@ session_start();
         <div class="swiper-button-prev"></div>
         <div class="swiper-pagination"></div>
     </div>
-
 
     <div style="width: 100%; text-align: center; font-size: 2.6em; font-weight: 700">
         Đánh giá người sử dụng
