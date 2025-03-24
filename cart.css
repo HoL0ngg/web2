@@ -18,3 +18,102 @@
     user-select: none;
     cursor: pointer;
 }
+
+.progress-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 500px;
+    max-width: 100%;
+    margin-bottom: 30px;
+}
+
+.progress-step {
+    width: 40px;
+    height: 40px;
+    /* background: #ddd; */
+    border: 3px solid #ddd;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: #fff;
+    font-weight: bold;
+    transition: background 0.4s ease;
+    z-index: 1;
+}
+
+.progress-step.active {
+    background: #3498db;
+    border: 0px;
+}
+
+.progress-step.active::after {
+    color: #3498db;
+}
+
+.progress-step::after {
+    content: attr(data-step);
+    position: absolute;
+    top: 100%;
+    margin-top: 10px;
+    color: #fff;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.progress-line {
+    flex: 1;
+    height: 2px;
+    background: #ddd;
+    transition: background 0.4s ease;
+}
+
+.progress-line.active {
+    background: #3498db;
+}
+
+#cart-info {
+    width: 600px;
+    padding: 0 16px;
+    margin: 32px auto 0px;
+}
+
+.product-item {
+    width: 100%;
+    display: flex;
+    gap: 12px;
+}
+
+.product-img {
+    flex: 1;
+}
+
+.product-info {
+    flex: 3;
+}
+
+.product-hihi {
+    flex: 2;
+}
+
+.product-hihi {
+    text-align: end;
+}
+
+.product-quantity {
+    display: inline-block;
+}
+
+.quantity-container {
+    border: 1px solid black;
+    justify-content: space-between;
+    width: 100%;
+    display: flex;
+}
+
+.product-img img {
+    width: 100px;
+    height: 100px;
+}
