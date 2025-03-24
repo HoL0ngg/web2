@@ -189,7 +189,7 @@ function loginNotification() {
             .then(response => response.json()) // Parse JSON response từ server
 
             .then(data => {
-                console.log(data)
+                // console.log(data)
                 // Hiển thị toast thông báo từ phản hồi của server
                 if (data.success) {
                     showToast(data.message, data.success);
@@ -341,11 +341,28 @@ function changePasswordNotification() {
                 .then(data => {
                     showToast(data.message, data.success);
                     if (data.success) {
+                        let taikhoan = document.getElementById("taikhoan-container");
+                        let logout = document.getElementById("logout");
+
+                        taikhoan.addEventListener('mouseover', function () {
+                            logout.style.display = "none";
+                        });
                         setTimeout(() => {
+                            let taikhoanContainer = document.getElementById("taikhoan-container");
+                            let username = sessionStorage.getItem("username");
+                            if(username == null){
+                                taikhoanContainer.innerHTML = `<i class="fa-solid fa-user" style="color: #6794c1;"></i>
+                                    <div style="color: #5cb3f1;">Tài khoản</div>`;
+                            }
+                            else{
+                                console.log("Chưa xóa session");
+                                
+                            }
+                            clearInputField("#changepassword-container ");
                             document.getElementById("changepassword-wrapper").style.display = 'none';
                             document.getElementById("login-wrapper").style.display = 'block';
                             document.getElementById("login-wrapper").style.backdropFilter = 'brightness(0.8)';
-                        }, 2000)
+                        }, 2000);
                     }
 
                 })
