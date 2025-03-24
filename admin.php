@@ -16,7 +16,7 @@
                 <img src="img/logo.png" alt="logo">
             </div>
 
-            <div id="hideSideBar"><i class="fa-solid fa-arrow-left"></i></div>
+            <div id="hideSideBar"><i class="fa-solid fa-less-than"></i></div>
             <div id="menu">
                 <ul>
                     <li class="active">

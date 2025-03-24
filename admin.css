@@ -30,8 +30,8 @@ body{
     opacity: 1;
 }
 
-#hideSideBar .fa-arrow-left{
-    font-size: 1.3rem;
+#hideSideBar .fa-less-than, #hideSideBar .fa-greater-than{
+    font-size: 1.2rem;
  }
 #hideSideBar.hidden{
     width: 60px;

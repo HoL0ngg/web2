@@ -20,13 +20,13 @@ function hiddenSideBar(){
     hiddenBtn.addEventListener("click", function(){
         let icon = this.querySelector("i");
         let attributeOfIcon = icon.getAttribute("class");
-        if(attributeOfIcon.indexOf("fa-arrow-left") != -1){
+        if(attributeOfIcon.indexOf("fa-less-than") != -1){
             leftContainer.style.width = '60px';
         }else{
             leftContainer.style.width = '20%';
         }
-        icon.classList.toggle("fa-arrow-left");
-        icon.classList.toggle("fa-arrow-right");
+        icon.classList.toggle("fa-less-than");
+        icon.classList.toggle("fa-greater-than");
     });
 }
 window.onload = function () {
