@@ -34,7 +34,6 @@
             $stmt->bind_param("ss", $hashed_password, $username);
 
             if ($stmt->execute()) {
-                session_unset();
                 session_destroy();
                 $response["success"] = true;
                 $response["message"] = "Đổi mật khẩu thành công!";

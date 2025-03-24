@@ -82,7 +82,7 @@ session_start();
             </div>
             <div id="right-header">
                 <div style="border: 3px solid #5cb3f1;border-radius: 20px;position: relative">
-                    <div id="taikhoan-container">
+                    <div id="taikhoan-container" onclick="openLoginForm()">
                         <?php
                         if (isset($_SESSION["username"])) {
                             echo "Xin chào, " . $_SESSION["username"];
@@ -156,9 +156,9 @@ session_start();
     </div> -->
     <div class="swiper banner-swiper">
         <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="img/img1.jpg"></div>
-            <div class="swiper-slide"><img src="img/img2.png"></div>
-            <div class="swiper-slide"><img src="img/img1.jpg"></div>
+            <div class="swiper-slide"><img src="img/img1.jpg" alt="img1"></div>
+            <div class="swiper-slide"><img src="img/img2.png" alt="img2"></div>
+            <div class="swiper-slide"><img src="img/img1.jpg" alt="img3"></div>
         </div>
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
@@ -171,37 +171,37 @@ session_start();
     <div class="swiper review-swiper">
         <div class="swiper-wrapper">
             <div class="swiper-slide">
-                <img src="https://fit.sgu.edu.vn/site/wp-content/uploads/2019/01/thanhsang.jpg" alt="Người 1" />
+                <!-- <img src="https://fit.sgu.edu.vn/site/wp-content/uploads/2019/01/thanhsang.jpg" alt="Người 1" /> -->
                 <h3>Nguyễn Thanh Sang</h3>
                 <p>Sản phẩm rất tốt, dịch vụ tuyệt vời!</p>
             </div>
             <div class="swiper-slide">
-                <img src="https://fit.sgu.edu.vn/site/wp-content/uploads/2019/01/thanhsang.jpg" alt="Người 2" />
+                <!-- <img src="https://fit.sgu.edu.vn/site/wp-content/uploads/2019/01/thanhsang.jpg" alt="Người 2" /> -->
                 <h3>Nguyễn Thanh Sang</h3>
                 <p>Giao hàng nhanh, đáng tiền.</p>
             </div>
             <div class="swiper-slide">
-                <img src="https://fit.sgu.edu.vn/site/wp-content/uploads/2019/01/thanhsang.jpg" alt="Người 3" />
+                <!-- <img src="https://fit.sgu.edu.vn/site/wp-content/uploads/2019/01/thanhsang.jpg" alt="Người 3" /> -->
                 <h3>Nguyễn Thanh Sang</h3>
                 <p>Chất lượng vượt mong đợi.</p>
             </div>
             <div class="swiper-slide">
-                <img src="https://fit.sgu.edu.vn/site/wp-content/uploads/2019/01/thanhsang.jpg" alt="Người 3" />
+                <!-- <img src="https://fit.sgu.edu.vn/site/wp-content/uploads/2019/01/thanhsang.jpg" alt="Người 3" /> -->
                 <h3>Nguyễn Thanh Sang</h3>
                 <p>Chất lượng vượt mong đợi.</p>
             </div>
             <div class="swiper-slide">
-                <img src="https://fit.sgu.edu.vn/site/wp-content/uploads/2019/01/thanhsang.jpg" alt="Người 3" />
+                <!-- <img src="https://fit.sgu.edu.vn/site/wp-content/uploads/2019/01/thanhsang.jpg" alt="Người 3" /> -->
                 <h3>Nguyễn Thanh Sang</h3>
                 <p>Chất lượng vượt mong đợi.</p>
             </div>
             <div class="swiper-slide">
-                <img src="https://fit.sgu.edu.vn/site/wp-content/uploads/2019/01/thanhsang.jpg" alt="Người 3" />
+                <!-- <img src="https://fit.sgu.edu.vn/site/wp-content/uploads/2019/01/thanhsang.jpg" alt="Người 3" /> -->
                 <h3>Nguyễn Thanh Sang</h3>
                 <p>Chất lượng vượt mong đợi.</p>
             </div>
             <div class="swiper-slide">
-                <img src="https://fit.sgu.edu.vn/site/wp-content/uploads/2019/01/thanhsang.jpg" alt="Người 3" />
+                <!-- <img src="https://fit.sgu.edu.vn/site/wp-content/uploads/2019/01/thanhsang.jpg" alt="Người 3" /> -->
                 <h3>Nguyễn Thanh Sang</h3>
                 <p>Chất lượng vượt mong đợi.</p>
             </div>
@@ -335,6 +335,12 @@ session_start();
                         <label for="reg-phone"><span><i class="fa-solid fa-phone"></i></span>Số điện thoại</label>
                     </div>
                     <div class="error phone"></div>
+
+                    <div class="input-field">
+                        <input type="text" id="reg-address" name="reg-address" required>
+                        <label for="reg-address"><span><i class="fa-solid fa-location-dot"></i></span>Địa chỉ</label>
+                    </div>
+                    <div class="error address"></div>
 
                     <div class="input-field">
                         <input type="text" id="reg-username" name="reg-username" required>

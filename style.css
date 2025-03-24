@@ -345,13 +345,13 @@
 #register-container {
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 45%;
     transform: translate(-50%, -50%);
     border: 2px solid rgba(0, 0, 0, 0.3);
     border-radius: 5px;
-    width: 30%;
+    width: 32%;
     background-color: white;
-    padding-bottom: 20px;
+    padding: 0 20px 20px 20px;
 }
 
 .form-title {
@@ -465,7 +465,7 @@ input[type=password] {
 .banner-swiper {
     width: 80%;
     height: 450px;
-    margin: 32px 135px;
+    margin: 139px 135px 32px 135px;
 }
 
 .banner-swiper .swiper-slide {
@@ -734,7 +734,8 @@ input[type=password] {
 .fa-lock,
 .fa-key,
 .fa-phone,
-.fa-user {
+.fa-user,
+.fa-location-dot {
     font-size: 1rem;
     margin: 0px 5px;
 
@@ -791,7 +792,7 @@ input[type=password] {
 #changepassword-container {
     position: absolute;
     left: 50%;
-    top: 45%;
+    top: 50%;
     transform: translate(-50%, -50%);
     border: 2px solid rgba(0, 0, 0, 0.3);
     border-radius: 5px;
