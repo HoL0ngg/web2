@@ -25,31 +25,27 @@
         </div>
     </div>
     <div id="cart-info">
-        <div class="product-item">
-            <div class="product-img">
-                <img src="/img/img1.jpg" alt="">
+        <div class="cart-item">
+            <div class="cart-image">
+                <img src="/img/img1.jpg" alt="Son">
             </div>
-            <div class="product-info">
-                <div class="product-title">Son j đó</div>
-                <div class="product-delete">
-                    <div>
-                        <span><i class="fa-solid fa-trash"></i></span>
-                        <span>Xóa</span>
-                    </div>
-                </div>
+            <div class="cart-info">
+                <p class="cart-title"><strong>[NEW][Màu 1-39] Son Tint Lì, Căng Bóng Romand The Juicy Lasting Tint</strong></p>
+                <p class="cart-color">07 JUJUBE</p>
+                <i class="fa-solid fa-trash"></i>
+                <span class="cart-remove">Xóa</span>
             </div>
-            <div class="product-hihi">
-                <div class="product-total">
-                    100.000đ
-                </div>
-                <div class="product-quantity">
-                    <div class="quantity-container">
-                        <button>-</button>
-                        <p>1</p>
-                        <button>+</button>
-                    </div>
+            <div class="cart-price">
+                <div class="new-price">152.150đ</div>
+                <div class="old-price">334.000đ</div>
+                <div class="cart-quantity">
+                    <button class="minus">-</button>
+                    <p>1</p>
+                    <button class="plus">+</button>
                 </div>
             </div>
         </div>
+
     </div>
+    <script src="/js/cart.js"></script>
 </body>
