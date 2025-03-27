@@ -6,14 +6,14 @@
     <title>Document</title>
     <link rel="stylesheet" href="admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
     <div id="container">
         <div id="container-left">
             <div id="logo">
-                <img src="img/logo.png" alt="logo">
+                <img src="" alt="logo">
             </div>
 
             <div id="hideSideBar"><i class="fa-solid fa-less-than"></i></div>
@@ -50,7 +50,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="admin.php?page=staticstic">
+                        <a href="admin.php?page=thongke">
                             <i class="fa-solid fa-chart-simple"></i>
                             <span class="text">Thống kê</span>
                         </a>
@@ -85,8 +85,8 @@
                     include('user.php');
                 } elseif ($page == 'order') {
                     include('order.php');
-                } elseif ($page == 'staticstic') {
-                    include('staticstic.php');
+                } elseif ($page == 'thongke') {
+                    include('thongke.php');
                 }
             } else {
                 include('product.php');

@@ -62,10 +62,22 @@
             </div>
         </div>
         <div id="right-header">
-            <div style="border: 3px solid #5cb3f1;border-radius: 20px;">
-                <div id="taikhoan-container">
-                    <i class="fa-solid fa-user" style="color: #6794c1;"></i>
-                    <div style="color: #5cb3f1;">Tài khoản</div>
+            <div style="border: 3px solid #5cb3f1;border-radius: 20px;position: relative">
+                <div id="taikhoan-container" onclick="openLoginForm()">
+                    <?php
+                    if (isset($_SESSION["username"])) {
+                        echo "Xin chào, " . $_SESSION["username"];
+                    } else {
+                        echo '<i class="fa-solid fa-user" style="color: #6794c1;"></i>
+                                <div style="color: #5cb3f1;">Tài khoản</div>';
+                    }
+                    ?>
+                </div>
+
+                <!-- Logout -->
+                <div id="logout">
+                    <span id="btnChangePass">Đổi mật khẩu</span><br>
+                    <span><a href="handles/logout.php" style="text-decoration: none; color: black">Đăng xuất</a></span>
                 </div>
             </div>
             <div>
@@ -77,7 +89,7 @@
                 </div>
             </div>
             <div>
-                <div id="cart-container" style="user-select: none;">
+                <div id="cart-container">
                     <div style="position: relative;">
                         <i class="fa-solid fa-bag-shopping fa-xl" style="color: white;"></i>
                         <div
@@ -112,4 +124,4 @@
         </div>
     </div>
 </div>
-<div style="height: 140px;"></div>
+<div style="height: 139px;"></div>

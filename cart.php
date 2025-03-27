@@ -47,5 +47,10 @@
         </div>
 
     </div>
+
+    <?php include("login-wrapper.php") ?>
+    <?php include("register-wrapper.php") ?>
+    <?php include("changepassword-wrapper.php") ?>
     <script src="/js/cart.js"></script>
+    <script src="/js/script.js"></script>
 </body>
