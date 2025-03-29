@@ -31,3 +31,16 @@ const myChart = new Chart(ctx, {
         }
     }
 });
+
+const Back = () => {
+    document.getElementById('myChart').style.display = 'none';
+    document.querySelector('.back-button').style.display = 'none';
+    showAllThongKe();
+}
+
+const showAllThongKe = () => {
+    document.querySelectorAll('.thongke-item').forEach(item => {
+        item.classList.remove('hide');
+    }
+    )
+}
