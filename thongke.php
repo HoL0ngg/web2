@@ -1,9 +1,8 @@
 <div>
     <!-- tutu chinh tiep -->
     <div class="thongke-container">
-        <!-- <div>Thống</div> -->
-        <!-- <i class="fa-solid fa-circle-left back-button fa-2x" onclick="Back()"></i>
-        <canvas id="myChart"></canvas> -->
+        <i class="fa-solid fa-circle-left back-button fa-2x hide" onclick="Back()"></i>
+        <canvas id="myChart" class="hide"></canvas>
         <div class="thongke-item">
             <div class="thongke-icon">
                 <div>
@@ -114,10 +113,11 @@
         background-color: #E0E0E0;
         height: 100px;
         width: calc(100% / 2 - 160px);
-        margin: 20px 80px;
+        margin: 24px 80px;
         display: flex;
         align-items: center;
         border-radius: 6px;
+        cursor: pointer;
     }
 
     .thongke-item.hide {
@@ -134,7 +134,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: red;
+        background-color: #007BFF;
         border-radius: 50%;
         /* padding: 18px; */
         width: 70px;
@@ -157,6 +157,12 @@
         left: 0;
         cursor: pointer;
     }
+
+    .back-button.hide,
+    #myChart.hide {
+        display: none !important;
+    }
+
 
     .filter {
         margin-bottom: 20px;

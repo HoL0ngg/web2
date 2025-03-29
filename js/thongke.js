@@ -1,7 +1,7 @@
 const ctx = document.getElementById('myChart').getContext('2d');
 
 const myChart = new Chart(ctx, {
-    type: 'bar', // Loại biểu đồ (bar, line, pie, etc.)
+    type: 'line', // Loại biểu đồ (bar, line, pie, etc.)
     data: {
         labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4'],
         datasets: [{
@@ -33,8 +33,8 @@ const myChart = new Chart(ctx, {
 });
 
 const Back = () => {
-    document.getElementById('myChart').style.display = 'none';
-    document.querySelector('.back-button').style.display = 'none';
+    document.getElementById('myChart').classList.add('hide');
+    document.querySelector('.back-button').classList.add('hide');
     showAllThongKe();
 }
 
@@ -43,4 +43,23 @@ const showAllThongKe = () => {
         item.classList.remove('hide');
     }
     )
+}
+
+const hideAllThongKe = () => {
+    document.querySelectorAll('.thongke-item').forEach(item => {
+        item.classList.add('hide');
+    })
+}
+
+document.querySelectorAll('.thongke-item').forEach((item) => {
+    item.addEventListener("click", (e) => {
+        showBieuDo();
+    })
+})
+
+const showBieuDo = () => {
+    document.querySelector('.back-button').classList.remove('hide');
+    document.getElementById('myChart').classList.remove('hide');
+    hideAllThongKe();
+
 }
