@@ -110,13 +110,14 @@
     }
 
     .thongke-item {
-        background-color: #E0E0E0;
+        background-color: white;
         height: 100px;
         width: calc(100% / 2 - 160px);
         margin: 24px 80px;
         display: flex;
         align-items: center;
         border-radius: 6px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
         cursor: pointer;
     }
 

@@ -78,7 +78,7 @@
             if (isset($_GET['page'])) {
                 $page = $_GET['page'];
                 if ($page == 'product') {
-                    // include('product.php');
+                    include('product.php');
                 } elseif ($page == 'category') {
                     include('category.php');
                 } elseif ($page == 'user') {
