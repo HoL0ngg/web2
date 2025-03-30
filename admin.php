@@ -13,7 +13,7 @@
     <div id="container">
         <div id="container-left">
             <div id="logo">
-                <img src="" alt="logo">
+                <img src="img/logo3.svg" alt="logo">
             </div>
 
             <div id="hideSideBar"><i class="fa-solid fa-less-than"></i></div>

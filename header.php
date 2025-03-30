@@ -1,9 +1,8 @@
 <div id="header">
     <div id="top-header">
         <div id="left-header">
-            <div style="flex: 1;">
-                <img src="" alt="">
-                Logo
+            <div style="flex: 1;height: 100%;margin-right: 10px;">
+                <img src="img/logo3.svg" alt="" style="width: 100%;height: 100%;">
             </div>
             <div id="timkiem-header">
                 <div id="filter" onclick="display_filter()">

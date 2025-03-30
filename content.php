@@ -9,14 +9,10 @@
 </head>
 
 <body> -->
-<!-- <div id="content-wrapper"> -->
-<div id="product-container"></div>
-<div id="pagenum">
-    <div class="active">1</div>
-    <div>2</div>
-    <div>3</div>
+<div id="content-wrapper">
+    <div id="product-container"></div>
+    <div id="pagenum"></div>
 </div>
-<!-- </div> -->
 <!-- </body>
 
 </html> -->
