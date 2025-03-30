@@ -837,3 +837,113 @@ input[type=password] {
         opacity: 0;
     }
 }
+/* Content */
+#content-wrapper {    
+    /* position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 75%;
+    z-index: 10; */
+    /* border: 2px solid red; */
+    width: 81%;
+    margin: 0 auto;
+    padding-left: 9px;
+}
+#product-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: stretch;
+    align-items: center;
+    gap: 11px;    
+}
+.product {
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    width: calc(25% - 11px);
+    text-align: center;
+    /* background-color: aqua; */
+    font-size: 1.2rem;
+    min-height: 430px;
+    overflow: hidden;
+    position: relative;
+}
+.product img{
+    height: 220px;
+    width: 100%;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: all 0.2 ease;
+    /* border: 2px solid red; */
+}
+.product p{
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Giới hạn số dòng */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    width: 95%;
+    height: 45px;
+    margin: 0 auto;
+    /* border: 2px solid red; */
+}
+.product img:hover{
+    scale: 1.1;
+}
+/* .product-info {
+
+} */
+.product-info div{
+    margin: 20px 0;
+}
+.product-price {
+    color: #333133;
+    font-weight: 700;   
+    position: absolute;
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.add-to-cart {
+    border: none;
+    padding: 10px;
+    background-color: #64aad5;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    width: 170px;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.add-to-cart:hover{
+    opacity: 0.8;
+}
+
+#pagenum{
+    /* border: 2px solid red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0px 7px 0px;
+}
+#pagenum div{    
+    border-radius: 7px;
+    background-color: #E0E0E0;
+    margin: 7px;
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+#pagenum div:hover{
+    background-color: #5cb3f1;
+    color: white;
+}
+#pagenum .active{
+    background-color: #5cb3f1;
+    color: white;
+}

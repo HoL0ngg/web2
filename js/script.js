@@ -391,6 +391,119 @@ window.addEventListener("scroll", function () {
 function display_filter() {
     document.getElementById("filter-menu").classList.toggle("active");
 }
+
+//PRODUCT
+const product = [
+    {
+        img: "img/sp1.jpg",
+        name: "Tinh chất làm mờ nám và nếp nhăn Clinical 1% Retinol Treatment 30ml",
+        price: 20000
+    },
+    {
+        img: "img/sp2.jpg",
+        name: "Kem dưỡng ẩm phục hồi da ban đêm",
+        price: 25000
+    },
+    {
+        img: "img/sp3.jpg",
+        name: "Serum vitamin C sáng da",
+        price: 30000
+    },
+    {
+        img: "img/sp4.jpg",
+        name: "Sữa rửa mặt dịu nhẹ",
+        price: 15000
+    },
+    {
+        img: "img/sp5.jpg",
+        name: "Kem chống nắng SPF 50",
+        price: 28000
+    },
+    {
+        img: "img/sp6.png",
+        name: "Mặt nạ dưỡng ẩm",
+        price: 18000
+    },
+    {
+        img: "img/sp7.jpg",
+        name: "Son môi dưỡng ẩm",
+        price: 22000
+    },
+    {
+        img: "img/sp8.jpg",
+        name: "Dầu tẩy trang thiên nhiên",
+        price: 27000
+    },
+    {
+        img: "img/sp9.jpg",
+        name: "Nước hoa hồng cân bằng da",
+        price: 19000
+    },
+    {
+        img: "img/sp10.jpg",
+        name: "Tẩy tế bào chết da mặt",
+        price: 23000
+    },
+    {
+        img: "img/sp11.jpg",
+        name: "Kem mắt giảm quầng thâm",
+        price: 32000
+    }
+];
+function displayProduct(pagenum,productArray,numOfProducts) {
+    const startIndex = (pagenum - 1) * numOfProducts;
+    const endIndex = startIndex + numOfProducts;
+    let proContainer = document.getElementById("product-container");
+    let s = "";
+    for (let i = startIndex;i < endIndex &&  i < productArray.length; i++) {
+        s += `<div class="product">
+        <div class="product-img">
+            <img src="${productArray[i].img}" alt="img1">
+        </div>
+        <div class="productArray-info">
+            <p>${productArray[i].name}</p>
+            <div class="product-price">${productArray[i].price}</div>
+            <button class="add-to-cart">Thêm vào giỏ</button>
+        </div>
+    </div>`;
+    }
+    proContainer.innerHTML = s;
+
+}
+
+function changeColorPagenum() {
+    const btnArray = document.querySelectorAll("#pagenum div");
+    btnArray[0].classList.add("active");    
+    btnArray.forEach(btn => {
+        btn.addEventListener("click", function() {
+            btnArray.forEach(item => {
+                item.classList.remove("active")
+            });
+            btn.classList.add("active");
+        });
+    });
+}
+// function phantrang()
+function phantrang(pagenum, proArray, numOfProducts){    
+    const pageNum = document.getElementById("pagenum");
+    console.log(pagenum);
+    
+    pageNum.innerHTML = "";
+    displayProduct(pagenum,proArray,numOfProducts);  
+
+    const totalPages = Math.ceil(proArray.length / numOfProducts);
+
+    for(let i = 1; i <= totalPages; i++){
+        const button = document.createElement("div");
+        button.setAttribute("class", "#pagenum div");
+        button.textContent = i;
+        button.addEventListener("click", function () {
+            displayProduct(i,proArray,numOfProducts);                
+        });
+        pageNum.appendChild(button);
+    }
+    changeColorPagenum();
+}
 window.onload = function () {
     closeButton();
     loginNotification();
@@ -402,5 +515,6 @@ window.onload = function () {
     openChangePasswordForm();
     changePasswordNotification();
     openLoginForm();
-    
+    // changeColorPagenum();
+    phantrang(1,product,8);
 }

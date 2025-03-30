@@ -164,7 +164,9 @@ session_start();
         <div class="swiper-button-prev"></div>
         <div class="swiper-pagination"></div>
     </div>
-
+    <div id="content-wrapper">
+        <?php include("content.php") ?>
+    </div>
     <div style="width: 100%; text-align: center; font-size: 2.6em; font-weight: 700">
         Đánh giá người sử dụng
     </div>
@@ -280,8 +282,6 @@ session_start();
         </div>
     </div>
 
-
-    <div id="content"></div>
     <!-- Login -->
     <!--  action="handles/handleLogin.php" -->
     <div id="login-wrapper">
