@@ -75,6 +75,8 @@
         </div>
         <div id="container-right">
             <?php
+            include("chucnangAccount.php"); // Đảm bảo file chứa class được gọi
+
             if (isset($_GET['page'])) {
                 $page = $_GET['page'];
                 if ($page == 'product') {
@@ -82,7 +84,24 @@
                 } elseif ($page == 'category') {
                     include('category.php');
                 } elseif ($page == 'user') {
-                    include('user.php');
+                    if (isset($_GET['act'])) {
+                        $act = $_GET['act'];
+                        switch ($act) {
+                            case 'add':
+                                $addAcc = new AccountFunction();
+                                $addAcc->accountForm("THÊM TÀI KHOẢN");
+                                break;
+                            case 'update':
+                                $addAcc = new AccountFunction();
+                                $addAcc->accountForm("SỬA THÔNG TIN TÀI KHOẢN");
+                            default:
+                                # code...
+                                break;
+                        }
+                    } else {
+
+                        include('user.php');
+                    }
                 } elseif ($page == 'order') {
                     include('order.php');
                 } elseif ($page == 'thongke') {

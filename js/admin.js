@@ -23,6 +23,8 @@ function hiddenSideBar() {
         let icon = this.querySelector("i");
         let attributeOfIcon = icon.getAttribute("class");
         if (attributeOfIcon.indexOf("fa-less-than") != -1) {
+            console.log("hihih");
+            
             leftContainer.style.width = '60px';
             rightContainer.style.width = 'calc(100% - 60px)';
             imgLogo.src = "img/logomini.svg";

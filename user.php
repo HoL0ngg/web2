@@ -2,7 +2,7 @@
  <main class="main-content">
      <header>
          <h1>Quản Lý Người Dùng</h1>
-         <button class="add-user-btn">➕ Thêm người dùng</button>
+         <button class="add-user-btn"><a href="admin.php?page=user&act=add">➕Thêm người dùng</a></button>
      </header>
 
      <!-- Danh sách người dùng -->
@@ -12,6 +12,7 @@
                  <tr>
                      <th>ID</th>
                      <th>Tên</th>
+                     <th>Số điện thoại</th>
                      <th>Email</th>
                      <th>Vai trò</th>
                      <th>Hành động</th>
@@ -21,21 +22,23 @@
                  <tr>
                      <td>1</td>
                      <td>Nguyễn Văn A</td>
+                     <td>00009625566</td>
                      <td>a@gmail.com</td>
                      <td>Admin</td>
                      <td>
-                         <button class="edit-btn">✏️</button>
-                         <button class="delete-btn">❌</button>
+                         <a href="admin.php?page=user&act=update"><button class="edit-btn">✏️ Sửa</button></a>
+                         <button class="delete-btn">❌ Xóa</button>
                      </td>
                  </tr>
                  <tr>
                      <td>2</td>
                      <td>Trần Thị B</td>
+                     <td>00009625566</td>
                      <td>b@gmail.com</td>
                      <td>Người dùng</td>
                      <td>
-                         <button class="edit-btn">✏️</button>
-                         <button class="delete-btn">❌</button>
+                         <a href="admin.php?page=user&act=update"><button class="edit-btn">✏️ Sửa</button></a>
+                         <button class="delete-btn">❌ Xóa</button>
                      </td>
                  </tr>
              </tbody>
@@ -71,9 +74,19 @@
          background: #27AE60;
          color: white;
          border: none;
-         padding: 10px 15px;
+         width: 148px;
+         height: 30px;
          border-radius: 5px;
          cursor: pointer;
+     }
+
+     .add-user-btn a {
+         font-weight: 600;
+         text-decoration: none;
+         color: white;
+         /* width: 100%;
+         height: 30px; */
+         /* border: 3px solid black; */
      }
 
      .add-user-btn:hover {
@@ -98,7 +111,14 @@
      td {
          border: 1px solid #BDC3C7;
          padding: 10px;
-         text-align: left;
+         text-align: center;
+     }
+
+     td a {
+         text-decoration: none;
+         color: black;
+         /* border: 2px solid red; */
+         /* padding: 10px; */
      }
 
      th {
@@ -110,9 +130,11 @@
      .edit-btn,
      .delete-btn {
          border: none;
-         padding: 5px 10px;
+         /* padding: 5px 10px; */
+         width: 70px;
+         height: 30px;
          cursor: pointer;
-         margin: 0 5px;
+         /* margin: 0 5px; */
          border-radius: 5px;
          border: 1px solid #BDC3C7;
      }
@@ -123,7 +145,7 @@
 
      .delete-btn {
          background: white;
-         color: white;
+         color: black;
      }
 
      .edit-btn:hover {
