@@ -1,6 +1,6 @@
 <?php
 require_once("TKModel.php");
-if (isset($_GET["submit"])) {
+if (isset($_GET["them"])) {
     $username = $_GET['username'] ?? '';
     $phone = $_GET['phone'] ?? '';
     $email = $_GET['email'] ?? '';

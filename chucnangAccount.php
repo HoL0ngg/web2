@@ -30,7 +30,7 @@ class AccountFunction
                     <option value="2">User</option>
                 </select>
 
-                <button type="submit" class="btn-submit" name="">Thêm Tài Khoản</button>
+                <button type="submit" class="btn-submit" name="' . ($title == "THÊM TÀI KHOẢN" ? "them" : "sua") . '">' . $title . '</button>
             </form>
         </div>';
     }
