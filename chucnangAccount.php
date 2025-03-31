@@ -5,11 +5,11 @@ class AccountFunction
     {
         echo '<div class="container">
             <h2>' . $title . '</h2>
-            <form>
+            <form action="XuLyTK.php" method="get">
                 <label for="username">Tên Tài Khoản:</label>
                 <input type="text" id="username" name="username">
 
-                <label for="phone">Số Điện Thoại:</label>
+                <label for="phone">Số Đisện Thoại:</label>
                 <input type="text" id="phone" name="phone">
 
                 <label for="email">Email:</label>
@@ -20,17 +20,17 @@ class AccountFunction
 
                 <label for="status">Trạng Thái:</label>
                 <select id="status" name="status">
-                    <option value="inactive">Không hoạt động</option>
-                    <option value="active">Hoạt động</option>
+                    <option value="1">Hoạt động</option>
+                    <option value="0">Không hoạt động</option>
                 </select>
 
                 <label for="role">Quyền:</label>
                 <select id="role" name="role">
-                    <option value="admin">Admin</option>
-                    <option value="user">User</option>
+                    <option value="1">Admin</option>
+                    <option value="2">User</option>
                 </select>
 
-                <button type="submit" class="btn-submit">Thêm Tài Khoản</button>
+                <button type="submit" class="btn-submit" name="">Thêm Tài Khoản</button>
             </form>
         </div>';
     }
