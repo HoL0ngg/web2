@@ -24,8 +24,7 @@ body {
 #container-left {
     width: 20%;
     background-color: var(--light);
-    padding-left: 7px;
-    /* border-right: 1px solid #ccc; */
+    padding-left: 7px;    
     position: relative;
 }
 
@@ -38,21 +37,22 @@ body {
 #hideSideBar .fa-less-than,
 #hideSideBar .fa-greater-than {
     font-size: 1.2rem;
+    cursor: pointer;    
 }
 
 #hideSideBar.hidden {
     width: 60px;
 }
 
-#hideSideBar {
+#hideSideBar {    
     padding-left: 20px;
     position: absolute;
     left: 100%;
     top: 60%;
-    transform: translateX(-45%);
+    transform: translateX(-50%);
     background-color: var(--light);
     border-radius: 0 30px 30px 0;
-    width: 60px;
+    width: 55px;
     height: 60px;
     display: flex;
     justify-content: center;
@@ -251,7 +251,7 @@ body {
 }
 
 /* ADD ACCOUNT */
-.container {
+.container-addaccount {
     background: white;
     padding: 20px;
     border-radius: 8px;
@@ -274,13 +274,13 @@ label {
     font-weight: bold;
 }
 
-/* input, select {
+.container-addaccount input, select {
     width: 100%;
     padding: 8px;
     margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
-} */
+}
 .btn-submit {
     width: 100%;
     background-color: green;
@@ -294,4 +294,42 @@ label {
 
 .btn-submit:hover {
     background-color: darkgreen;
+}
+
+/* Toast */
+#toast {
+    display: none;
+    position: fixed;
+    min-width: 270px;
+    min-height: 80px;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    border-radius: 7px;
+    padding: 10px;
+    text-align: center;
+    line-height: 70px;
+    animation: fadein 1s, fadeout 1s 2.5s;
+    z-index: 100;
+    font-size: 1.1rem;
+}
+
+@keyframes fadein {
+    from {
+        top: calc(30px - 70px);
+        opacity: 0;
+    }
+
+    to {
+        top: 30px;
+        opacity: 1;
+    }
+}
+
+@keyframes fadeout {
+    to {
+        top: calc(30px - 70px);
+        opacity: 0;
+    }
 }
