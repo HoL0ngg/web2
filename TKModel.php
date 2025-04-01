@@ -4,7 +4,7 @@ class TKModel
 
     public function them($username, $phone, $email, $password, $status, $role)
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!empty($username) && !empty($email) && !empty($password)) {
                 // Hash the password for security
                 $hashedPassword = password_hash($password, PASSWORD_BCRYPT);

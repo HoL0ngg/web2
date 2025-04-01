@@ -5,7 +5,7 @@ class AccountFunction
     {
         echo '<div class="container">
             <h2>' . $title . '</h2>
-            <form action="XuLyTK.php" method="get">
+            <form action="XuLyTK.php" method="post">
                 <label for="username">Tên Tài Khoản:</label>
                 <input type="text" id="username" name="username">
 

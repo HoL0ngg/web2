@@ -1,12 +1,12 @@
 <?php
 require_once("TKModel.php");
-if (isset($_GET["them"])) {
-    $username = $_GET['username'] ?? '';
-    $phone = $_GET['phone'] ?? '';
-    $email = $_GET['email'] ?? '';
-    $password = $_GET['password'] ?? '';
-    $status = $_GET['status'] ?? '';
-    $role = $_GET['role'] ?? '';
+if (isset($_POST["them"])) {
+    $username = $_POST['username'] ?? '';
+    $phone = $_POST['phone'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
+    $status = $_POST['status'] ?? '';
+    $role = $_POST['role'] ?? '';
 
     $user = new TKModel();
     $user->them($username, $phone, $email, $password, $status, $role);
