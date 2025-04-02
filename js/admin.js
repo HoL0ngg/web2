@@ -44,42 +44,48 @@ function showToast(message, type) {
         toast.style.display = 'none';
     }, 4000);
 }
-function addUsers() {
-    let addUserFrm = document.getElementById("addUserForm");
+// function addUsers() {
+//     let addUserFrm = document.getElementById("addUserForm");
 
-    // Định nghĩa handler cho submit để có thể xóa sự kiện sau
-    const submitHandler = function(event) {
-        event.preventDefault();
+//     // Định nghĩa handler cho submit để có thể xóa sự kiện sau
+//     const submitHandler = function(event) {
+//         event.preventDefault();
 
-        let formData = new FormData(this);
+//         let formData = new FormData(this);
         
-        fetch("handles/addUsers.php", {
-            method: "POST",
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            // showToast(data.message, data.success);
+//         fetch("handles/addUsers.php", {
+//             method: "POST",
+//             body: formData
+//         })
+//         .then(response => response.json())
+//         .then(data => {
+//             // showToast(data.message, data.success);
 
-            if (data.success) {
-                this.reset();
-                // loadUsers();                                
-                addUserFrm.removeEventListener("submit", submitHandler);
+//             if (data.success) {
+//                 this.reset();
+//                 // loadUsers();                                
+//                 addUserFrm.removeEventListener("submit", submitHandler);
 
-                //Lưu thông báo vào sessionStorage trước khi chuyển hướng
-                sessionStorage.setItem("toastMessage", data.message);
-                sessionStorage.setItem("toastSuccess", data.success);
-                window.location.href = "../admin.php?page=user";                
-            }
-        })
-        .catch(error => console.error("Lỗi: ", error));
-    };
+//                 //Lưu thông báo vào sessionStorage trước khi chuyển hướng
+//                 sessionStorage.setItem("toastMessage", data.message);
+//                 sessionStorage.setItem("toastSuccess", data.success);
+//                 window.location.href = "../admin.php?page=user";                
+//             }
+//         })
+//         .catch(error => console.error("Lỗi: ", error));
+//     };
 
-    // Gắn sự kiện submit vào form
-    addUserFrm.addEventListener("submit", submitHandler);
+//     // Gắn sự kiện submit vào form
+//     addUserFrm.addEventListener("submit", submitHandler);
+// }
+async function addUserNotification(){
+    const response = await fetch("handles/handleUser.php");
+    const notification = await response.json();
+    if(notification.success){
+        sessionStorage.setItem("toastMessage", data.message);
+        sessionStorage.setItem("toastSuccess", data.success);
+    }
 }
-
-
 
 async function loadUsers() {        
     const response = await fetch("handles/getUsers.php");
@@ -105,7 +111,7 @@ async function loadUsers() {
                          <td>${user.status == 0 ? `<span class="status-no-complete">Bị khóa</span>` : `<span class="status-complete">Hoạt động</span>`}</td>
                          <td>${user.role == 1 ? "Admin" : "User"}</td>
                          <td>
-                             <a href="admin.php?page=user&act=update&id=${user.id}"><button class="edit-btn">✏️ Sửa</button></a>
+                             <a href="admin.php?page=user&act=update&uid=${user.id}"><button class="edit-btn">✏️ Sửa</button></a>
                              <button class="delete-btn">❌ Xóa</button>
                          </td>            
                      </tr>`;
@@ -120,7 +126,7 @@ window.onload = function () {
     hiddenSideBar();  
     // addUsers();
     // addUsers();
-    loadUsers();  
+    loadUsers();      
     let message = sessionStorage.getItem("toastMessage");
     let success = sessionStorage.getItem("toastSuccess");
 
@@ -128,6 +134,9 @@ window.onload = function () {
         showToast(message, success); // Chuyển đổi string thành boolean
         sessionStorage.removeItem("toastMessage");
         sessionStorage.removeItem("toastSuccess");
+    }else{
+        console.log("Khong tim thay message");
+        
     }
 };
 

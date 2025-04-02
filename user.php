@@ -16,7 +16,7 @@
                      <th>Email</th>
                      <th>Trạng thái</th>
                      <th>Vai trò</th>
-                     <th>Hành động</th>
+                     <th>Hàng động</th>
                  </tr>
              </thead>
              <tbody id="userTable">

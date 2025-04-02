@@ -95,8 +95,14 @@
                                 $addAcc->accountForm("THÊM TÀI KHOẢN", "addUserForm");
                                 break;
                             case 'update':
+                                require_once("TKModel.php");
+                                $id = $_GET['uid'] ?? '';
+                                $id = (int)$id;
+                                $tkmodel = new TKModel();
+                                $user = $tkmodel->getUserById($id);
                                 $addAcc = new AccountFunction();
-                                $addAcc->accountForm("SỬA TÀI KHOẢN", "updateUserForm");
+                                $addAcc->accountForm("SỬA TÀI KHOẢN", "updateUserForm", $user);
+                                break;
                             default:
                                 # code...
                                 break;

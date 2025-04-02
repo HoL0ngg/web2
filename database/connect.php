@@ -1,11 +1,27 @@
-    <?php
-    $host = "localhost";
-    $usernamedb = "root";
-    $password = "";
-    $dbname = "web2_test";
+<?php
+class database
+{
+    private $host = "localhost";
+    private $dbname = "webbanhang";
+    private $username = "root";
+    private $password = "";
+    private $conn;
 
-    $conn = new mysqli($host, $usernamedb, $password, $dbname);
-    if ($conn->connect_error) {
-        die("ket noi khong thanh cong: " . $conn->connect_error);
+    public function __construct()
+    {
+        $this->conn = new mysqli($this->host, $this->username, $this->password, $this->dbname);
+        if ($this->conn->connect_error) {
+            die("ket noi that bai" . $this->conn->connect_error);
+        }
     }
-    ?>
+
+    public function getConnection()
+    {
+        return $this->conn;
+    }
+
+    public function closeConnection()
+    {
+        $this->conn->close();
+    }
+}
