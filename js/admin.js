@@ -38,62 +38,96 @@ function hiddenSideBar() {
 function showToast(message, type) {
     let toast = document.getElementById("toast");
     toast.innerText = message;
-    toast.style.backgroundColor = type ? 'rgba(0, 255, 0, 0.5)' : ' rgba(255, 0, 0, 0.9)';
+    toast.style.backgroundColor = type ? '#219150' : ' rgba(255, 0, 0, 0.9)';
     toast.style.display = 'block';
     setTimeout(() => {
         toast.style.display = 'none';
-    }, 3000);
+    }, 4000);
 }
-function addUsers(){
-    let frmAddUserFrm = document.getElementById("addUserForm");
-    frmAddUserFrm.addEventListener("submit", function(event){
+function addUsers() {
+    let addUserFrm = document.getElementById("addUserForm");
+
+    // Định nghĩa handler cho submit để có thể xóa sự kiện sau
+    const submitHandler = function(event) {
         event.preventDefault();
 
         let formData = new FormData(this);
-        fetch("handles/addUsers.php",{
-            method: "POST",            
+        
+        fetch("handles/addUsers.php", {
+            method: "POST",
             body: formData
         })
-
         .then(response => response.json())
-        .then(data =>{
-            showToast(data.message, data.success);
-            if(data.success){
+        .then(data => {
+            // showToast(data.message, data.success);
+
+            if (data.success) {
                 this.reset();
-                loadUsers();
-                setTimeout(() => {
-                    window.location.href = "../admin.php?page=user";
-                }, 3000);
+                // loadUsers();                                
+                addUserFrm.removeEventListener("submit", submitHandler);
+
+                //Lưu thông báo vào sessionStorage trước khi chuyển hướng
+                sessionStorage.setItem("toastMessage", data.message);
+                sessionStorage.setItem("toastSuccess", data.success);
+                window.location.href = "../admin.php?page=user";                
             }
         })
         .catch(error => console.error("Lỗi: ", error));
-        // showToast("Đã xảy ra lỗi, vui lòng thử lại!", false);
-    });
+    };
+
+    // Gắn sự kiện submit vào form
+    addUserFrm.addEventListener("submit", submitHandler);
 }
-async function loadUsers() {
+
+
+
+async function loadUsers() {        
     const response = await fetch("handles/getUsers.php");
     const users = await response.json();
-    
+    let userTable = document.getElementById("userTable");
+    if(userTable) userTable.innerHTML = "";
     let rows = "";
-
-    users.forEach(user =>{                
+    console.log(users);
+    
+    if(users.length == 0){
         rows += `<tr>
-                     <td>${user.id}</td>
-                     <td>${user.username}</td>
-                     <td>${user.phone}</td>
-                     <td>${user.email}</td>
-                     <td>${user.role == 1 ? "Admin" : "User"}</td>
-                     <td>
-                         <a href="admin.php?page=user&act=update"><button class="edit-btn">✏️ Sửa</button></a>
-                         <button class="delete-btn">❌ Xóa</button>
-                     </td>            
-                 </tr>`;
-    });
-    document.getElementById("userTable").innerHTML = rows;
+                    <td colspan="7">Không tìm thấy dữ liệu</td>
+                </tr>`
+    }else{
+        users.forEach(user =>{  
+            // console.log(user);
+                          
+            rows += `<tr>
+                         <td>${user.id}</td>
+                         <td>${user.username}</td>
+                         <td>${user.phone}</td>
+                         <td>${user.email}</td>
+                         <td>${user.status == 0 ? `<span class="status-no-complete">Bị khóa</span>` : `<span class="status-complete">Hoạt động</span>`}</td>
+                         <td>${user.role == 1 ? "Admin" : "User"}</td>
+                         <td>
+                             <a href="admin.php?page=user&act=update&id=${user.id}"><button class="edit-btn">✏️ Sửa</button></a>
+                             <button class="delete-btn">❌ Xóa</button>
+                         </td>            
+                     </tr>`;
+        });
+    }
+    if(userTable != null){
+        userTable.innerHTML = rows;
+    }
 }
 window.onload = function () {
     effectSideBar();
     hiddenSideBar();  
     // addUsers();
+    // addUsers();
     loadUsers();  
+    let message = sessionStorage.getItem("toastMessage");
+    let success = sessionStorage.getItem("toastSuccess");
+
+    if (message) {
+        showToast(message, success); // Chuyển đổi string thành boolean
+        sessionStorage.removeItem("toastMessage");
+        sessionStorage.removeItem("toastSuccess");
+    }
 };
+

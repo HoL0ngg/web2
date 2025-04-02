@@ -1,7 +1,7 @@
     <?php
     require_once("../connect.php");
 
-    $sql = "SELECT * FROM users";
+    $sql = "SELECT * FROM users ORDER BY id DESC";
     $result = $conn->query($sql);
 
     $data = array();

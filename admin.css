@@ -9,6 +9,7 @@ body {
 }
 
 :root {
+    --green: #098d1f;
     --blue: #3C91E6;
     --grey: #eee;
     --dark: #342E37;
@@ -310,7 +311,7 @@ label {
     padding: 10px;
     text-align: center;
     line-height: 70px;
-    animation: fadein 1s, fadeout 1s 2.5s;
+    animation: fadein 1s, fadeout 1s 3s;
     z-index: 100;
     font-size: 1.1rem;
 }
@@ -332,4 +333,23 @@ label {
         top: calc(30px - 70px);
         opacity: 0;
     }
+}
+
+/* TABLE USERS */
+.status-complete {
+    background-color: #27ae60;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 15px;
+    display: inline-block;
+}
+
+.status-no-complete {
+    background-color: #f04e2e;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 15px;
+    display: inline-block;
 }

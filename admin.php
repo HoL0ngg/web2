@@ -96,7 +96,7 @@
                                 break;
                             case 'update':
                                 $addAcc = new AccountFunction();
-                                $addAcc->accountForm("SỬA THÔNG TIN TÀI KHOẢN", "updateUserForm");
+                                $addAcc->accountForm("SỬA TÀI KHOẢN", "updateUserForm");
                             default:
                                 # code...
                                 break;

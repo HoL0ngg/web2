@@ -14,6 +14,7 @@
                      <th>Tên</th>
                      <th>Số điện thoại</th>
                      <th>Email</th>
+                     <th>Trạng thái</th>
                      <th>Vai trò</th>
                      <th>Hành động</th>
                  </tr>

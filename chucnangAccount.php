@@ -36,3 +36,4 @@ class AccountFunction
         </div>';
     }
 }
+// <button type="submit" class="btn-submit" name="' . ($title == "THÊM TÀI KHOẢN" ? "them" : "sua") . '">' . $title . '</button>
