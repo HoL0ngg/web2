@@ -19,8 +19,8 @@ class TKModel
                     die('Connection failed: ' . $conn->connect_error);
                 }
                 try {
-                    $checkStmt = $conn->prepare("SELECT id FROM users WHERE email = ? AND id != ?");
-                    $checkStmt->bind_param("si", $email, $id);
+                    $checkStmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
+                    $checkStmt->bind_param("s", $email);
                     $checkStmt->execute();
                     if ($checkStmt->get_result()->num_rows > 0) {
                         $checkStmt->close();
@@ -45,13 +45,6 @@ class TKModel
 
     public function sua($id, $username, $phone, $email, $password, $status, $role)
     {
-        echo $id . " ";
-        echo $username . " ";
-        echo $phone . " ";
-        echo $email . " ";
-        echo $password . " ";
-        echo $status . " ";
-        echo $role . " ";
         if ($_SERVER["REQUEST_METHOD"] !== "POST") {
             return false;
         }
@@ -64,22 +57,20 @@ class TKModel
         if ($conn->connect_error) {
             die('Connection failed: ' . $conn->connect_error);
         }
-
         try {
             // Kiểm tra email trùng (trừ user hiện tại)
             $checkStmt = $conn->prepare("SELECT id FROM users WHERE email = ? AND id != ?");
             $checkStmt->bind_param("si", $email, $id);
             $checkStmt->execute();
-
-            if ($checkStmt->get_result()->num_rows > 0) {
+            if (mysqli_num_rows($checkStmt->get_result()) > 0) {
                 $checkStmt->close();
+
                 return false; // Email đã tồn tại cho user khác
             }
             $checkStmt->close();
 
             // Xử lý mật khẩu
             if (!empty($password)) {
-                // Nếu có nhập mật khẩu mới thì hash và cập nhật
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                 $stmt = $conn->prepare("UPDATE users SET username = ?, phone = ?, email = ?, password = ?, status = ?, role = ? WHERE id = ?");
                 $stmt->bind_param("ssssiii", $username, $phone, $email, $hashedPassword, $status, $role, $id);

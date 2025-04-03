@@ -25,8 +25,11 @@
             throw new Exception('Thêm tài khoản không thành công');
         }
     } elseif (isset($_POST["sua"])) {
-        $userId = $_GET['uid'] ?? null;
+        $userId = $_POST['id'];
         $userId = (int)$userId;
+        if ($userId <= 0) {
+            throw new Exception("Id nho hon khong");
+        }
         $username = $_POST['username'] ?? '';
         $phone = $_POST['phone'] ?? '';
         $email = $_POST['email'] ?? '';
