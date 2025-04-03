@@ -17,7 +17,7 @@ class TKModel
                 }
 
                 // Prepare and bind
-                $stmt = $conn->prepare("INSERT INTO users (username, phone, email, password, status, role) VALUES (?, ?, ?, ?, ?, ?)");
+                $stmt = $conn->prepare("INSERT INTO user (username, phone, email, password, status, role) VALUES (?, ?, ?, ?, ?, ?)");
                 $stmt->bind_param("ssssii", $username, $phone, $email, $hashedPassword, $status, $role);
                 // Execute the statement
                 return $stmt->execute();

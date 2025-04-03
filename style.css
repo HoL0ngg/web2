@@ -287,6 +287,10 @@
     height: 100%;
     /* gap: 20px; */
 }
+a{
+    color: inherit; 
+    text-decoration: none;
+}
 
 #left-bot-header>div {
     padding: 0 16px;
@@ -859,6 +863,8 @@ input[type=password] {
     width: 81%;
     margin: 0 auto;
     padding-left: 9px;
+    display: flex;
+    justify-content: space-between;
 }
 #product-container {
     display: flex;
@@ -957,3 +963,138 @@ input[type=password] {
     background-color: #5cb3f1;
     color: white;
 }
+    #product-menu{
+    position: absolute;
+    height: fit-content;
+    width: fit-content;
+    top: 100%;
+    left: 21%;
+    right: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s;
+}
+#product-menu-nav>ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    height: max-content;
+}
+#product-menu-nav>ul>li{
+    width: 100%;
+    color: black;
+    background-color: white;
+    font-size: small;
+    font-family: 'HelveticaNeue', 'Arial', sans-serif;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+#product-menu-nav>ul>li>a{
+    display: flex;
+    align-items: center;
+    text-decoration: none; /* Loại bỏ gạch chân */
+
+}
+/* #product-menu-nav>ul>li>a>span{
+    width: 500px;
+} */
+#product-menu-nav>ul>li:hover{
+    background-color: rgb(219, 219, 219);
+}
+img{
+    vertical-align: middle;
+    border-style: none;
+    width: 30px;
+}
+.product-menu-nav-img{
+    padding: 10px 20px;
+    font-weight: 500;
+}
+#sp:hover #product-menu,
+#product-menu:hover {
+    opacity: 1;
+    visibility: visible;
+}
+#leftmenu_product{
+    width: 45%;
+    margin-right: 10px;
+}
+#leftmenu_product_checkbox>ul>li{
+    list-style-type: none;
+    text-align: start;
+    padding: 7px;
+}
+#leftmenu_product_checkbox>ul{
+    padding: 0;
+    margin: 0;
+}
+#leftmenu_product_title{
+    text-align: center;
+    width: 100%;
+    height: 100px;
+    border-bottom: solid 2px rgb(200, 200, 200) ;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+#leftmenu_product_thuonghieu{
+    text-align: center;
+    width: 100%;
+    height: 200px;
+    border-bottom: solid 2px rgb(200, 200, 200) ;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+#leftmenu_product_thuonghieu_title{
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+#leftmenu_product_gia{
+    text-align: center;
+    width: 100%;
+    height: 123px;
+    border-bottom: solid 2px rgb(200, 200, 200) ;
+    margin-bottom: 10px;
+}
+#leftmenu_product_range>input{
+    width: 100%;
+}
+#min-price{
+    float: left;
+    width: 50%;
+    text-align: left;
+}
+#max-price{
+    float: right;
+    width: 50%;
+    text-align: right;
+}
+#leftmenu_product_button{
+    margin-top: 10px;
+    width: 100%;
+}
+#leftmenu_product_button input{
+    width: 100%;
+    height: 35%;
+}
+#leftmenu_product_danhmucsanpham{
+    text-align: center;
+    width: 100%;
+    height: calc( 100% - 377px );
+    overflow-y: auto;
+}
+leftmenu_product_danhmucsanpham_tittle{
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+#rightmenu_product{
+    display: flex;
+    flex-direction: column;
+}
+

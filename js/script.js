@@ -388,9 +388,9 @@ window.addEventListener("scroll", function () {
         // this.document.getElementById("bot-header").style.height = '60px';
     }
 });
-function display_filter() {
-    document.getElementById("filter-menu").classList.toggle("active");
-}
+// function display_filter() {
+//     document.getElementById("filter-menu").classList.toggle("active");
+// }
 
 //PRODUCT
 const product = [
@@ -504,6 +504,20 @@ function phantrang(pagenum, proArray, numOfProducts){
     }
     changeColorPagenum();
 }
+
+
+const priceRange = document.getElementById('price-range');
+const minPrice = document.getElementById('min-price');
+const maxPrice = document.getElementById('max-price');
+
+// Lắng nghe sự kiện thay đổi giá trị của thanh trượt
+priceRange.addEventListener('input', function() {
+  const currentValue = priceRange.value;
+  minPrice.textContent = `0đ`;
+  maxPrice.textContent = currentValue + "đ";
+});
+
+
 window.onload = function () {
     closeButton();
     loginNotification();
@@ -518,3 +532,4 @@ window.onload = function () {
     // changeColorPagenum();
     phantrang(1,product,8);
 }
+
