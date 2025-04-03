@@ -30,6 +30,7 @@ class TKModel
                     $stmt = $conn->prepare("INSERT INTO users (username, phone, email, password, status, role) VALUES (?, ?, ?, ?, ?, ?)");
                     $stmt->bind_param("ssssii", $username, $phone, $email, $hashedPassword, $status, $role);
 
+
                     $result = $stmt->execute();
                     $stmt->close();
 
