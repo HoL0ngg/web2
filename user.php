@@ -14,12 +14,13 @@
                      <th>Tên</th>
                      <th>Số điện thoại</th>
                      <th>Email</th>
+                     <th>Trạng thái</th>
                      <th>Vai trò</th>
-                     <th>Hành động</th>
+                     <th>Hàng động</th>
                  </tr>
              </thead>
-             <tbody>
-                 <tr>
+             <tbody id="userTable">
+                 <!-- <tr>
                      <td>1</td>
                      <td>Nguyễn Văn A</td>
                      <td>00009625566</td>
@@ -40,7 +41,7 @@
                          <a href="admin.php?page=user&act=update"><button class="edit-btn">✏️ Sửa</button></a>
                          <button class="delete-btn">❌ Xóa</button>
                      </td>
-                 </tr>
+                 </tr> -->
              </tbody>
          </table>
      </section>

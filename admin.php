@@ -10,6 +10,9 @@
 </head>
 
 <body>
+    <!-- Toast -->
+    <div id="toast"></div>
+
     <div id="container">
         <div id="container-left">
             <div id="logo">
@@ -89,11 +92,17 @@
                         switch ($act) {
                             case 'add':
                                 $addAcc = new AccountFunction();
-                                $addAcc->accountForm("THÊM TÀI KHOẢN");
+                                $addAcc->accountForm("THÊM TÀI KHOẢN", "addUserForm");
                                 break;
                             case 'update':
+                                require_once("TKModel.php");
+                                $id = $_GET['uid'] ?? '';
+                                $id = (int)$id;
+                                $tkmodel = new TKModel();
+                                $user = $tkmodel->getUserById($id);
                                 $addAcc = new AccountFunction();
-                                $addAcc->accountForm("SỬA THÔNG TIN TÀI KHOẢN");
+                                $addAcc->accountForm("SỬA TÀI KHOẢN", "updateUserForm", $user);
+                                break;
                             default:
                                 # code...
                                 break;
