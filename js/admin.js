@@ -74,26 +74,30 @@ const userFormHandler = function(event) {
     .then(data => {
         if (data.success) {
             handleSuccessResponse(data);
-        } else {
-            console.log((data));
-            
-            handleSuccessResponse(data);
+        } else {            
+            handleErrorResponse(data);
             console.error("Lỗi:", data.message);
         }
     })
-    .catch(error => console.error("Lỗi hệ thống: ", error));
+    .catch(error => {
+        console.error("Lỗi hệ thống: ", error);
+        showToast("Lỗi hệ thống", false);
+    });
 };
 
 // Hàm xử lý chung khi thành công
-function handleSuccessResponse(data) {
+function handleSuccessResponse(data) {    
     sessionStorage.setItem("toastMessage", data.message);
     sessionStorage.setItem("toastSuccess", data.success);
     
-    if (data.redirect) {
+    if (data.redirect && data.success) {
         window.location.href = data.redirect;
     }
 }
-
+function handleErrorResponse(data) {
+    showToast(data.message, false);
+    // Không chuyển hướng khi có lỗi
+}
 // Gắn sự kiện submit vào các form nếu tồn tại
 if (addUserFrm) {
     addUserFrm.addEventListener("submit", userFormHandler);
@@ -128,7 +132,7 @@ async function loadUsers() {
                          <td>${user.role == 1 ? "Admin" : "User"}</td>
                          <td>
                              <a href="admin.php?page=user&act=update&uid=${user.id}"><button class="edit-btn">✏️ Sửa</button></a>
-                             <button class="delete-btn">❌ Xóa</button>
+                             <button class="delete-btn-user" data-id=${user.id}>❌ Xóa</button>
                          </td>            
                      </tr>`;
         });
@@ -137,15 +141,52 @@ async function loadUsers() {
         userTable.innerHTML = rows;
     }
 }
+function deleteUser(){
+    const delButtons = document.querySelectorAll(".delete-btn-user");
+    console.log(delButtons);
+    
+    if(delButtons.length > 0){
+        delButtons.forEach(button => {
+            button.addEventListener("click", function(){
+                console.log("hihi");
+                
+                let userId = button.getAttribute("data-id");
+                let dataForm = new FormData();
+                dataForm.append('action', 'xoa');
+                dataForm.append('id',userId);
+                fetch("handles/handleUser.php", {
+                    method: "POST",
+                    body: dataForm
+                })
+                .then(response => response.json())
+                .then(data =>{
+                    if(data.success){
+                        handleSuccessResponse(data);
+                    }else{
+                        handleErrorResponse(data);
+                    }
+                })
+                .catch(error => {
+                    console.error("Lỗi hệ thống: ", error);
+                    showToast("Lỗi hệ thống", false);
+                })
+            });
+        });
+    }
+}
 window.onload = function () {
     effectSideBar();
     hiddenSideBar();  
     // addUsers();
     // addUsers();
+    deleteUser();
     loadUsers();      
     let message = sessionStorage.getItem("toastMessage");
-    let success = sessionStorage.getItem("toastSuccess");
-
+    let success = sessionStorage.getItem("toastSuccess") === "true";
+    console.log(message);
+    console.log(success);
+    
+    
     if (message) {
         showToast(message, success); // Chuyển đổi string thành boolean
         sessionStorage.removeItem("toastMessage");

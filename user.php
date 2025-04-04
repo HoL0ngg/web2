@@ -28,7 +28,7 @@
                      <td>Admin</td>
                      <td>
                          <a href="admin.php?page=user&act=update"><button class="edit-btn">✏️ Sửa</button></a>
-                         <button class="delete-btn">❌ Xóa</button>
+                         <button class="delete-btn-user">❌ Xóa</button>
                      </td>
                  </tr>
                  <tr>
@@ -39,7 +39,7 @@
                      <td>Người dùng</td>
                      <td>
                          <a href="admin.php?page=user&act=update"><button class="edit-btn">✏️ Sửa</button></a>
-                         <button class="delete-btn">❌ Xóa</button>
+                         <button class="delete-btn-user">❌ Xóa</button>
                      </td>
                  </tr> -->
              </tbody>
@@ -129,7 +129,7 @@
 
      /* Nút chỉnh sửa & xóa */
      .edit-btn,
-     .delete-btn {
+     .delete-btn-user {
          border: none;
          /* padding: 5px 10px; */
          width: 70px;
@@ -144,7 +144,7 @@
          background: white;
      }
 
-     .delete-btn {
+     .delete-btn-user {
          background: white;
          color: black;
      }
@@ -153,7 +153,7 @@
          background: #D4AC0D;
      }
 
-     .delete-btn:hover {
+     .delete-btn-user:hover {
          background: #C0392B;
      }
  </style>

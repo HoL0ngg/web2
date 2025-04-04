@@ -7,6 +7,8 @@
         'redirect' => ''
     ];
     $action = $_POST['action'] ?? '';
+    $userId = isset($_POST['id']) ? (int)$_POST['id'] : 0;
+
     if ($action === 'add') {
         $username = $_POST['username'] ?? '';
         $phone = $_POST['phone'] ?? '';
@@ -26,14 +28,13 @@
         } else {
             $response = [
                 'success' => false,
-                'message' => 'Thêm không thành công',
-                'redirect' => '/admin.php?page=user&act=add'
+                'message' => 'Thêm tài khoản không thành công!',
+                'redirect' => ''
             ];
-            throw new Exception('Thêm tài khoản không thành công');
         }
     } elseif ($action === 'update') {
-        $userId = $_POST['id'];
-        $userId = (int)$userId;
+        // $userId = $_POST['id'];
+        // $userId = (int)$userId;
         if ($userId <= 0) {
             throw new Exception("Id nho hon khong");
         }
@@ -51,15 +52,32 @@
             $response = [
                 'success' => true,
                 'message' => 'Cập nhật tài khoản thành công',
-                'redirect' => '/admin.php?page=user'
+                'redirect' => 'admin.php?page=user'
             ];
         } else {
             $response = [
                 'success' => false,
                 'message' => 'Cập nhật tài khoản không thành công',
-                // 'redirect' => '/admin.php?page=user&act=update'
+                // 'redirect' => 'admin.php?page=user&act=update&uid=' . $userid
+                'redirect' => ''
             ];
             // throw new Exception('Cập nhật không thành công');
+        }
+    } elseif ($action === 'xoa') {
+        $userModel = new TKModel();
+        $result = $userModel->xoa($userId);
+        if ($result) {
+            $response = [
+                'success' => true,
+                'message' => 'Xóa tài khoản thành công!',
+                'redirect' => 'admin.php?page=user'
+            ];
+        } else {
+            $response = [
+                'success' => false,
+                'message' => 'Xóa tài khoản không thành công!',
+                'redirect' => ''
+            ];
         }
     }
 

@@ -107,5 +107,21 @@ class TKModel
         return $user;
     }
 
-    public function xoa($id) {}
+    public function xoa($id)
+    {
+        $sql = "DELETE FROM users WHERE id = ?";
+        $conn = $this->db->getConnection();
+        if ($conn->connect_error) {
+            die('Connection failed: ' . $conn->connect_error);
+        }
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        if (!$stmt->execute()) {
+            die('Execute failed: ' . $stmt->error);
+        }
+        $result = $stmt->execute(); // return true/false
+        $stmt->close();
+        $this->db->closeConnection();
+        return $result;
+    }
 }
