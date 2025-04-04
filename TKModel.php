@@ -111,17 +111,25 @@ class TKModel
     {
         $sql = "DELETE FROM users WHERE id = ?";
         $conn = $this->db->getConnection();
+
         if ($conn->connect_error) {
-            die('Connection failed: ' . $conn->connect_error);
+            return false; // Lỗi kết nối
         }
+
         $stmt = $conn->prepare($sql);
+        if (!$stmt) {
+            return false; // Lỗi khi chuẩn bị truy vấn
+        }
+
         $stmt->bind_param("i", $id);
         if (!$stmt->execute()) {
-            die('Execute failed: ' . $stmt->error);
+            return false; // Lỗi khi thực thi truy vấn
         }
-        $result = $stmt->execute(); // return true/false
+
+        $affectedRows = $stmt->affected_rows;
         $stmt->close();
         $this->db->closeConnection();
-        return $result;
+
+        return $affectedRows > 0; // Trả về true nếu có bản ghi bị xóa, ngược lại false
     }
 }
