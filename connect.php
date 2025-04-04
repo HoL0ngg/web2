@@ -2,7 +2,7 @@
     $servername = "localhost";
     $usernamedb = "root";
     $password = "";
-    $dbname = "web2_test";
+    $dbname = "webbanhang";
 
     // Create connection
     $conn = new mysqli($servername, $usernamedb, $password, $dbname);

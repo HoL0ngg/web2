@@ -13,7 +13,7 @@ class AccountFunction
 
         echo '<div class="container-addaccount">
             <h2>' . $title . '</h2>
-            <form action="handles/handleUser.php" method="post" id="' . $id . '">
+            <form  method="post" id="' . $id . '">
                 <!-- Thêm trường ẩn để gửi ID người dùng khi sửa -->
                 ' . ($userData ? '<input type="hidden" name="id" value="' . ($userData['id'] ?? '') . '">' : '') . '
 
@@ -46,4 +46,4 @@ class AccountFunction
         </div>';
     }
 }
-// htmlspecialchars Cross-site scripting tranh ma doc
+// htmlspecialchars Cross-site scripting tranh ma doc action="handles/handleUser.php"

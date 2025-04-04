@@ -65,7 +65,6 @@ class TKModel
             $checkStmt->execute();
             if (mysqli_num_rows($checkStmt->get_result()) > 0) {
                 $checkStmt->close();
-
                 return false; // Email đã tồn tại cho user khác
             }
             $checkStmt->close();
@@ -107,4 +106,6 @@ class TKModel
         $user = $result->fetch_assoc(); //fetch dữ liệu dưới dạng associative array
         return $user;
     }
+
+    public function xoa($id) {}
 }

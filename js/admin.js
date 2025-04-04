@@ -35,56 +35,72 @@ function hiddenSideBar() {
         icon.classList.toggle("fa-greater-than");
     });
 }
-function showToast(message, type) {
-    let toast = document.getElementById("toast");
-    toast.innerText = message;
-    toast.style.backgroundColor = type ? '#219150' : ' rgba(255, 0, 0, 0.9)';
-    toast.style.display = 'block';
-    setTimeout(() => {
-        toast.style.display = 'none';
-    }, 4000);
+
+// Hàm hiển thị toast
+function showToast(message, isSuccess) {
+    Swal.fire({
+        icon: isSuccess ? "success" : "error",
+        title: isSuccess ? "Thành công!" : "Lỗi!",
+        text: message,
+        toast: true, // Hiển thị dạng toast nhỏ thay vì popup lớn
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3500,
+        timerProgressBar: true,
+        background: isSuccess ? "#f0fff4" : "#fff0f0",
+        color: isSuccess ? "#2d7d46" : "#d33",
+    });
 }
-// function addUsers() {
-//     let addUserFrm = document.getElementById("addUserForm");
+ 
+// Lấy form element
+// Lấy các form elements
+const addUserFrm = document.getElementById("addUserForm");
+const updateUserFrm = document.getElementById("updateUserForm");
 
-//     // Định nghĩa handler cho submit để có thể xóa sự kiện sau
-//     const submitHandler = function(event) {
-//         event.preventDefault();
+// Định nghĩa handler chung cho cả thêm và sửa user
+const userFormHandler = function(event) {
+    event.preventDefault();
+    
+    const formData = new FormData(this);
+    
+    // Thêm action vào formData để server biết là thêm hay sửa
+    formData.append('action', this.id === 'addUserForm' ? 'add' : 'update');
+    
+    fetch("handles/handleUser.php", {  // Dùng chung endpoint
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            handleSuccessResponse(data);
+        } else {
+            console.log((data));
+            
+            handleSuccessResponse(data);
+            console.error("Lỗi:", data.message);
+        }
+    })
+    .catch(error => console.error("Lỗi hệ thống: ", error));
+};
 
-//         let formData = new FormData(this);
-        
-//         fetch("handles/addUsers.php", {
-//             method: "POST",
-//             body: formData
-//         })
-//         .then(response => response.json())
-//         .then(data => {
-//             // showToast(data.message, data.success);
-
-//             if (data.success) {
-//                 this.reset();
-//                 // loadUsers();                                
-//                 addUserFrm.removeEventListener("submit", submitHandler);
-
-//                 //Lưu thông báo vào sessionStorage trước khi chuyển hướng
-//                 sessionStorage.setItem("toastMessage", data.message);
-//                 sessionStorage.setItem("toastSuccess", data.success);
-//                 window.location.href = "../admin.php?page=user";                
-//             }
-//         })
-//         .catch(error => console.error("Lỗi: ", error));
-//     };
-
-//     // Gắn sự kiện submit vào form
-//     addUserFrm.addEventListener("submit", submitHandler);
-// }
-async function addUserNotification(){
-    const response = await fetch("handles/handleUser.php");
-    const notification = await response.json();
-    if(notification.success){
-        sessionStorage.setItem("toastMessage", data.message);
-        sessionStorage.setItem("toastSuccess", data.success);
+// Hàm xử lý chung khi thành công
+function handleSuccessResponse(data) {
+    sessionStorage.setItem("toastMessage", data.message);
+    sessionStorage.setItem("toastSuccess", data.success);
+    
+    if (data.redirect) {
+        window.location.href = data.redirect;
     }
+}
+
+// Gắn sự kiện submit vào các form nếu tồn tại
+if (addUserFrm) {
+    addUserFrm.addEventListener("submit", userFormHandler);
+}
+
+if (updateUserFrm) {
+    updateUserFrm.addEventListener("submit", userFormHandler);
 }
 
 async function loadUsers() {        

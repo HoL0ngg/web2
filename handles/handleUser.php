@@ -1,11 +1,13 @@
     <?php
+    header('Content-Type: application/json');
     require_once("../TKModel.php");
     $response = [
         'success' => false,
         'message' => '',
         'redirect' => ''
     ];
-    if (isset($_POST["them"])) {
+    $action = $_POST['action'] ?? '';
+    if ($action === 'add') {
         $username = $_POST['username'] ?? '';
         $phone = $_POST['phone'] ?? '';
         $email = $_POST['email'] ?? '';
@@ -22,9 +24,14 @@
                 'redirect' => '/admin.php?page=user'
             ];
         } else {
+            $response = [
+                'success' => false,
+                'message' => 'Thêm không thành công',
+                'redirect' => '/admin.php?page=user&act=add'
+            ];
             throw new Exception('Thêm tài khoản không thành công');
         }
-    } elseif (isset($_POST["sua"])) {
+    } elseif ($action === 'update') {
         $userId = $_POST['id'];
         $userId = (int)$userId;
         if ($userId <= 0) {
@@ -47,10 +54,15 @@
                 'redirect' => '/admin.php?page=user'
             ];
         } else {
-            throw new Exception('Cập nhật không thành công');
+            $response = [
+                'success' => false,
+                'message' => 'Cập nhật tài khoản không thành công',
+                // 'redirect' => '/admin.php?page=user&act=update'
+            ];
+            // throw new Exception('Cập nhật không thành công');
         }
     }
-    header('Content-Type: application/json');
+
     echo json_encode($response);
     exit();
     ?>
