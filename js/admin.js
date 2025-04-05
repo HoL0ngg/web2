@@ -141,52 +141,92 @@ async function loadUsers() {
         userTable.innerHTML = rows;
     }
 }
-function deleteUser(){
-    const delButtons = document.querySelectorAll(".delete-btn-user");
-    console.log(delButtons);
-    
-    if(delButtons.length > 0){
-        delButtons.forEach(button => {
-            button.addEventListener("click", function(){
-                console.log("hihi");
-                
-                let userId = button.getAttribute("data-id");
+document.addEventListener("click", function(event) {
+    if (event.target.classList.contains("delete-btn-user")) {
+        let userId = event.target.getAttribute("data-id");
+
+        Swal.fire({
+            title: "Xác nhận xóa",
+            text: "Bạn có chắc chắn muốn xóa người dùng này không?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Xóa",
+            cancelButtonText: "Hủy"
+        }).then((result) => {
+            if (result.isConfirmed) { // return true khi nhan confirmbuttontext(xoa), return false khi nhan cancel(Huy)
                 let dataForm = new FormData();
                 dataForm.append('action', 'xoa');
-                dataForm.append('id',userId);
+                dataForm.append('id', userId);
+
                 fetch("handles/handleUser.php", {
                     method: "POST",
                     body: dataForm
                 })
                 .then(response => response.json())
-                .then(data =>{
-                    if(data.success){
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire("Đã xóa!", "Người dùng đã bị xóa.", "success");
                         handleSuccessResponse(data);
-                    }else{
+                    } else {
+                        Swal.fire("Lỗi!", "Không thể xóa người dùng.", "error");
                         handleErrorResponse(data);
                     }
                 })
                 .catch(error => {
                     console.error("Lỗi hệ thống: ", error);
-                    showToast("Lỗi hệ thống", false);
-                })
-            });
+                    Swal.fire("Lỗi!", "Có lỗi xảy ra trong hệ thống.", "error");
+                });
+            }
         });
     }
-}
+});
+
+// function deleteUser(){
+//     const delButtons = document.querySelectorAll(".delete-btn-user");
+//     console.log(delButtons);
+    
+//     if(delButtons.length > 0){
+//         delButtons.forEach(button => {
+//             button.addEventListener("click", function(){
+//                 console.log("hihi");
+                
+//                 let userId = button.getAttribute("data-id");
+//                 let dataForm = new FormData();
+//                 dataForm.append('action', 'xoa');
+//                 dataForm.append('id',userId);
+//                 fetch("handles/handleUser.php", {
+//                     method: "POST",
+//                     body: dataForm
+//                 })
+//                 .then(response => response.json())
+//                 .then(data =>{
+//                     if(data.success){
+//                         handleSuccessResponse(data);
+//                     }else{
+//                         handleErrorResponse(data);
+//                     }
+//                 })
+//                 .catch(error => {
+//                     console.error("Lỗi hệ thống: ", error);
+//                     showToast("Lỗi hệ thống", false);
+//                 })
+//             });
+//         });
+//     }
+// }
 window.onload = function () {
     effectSideBar();
     hiddenSideBar();  
     // addUsers();
     // addUsers();
-    deleteUser();
     loadUsers();      
+    
     let message = sessionStorage.getItem("toastMessage");
     let success = sessionStorage.getItem("toastSuccess") === "true";
     console.log(message);
     console.log(success);
-    
-    
     if (message) {
         showToast(message, success); // Chuyển đổi string thành boolean
         sessionStorage.removeItem("toastMessage");
@@ -194,6 +234,6 @@ window.onload = function () {
     }else{
         console.log("Khong tim thay message");
         
-    }
+    }    
 };
 

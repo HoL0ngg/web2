@@ -66,19 +66,11 @@
     } elseif ($action === 'xoa') {
         $userModel = new TKModel();
         $result = $userModel->xoa($userId);
-        if ($result) {
-            $response = [
-                'success' => true,
-                'message' => 'Xóa tài khoản thành công!',
-                'redirect' => 'admin.php?page=user'
-            ];
-        } else {
-            $response = [
-                'success' => false,
-                'message' => 'Xóa tài khoản không thành công!',
-                'redirect' => ''
-            ];
-        }
+        $response = [
+            'success' => $result,
+            'message' => $result ? 'Xóa tài khoản thành công!' : 'Xóa tài khoản không thành công!',
+            'redirect' => $result ? 'admin.php?page=user' : ''
+        ];
     }
 
     echo json_encode($response);
