@@ -287,8 +287,9 @@
     height: 100%;
     /* gap: 20px; */
 }
-a{
-    color: inherit; 
+
+a {
+    color: inherit;
     text-decoration: none;
 }
 
@@ -665,24 +666,25 @@ input[type=password] {
 }
 
 .footer-item {
-    width: 25%;    
+    width: 25%;
     align-self: center;
     padding: 20px 20px 0 20px;
     /* border: 2px solid red; */
 }
-.footer-item:first-child{    
-    height: 200px; 
+
+.footer-item:first-child {
+    height: 200px;
     text-align: center;
-    line-height: 200px;   
+    line-height: 200px;
     position: relative;
 }
 
-#footer #footer-container .footer-item img {    
+#footer #footer-container .footer-item img {
     position: absolute;
     width: 270px;
     left: 50%;
     top: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
 }
 
 
@@ -851,8 +853,9 @@ input[type=password] {
         opacity: 0;
     }
 }
+
 /* Content */
-#content-wrapper {    
+#content-wrapper {
     /* position: absolute;
     top: 50%;
     left: 50%;
@@ -866,13 +869,15 @@ input[type=password] {
     display: flex;
     justify-content: space-between;
 }
+
 #product-container {
     display: flex;
     flex-flow: row wrap;
     justify-content: stretch;
     align-items: center;
-    gap: 11px;    
+    gap: 11px;
 }
+
 .product {
     border: 2px solid rgba(0, 0, 0, 0.3);
     width: calc(25% - 11px);
@@ -883,7 +888,8 @@ input[type=password] {
     overflow: hidden;
     position: relative;
 }
-.product img{
+
+.product img {
     height: 220px;
     width: 100%;
     margin-bottom: 20px;
@@ -891,9 +897,11 @@ input[type=password] {
     transition: all 0.2 ease;
     /* border: 2px solid red; */
 }
-.product p{
+
+.product p {
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* Giới hạn số dòng */
+    -webkit-line-clamp: 2;
+    /* Giới hạn số dòng */
     -webkit-box-orient: vertical;
     overflow: hidden;
     width: 95%;
@@ -901,23 +909,27 @@ input[type=password] {
     margin: 0 auto;
     /* border: 2px solid red; */
 }
-.product img:hover{
+
+.product img:hover {
     scale: 1.1;
 }
+
 /* .product-info {
 
 } */
-.product-info div{
+.product-info div {
     margin: 20px 0;
 }
+
 .product-price {
     color: #333133;
-    font-weight: 700;   
+    font-weight: 700;
     position: absolute;
     bottom: 15%;
     left: 50%;
     transform: translateX(-50%);
 }
+
 .add-to-cart {
     border: none;
     padding: 10px;
@@ -932,18 +944,20 @@ input[type=password] {
     left: 50%;
     transform: translateX(-50%);
 }
-.add-to-cart:hover{
+
+.add-to-cart:hover {
     opacity: 0.8;
 }
 
-#pagenum{
+#pagenum {
     /* border: 2px solid red; */
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 10px 0px 7px 0px;
 }
-#pagenum div{    
+
+#pagenum div {
     border-radius: 7px;
     background-color: #E0E0E0;
     margin: 7px;
@@ -955,15 +969,18 @@ input[type=password] {
     font-weight: 600;
     font-size: 1.1rem;
 }
-#pagenum div:hover{
+
+#pagenum div:hover {
     background-color: #5cb3f1;
     color: white;
 }
-#pagenum .active{
+
+#pagenum .active {
     background-color: #5cb3f1;
     color: white;
 }
-    #product-menu{
+
+#product-menu {
     position: absolute;
     height: fit-content;
     width: fit-content;
@@ -974,13 +991,15 @@ input[type=password] {
     visibility: hidden;
     transition: all 0.5s;
 }
-#product-menu-nav>ul{
+
+#product-menu-nav>ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     height: max-content;
 }
-#product-menu-nav>ul>li{
+
+#product-menu-nav>ul>li {
     width: 100%;
     color: black;
     background-color: white;
@@ -989,112 +1008,131 @@ input[type=password] {
     padding-left: 15px;
     padding-right: 15px;
 }
-#product-menu-nav>ul>li>a{
+
+#product-menu-nav>ul>li>a {
     display: flex;
     align-items: center;
-    text-decoration: none; /* Loại bỏ gạch chân */
+    text-decoration: none;
+    /* Loại bỏ gạch chân */
 
 }
+
 /* #product-menu-nav>ul>li>a>span{
     width: 500px;
 } */
-#product-menu-nav>ul>li:hover{
+#product-menu-nav>ul>li:hover {
     background-color: rgb(219, 219, 219);
 }
-img{
+
+img {
     vertical-align: middle;
     border-style: none;
     width: 30px;
 }
-.product-menu-nav-img{
+
+.product-menu-nav-img {
     padding: 10px 20px;
     font-weight: 500;
 }
+
 #sp:hover #product-menu,
 #product-menu:hover {
     opacity: 1;
     visibility: visible;
 }
-#leftmenu_product{
+
+#leftmenu_product {
     width: 45%;
     margin-right: 10px;
 }
-#leftmenu_product_checkbox>ul>li{
+
+#leftmenu_product_checkbox>ul>li {
     list-style-type: none;
     text-align: start;
     padding: 7px;
 }
-#leftmenu_product_checkbox>ul{
+
+#leftmenu_product_checkbox>ul {
     padding: 0;
     margin: 0;
 }
-#leftmenu_product_title{
+
+#leftmenu_product_title {
     text-align: center;
     width: 100%;
     height: 100px;
-    border-bottom: solid 2px rgb(200, 200, 200) ;
+    border-bottom: solid 2px rgb(200, 200, 200);
     font-size: 18px;
     text-transform: uppercase;
     font-weight: 500;
     margin-bottom: 10px;
 }
 
-#leftmenu_product_thuonghieu{
+#leftmenu_product_thuonghieu {
     text-align: center;
     width: 100%;
     height: 200px;
-    border-bottom: solid 2px rgb(200, 200, 200) ;
+    border-bottom: solid 2px rgb(200, 200, 200);
     margin-bottom: 10px;
     padding: 10px;
 }
-#leftmenu_product_thuonghieu_title{
+
+#leftmenu_product_thuonghieu_title {
     font-size: 18px;
     text-transform: uppercase;
     font-weight: 500;
     margin-bottom: 10px;
 }
-#leftmenu_product_gia{
+
+#leftmenu_product_gia {
     text-align: center;
     width: 100%;
     height: 123px;
-    border-bottom: solid 2px rgb(200, 200, 200) ;
+    border-bottom: solid 2px rgb(200, 200, 200);
     margin-bottom: 10px;
 }
-#leftmenu_product_range>input{
+
+#leftmenu_product_range>input {
     width: 100%;
 }
-#min-price{
+
+#min-price {
     float: left;
     width: 50%;
     text-align: left;
 }
-#max-price{
+
+#max-price {
     float: right;
     width: 50%;
     text-align: right;
 }
-#leftmenu_product_button{
+
+#leftmenu_product_button {
     margin-top: 10px;
     width: 100%;
 }
-#leftmenu_product_button input{
+
+#leftmenu_product_button input {
     width: 100%;
     height: 35%;
 }
-#leftmenu_product_danhmucsanpham{
+
+#leftmenu_product_danhmucsanpham {
     text-align: center;
     width: 100%;
-    height: calc( 100% - 377px );
+    height: calc(100% - 377px);
     overflow-y: auto;
 }
-leftmenu_product_danhmucsanpham_tittle{
+
+leftmenu_product_danhmucsanpham_tittle {
     font-size: 18px;
     text-transform: uppercase;
     font-weight: 500;
     margin-bottom: 10px;
 }
-#rightmenu_product{
+
+#rightmenu_product {
     display: flex;
     flex-direction: column;
 }
-

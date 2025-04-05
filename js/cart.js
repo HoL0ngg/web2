@@ -6,7 +6,7 @@ document.querySelectorAll('.plus').forEach(button => {
         quantityElement.textContent = currentQuantity + 1;
 
         // Cập nhật giỏ hàng nếu cần
-        // updateCart();
+        updateCart();
     });
 })
 
@@ -19,7 +19,31 @@ document.querySelectorAll('.minus').forEach(button => {
             quantityElement.textContent = currentQuantity - 1;
 
             // Cập nhật giỏ hàng nếu cần
-            // updateCart();
+            updateCart();
         }
     });
 });
+
+document.querySelectorAll('.cart-remove').forEach(button => {
+    button.addEventListener('click', function () {
+        const cartItem = this.closest('.cart-item');
+        cartItem.remove();
+
+        // Cập nhật giỏ hàng nếu cần
+        updateCart();
+    });
+})
+
+updateCart = () => {
+    const cartItems = document.querySelectorAll('.cart-item');
+    let total = 0;
+
+    cartItems.forEach(item => {
+        const price = parseFloat(item.querySelector('.new-price').textContent.replace('₫', '').replace('.', ''));
+        const quantity = parseInt(item.querySelector('.cart-quantity').textContent);
+        total += price * quantity;
+    });
+
+
+    document.querySelector('.total-price').textContent = total.toLocaleString('vi-VN') + '₫';
+}

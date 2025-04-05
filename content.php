@@ -10,14 +10,14 @@
 
 <body> -->
 <div id="content-wrapper">
-<?php
-    if(isset($_GET['maChungloai'])){
+    <?php
+    if (isset($_GET['maChungloai'])) {
         echo "
             <div id='leftmenu_product'>
                 <div id='leftmenu_product_title'>
                     Danh Mục";
-                    include('get_chungloaisanpham');
-                echo"</div>
+        include('get_chungloaisanpham');
+        echo "</div>
                 <div id='leftmenu_product_thuonghieu'>
                     <div id='leftmenu_product_thuonghieu_title'>
                        Thương Hiệu
@@ -64,15 +64,15 @@
                     <div id='leftmenu_product_checkbox'>
                         <ul id='loaisanpham-list'>";
 
-include('get_loaisanpham.php');
+        include('get_loaisanpham.php');
 
-echo "          </ul>
+        echo "          </ul>
                     </div>
                 </div>  
             </div>
         ";
     }
-?>
+    ?>
 
     <div id="rightmenu_product">
         <div id="product-container"></div>

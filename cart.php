@@ -13,44 +13,23 @@
 
 <body>
     <?php include("header.php") ?>
-    <div style="width: max-content; margin: 32px auto 0px; padding: 24px 48px; background-color:rgb(168, 213, 243); border-radius: 10px">
+    <div style="width: 42%; margin: 32px auto 0px; padding: 24px 48px; background-color:rgba(52, 152, 219, 0.5); border-radius: 10px">
         <div class="progress-container">
             <div class="progress-step active" data-step="Giỏ hàng"><i class="fa-solid fa-cart-shopping"></i></div>
-            <span class="progress-line active"></span>
-            <div class="progress-step active" data-step="Thông tin cá nhân"><i class="fa-solid fa-address-card"></i></div>
+            <span class="progress-line"></span>
+            <div class="progress-step" data-step="Thông tin cá nhân"><i class="fa-solid fa-address-card"></i></div>
             <span class="progress-line"></span>
             <div class="progress-step" data-step="Hóa đơn"><i class="fa-solid fa-receipt"></i></div>
             <span class="progress-line"></span>
             <div class="progress-step" data-step="Hoàn tất"><i class="fa-solid fa-circle-check"></i></div>
         </div>
     </div>
-    <div id="cart-info">
-        <div class="cart-item">
-            <div class="cart-image">
-                <img src="/img/img1.jpg" alt="Son">
-            </div>
-            <div class="cart-info">
-                <p class="cart-title"><strong>[NEW][Màu 1-39] Son Tint Lì, Căng Bóng Romand The Juicy Lasting Tint</strong></p>
-                <p class="cart-color">07 JUJUBE</p>
-                <i class="fa-solid fa-trash"></i>
-                <span class="cart-remove">Xóa</span>
-            </div>
-            <div class="cart-price">
-                <div class="new-price">152.150đ</div>
-                <div class="old-price">334.000đ</div>
-                <div class="cart-quantity">
-                    <button class="minus">-</button>
-                    <p>1</p>
-                    <button class="plus">+</button>
-                </div>
-            </div>
-        </div>
 
-    </div>
-
+    <!-- <?php include("cart-info.php") ?> -->
+    <?php include("customer-info.php") ?>
+    <?php include("footer.php") ?>
     <?php include("login-wrapper.php") ?>
     <?php include("register-wrapper.php") ?>
     <?php include("changepassword-wrapper.php") ?>
-    <script src="/js/cart.js"></script>
     <script src="/js/script.js"></script>
 </body>
