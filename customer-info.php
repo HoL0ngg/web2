@@ -44,6 +44,10 @@
                     <input type="text" name="diachi" id="diachi" placeholder="Nhập số nhà, tên đường">
                 </div>
             </div>
+            <div class="note">
+                <p>Ghi chú: (không bắt buộc)</p>
+                <input type="text" name="note" id="note" placeholder="Nhập ghi chú cho đơn hàng của bạn">
+            </div>
         </form>
 </div>
 
@@ -122,5 +126,32 @@
         border: none;
         border-radius: 4px;
         outline: none;
+    }
+
+    .note {
+        margin: 16px 0px;
+    }
+
+    .note p {
+        margin-bottom: 8px;
+        margin-left: 8px;
+        color: #666;
+    }
+
+    .note input[type="text"] {
+        width: 100%;
+        padding: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        outline: none;
+        background-color: #fff;
+    }
+
+    .note input[type="text"]::placeholder {
+        color: #ccc;
+    }
+
+    .note input[type="text"]:focus::placeholder {
+        color: transparent;
     }
 </style>

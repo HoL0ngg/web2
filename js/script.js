@@ -487,7 +487,7 @@ function changeColorPagenum() {
 function phantrang(pagenum, proArray, numOfProducts) {
     const pageNum = document.getElementById("pagenum");
     console.log(pagenum);
-
+    if (!pageNum) return;
     pageNum.innerHTML = "";
     displayProduct(pagenum, proArray, numOfProducts);
 
@@ -511,7 +511,7 @@ const minPrice = document.getElementById('min-price');
 const maxPrice = document.getElementById('max-price');
 
 // Lắng nghe sự kiện thay đổi giá trị của thanh trượt
-priceRange.addEventListener('input', function () {
+if (priceRange) priceRange.addEventListener('input', function () {
     const currentValue = priceRange.value;
     minPrice.textContent = `0đ`;
     maxPrice.textContent = currentValue + "đ";
