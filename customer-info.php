@@ -48,6 +48,32 @@
                 <p>Ghi chú: (không bắt buộc)</p>
                 <input type="text" name="note" id="note" placeholder="Nhập ghi chú cho đơn hàng của bạn">
             </div>
+            <div class="payment-method-container">
+                <h3>Chọn phương thức thanh toán</h3>
+                <div class="payment-method-item">
+                    <input type="radio" name="payment-method" id="cod" value="cod" checked><img src="https://file.hstatic.net/200000636033/file/pay_2d752907ae604f08ad89868b2a5554da.png" alt="cod"><label for="cod">Thanh toán khi nhận hàng (COD)</label>
+                </div>
+                <div class="payment-method-item">
+                    <input type="radio" name="payment-method" id="bank-transfer" value="bank-transfer"><img src="https://file.hstatic.net/200000636033/file/icon_atm_eb07d9eabaef47e088d7f214e3562b97.svg" alt="bank-transfer"><label for="bank-transfer">Chuyển khoản ngân hàng</label>
+                </div>
+                <div class="payment-method-item">
+                    <input type="radio" name="payment-method" id="mono" value="mono"><img src="https://file.hstatic.net/200000636033/file/momo_50d207f0cbd34562b936001ab362bd8e.png" alt="mono"><label for="mono">Thanh toán qua ví Mono</label>
+                </div>
+                <div class="payment-method-item">
+                    <input type="radio" name="payment-method" id="vnpay" value="vnpay"><img src="https://file.hstatic.net/1000006063/file/img-vivnpay.jpg" alt="vnpay"><label for="vnpay">Thanh toán qua ví VNPay</label>
+                </div>
+            </div>
+            <div class="total-container">
+                <div class="ship-cost-container">
+                    <p>Phí vận chuyển:</p>
+                    <p class="ship-cost">MIỄN PHÍ</p>
+                </div>
+                <div class="total">
+                    <p>Tổng tiền:</p>
+                    <p id="total-cost">100.000đ</p>
+                </div>
+            </div>
+            <div id="confirm-btn">THANH TOÁN NGAY</div>
         </form>
 </div>
 
@@ -153,5 +179,87 @@
 
     .note input[type="text"]:focus::placeholder {
         color: transparent;
+    }
+
+    .payment-method-container {
+        margin: 16px 0px;
+    }
+
+    .payment-method-container h3 {
+        margin-bottom: 16px;
+        margin-left: 8px;
+    }
+
+    .payment-method-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+
+    .payment-method-item input[type="radio"] {
+        margin-right: 8px;
+    }
+
+    .payment-method-item label {
+        font-size: 16px;
+        color: #333;
+    }
+
+    .payment-method-item img {
+        width: 24px;
+        height: 24px;
+        margin-right: 8px;
+    }
+
+    .total-container {
+        border-top: 2px solid #ccc;
+        padding: 16px 0px;
+        margin: 16px 0px;
+    }
+
+    .total-container .ship-cost-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .total-container .ship-cost-container p {
+        margin: 8px 0;
+        font-weight: bold;
+    }
+
+    .total-container .ship-cost {
+        color: #2ECC71;
+    }
+
+    .total-container .total {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 16px;
+    }
+
+    .total-container .total p {
+        margin: 0;
+        font-weight: bold;
+        font-size: 1.3em;
+    }
+
+    .total-container .total #total-cost {
+        color: #E74C3C;
+    }
+
+    #confirm-btn {
+        background-color: #3498DB;
+        color: #fff;
+        padding: 16px 32px;
+        border-radius: 8px;
+        text-align: center;
+        cursor: pointer;
+        font-size: 1.2em;
+        margin-top: 16px;
+    }
+
+    #confirm-btn:hover {
+        background-color: #2980B9;
     }
 </style>
