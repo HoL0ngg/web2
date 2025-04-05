@@ -1,3 +1,15 @@
+<div style="width: 42%; margin: 32px auto 0px; padding: 24px 48px; background-color:rgba(52, 152, 219, 0.5); border-radius: 10px">
+    <div class="progress-container">
+        <div class="progress-step active" data-step="Giỏ hàng"><i class="fa-solid fa-cart-shopping"></i></div>
+        <span class="progress-line active"></span>
+        <div class="progress-step active" data-step="Thông tin cá nhân"><i class="fa-solid fa-address-card"></i></div>
+        <span class="progress-line"></span>
+        <div class="progress-step" data-step="Hóa đơn"><i class="fa-solid fa-receipt"></i></div>
+        <span class="progress-line"></span>
+        <div class="progress-step" data-step="Hoàn tất"><i class="fa-solid fa-circle-check"></i></div>
+    </div>
+</div>
+
 <div id="customer-info-container">
     <h3>Thông tin khách hàng</h2>
         <form action="">
@@ -17,27 +29,18 @@
             <h3>Địa chỉ giao hàng</h3>
             <div class="diachi-container">
                 <div class="diachi-item">
-                    <select name="thanhpho" id="thanhpho">
+                    <select name="thanhpho" id="thanhpho" onchange="loadQuan()">
                         <option value="">Chọn tỉnh/thành phố</option>
-                        <option value="Hà Nội">Hà Nội</option>
-                        <option value="Hồ Chí Minh">Hồ Chí Minh</option>
-                        <option value="Đà Nẵng">Đà Nẵng</option>
                     </select>
                 </div>
                 <div class="diachi-item">
-                    <select name="quan" id="quan">
+                    <select name="quan" id="quan" onchange="loadPhuong()">
                         <option value="">Chọn quận/huyện</option>
-                        <option value="Ba Đình">Ba Đình</option>
-                        <option value="Hoàn Kiếm">Hoàn Kiếm</option>
-                        <option value="Đống Đa">Đống Đa</option>
                     </select>
                 </div>
                 <div class="diachi-item">
-                    <select name="huyen" id="huyen">
+                    <select name="phuong" id="phuong">
                         <option value="">Chọn xã/phường</option>
-                        <option value="Phường 1">Phường 1</option>
-                        <option value="Phường 2">Phường 2</option>
-                        <option value="Phường 3">Phường 3</option>
                     </select>
                 </div>
                 <div class="diachi-item">
@@ -77,6 +80,7 @@
         </form>
 </div>
 
+<script src="/js/customer-info.js"></script>
 <style>
     #customer-info-container {
         width: 40%;

@@ -47,3 +47,14 @@ updateCart = () => {
 
     document.querySelector('.total-price').textContent = total.toLocaleString('vi-VN') + '₫';
 }
+
+document.getElementById('cart-thanhtoan').addEventListener('click', function () {
+    const cartItems = document.querySelectorAll('.cart-item');
+    if (cartItems.length === 0) {
+        alert('Giỏ hàng của bạn đang trống!');
+        return;
+    }
+
+    // Chuyển hướng đến trang thanh toán
+    window.location.href = 'cart.php?action=thanhtoan';
+})

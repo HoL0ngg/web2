@@ -13,20 +13,26 @@
 
 <body>
     <?php include("header.php") ?>
-    <div style="width: 42%; margin: 32px auto 0px; padding: 24px 48px; background-color:rgba(52, 152, 219, 0.5); border-radius: 10px">
-        <div class="progress-container">
-            <div class="progress-step active" data-step="Giỏ hàng"><i class="fa-solid fa-cart-shopping"></i></div>
-            <span class="progress-line active"></span>
-            <div class="progress-step active" data-step="Thông tin cá nhân"><i class="fa-solid fa-address-card"></i></div>
-            <span class="progress-line"></span>
-            <div class="progress-step" data-step="Hóa đơn"><i class="fa-solid fa-receipt"></i></div>
-            <span class="progress-line"></span>
-            <div class="progress-step" data-step="Hoàn tất"><i class="fa-solid fa-circle-check"></i></div>
-        </div>
-    </div>
 
-    <!-- <?php include("cart-info.php") ?> -->
-    <?php include("customer-info.php") ?>
+    <?php
+    if (isset($_GET["action"])) {
+        $page = $_GET["action"];
+        switch ($page) {
+            case "cart":
+                include("cart-info.php");
+                break;
+            case "thanhtoan":
+                include("customer-info.php");
+                break;
+            case "receipt":
+                include("payment-info.php");
+                break;
+            default:
+                include("cart-info.php");
+                break;
+        }
+    }
+    ?>
     <?php include("footer.php") ?>
     <?php include("login-wrapper.php") ?>
     <?php include("register-wrapper.php") ?>

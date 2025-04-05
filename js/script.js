@@ -211,7 +211,7 @@ function loginNotification() {
 }
 
 document.getElementById('cart-container').addEventListener('click', (e) => {
-    window.location.href = "cart.php";
+    window.location.href = "cart.php?action=cart";
 })
 
 function registerNotification() {
