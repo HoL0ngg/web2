@@ -395,56 +395,67 @@ window.addEventListener("scroll", function () {
 //PRODUCT
 const product = [
     {
+        id: 1,
         img: "img/sp1.jpg",
         name: "Tinh chất làm mờ nám và nếp nhăn Clinical 1% Retinol Treatment 30ml",
         price: 20000
     },
     {
+        id: 2,
         img: "img/sp2.jpg",
         name: "Kem dưỡng ẩm phục hồi da ban đêm",
         price: 25000
     },
     {
+        id: 3,
         img: "img/sp3.jpg",
         name: "Serum vitamin C sáng da",
         price: 30000
     },
     {
+        id: 4,
         img: "img/sp4.jpg",
         name: "Sữa rửa mặt dịu nhẹ",
         price: 15000
     },
     {
+        id: 5,
         img: "img/sp5.jpg",
         name: "Kem chống nắng SPF 50",
         price: 28000
     },
     {
+        id: 6,
         img: "img/sp6.png",
         name: "Mặt nạ dưỡng ẩm",
         price: 18000
     },
     {
+        id: 7,
         img: "img/sp7.jpg",
         name: "Son môi dưỡng ẩm",
         price: 22000
     },
     {
+        id: 8,
         img: "img/sp8.jpg",
         name: "Dầu tẩy trang thiên nhiên",
         price: 27000
     },
     {
+        id: 9,
         img: "img/sp9.jpg",
         name: "Nước hoa hồng cân bằng da",
         price: 19000
     },
     {
+        id: 10,
         img: "img/sp10.jpg",
         name: "Tẩy tế bào chết da mặt",
         price: 23000
     },
     {
+        id: 11,
         img: "img/sp11.jpg",
         name: "Kem mắt giảm quầng thâm",
         price: 32000
@@ -463,7 +474,7 @@ function displayProduct(pagenum, productArray, numOfProducts) {
         <div class="productArray-info">
             <p>${productArray[i].name}</p>
             <div class="product-price">${productArray[i].price}</div>
-            <button class="add-to-cart">Thêm vào giỏ</button>
+            <button class="add-to-cart" onClick='addToCart(${productArray[i].id}, 1)'>Thêm vào giỏ</button>
         </div>
     </div>`;
     }
@@ -517,6 +528,20 @@ if (priceRange) priceRange.addEventListener('input', function () {
     maxPrice.textContent = currentValue + "đ";
 });
 
+addToCart = (id, quantity) => {
+    fetch('cart.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `add_to_cart=1&id=${id}&quantity=${quantity}`
+    })
+        .then(res => res.text())
+        .then(data => {
+            alert('Đã thêm vào giỏ hàng!');
+            console.log(data); // debug
+        });
+}
 
 window.onload = function () {
     closeButton();
