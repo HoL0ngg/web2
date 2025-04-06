@@ -24,8 +24,8 @@
             case "thanhtoan":
                 include("customer-info.php");
                 break;
-            case "receipt":
-                include("payment-info.php");
+            case "hoadon":
+                include("receipt-info.php");
                 break;
             default:
                 include("cart-info.php");
