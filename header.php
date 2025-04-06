@@ -74,21 +74,21 @@
     <div id="bot-header">
         <div>
             <div id="left-bot-header">
-                <a href="index.php"><div>Trang chủ</div></a>
+                <div><a href="index.php">Trang chủ</a></div>
                 <div>Giới thiệu</div>
                 <div id="sp" style="display: flex; align-items: center; gap: 8px;">
-                    <div >Sản phẩm</div>
+                    <div>Sản phẩm</div>
                     <div class="icon-up"><i class="fa-solid fa-sort-up"></i></div>
                     <div id="product-menu">
                         <div id="product-menu-nav">
                             <ul>
-                                
+
                                 <li>
                                     <a href="index.php?maChungloai=1">
                                         <img src="img/trangdiem.webp" alt="">
                                         <span>Trang Điểm</span>
                                     </a>
-                                </li>                          
+                                </li>
                                 <li>
                                     <a href="index.php?maChungloai=2">
                                         <img src="img/chamsocdamat.webp" alt="">
@@ -119,7 +119,7 @@
                                         <span>Nước Hoa</span>
                                     </a>
                                 </li>
-                                
+
                             </ul>
                         </div>
                     </div>
@@ -141,44 +141,43 @@
 <div style="height: 139px;"></div>
 <script>
     function loadSubCategories(maChungloai) {
-    // Gọi API để lấy các thể loại theo maChungloai
-    fetch(`api.php?maChungloai=${maChungloai}`)
-        .then(response => response.json())
-        .then(data => {
-            // Hiển thị kết quả lên trang
-            const loaisanphamList = document.getElementById('loaisanpham-list');
-            loaisanphamList.innerHTML = ''; // Xóa danh sách cũ
+        // Gọi API để lấy các thể loại theo maChungloai
+        fetch(`api.php?maChungloai=${maChungloai}`)
+            .then(response => response.json())
+            .then(data => {
+                // Hiển thị kết quả lên trang
+                const loaisanphamList = document.getElementById('loaisanpham-list');
+                loaisanphamList.innerHTML = ''; // Xóa danh sách cũ
 
-            if (data.length > 0) {
-                data.forEach(loaisanpham => {
-                    // Tạo thẻ <li> mới
-                    const li = document.createElement('li');
+                if (data.length > 0) {
+                    data.forEach(loaisanpham => {
+                        // Tạo thẻ <li> mới
+                        const li = document.createElement('li');
 
-                    // Tạo thẻ <input> checkbox
-                    const checkbox = document.createElement('input');
-                    checkbox.type = 'checkbox';
-                    checkbox.id = `loaisanpham-${loaisanpham.maLoaisanpham}`;
-                    checkbox.name = `loaisanpham-${loaisanpham.maLoaisanpham}`;
-                    checkbox.value = loaisanpham.maLoaisanpham;
+                        // Tạo thẻ <input> checkbox
+                        const checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.id = `loaisanpham-${loaisanpham.maLoaisanpham}`;
+                        checkbox.name = `loaisanpham-${loaisanpham.maLoaisanpham}`;
+                        checkbox.value = loaisanpham.maLoaisanpham;
 
-                    // Tạo thẻ <span> chứa tên thể loại
-                    const span = document.createElement('span');
-                    span.textContent = loaisanpham.ten;
+                        // Tạo thẻ <span> chứa tên thể loại
+                        const span = document.createElement('span');
+                        span.textContent = loaisanpham.ten;
 
-                    // Gắn checkbox và span vào thẻ <li>
-                    li.appendChild(checkbox);
-                    li.appendChild(span);
+                        // Gắn checkbox và span vào thẻ <li>
+                        li.appendChild(checkbox);
+                        li.appendChild(span);
 
-                    // Thêm thẻ <li> vào danh sách
-                    loaisanphamList.appendChild(li);
-                });
-            } else {
-                loaisanphamList.innerHTML = '<li>Không có thể loại nào</li>';
-            }
-        })
-        .catch(error => {
-            console.error('Có lỗi khi gọi API:', error);
-        });
-}
-
+                        // Thêm thẻ <li> vào danh sách
+                        loaisanphamList.appendChild(li);
+                    });
+                } else {
+                    loaisanphamList.innerHTML = '<li>Không có thể loại nào</li>';
+                }
+            })
+            .catch(error => {
+                console.error('Có lỗi khi gọi API:', error);
+            });
+    }
 </script>
