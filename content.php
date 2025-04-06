@@ -16,7 +16,7 @@
             <div id='leftmenu_product'>
                 <div id='leftmenu_product_title'>
                     Danh Mục";
-        include('get_chungloaisanpham');
+        include('get_chungloaisanpham.php');
         echo "</div>
                 <div id='leftmenu_product_thuonghieu'>
                     <div id='leftmenu_product_thuonghieu_title'>
