@@ -1,3 +1,34 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
+
+if (isset($_POST['add_to_cart'])) {
+    $id = intval($_POST['id']);
+    $quantity = intval($_POST['quantity']);
+
+    // Kiểm tra xem sản phẩm đã có trong giỏ chưa
+    $found = false;
+    foreach ($_SESSION['cart'] as &$item) {
+        if ($item['id'] === $id) {
+            $item['quantity'] += $quantity;
+            $found = true;
+            break;
+        }
+    }
+    unset($item);
+
+    if (!$found) {
+        $_SESSION['cart'][] = [
+            'id' => $id,
+            'quantity' => $quantity
+        ];
+    }
+
+    echo "success";
+} ?>
 <html lang="en">
 
 <head>
@@ -24,8 +55,8 @@
             case "thanhtoan":
                 include("customer-info.php");
                 break;
-            case "receipt":
-                include("payment-info.php");
+            case "hoadon":
+                include("receipt-info.php");
                 break;
             default:
                 include("cart-info.php");
