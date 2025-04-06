@@ -26,7 +26,7 @@
             <div id="menu">
                 <ul>
                     <li class="active">
-                        <a href="admin.php">
+                        <a href="admin.php?page=admin_home">
                             <i class="fa-solid fa-house"></i>
                             <span class="text">Trang tổng quan</span>
                         </a>
@@ -118,9 +118,11 @@
                     include('order.php');
                 } elseif ($page == 'thongke') {
                     include('thongke.php');
+                } else {
+                    include('admin/home.php');
                 }
             } else {
-                include('product.php');
+                include('admin/home.php');
             }
             ?>
         </div>
