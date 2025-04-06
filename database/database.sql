@@ -2,7 +2,7 @@
 -- TẠO CƠ SỞ DỮ LIỆU BÁN MỸ PHẨM (WEB2)
 -- ---------------------------------------------------
 create database webbanhang;
-use database webbanhang;
+use webbanhang;
 -- Bảng ChungLoai
 CREATE TABLE ChungLoai (
     machungloai INT PRIMARY KEY,
