@@ -211,7 +211,7 @@ function loginNotification() {
 }
 
 document.getElementById('cart-container').addEventListener('click', (e) => {
-    window.location.href = "cart.php";
+    window.location.href = "cart.php?action=cart";
 })
 
 function registerNotification() {
@@ -350,13 +350,13 @@ function changePasswordNotification() {
                         setTimeout(() => {
                             let taikhoanContainer = document.getElementById("taikhoan-container");
                             let username = sessionStorage.getItem("username");
-                            if(username == null){
+                            if (username == null) {
                                 taikhoanContainer.innerHTML = `<i class="fa-solid fa-user" style="color: #6794c1;"></i>
                                     <div style="color: #5cb3f1;">Tài khoản</div>`;
                             }
-                            else{
+                            else {
                                 console.log("Chưa xóa session");
-                                
+
                             }
                             clearInputField("#changepassword-container ");
                             document.getElementById("changepassword-wrapper").style.display = 'none';
@@ -450,12 +450,12 @@ const product = [
         price: 32000
     }
 ];
-function displayProduct(pagenum,productArray,numOfProducts) {
+function displayProduct(pagenum, productArray, numOfProducts) {
     const startIndex = (pagenum - 1) * numOfProducts;
     const endIndex = startIndex + numOfProducts;
     let proContainer = document.getElementById("product-container");
     let s = "";
-    for (let i = startIndex;i < endIndex &&  i < productArray.length; i++) {
+    for (let i = startIndex; i < endIndex && i < productArray.length; i++) {
         s += `<div class="product">
         <div class="product-img">
             <img src="${productArray[i].img}" alt="img1">
@@ -473,9 +473,9 @@ function displayProduct(pagenum,productArray,numOfProducts) {
 
 function changeColorPagenum() {
     const btnArray = document.querySelectorAll("#pagenum div");
-    btnArray[0].classList.add("active");    
+    btnArray[0].classList.add("active");
     btnArray.forEach(btn => {
-        btn.addEventListener("click", function() {
+        btn.addEventListener("click", function () {
             btnArray.forEach(item => {
                 item.classList.remove("active")
             });
@@ -484,21 +484,21 @@ function changeColorPagenum() {
     });
 }
 // function phantrang()
-function phantrang(pagenum, proArray, numOfProducts){    
+function phantrang(pagenum, proArray, numOfProducts) {
     const pageNum = document.getElementById("pagenum");
     console.log(pagenum);
-    
+    if (!pageNum) return;
     pageNum.innerHTML = "";
-    displayProduct(pagenum,proArray,numOfProducts);  
+    displayProduct(pagenum, proArray, numOfProducts);
 
     const totalPages = Math.ceil(proArray.length / numOfProducts);
 
-    for(let i = 1; i <= totalPages; i++){
+    for (let i = 1; i <= totalPages; i++) {
         const button = document.createElement("div");
         button.setAttribute("class", "#pagenum div");
         button.textContent = i;
         button.addEventListener("click", function () {
-            displayProduct(i,proArray,numOfProducts);                
+            displayProduct(i, proArray, numOfProducts);
         });
         pageNum.appendChild(button);
     }
@@ -511,10 +511,10 @@ const minPrice = document.getElementById('min-price');
 const maxPrice = document.getElementById('max-price');
 
 // Lắng nghe sự kiện thay đổi giá trị của thanh trượt
-priceRange.addEventListener('input', function() {
-  const currentValue = priceRange.value;
-  minPrice.textContent = `0đ`;
-  maxPrice.textContent = currentValue + "đ";
+if (priceRange) priceRange.addEventListener('input', function () {
+    const currentValue = priceRange.value;
+    minPrice.textContent = `0đ`;
+    maxPrice.textContent = currentValue + "đ";
 });
 
 
@@ -530,6 +530,6 @@ window.onload = function () {
     changePasswordNotification();
     openLoginForm();
     // changeColorPagenum();
-    phantrang(1,product,8);
+    phantrang(1, product, 8);
 }
 
