@@ -1,6 +1,7 @@
 -- ---------------------------------------------------
 -- TẠO CƠ SỞ DỮ LIỆU BÁN MỸ PHẨM (WEB2)
 -- ---------------------------------------------------
+DROP DATABASE IF EXISTS webbanhang;
 create database webbanhang;
 use webbanhang;
 -- Bảng ChungLoai
@@ -218,7 +219,7 @@ INSERT INTO `NhomQuyen` (`role_id`, `role_name`, `trangthai`)
 VALUES (1, 'Admin', 1),
     (2, 'Nhân viên', 1),
     (3, 'Khách hàng', 1);
---DanhMucChucNang
+-- DanhMucChucNang
 INSERT INTO `DanhMucChucNang` (`function_id`, `function_name`, `trangthai`)
 VALUES ('khachhang', 'Quản lý khách hàng', 1),
     ('nhanvien', 'Quản lý nhân viên', 1),
@@ -228,8 +229,9 @@ VALUES ('khachhang', 'Quản lý khách hàng', 1),
     ('donhang', 'Quản lý đơn hàng', 1),
     ('sanpham', 'Quản lý sản phẩm', 1),
     ('thongke', 'Thống kê', 1),
-    ('nhaphang', 'Nhập hàng', 1);
---ChiTietNhomQuyen admin
+    ('nhaphang', 'Nhập hàng', 1),
+    ('giamgia', 'Sự kiện giảm giá', 1);
+-- ChiTietNhomQuyen admin
 INSERT INTO `ChiTietNhomQuyen` (`role_id`, `function_id`, `action`)
 VALUES (1, 'khachhang', 'create'),
     (1, 'khachhang', 'read'),
@@ -266,8 +268,12 @@ VALUES (1, 'khachhang', 'create'),
     (1, 'nhaphang', 'create'),
     (1, 'nhaphang', 'read'),
     (1, 'nhaphang', 'update'),
-    (1, 'nhaphang', 'delete');
---ChiTietNhomQuyen nhanvien
+    (1, 'nhaphang', 'delete'),
+    (1, 'giamgia', 'create'),
+    (1, 'giamgia', 'read'),
+    (1, 'giamgia', 'update'),
+    (1, 'giamgia', 'delete');
+-- ChiTietNhomQuyen nhanvien
 INSERT INTO `ChiTietNhomQuyen` (`role_id`, `function_id`, `action`)
 VALUES (2, 'khachhang', 'read'),
     (2, 'donhang', 'create'),
@@ -277,12 +283,16 @@ VALUES (2, 'khachhang', 'read'),
     (2, 'sanpham', 'read'),
     (2, 'sanpham', 'update'),
     (2, 'nhaphang', 'create'),
-    (2, 'nhaphang', 'read');
---ChiTietNhomQuyen khachhang
+    (2, 'nhaphang', 'read'),
+    (2, 'giamgia', 'create'),
+    (2, 'giamgia', 'read'),
+    (2, 'giamgia', 'update');
+-- ChiTietNhomQuyen khachhang
 INSERT INTO `ChiTietNhomQuyen` (`role_id`, `function_id`, `action`)
 VALUES (3, 'khachhang', 'read'),
     (3, 'donhang', 'read'),
-    (3, 'sanpham', 'read');
+    (3, 'sanpham', 'read'),
+    (3, 'giamgia', 'read');
 -- users
 -- admin / password: admin, use password_hash
 INSERT INTO users (username, password, role_id, status)
@@ -557,12 +567,25 @@ VALUES (
 ;
 -- SanPhamHinhAnh
 INSERT INTO SanPhamHinhAnh(image_url, is_main, product_id)
-VALUES ('images/sp1_main.jpg', TRUE, 1),
+VALUES ('images/sp1.jpg', TRUE, 1),
     ('images/sp1_1.jpg', FALSE, 1),
-    ('images/sp2_main.jpg', TRUE, 2),
-    ('images/sp3_main.jpg', TRUE, 3),
+    ('images/sp2.jpg', TRUE, 2),
+    ('images/sp3.jpg', TRUE, 3),
     ('images/sp3_1.jpg', FALSE, 3),
-    ('images/sp4_main.jpg', TRUE, 4);
+    ('images/sp4.jpg', TRUE, 4),
+    ('images/sp5.jpg', TRUE, 5),
+    ('images/sp6.jpg', TRUE, 6),
+    ('images/sp7.jpg', TRUE, 7),
+    ('images/sp8.jpg', TRUE, 8),
+    ('images/sp9.jpg', TRUE, 9),
+    ('images/sp10.jpg', TRUE, 10),
+    ('images/sp11.jpg', TRUE, 11),
+    ('images/sp12.jpg', TRUE, 12),
+    ('images/sp13.jpg', TRUE, 13),
+    ('images/sp14.jpg', TRUE, 14),
+    ('images/sp15.jpg', TRUE, 15),
+    ('images/sp16.jpg', TRUE, 16),
+    ('images/sp17.jpg', TRUE, 17);
 -- SuKienGiamGia
 INSERT INTO SuKienGiamGia
 VALUES (
@@ -601,8 +624,7 @@ VALUES (
         'shipping',
         NULL,
         NULL
-    ),
-;
+    );
 -- ChiTietDonHang
 INSERT INTO ChiTietDonHang
 VALUES (1, 1, 2, 120000),
