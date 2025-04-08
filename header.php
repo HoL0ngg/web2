@@ -126,6 +126,9 @@
                 </div>
                 <div>Tin tức</div>
                 <div>Liên hệ</div>
+                <div>
+                    <a href="index.php?orderhistory">lịch Sử Mua Hàng</a>
+                </div>
             </div>
             <div id="right-bot-header">
                 <div>

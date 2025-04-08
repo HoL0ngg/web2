@@ -70,14 +70,39 @@
                     </div>
                 </div>  
             </div>
+
         ";
+
+        echo '
+        <div id="rightmenu_product">
+        <div id="product-container"></div>
+        <div id="pagenum"></div>
+        </div>
+    ';
+
     }
     ?>
 
-    <div id="rightmenu_product">
+    <?php
+        if(!isset($_GET['orderhistory']))
+        {
+            echo '
+        <div id="rightmenu_product">
         <div id="product-container"></div>
         <div id="pagenum"></div>
-    </div>
+        </div>
+    ';
+        }
+    ?>
+
+    <?php
+        if (isset($_GET['orderhistory']))
+        {
+            require_once './handles/OrderHistoryController.php';
+            $OrderHistoryController = new OrderHistoryController();
+            $OrderHistoryController->getAllOrderHistoryByCustomerId(1);
+        }
+    ?>
 </div>
 
 <!-- </body>
