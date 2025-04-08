@@ -9,13 +9,13 @@ class AccountFunction
         $email = $userData['email'] ?? '';
         $password = $userData['password'] ?? ''; // Lưu ý: Mật khẩu thường không hiển thị dạng plain text
         $status = $userData['status'] ?? '1';
-        $role = $userData['role'] ?? '1';
+        $role = $userData['role_id'] ?? '1';
 
         echo '<div class="container-addaccount">
             <h2>' . $title . '</h2>
             <form  method="post" id="' . $id . '">
                 <!-- Thêm trường ẩn để gửi ID người dùng khi sửa -->
-                ' . ($userData ? '<input type="hidden" name="id" value="' . ($userData['id'] ?? '') . '">' : '') . '
+                ' . ($userData ? '<input type="hidden" name="id" value="' . ($userData['user_id'] ?? '') . '">' : '') . '
 
                 <label for="username">Tên tài khoản:</label>
                 <input type="text" id="username" name="username" value="' . htmlspecialchars($username) . '">

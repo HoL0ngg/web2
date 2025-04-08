@@ -1,6 +1,6 @@
     <?php
     header('Content-Type: application/json');
-    require_once("../TKModel.php");
+    require_once("../Model/TKModel.php");
     $response = [
         'success' => false,
         'message' => '',

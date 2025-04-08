@@ -458,7 +458,103 @@ VALUES (
         1,
         6,
         'enable'
+    ),
+    -- Trang Điểm
+    (
+        9,
+        'Son Kem Lì Maybelline Super Stay',
+        80,
+        220000,
+        'Son kem lì lâu trôi, màu sắc thời thượng',
+        3,
+        1,
+        'enable'
+    ),
+    -- Chăm Sóc Da Mặt
+    (
+        10,
+        'Kem Dưỡng Ẩm Laneige Water Bank',
+        60,
+        550000,
+        'Cung cấp độ ẩm chuyên sâu, giúp da căng mọng',
+        2,
+        2,
+        'enable'
+    ),
+    (
+        11,
+        'Sữa Rửa Mặt Trà Xanh Innisfree',
+        100,
+        130000,
+        'Chiết xuất trà xanh, làm sạch và kiềm dầu',
+        1,
+        2,
+        'enable'
+    ),
+    (
+        12,
+        'Kem Chống Nắng Innisfree SPF50+',
+        70,
+        250000,
+        'Chống nắng dạng sữa, nhẹ da và không bết dính',
+        1,
+        4,
+        'enable'
+    ),
+    (
+        13,
+        'Mặt Nạ Ngủ Laneige',
+        55,
+        450000,
+        'Mặt nạ dưỡng da ban đêm, tái tạo làn da khi ngủ',
+        2,
+        5,
+        'enable'
+    ),
+    -- Chăm Sóc Cơ Thể
+    (
+        14,
+        'Sữa Tắm Hương Hoa Hồng',
+        90,
+        180000,
+        'Hương hoa hồng dịu nhẹ, mang lại cảm giác thư giãn',
+        4,
+        6,
+        'enable'
+    ),
+    -- Chăm Sóc Tóc & Da Đầu
+    (
+        15,
+        'Dầu Gội Dược Liệu Thái Dương',
+        85,
+        95000,
+        'Ngăn rụng tóc, giúp tóc chắc khỏe và mềm mượt',
+        1,
+        7,
+        'enable'
+    ),
+    -- Nước Hoa
+    (
+        16,
+        'Nước Hoa Dior Sauvage',
+        20,
+        2800000,
+        'Mùi hương nam tính, mạnh mẽ và lôi cuốn',
+        3,
+        8,
+        'enable'
+    ),
+    (
+        17,
+        'Nước Hoa Gucci Bloom',
+        18,
+        2600000,
+        'Mùi hương nhẹ nhàng, nữ tính từ hoa trắng',
+        2,
+        8,
+        'enable'
     );
+;
 -- SanPhamHinhAnh
 INSERT INTO SanPhamHinhAnh(image_url, is_main, product_id)
 VALUES ('images/sp1_main.jpg', TRUE, 1),
@@ -505,7 +601,8 @@ VALUES (
         'shipping',
         NULL,
         NULL
-    );
+    ),
+;
 -- ChiTietDonHang
 INSERT INTO ChiTietDonHang
 VALUES (1, 1, 2, 120000),

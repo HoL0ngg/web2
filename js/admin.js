@@ -124,15 +124,15 @@ async function loadUsers() {
             // console.log(user);
                           
             rows += `<tr>
-                         <td>${user.id}</td>
+                         <td>${user.user_id}</td>
                          <td>${user.username}</td>
                          <td>${user.phone}</td>
                          <td>${user.email}</td>
                          <td>${user.status == 0 ? `<span class="status-no-complete">Bị khóa</span>` : `<span class="status-complete">Hoạt động</span>`}</td>
-                         <td>${user.role == 1 ? "Admin" : "User"}</td>
+                         <td>${user.role_id == 1 ? "Admin" : "User"}</td>
                          <td>
-                             <a href="admin.php?page=user&act=update&uid=${user.id}"><button class="edit-btn">✏️ Sửa</button></a>
-                             <button class="delete-btn-user" data-id=${user.id}>❌ Xóa</button>
+                             <a href="admin.php?page=user&act=update&uid=${user.user_id}"><button class="edit-btn">✏️ Sửa</button></a>
+                             <button class="delete-btn-user" data-id=${user.user_id}>❌ Xóa</button>
                          </td>            
                      </tr>`;
         });

@@ -1,7 +1,8 @@
     <?php
-    require_once("../connect.php");
-
-    $sql = "SELECT * FROM users ORDER BY id DESC";
+    require_once("../database/connect.php");
+    $db = new database();
+    $conn = $db->getConnection();
+    $sql = "SELECT * FROM users ORDER BY user_id DESC";
     $result = $conn->query($sql);
 
     $data = array();
@@ -11,5 +12,5 @@
     }
 
     echo json_encode($data);
-    $conn->close();
+    $db->closeConnection();
     ?>

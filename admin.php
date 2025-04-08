@@ -31,34 +31,46 @@
                             <span class="text">Trang tổng quan</span>
                         </a>
                     </li>
+
                     <li>
                         <a href="admin.php?page=product">
                             <i class="fa-solid fa-cart-plus"></i>
                             <span class="text">Sản phẩm</span>
                         </a>
                     </li>
+
                     <li>
                         <a href="admin.php?page=category">
                             <i class="fa-solid fa-list"></i>
                             <span class="text">Danh mục</span>
                         </a>
                     </li>
+
                     <li>
                         <a href="admin.php?page=user">
                             <i class="fa-solid fa-user"></i>
                             <span class="text">Người dùng</span>
                         </a>
                     </li>
+
                     <li>
                         <a href="admin.php?page=order">
                             <i class="fa-solid fa-box-open"></i>
                             <span class="text">Đơn hàng</span>
                         </a>
                     </li>
+
                     <li>
                         <a href="admin.php?page=thongke">
                             <i class="fa-solid fa-chart-simple"></i>
                             <span class="text">Thống kê</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="admin.php?page=phanquyen">
+                            <i class="fa-solid fa-users-gear"></i>
+                            <span class="text">Phân quyền</span>
                         </a>
                     </li>
                 </ul>
@@ -98,7 +110,7 @@
                                 $addAcc->accountForm("THÊM TÀI KHOẢN", "addUserForm");
                                 break;
                             case 'update':
-                                require_once("TKModel.php");
+                                require_once("Model/TKModel.php");
                                 $id = $_GET['uid'] ?? '';
                                 $id = (int)$id;
                                 $tkmodel = new TKModel();
@@ -117,6 +129,8 @@
                 } elseif ($page == 'order') {
                     include('order.php');
                 } elseif ($page == 'thongke') {
+                    include('thongke.php');
+                } elseif ($page == 'phanquyen') {
                     include('thongke.php');
                 } else {
                     include('admin/home.php');

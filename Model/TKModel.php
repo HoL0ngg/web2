@@ -91,7 +91,7 @@ class TKModel
     }
     public function getUserById($id)
     {
-        $query = "SELECT * FROM users WHERE id = ?";
+        $query = "SELECT * FROM users WHERE user_id = ?";
         $conn = $this->db->getConnection();
         if ($conn->connect_error) {
             die('Connection failed: ' . $conn->connect_error);
