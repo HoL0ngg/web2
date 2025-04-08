@@ -1,8 +1,9 @@
 <?php
+require_once('database/connect.php');
 if (isset($_GET['maChungloai'])) {
-    include('connect.php');
     $maChungloai = $_GET['maChungloai'];
-    $maChungloai = (int)$maChungloai;
+    $db = new database();
+    $conn = $db->getConnection();
     // Truy vấn cơ sở dữ liệu để lấy các thể loại con (subcategories) theo maChungloai
     $sql = "SELECT matheloai , tentheloai FROM theloai WHERE machungloai = ?";
     $stmt = $conn->prepare($sql);

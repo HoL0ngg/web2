@@ -1,6 +1,8 @@
 <?php
+require_once('database/connect.php');
 if (isset($_GET['maChungloai'])) {
-    include('connect.php');
+    $db = new database();
+    $conn = $db->getConnection();
     $maChungloai = $_GET['maChungloai'];
 
     $sql = "SELECT machungloai , tenchungloai FROM chungloai WHERE machungloai = ?";
