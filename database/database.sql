@@ -21,40 +21,42 @@ CREATE TABLE Brand (
     brand_name VARCHAR(100)
 );
 -- Bảng NhomQuyen
-CREATE TABLE NhomQuyen (
-    role_id INT PRIMARY KEY,
-    role_name VARCHAR(100)
+CREATE TABLE `NhomQuyen` (
+    `role_id` INT NOT NULL PRIMARY KEY,
+    `role_name` VARCHAR(50) NOT NULL,
+    `trangthai` INT NOT NULL -- 1: đang dùng, 0: tắt
 );
 -- Bảng DanhMucChucNang
-CREATE TABLE DanhMucChucNang (
-    function_id INT PRIMARY KEY,
-    function_name VARCHAR(100)
+CREATE TABLE `DanhMucChucNang` (
+    `function_id` VARCHAR(50) NOT NULL PRIMARY KEY,
+    `function_name` VARCHAR(50) NOT NULL,
+    `trangthai` INT NOT NULL -- 1: đang dùng, 0: tắt
 );
 -- Bảng users
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50),
+    username VARCHAR(50) UNIQUE,
     password VARCHAR(255),
     role_id INT,
     status TINYINT NOT NULL DEFAULT 1,
     FOREIGN KEY (role_id) REFERENCES NhomQuyen(role_id)
 );
 -- Bảng ChiTietNhomQuyen
-CREATE TABLE ChiTietNhomQuyen (
-    role_id INT,
-    function_id INT,
-    action VARCHAR(100),
-    PRIMARY KEY (role_id, function_id),
-    FOREIGN KEY (role_id) REFERENCES NhomQuyen(role_id),
-    FOREIGN KEY (function_id) REFERENCES DanhMucChucNang(function_id)
+CREATE TABLE `ChiTietNhomQuyen` (
+    `role_id` INT NOT NULL,
+    `function_id` VARCHAR(50) NOT NULL,
+    `action` VARCHAR(100) NOT NULL,
+    PRIMARY KEY (`role_id`, `function_id`, `action`),
+    FOREIGN KEY (`role_id`) REFERENCES NhomQuyen(`role_id`),
+    FOREIGN KEY (`function_id`) REFERENCES DanhMucChucNang(`function_id`)
 );
 -- Bảng NhanVien
 CREATE TABLE NhanVien (
     employee_id INT PRIMARY KEY,
     user_id INT,
     name VARCHAR(50),
-    phone VARCHAR(20),
-    email VARCHAR(100),
+    phone VARCHAR(20) UNIQUE,
+    email VARCHAR(100) UNIQUE,
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 -- Bảng KhachHang
@@ -62,8 +64,8 @@ CREATE TABLE KhachHang (
     customer_id INT PRIMARY KEY,
     user_id INT,
     customer_name VARCHAR(50),
-    phone VARCHAR(20),
-    email VARCHAR(100),
+    phone VARCHAR(20) UNIQUE,
+    email VARCHAR(100) UNIQUE,
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 -- Bảng DiaChi
@@ -212,9 +214,75 @@ VALUES (1, 'Innisfree'),
     (3, 'Maybelline'),
     (4, 'L\'Oreal');
 -- NhomQuyen
-INSERT INTO NhomQuyen
-VALUES (1, 'Admin'),
-    (2, 'Khách hàng');
+INSERT INTO `NhomQuyen` (`role_id`, `role_name`, `trangthai`)
+VALUES (1, 'Admin', 1),
+    (2, 'Nhân viên', 1),
+    (3, 'Khách hàng', 1);
+--DanhMucChucNang
+INSERT INTO `DanhMucChucNang` (`function_id`, `function_name`, `trangthai`)
+VALUES ('khachhang', 'Quản lý khách hàng', 1),
+    ('nhanvien', 'Quản lý nhân viên', 1),
+    ('taikhoan', 'Quản lý tài khoản', 1),
+    ('nhacungcap', 'Quản lý nhà cung cấp', 1),
+    ('phanquyen', 'Phân quyền', 1),
+    ('donhang', 'Quản lý đơn hàng', 1),
+    ('sanpham', 'Quản lý sản phẩm', 1),
+    ('thongke', 'Thống kê', 1),
+    ('nhaphang', 'Nhập hàng', 1);
+--ChiTietNhomQuyen admin
+INSERT INTO `ChiTietNhomQuyen` (`role_id`, `function_id`, `action`)
+VALUES (1, 'khachhang', 'create'),
+    (1, 'khachhang', 'read'),
+    (1, 'khachhang', 'update'),
+    (1, 'khachhang', 'delete'),
+    (1, 'nhanvien', 'create'),
+    (1, 'nhanvien', 'read'),
+    (1, 'nhanvien', 'update'),
+    (1, 'nhanvien', 'delete'),
+    (1, 'taikhoan', 'create'),
+    (1, 'taikhoan', 'read'),
+    (1, 'taikhoan', 'update'),
+    (1, 'taikhoan', 'delete'),
+    (1, 'nhacungcap', 'create'),
+    (1, 'nhacungcap', 'read'),
+    (1, 'nhacungcap', 'update'),
+    (1, 'nhacungcap', 'delete'),
+    (1, 'phanquyen', 'create'),
+    (1, 'phanquyen', 'read'),
+    (1, 'phanquyen', 'update'),
+    (1, 'phanquyen', 'delete'),
+    (1, 'donhang', 'create'),
+    (1, 'donhang', 'read'),
+    (1, 'donhang', 'update'),
+    (1, 'donhang', 'delete'),
+    (1, 'sanpham', 'create'),
+    (1, 'sanpham', 'read'),
+    (1, 'sanpham', 'update'),
+    (1, 'sanpham', 'delete'),
+    (1, 'thongke', 'create'),
+    (1, 'thongke', 'read'),
+    (1, 'thongke', 'update'),
+    (1, 'thongke', 'delete'),
+    (1, 'nhaphang', 'create'),
+    (1, 'nhaphang', 'read'),
+    (1, 'nhaphang', 'update'),
+    (1, 'nhaphang', 'delete');
+--ChiTietNhomQuyen nhanvien
+INSERT INTO `ChiTietNhomQuyen` (`role_id`, `function_id`, `action`)
+VALUES (2, 'khachhang', 'read'),
+    (2, 'donhang', 'create'),
+    (2, 'donhang', 'read'),
+    (2, 'donhang', 'update'),
+    (2, 'sanpham', 'create'),
+    (2, 'sanpham', 'read'),
+    (2, 'sanpham', 'update'),
+    (2, 'nhaphang', 'create'),
+    (2, 'nhaphang', 'read');
+--ChiTietNhomQuyen khachhang
+INSERT INTO `ChiTietNhomQuyen` (`role_id`, `function_id`, `action`)
+VALUES (3, 'khachhang', 'read'),
+    (3, 'donhang', 'read'),
+    (3, 'sanpham', 'read');
 -- users
 -- admin / password: admin, use password_hash
 INSERT INTO users (username, password, role_id, status)
@@ -222,7 +290,7 @@ VALUES (
         'admin',
         '$2y$10$v7gyqp/9YMQPH14G1Tx8Yu0uz0NTu9Z8YWRM1/3iAEa2aVDy5Vz9a',
         1,
-        '1'
+        1
     );
 -- admin: admin
 -- khach1 / password: khach1
@@ -230,8 +298,8 @@ INSERT INTO users (username, password, role_id, status)
 VALUES (
         'khach1',
         '$2y$10$DiW9Xp1xFZkSlYJxzSFLrOdWa4FJSHTGqhr7V2HmhA9NvV0EvnDNq',
-        2,
-        '1'
+        3,
+        1
     );
 -- khach1: khach1
 -- khach2 / password: khach2
@@ -239,8 +307,8 @@ INSERT INTO users (username, password, role_id, status)
 VALUES (
         'khach2',
         '$2y$10$TNTXZ3D3cQx/fMPXHrX.jOJ7lXDiPIZlLrPykq.Jj4ppup0snQvuS',
-        2,
-        '1'
+        3,
+        1
     );
 -- khach2: khach2
 -- NhanVien
