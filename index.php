@@ -36,7 +36,7 @@ session_start();
         Đánh giá người sử dụng
     </div>
     <div class="swiper review-swiper">
-        <div class="swiper-wrapper">
+        <!-- <div class="swiper-wrapper">
             <div class="swiper-slide">
                 <img src="https://fit.sgu.edu.vn/site/wp-content/uploads/2019/01/thanhsang.jpg" alt="Người 1" />
                 <h3>Nguyễn Thanh Sang</h3>
@@ -72,7 +72,7 @@ session_start();
                 <h3>Nguyễn Thanh Sang</h3>
                 <p>Chất lượng vượt mong đợi.</p>
             </div>
-        </div>
+        </div> -->
     </div>
     <script>
         const swiper_title = new Swiper(".banner-swiper", {

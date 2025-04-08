@@ -288,9 +288,11 @@
     /* gap: 20px; */
 }
 
-a {
+#left-bot-header a {
     color: inherit;
     text-decoration: none;
+    /* border: 2px solid red; */
+    display: block;
 }
 
 #left-bot-header>div {
@@ -1042,7 +1044,7 @@ img {
 }
 
 #leftmenu_product {
-    width: 45%;
+    width: 25%;
     margin-right: 10px;
 }
 
@@ -1135,4 +1137,5 @@ leftmenu_product_danhmucsanpham_tittle {
 #rightmenu_product {
     display: flex;
     flex-direction: column;
+    width: 75%;
 }
