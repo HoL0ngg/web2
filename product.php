@@ -43,8 +43,8 @@
                     <td><?php echo $row['thuongHieu'] ?></td>
                     <td><?php echo '10' ?></td>
                     <td><?php echo $row['gia']; ?></td>
-                    <td><img src="img/sp1.jpg" alt="product-image"></td>
-                    <!-- <td><img src="../img/<?php echo $row['hinhanh']; ?>" alt="product-image"></td> -->
+                    <td><img src="imgs/sp1.jpg" alt="product-image"></td>
+                    <!-- <td><img src="../imgs/<?php echo $row['hinhanh']; ?>" alt="product-image"></td> -->
                     <!-- <td><?php echo $row['maLoaisp']; ?></td> -->
                     <td>
                         <div>

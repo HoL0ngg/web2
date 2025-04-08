@@ -25,11 +25,11 @@ function hiddenSideBar() {
         if (attributeOfIcon.indexOf("fa-less-than") != -1) {            
             leftContainer.style.width = '60px';
             rightContainer.style.width = 'calc(100% - 60px)';
-            imgLogo.src = "img/logomini.svg";
+            imgLogo.src = "imgs/logomini.svg";
         } else {
             leftContainer.style.width = '20%';
             rightContainer.style.width = '80%'
-            imgLogo.src = "img/logo3.svg";
+            imgLogo.src = "imgs/logo3.svg";
         }
         icon.classList.toggle("fa-less-than");
         icon.classList.toggle("fa-greater-than");

@@ -27,7 +27,7 @@ class TKModel
                         return false; // Email đã tồn tại cho user khác
                     }
                     $checkStmt->close();
-                    $stmt = $conn->prepare("INSERT INTO users (username, phone, email, password, status, role) VALUES (?, ?, ?, ?, ?, ?)");
+                    $stmt = $conn->prepare("INSERT INTO users (username, phone, email, password, status, role_id) VALUES (?, ?, ?, ?, ?, ?)");
                     $stmt->bind_param("ssssii", $username, $phone, $email, $hashedPassword, $status, $role);
 
 
@@ -72,11 +72,11 @@ class TKModel
             // Xử lý mật khẩu
             if (!empty($password)) {
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                $stmt = $conn->prepare("UPDATE users SET username = ?, phone = ?, email = ?, password = ?, status = ?, role = ? WHERE id = ?");
+                $stmt = $conn->prepare("UPDATE users SET username = ?, phone = ?, email = ?, password = ?, status = ?, role_id = ? WHERE id = ?");
                 $stmt->bind_param("ssssiii", $username, $phone, $email, $hashedPassword, $status, $role, $id);
             } else {
                 // Nếu không nhập mật khẩu mới thì giữ nguyên mật khẩu cũ
-                $stmt = $conn->prepare("UPDATE users SET username = ?, phone = ?, email = ?, status = ?, role = ? WHERE id = ?");
+                $stmt = $conn->prepare("UPDATE users SET username = ?, phone = ?, email = ?, status = ?, role_id = ? WHERE id = ?");
                 $stmt->bind_param("sssiii", $username, $phone, $email, $status, $role, $id);
             }
 
@@ -109,7 +109,7 @@ class TKModel
 
     public function xoa($id)
     {
-        $sql = "DELETE FROM users WHERE id = ?";
+        $sql = "DELETE FROM users WHERE user_id = ?";
         $conn = $this->db->getConnection();
 
         if ($conn->connect_error) {

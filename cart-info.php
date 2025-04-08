@@ -13,7 +13,7 @@
 <div id="cart-info">
     <div class="cart-item">
         <div class="cart-image">
-            <img src="/img/img1.jpg" alt="Son">
+            <img src="/imgs/img1.jpg" alt="Son">
         </div>
         <div class="cart-info">
             <p class="cart-title"><strong>[NEW][Màu 1-39] Son Tint Lì, Căng Bóng Romand The Juicy Lasting Tint</strong></p>
@@ -33,7 +33,7 @@
     </div>
     <div class="cart-item">
         <div class="cart-image">
-            <img src="/img/img1.jpg" alt="Son">
+            <img src="/imgs/img1.jpg" alt="Son">
         </div>
         <div class="cart-info">
             <p class="cart-title"><strong>[NEW][Màu 1-39] Son Tint Lì, Căng Bóng Romand The Juicy Lasting Tint</strong></p>

@@ -392,71 +392,71 @@ window.addEventListener("scroll", function () {
 //     document.getElementById("filter-menu").classList.toggle("active");
 // }
 
-//PRODUCT
+//Pagination
 const product = [
     {
         id: 1,
-        img: "img/sp1.jpg",
+        img: "imgs/sp1.jpg",
         name: "Tinh chất làm mờ nám và nếp nhăn Clinical 1% Retinol Treatment 30ml",
         price: 20000
     },
     {
         id: 2,
-        img: "img/sp2.jpg",
+        img: "imgs/sp2.jpg",
         name: "Kem dưỡng ẩm phục hồi da ban đêm",
         price: 25000
     },
     {
         id: 3,
-        img: "img/sp3.jpg",
+        img: "imgs/sp3.jpg",
         name: "Serum vitamin C sáng da",
         price: 30000
     },
     {
         id: 4,
-        img: "img/sp4.jpg",
+        img: "imgs/sp4.jpg",
         name: "Sữa rửa mặt dịu nhẹ",
         price: 15000
     },
     {
         id: 5,
-        img: "img/sp5.jpg",
+        img: "imgs/sp5.jpg",
         name: "Kem chống nắng SPF 50",
         price: 28000
     },
     {
         id: 6,
-        img: "img/sp6.png",
+        img: "imgs/sp6.png",
         name: "Mặt nạ dưỡng ẩm",
         price: 18000
     },
     {
         id: 7,
-        img: "img/sp7.jpg",
+        img: "imgs/sp7.jpg",
         name: "Son môi dưỡng ẩm",
         price: 22000
     },
     {
         id: 8,
-        img: "img/sp8.jpg",
+        img: "imgs/sp8.jpg",
         name: "Dầu tẩy trang thiên nhiên",
         price: 27000
     },
     {
         id: 9,
-        img: "img/sp9.jpg",
+        img: "imgs/sp9.jpg",
         name: "Nước hoa hồng cân bằng da",
         price: 19000
     },
     {
         id: 10,
-        img: "img/sp10.jpg",
+        img: "imgs/sp10.jpg",
         name: "Tẩy tế bào chết da mặt",
         price: 23000
     },
     {
         id: 11,
-        img: "img/sp11.jpg",
+        img: "imgs/sp11.jpg",
         name: "Kem mắt giảm quầng thâm",
         price: 32000
     }
@@ -494,12 +494,12 @@ function changeColorPagenum() {
         });
     });
 }
-// function phantrang()
+
 function phantrang(pagenum, proArray, numOfProducts) {
     const pageNum = document.getElementById("pagenum");
     console.log(pagenum);
     if (!pageNum) return;
-    pageNum.innerHTML = "";
+    
     displayProduct(pagenum, proArray, numOfProducts);
 
     const totalPages = Math.ceil(proArray.length / numOfProducts);
@@ -515,7 +515,38 @@ function phantrang(pagenum, proArray, numOfProducts) {
     }
     changeColorPagenum();
 }
-
+async function loadProducts(pagenum = 1) {
+    const response = await fetch(`../api/pagination_api.php?pagenum=${pagenum}`);
+    const data = await response.json();
+    console.log(data);
+    let proContainer = document.getElementById("product-container");
+    const pageNum = document.getElementById("pagenum");
+    pageNum.innerHTML = "";
+    let s = "";
+    data.products.forEach(product => {
+        s += `<div class="product">
+        <div class="product-img">
+            <img src="${product.image_url}" alt="img1">
+        </div>
+        <div class="productArray-info">
+            <p>${product.product_name}</p>
+            <div class="product-price">${product.price}</div>
+            <button class="add-to-cart" onClick='addToCart(${product.product_id}, 1)'>Thêm vào giỏ</button>
+        </div>
+    </div>`;
+    });
+    proContainer.innerHTML = s;
+    for (let i = 1; i <= data.totalPage; i++) {
+        const button = document.createElement("div");
+        button.setAttribute("class", "#pagenum div");
+        button.textContent = i;
+        button.addEventListener("click", function () {
+            loadProducts(i);
+        });
+        pageNum.appendChild(button);
+    }
+    changeColorPagenum();
+}
 
 const priceRange = document.getElementById('price-range');
 const minPrice = document.getElementById('min-price');
@@ -546,15 +577,14 @@ addToCart = (id, quantity) => {
 window.onload = function () {
     closeButton();
     loginNotification();
-    registerNotification();
-    // getUsername();
+    registerNotification();    
     closeWithoutButton("register-container");
     closeWithoutButton("login-container");
     closeWithoutButton("changepassword-container");
     openChangePasswordForm();
     changePasswordNotification();
-    openLoginForm();
-    // changeColorPagenum();
-    phantrang(1, product, 8);
+    openLoginForm();    
+    // phantrang(1, product, 8);
+    loadProducts();
 }
 

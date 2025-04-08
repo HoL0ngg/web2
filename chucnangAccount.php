@@ -3,14 +3,12 @@ class AccountFunction
 {
     public function accountForm($title, $id, $userData = null)
     {
-        // Giá trị mặc định nếu không có $userData
         $username = $userData['username'] ?? '';
         $phone = $userData['phone'] ?? '';
         $email = $userData['email'] ?? '';
         $password = $userData['password'] ?? ''; // Lưu ý: Mật khẩu thường không hiển thị dạng plain text
         $status = $userData['status'] ?? '1';
         $role = $userData['role_id'] ?? '1';
-
         echo '<div class="container-addaccount">
             <h2>' . $title . '</h2>
             <form  method="post" id="' . $id . '">
@@ -38,7 +36,8 @@ class AccountFunction
                 <label for="role">Quyền:</label>
                 <select id="role" name="role">
                     <option value="1" ' . ($role == '1' ? 'selected' : '') . '>Admin</option>
-                    <option value="2" ' . ($role == '2' ? 'selected' : '') . '>User</option>
+                    <option value="2" ' . ($role == '2' ? 'selected' : '') . '>Nhân viên</option>
+                    <option value="2" ' . ($role == '3' ? 'selected' : '') . '>Khách hàng</option>
                 </select>
 
                 <button type="submit" class="btn-submit" name="' . ($title == "THÊM TÀI KHOẢN" ? "them" : "sua") . '">' . $title . '</button>

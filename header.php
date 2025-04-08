@@ -2,7 +2,7 @@
     <div id="top-header">
         <div id="left-header">
             <div style="flex: 1;height: 100%;margin-right: 10px;">
-                <img src="img/logo3.svg" alt="" style="width: 100%;height: 100%;">
+                <img src="imgs/logo3.svg" alt="" style="width: 100%;height: 100%;">
             </div>
             <div id="timkiem-header">
                 <input type="text" name="timkiem" id="timkiem" placeholder="Tìm kiếm sản phẩm">
@@ -85,37 +85,37 @@
 
                                 <li>
                                     <a href="index.php?maChungloai=1">
-                                        <img src="img/trangdiem.webp" alt="">
+                                        <img src="imgs/trangdiem.webp" alt="">
                                         <span>Trang Điểm</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="index.php?maChungloai=2">
-                                        <img src="img/chamsocdamat.webp" alt="">
+                                        <img src="imgs/chamsocdamat.webp" alt="">
                                         <span>Chăm Sóc Da Mặt</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="index.php?maChungloai=3">
-                                        <img src="img/chamsoccothe.webp" alt="">
+                                        <img src="imgs/chamsoccothe.webp" alt="">
                                         <span>Chăm Sóc Cơ Thể</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="index.php?maChungloai=4">
-                                        <img src="img/chamsoctocdadau.webp" alt="">
+                                        <img src="imgs/chamsoctocdadau.webp" alt="">
                                         <span>Chăm Sóc Tóc & Chăm Sóc Da Đầu</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="index.php?maChungloai=5">
-                                        <img src="img/chamsoccanhan.webp" alt="">
+                                        <img src="imgs/chamsoccanhan.webp" alt="">
                                         <span>Chăm Sóc Cá Nhân</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="index.php?maChungloai=6">
-                                        <img src="img/nuochoa.webp" alt="">
+                                        <img src="imgs/nuochoa.webp" alt="">
                                         <span>Nước Hoa</span>
                                     </a>
                                 </li>

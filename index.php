@@ -21,9 +21,9 @@ session_start();
 
     <div class="swiper banner-swiper">
         <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="img/img1.jpg" alt="img1"></div>
-            <div class="swiper-slide"><img src="img/img2.png" alt="img2"></div>
-            <div class="swiper-slide"><img src="img/img1.jpg" alt="img3"></div>
+            <div class="swiper-slide"><img src="imgs/img1.jpg" alt="img1"></div>
+            <div class="swiper-slide"><img src="imgs/img2.png" alt="img2"></div>
+            <div class="swiper-slide"><img src="imgs/img1.jpg" alt="img3"></div>
         </div>
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>

@@ -567,25 +567,25 @@ VALUES (
 ;
 -- SanPhamHinhAnh
 INSERT INTO SanPhamHinhAnh(image_url, is_main, product_id)
-VALUES ('images/sp1.jpg', TRUE, 1),
-    ('images/sp1_1.jpg', FALSE, 1),
-    ('images/sp2.jpg', TRUE, 2),
-    ('images/sp3.jpg', TRUE, 3),
-    ('images/sp3_1.jpg', FALSE, 3),
-    ('images/sp4.jpg', TRUE, 4),
-    ('images/sp5.jpg', TRUE, 5),
-    ('images/sp6.jpg', TRUE, 6),
-    ('images/sp7.jpg', TRUE, 7),
-    ('images/sp8.jpg', TRUE, 8),
-    ('images/sp9.jpg', TRUE, 9),
-    ('images/sp10.jpg', TRUE, 10),
-    ('images/sp11.jpg', TRUE, 11),
-    ('images/sp12.jpg', TRUE, 12),
-    ('images/sp13.jpg', TRUE, 13),
-    ('images/sp14.jpg', TRUE, 14),
-    ('images/sp15.jpg', TRUE, 15),
-    ('images/sp16.jpg', TRUE, 16),
-    ('images/sp17.jpg', TRUE, 17);
+VALUES ('imgs/sp1.jpg', TRUE, 1),
+    ('imgs/sp1_1.jpg', FALSE, 1),
+    ('imgs/sp2.jpg', TRUE, 2),
+    ('imgs/sp3.jpg', TRUE, 3),
+    ('imgs/sp3_1.jpg', FALSE, 3),
+    ('imgs/sp4.jpg', TRUE, 4),
+    ('imgs/sp5.jpg', TRUE, 5),
+    ('imgs/sp6.png', TRUE, 6),
+    ('imgs/sp7.jpg', TRUE, 7),
+    ('imgs/sp8.jpg', TRUE, 8),
+    ('imgs/sp9.jpg', TRUE, 9),
+    ('imgs/sp10.jpg', TRUE, 10),
+    ('imgs/sp11.jpg', TRUE, 11),
+    ('imgs/sp12.jpg', TRUE, 12),
+    ('imgs/sp13.jpg', TRUE, 13),
+    ('imgs/sp14.jpg', TRUE, 14),
+    ('imgs/sp15.jpg', TRUE, 15),
+    ('imgs/sp16.jpg', TRUE, 16),
+    ('imgs/sp17.jpg', TRUE, 17);
 -- SuKienGiamGia
 INSERT INTO SuKienGiamGia
 VALUES (
