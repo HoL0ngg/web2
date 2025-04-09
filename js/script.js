@@ -461,30 +461,30 @@ const product = [
         price: 32000
     }
 ];
-function displayProduct(pagenum, productArray, numOfProducts) {
-    const startIndex = (pagenum - 1) * numOfProducts;
-    const endIndex = startIndex + numOfProducts;
-    let proContainer = document.getElementById("product-container");
-    let s = "";
-    for (let i = startIndex; i < endIndex && i < productArray.length; i++) {
-        s += `<div class="product">
-        <div class="product-img">
-            <img src="${productArray[i].img}" alt="img1">
-        </div>
-        <div class="productArray-info">
-            <p>${productArray[i].name}</p>
-            <div class="product-price">${productArray[i].price}</div>
-            <button class="add-to-cart" onClick='addToCart(${productArray[i].id}, 1)'>Thêm vào giỏ</button>
-        </div>
-    </div>`;
-    }
-    proContainer.innerHTML = s;
+// function displayProduct(pagenum, productArray, numOfProducts) {
+//     const startIndex = (pagenum - 1) * numOfProducts;
+//     const endIndex = startIndex + numOfProducts;
+//     let proContainer = document.getElementById("product-container");
+//     let s = "";
+//     for (let i = startIndex; i < endIndex && i < productArray.length; i++) {
+//         s += `<div class="product">
+//         <div class="product-img">
+//             <img src="${productArray[i].img}" alt="img1">
+//         </div>
+//         <div class="productArray-info">
+//             <p>${productArray[i].name}</p>
+//             <div class="product-price">${productArray[i].price}</div>
+//             <button class="add-to-cart" onClick='addToCart(${productArray[i].id}, 1)'>Thêm vào giỏ</button>
+//         </div>
+//     </div>`;
+//     }
+//     proContainer.innerHTML = s;
 
-}
+// }
 
 function changeColorPagenum() {
     const btnArray = document.querySelectorAll("#pagenum div");
-    btnArray[0].classList.add("active");
+    // btnArray[0].classList.add("active");
     btnArray.forEach(btn => {
         btn.addEventListener("click", function () {
             btnArray.forEach(item => {
@@ -495,26 +495,26 @@ function changeColorPagenum() {
     });
 }
 
-function phantrang(pagenum, proArray, numOfProducts) {
-    const pageNum = document.getElementById("pagenum");
-    console.log(pagenum);
-    if (!pageNum) return;
+// function phantrang(pagenum, proArray, numOfProducts) {
+//     const pageNum = document.getElementById("pagenum");
+//     console.log(pagenum);
+//     if (!pageNum) return;
     
-    displayProduct(pagenum, proArray, numOfProducts);
+//     displayProduct(pagenum, proArray, numOfProducts);
 
-    const totalPages = Math.ceil(proArray.length / numOfProducts);
+//     const totalPages = Math.ceil(proArray.length / numOfProducts);
 
-    for (let i = 1; i <= totalPages; i++) {
-        const button = document.createElement("div");
-        button.setAttribute("class", "#pagenum div");
-        button.textContent = i;
-        button.addEventListener("click", function () {
-            displayProduct(i, proArray, numOfProducts);
-        });
-        pageNum.appendChild(button);
-    }
-    changeColorPagenum();
-}
+//     for (let i = 1; i <= totalPages; i++) {
+//         const button = document.createElement("div");
+//         button.setAttribute("class", "#pagenum div");
+//         button.textContent = i;
+//         button.addEventListener("click", function () {
+//             displayProduct(i, proArray, numOfProducts);
+//         });
+//         pageNum.appendChild(button);
+//     }
+//     changeColorPagenum();
+// }
 async function loadProducts(pagenum = 1) {
     const response = await fetch(`../api/pagination_api.php?pagenum=${pagenum}`);
     const data = await response.json();
