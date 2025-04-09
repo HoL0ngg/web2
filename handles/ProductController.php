@@ -1,8 +1,6 @@
 <?php
 require_once __DIR__ . '/../Model/ProductModel.php';
 // require_once './Model/ProductModel.php';
-require_once './Model/TheLoaiModel.php';
-require_once './Model/BrandModel.php';
 class ProductController
 {
     private $model;
@@ -28,16 +26,5 @@ class ProductController
 
         header('Content-Type: application/json');
         echo json_encode($response);
-    }
-
-    public function addForm()
-    {
-        $theloaiModel = new TheLoaiModel();
-        $brandModel = new BrandModel();
-
-        $theloai = $theloaiModel->getAll();
-        $brands = $brandModel->getAll();
-
-        include('view/addProductView.php');
     }
 }

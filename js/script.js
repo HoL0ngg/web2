@@ -521,7 +521,7 @@ function changeColorPagenum(pagenum) {
 //     changeColorPagenum();
 // }
 async function loadProducts(pagenum = 1) {
-    const response = await fetch(`../api/pagination_api.php?pagenum=${pagenum}`);
+    const response = await fetch(`api/pagination_api.php?pagenum=${pagenum}`);
     const data = await response.json();
     // console.log(data);
     let proContainer = document.getElementById("product-container");

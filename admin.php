@@ -99,10 +99,10 @@
             if (isset($_GET['page'])) {
                 $page = $_GET['page'];
                 if ($page == 'product') {
-                    require_once('handles/ProductController.php');
-                    $productController = new ProductController();
+                    require_once('handles/FormProductController.php');
+                    $formProductController = new FormProductController();
                     if (isset($_GET['action'])) {
-                        $productController->addForm();
+                        $formProductController->addForm();
                     } else {
                         include('product.php');
                     }
