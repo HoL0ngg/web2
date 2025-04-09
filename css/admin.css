@@ -287,3 +287,112 @@ label {
     font-size: 15px;
     display: inline-block;
 }
+
+/* ADD PRODUCT */
+/* body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+} */
+
+.container-add-product {
+    max-width: 900px;
+    margin: 30px auto;
+    background: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.header-add-product {
+    background-color: #66ccff;
+    color: black;
+    text-align: center;
+    padding: 15px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.form-wrapper {
+    display: flex;
+    padding: 20px;
+}
+
+.image-upload {
+    flex: 1;
+    text-align: center;
+    border-right: 1px solid #ddd;
+    padding-right: 20px;
+}
+
+.image-upload .preview {
+    width: 100%;
+    max-width: 300px;
+    height: 300px;
+    background-color: #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px;
+}
+
+.image-upload button {
+    background-color: #66ccff;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-inputs {
+    flex: 2;
+    padding-left: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-group textarea {
+    height: 100px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.buttons button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: #66ccff;
+    font-weight: bold;
+}
+
+.buttons button.cancel {
+    background-color: #b3e0ff;
+}
