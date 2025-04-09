@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <!-- <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -93,15 +94,22 @@
         </div>
         <div id="container-right">
             <?php
-            include("chucnangAccount.php"); // Đảm bảo file chứa class được gọi
+
 
             if (isset($_GET['page'])) {
                 $page = $_GET['page'];
                 if ($page == 'product') {
-                    include('product.php');
+                    require_once('handles/FormProductController.php');
+                    $formProductController = new FormProductController();
+                    if (isset($_GET['action'])) {
+                        $formProductController->addForm();
+                    } else {
+                        include('product.php');
+                    }
                 } elseif ($page == 'category') {
                     include('category.php');
                 } elseif ($page == 'user') {
+                    include("chucnangAccount.php"); // Đảm bảo file chứa class được gọi
                     if (isset($_GET['act'])) {
                         $act = $_GET['act'];
                         switch ($act) {
@@ -119,7 +127,6 @@
                                 $addAcc->accountForm("SỬA TÀI KHOẢN", "updateUserForm", $user);
                                 break;
                             default:
-                                # code...
                                 break;
                         }
                     } else {

@@ -1,3 +1,26 @@
+<?php
+// $action = $_GET['action'] ?? '';
+
+// switch ($action) {
+//     case 'add':
+//         include 'views/product/add.php'; // Giao diện thêm sản phẩm
+//         break;
+
+//     case 'edit':
+//         include 'views/product/edit.php'; // Giao diện chỉnh sửa sản phẩm
+//         break;
+
+//     case 'delete':
+//         include 'views/product/delete.php'; // Xử lý xóa sản phẩm
+//         break;
+
+//     default:
+//         echo ''; // Giao diện danh sách sản phẩm
+//         break;
+// }
+
+?>
+
 <div id="product-container">
     <div id="product-header">
         <div class="header-left">
@@ -30,28 +53,30 @@
                 <th>Thao tác</th>
             </tr>
             <?php
-            require("connect.php");
+            // require("database/connect.php");
+            $db = new database();
+            $conn = $db->getConnection();
             $sql = "SELECT * FROM sanpham";
-            $result = mysqli_query($conn, $sql);
+            $result = $conn->query($sql);
             $i = 1;
             while ($row = mysqli_fetch_assoc($result)) {
             ?>
                 <tr>
                     <td><?php echo $i; ?></td>
-                    <td><?php echo $row['maSP'] ?></td>
-                    <td><?php echo $row['ten']; ?></td>
-                    <td><?php echo $row['thuongHieu'] ?></td>
+                    <td><?php echo $row['product_id'] ?></td>
+                    <td><?php echo $row['product_name']; ?></td>
+                    <td><?php echo $row['brand_id'] ?></td>
                     <td><?php echo '10' ?></td>
-                    <td><?php echo $row['gia']; ?></td>
+                    <td><?php echo $row['price']; ?></td>
                     <td><img src="imgs/sp1.jpg" alt="product-image"></td>
                     <!-- <td><img src="../imgs/<?php echo $row['hinhanh']; ?>" alt="product-image"></td> -->
-                    <!-- <td><?php echo $row['maLoaisp']; ?></td> -->
+                    <!-- <td><?php echo $row['matheloai']; ?></td> -->
                     <td>
                         <div>
-                            <a href="admin.php?page=product&action=edit&id=<?php echo $row['maSP']; ?>" class="btn">✏️ Sửa</a>
+                            <a href="admin.php?page=product&action=edit&id=<?php echo $row['product_id']; ?>" class="btn">✏️ Sửa</a>
                         </div>
                         <div>
-                            <a href="admin.php?page=product&action=delete&id=<?php echo $row['maSP']; ?>" class="btn">❌ Xóa</a>
+                            <a href="admin.php?page=product&action=delete&id=<?php echo $row['product_id']; ?>" class="btn">❌ Xóa</a>
                         </div>
                     </td>
                 </tr>
@@ -154,7 +179,8 @@
     }
 
     #product-list {
-        overflow-x: auto;
+        overflow: auto;
+        max-height: 580;
     }
 
     #product-list table {

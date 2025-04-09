@@ -95,7 +95,7 @@ function validateUsername(username) {
     return reg.test(username)
 }
 function validatePassword(password) {
-    let reg = /.{8,}/;
+    let reg = /.{5,}/;
     return reg.test(password);
 }
 
@@ -165,14 +165,19 @@ function checkLogin() {
     return isValid;
 }
 //Login notification
-function showToast(message, type) {
-    let toast = document.getElementById("toast");
-    toast.innerText = message;
-    toast.style.backgroundColor = type ? 'rgba(0, 255, 0, 0.5)' : ' rgba(255, 0, 0, 0.9)';
-    toast.style.display = 'block';
-    setTimeout(() => {
-        toast.style.display = 'none';
-    }, 3000);
+function showToast(message, isSuccess) {
+    Swal.fire({
+        icon: isSuccess ? "success" : "error",
+        title: isSuccess ? "Thành công!" : "Lỗi!",
+        text: message,
+        toast: true, // Hiển thị dạng toast nhỏ thay vì popup lớn
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3500,
+        timerProgressBar: true,
+        background: isSuccess ? "#f0fff4" : "#fff0f0",
+        color: isSuccess ? "#2d7d46" : "#d33",
+    });
 }
 function loginNotification() {
     let frmLogin = document.frmLogin;
@@ -182,22 +187,20 @@ function loginNotification() {
         let formData = new FormData(this); // Lấy dữ liệu từ form
 
         // Gửi dữ liệu bằng AJAX với fetch
-        fetch("handles/handleLogin.php", { // Sử dụng action của form (handleLogin.php)
+        fetch("handles/LoginController.php", { // Sử dụng action của form (handleLogin.php)
             method: "POST",
             body: formData
         })
-            .then(response => response.json()) // Parse JSON response từ server
-
+            .then(response => response.json()) // Parse JSON response từ server            
+            
             .then(data => {
-                // console.log(data)
+                console.log(data)
                 // Hiển thị toast thông báo từ phản hồi của server
                 if (data.success) {
                     showToast(data.message, data.success);
-                    // document.getElementById("login-wrapper").style.display = 'none';
                     setTimeout(() => {
-                        // getUsername();
                         window.location.href = "../index.php";
-                    }, 1900); // Chờ 2 giây trước khi điều hướng     
+                    }, 1700);     
                 }
                 else {
                     showToast(data.message, data.success);
@@ -484,8 +487,7 @@ const product = [
 
 function changeColorPagenum(pagenum) {
     const btnArray = document.querySelectorAll("#pagenum div");
-    console.log(btnArray);
-
+    // console.log(btnArray);
     btnArray[pagenum - 1].classList.add("active");
     btnArray.forEach(btn => {
         btn.addEventListener("click", function () {
@@ -521,8 +523,9 @@ async function loadProducts(pagenum = 1) {
     const keyword = document.getElementById("timkiem").value.trim();
     console.log(keyword);
     const response = await fetch(`../api/pagination_api.php?pagenum=${pagenum}&keyword=${encodeURIComponent(keyword)}`);
+
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     let proContainer = document.getElementById("product-container");
     const pageNum = document.getElementById("pagenum");
     if (!pageNum) return;
