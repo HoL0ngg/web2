@@ -11,6 +11,21 @@ class ProductModel
         $this->conn = $db->getConnection();
     }
 
+    public function getProductById($id)
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM sanpham WHERE product_id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($row = $result->fetch_assoc()) {
+            return $row; // Trả về mảng chứa toàn bộ thông tin sản phẩm
+        }
+        $stmt->close();
+
+        return null;
+    }
+
     public function getNameProductById($id)
     {
         $sql = "SELECT product_name FROM sanpham WHERE product_id = ?";
@@ -34,7 +49,7 @@ class ProductModel
                 LIMIT ? OFFSET ?";
 
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("sii",$keyword, $limit, $offset);
+        $stmt->bind_param("sii", $keyword, $limit, $offset);
         $stmt->execute();
         $result = $stmt->get_result();
         $products = [];
@@ -45,12 +60,26 @@ class ProductModel
         return $products;
     }
 
-    public function getQuantityProducts($keyword ="")
+    public function getMainImageByProductId($productId)
+    {
+        $stmt = $this->conn->prepare("SELECT image_url FROM SanphamHinhanh WHERE product_id = ? AND is_main = 1");
+        $stmt->bind_param("i", $productId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($row = $result->fetch_assoc()) {
+            return $row['image_url'];
+        } else {
+            return 'imgs/default.jpg'; // fallback nếu không có hình chính
+        }
+    }
+
+    public function getQuantityProducts($keyword = "")
     {
         $keyword = "%$keyword%";
         $sql = "SELECT COUNT(*) AS soluong FROM SanPham WHERE product_name LIKE ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("s",$keyword);
+        $stmt->bind_param("s", $keyword);
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();

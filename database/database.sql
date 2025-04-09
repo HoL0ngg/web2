@@ -564,7 +564,6 @@ VALUES (
         8,
         'enable'
     );
-;
 -- SanPhamHinhAnh
 INSERT INTO SanPhamHinhAnh(image_url, is_main, product_id)
 VALUES ('imgs/sp1.jpg', TRUE, 1),

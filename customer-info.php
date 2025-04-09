@@ -12,7 +12,7 @@
 
 <div id="customer-info-container">
     <h3>Thông tin khách hàng</h2>
-        <form action="">
+        <form action="xacnhanthongtin.php" method="POST" id="checkoutForm">
             <div class="gioitinh-container">
                 <div class="gioitinh-item">
                     <input type="radio" name="gioitinh" id="nam" value="nam" checked><label for="nam">Anh</label>
@@ -22,9 +22,9 @@
                 </div>
             </div>
             <div class="info-container">
-                <div><input type="text" name="" id="" placeholder="Họ và tên"></div>
-                <div><input type="text" name="" id="" placeholder="Số điện thoại"></div>
-                <div><input type="text" name="" id="" placeholder="Địa chỉ Email"></div>
+                <div><input type="text" name="hoten" id="txtHoten" placeholder="Họ và tên"></div>
+                <div><input type="text" name="sdt" id="txtSDT" placeholder="Số điện thoại"></div>
+                <div><input type="text" name="email" id="txtEmail" placeholder="Địa chỉ Email"></div>
             </div>
             <h3>Địa chỉ giao hàng</h3>
             <div class="diachi-container">
@@ -73,7 +73,7 @@
                 </div>
                 <div class="total">
                     <p>Tổng tiền:</p>
-                    <p id="total-cost">100.000đ</p>
+                    <p id="total-cost"><?php echo number_format($_SESSION['total'], 0, ',', '.') ?> VNĐ</p>
                 </div>
             </div>
             <div id="confirm-btn">THANH TOÁN NGAY</div>
@@ -108,6 +108,11 @@
         flex-wrap: wrap;
         margin: 16px 0px;
         gap: 12px;
+    }
+
+    .info-container div.error {
+        border: 1px solid red;
+        margin: 0;
     }
 
     .info-container div {
@@ -156,6 +161,20 @@
         border: none;
         border-radius: 4px;
         outline: none;
+    }
+
+    .diachi-item select.error {
+        margin: 0;
+        color: black;
+        border: 1px solid red;
+        font-size: 1em;
+    }
+
+    .diachi-item input.error {
+        border: 1px solid red !important;
+        margin: 0;
+        color: black;
+        font-size: 1em;
     }
 
     .note {

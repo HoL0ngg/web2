@@ -10,6 +10,7 @@ document.querySelectorAll('.plus').forEach(button => {
     });
 })
 
+
 document.querySelectorAll('.minus').forEach(button => {
     button.addEventListener('click', function () {
         const quantityElement = this.nextElementSibling;
@@ -26,6 +27,15 @@ document.querySelectorAll('.minus').forEach(button => {
 
 document.querySelectorAll('.cart-remove').forEach(button => {
     button.addEventListener('click', function () {
+        const id = this.dataset.id;
+
+        fetch('cart.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `action=remove&id=${id}`
+        })
         const cartItem = this.closest('.cart-item');
         cartItem.remove();
 
@@ -39,14 +49,15 @@ updateCart = () => {
     let total = 0;
 
     cartItems.forEach(item => {
-        const price = parseFloat(item.querySelector('.new-price').textContent.replace('₫', '').replace('.', ''));
+        const price = parseFloat(item.querySelector('.new-price').textContent.replace('đ', '').replace('.', ''));
         const quantity = parseInt(item.querySelector('.cart-quantity').textContent);
         total += price * quantity;
     });
 
-
-    document.querySelector('.total-price').textContent = total.toLocaleString('vi-VN') + '₫';
+    document.querySelector('.total-price').textContent = total.toLocaleString('vi-VN') + 'đ';
 }
+
+updateCart();
 
 document.getElementById('cart-thanhtoan').addEventListener('click', function () {
     const cartItems = document.querySelectorAll('.cart-item');
@@ -58,3 +69,4 @@ document.getElementById('cart-thanhtoan').addEventListener('click', function () 
     // Chuyển hướng đến trang thanh toán
     window.location.href = 'cart.php?action=thanhtoan';
 })
+

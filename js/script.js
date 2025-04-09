@@ -485,7 +485,7 @@ const product = [
 function changeColorPagenum(pagenum) {
     const btnArray = document.querySelectorAll("#pagenum div");
     console.log(btnArray);
-    
+
     btnArray[pagenum - 1].classList.add("active");
     btnArray.forEach(btn => {
         btn.addEventListener("click", function () {
@@ -501,7 +501,7 @@ function changeColorPagenum(pagenum) {
 //     const pageNum = document.getElementById("pagenum");
 //     console.log(pagenum);
 //     if (!pageNum) return;
-    
+
 //     displayProduct(pagenum, proArray, numOfProducts);
 
 //     const totalPages = Math.ceil(proArray.length / numOfProducts);
@@ -525,6 +525,7 @@ async function loadProducts(pagenum = 1) {
     console.log(data);
     let proContainer = document.getElementById("product-container");
     const pageNum = document.getElementById("pagenum");
+    if (!pageNum) return;
     pageNum.innerHTML = "";
     let s = "";
     data.products.forEach(product => {
@@ -571,52 +572,63 @@ addToCart = (id, quantity) => {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: `add_to_cart=1&id=${id}&quantity=${quantity}`
+        body: `action=addtocart&id=${id}&quantity=${quantity}`
     })
         .then(res => res.text())
         .then(data => {
-            alert('Đã thêm vào giỏ hàng!');
-            console.log(data); // debug
+            Toastify({
+                text: `🛒 Đã thêm vào giỏ hàng!`,
+                duration: 3000,
+                gravity: "top",
+                position: "center",
+                timerProgressBar: true,
+                style: {
+                    background: "#4CAF50",
+                    color: "#fff",
+                    padding: "10px",
+                    borderRadius: "8px",
+                }
+            }).showToast();
         });
 }
 
 
 function showOrderDetail(button) {
     const orderId = button.value;
-    fetch('get_order_details.php',{
+    fetch('get_order_details.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',//dưới dạng html
         },
         body: 'order_id=' + encodeURIComponent(orderId)
     })
-    .then(response => response.text())
-    .then(data => {
-    // Đổ dữ liệu vào bảng chi tiết
-    document.getElementById("detail-table").getElementsByTagName("tbody")[0].innerHTML = data;
-    // Hiển thị popup
-    document.getElementById("order-detail-popup").classList.add("show");
-})
-.catch(error => {
-    console.error('Lỗi khi lấy chi tiết đơn hàng:', error);
-});
-    }
-    function hideOrderDetail() {
-const popup = document.getElementById("order-detail-popup");
-popup.classList.remove("show");
+        .then(response => response.text())
+        .then(data => {
+            // Đổ dữ liệu vào bảng chi tiết
+            document.getElementById("detail-table").getElementsByTagName("tbody")[0].innerHTML = data;
+            // Hiển thị popup
+            document.getElementById("order-detail-popup").classList.add("show");
+        })
+        .catch(error => {
+            console.error('Lỗi khi lấy chi tiết đơn hàng:', error);
+        });
+}
+function hideOrderDetail() {
+    const popup = document.getElementById("order-detail-popup");
+    popup.classList.remove("show");
 }
 
 
 window.onload = function () {
     closeButton();
     loginNotification();
-    registerNotification();    
+    registerNotification();
     closeWithoutButton("register-container");
     closeWithoutButton("login-container");
     closeWithoutButton("changepassword-container");
     openChangePasswordForm();
     changePasswordNotification();
-    openLoginForm();    
+    openLoginForm();
     // phantrang(1, product, 8);
     loadProducts();
 }

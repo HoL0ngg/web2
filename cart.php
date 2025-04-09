@@ -1,11 +1,12 @@
 <?php
 session_start();
-
+require_once 'Model/ProductModel.php';
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
-if (isset($_POST['add_to_cart'])) {
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'addtocart') {
     $id = intval($_POST['id']);
     $quantity = intval($_POST['quantity']);
 
@@ -28,7 +29,26 @@ if (isset($_POST['add_to_cart'])) {
     }
 
     echo "success";
-} ?>
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'remove') {
+    $idToRemove = $_POST['id'];
+
+    if (isset($_SESSION['cart'])) {
+        foreach ($_SESSION['cart'] as $index => $item) {
+            if ($item['id'] == $idToRemove) {
+                unset($_SESSION['cart'][$index]);
+                // Re-index mảng để tránh lỗi sau này
+                $_SESSION['cart'] = array_values($_SESSION['cart']);
+                break;
+            }
+        }
+    }
+
+    echo 'success';
+}
+
+?>
 <html lang="en">
 
 <head>
@@ -40,6 +60,8 @@ if (isset($_POST['add_to_cart'])) {
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/cart.css">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro&display=swap" rel="stylesheet">
+
 </head>
 
 <body>

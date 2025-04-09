@@ -51,3 +51,62 @@ loadPhuong = () => {
 
 }
 loadThanhPho();
+
+document.getElementById('confirm-btn').addEventListener('click', function (e) {
+    const form = document.getElementById('checkoutForm');
+    let cnt = 0;
+    // --- Lấy dữ liệu input ---
+    const fullname = form.querySelector('#txtHoten');
+    const phone = form.querySelector('#txtSDT');
+    const email = form.querySelector('#txtEmail');
+    const city = form.thanhpho;
+    const district = form.quan;
+    const ward = form.phuong;
+    const addressDetail = form.diachi;
+    const paymentMethod = form.querySelector('input[name="payment-method"]:checked');
+
+    // --- Validate Họ tên ---
+    if (fullname.value.trim() === '') {
+        ++cnt;
+        fullname.parentElement.classList.add('error');
+    } else
+        fullname.parentElement.classList.remove('error');
+
+
+    // --- Validate số điện thoại ---
+    const phoneRegex = /^0\d{9}$/;
+    if (!phoneRegex.test(phone.value.trim())) {
+        ++cnt;
+        phone.parentElement.classList.add('error');
+    } else phone.parentElement.classList.remove('error');
+
+    // --- Validate Email ---
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.value.trim())) {
+        ++cnt;
+        email.parentElement.classList.add('error');
+    } else email.parentElement.classList.remove('error');
+
+    // --- Validate địa chỉ-- -
+    if (!city.value) {
+        ++cnt;
+        city.classList.add('error');
+    } else city.classList.remove('error');
+    if (!district.value) {
+        ++cnt;
+        district.classList.add('error');
+    } else district.classList.remove('error');
+    if (!ward.value) {
+        ++cnt;
+        ward.classList.add('error');
+    } else ward.classList.remove('error');
+    if (addressDetail.value.trim() === '') {
+        addressDetail.classList.add('error');
+    } else addressDetail.classList.remove('error');
+
+    if (cnt > 0) {
+        e.preventDefault();
+    } else {
+        form.submit(); // ✅ Gửi form nếu không có lỗi
+    }
+});
