@@ -12,13 +12,13 @@
 
         public function getAll()
         {
-            $sql = "SELECT brand_id,brand_name FROM brand";
+            $sql = "SELECT brand_id, brand_name FROM brand";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
             $result = $stmt->get_result();
-            $brand = $result->fetch_assoc();
+            $brands = $result->fetch_all(MYSQLI_ASSOC); // ✔ Lấy toàn bộ
             $stmt->close();
-            return $brand;
+            return $brands;
         }
     }
     ?>

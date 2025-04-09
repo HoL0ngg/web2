@@ -94,15 +94,22 @@
         </div>
         <div id="container-right">
             <?php
-            include("chucnangAccount.php"); // Đảm bảo file chứa class được gọi
+
 
             if (isset($_GET['page'])) {
                 $page = $_GET['page'];
                 if ($page == 'product') {
-                    include('product.php');
+                    require_once('handles/ProductController.php');
+                    $productController = new ProductController();
+                    if (isset($_GET['action'])) {
+                        $productController->addForm();
+                    } else {
+                        include('product.php');
+                    }
                 } elseif ($page == 'category') {
                     include('category.php');
                 } elseif ($page == 'user') {
+                    include("chucnangAccount.php"); // Đảm bảo file chứa class được gọi
                     if (isset($_GET['act'])) {
                         $act = $_GET['act'];
                         switch ($act) {

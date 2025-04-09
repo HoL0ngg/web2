@@ -10,15 +10,15 @@
 <body>
     <div class="container-add-product">
         <div class="header-add-product">THÊM SẢN PHẨM</div>
-        <div class="form-wrapper">
+        <div class="form-wrapper-add-product">
             <div class="image-upload">
-                <div class="preview">
-                    <span>📷</span>
+                <div class="preview" id="imagePreview">
+                    <span><img src="../imgs/addImg.png" alt="addImg"></span>
                 </div>
-                <button>
-                    ⬆ Chọn hình ảnh
-                </button>
+                <label for="imageInput" class="upload-btn-label"><i class="fa-solid fa-cloud-arrow-up"></i> Chọn hình ảnh</label>
+                <input type="file" id="imageInput" name="image" accept="image/*" onchange="previewImage(event)">
             </div>
+
             <div class="form-inputs">
                 <form method="POST" action="index.php?action=saveProduct" enctype="multipart/form-data">
                     <div class="form-group">
@@ -37,8 +37,8 @@
                         <label for="theloai">Thể loại</label>
                         <select id="theloai" name="theloai">
                             <option value="">-- Chọn thể loại --</option>
-                            <?php foreach ($categories as $cat): ?>
-                                <option value="<?= $cat['id'] ?>"><?= htmlspecialchars($cat['ten_the_loai']) ?></option>
+                            <?php foreach ($theloai as $cat): ?>
+                                <option value="<?= $cat['matheloai']; ?>"><?= htmlspecialchars($cat['tentheloai']); ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -47,7 +47,7 @@
                         <select id="thuonghieu" name="thuonghieu">
                             <option value="">-- Chọn thương hiệu --</option>
                             <?php foreach ($brands as $brand): ?>
-                                <option value="<?= $brand['id'] ?>"><?= htmlspecialchars($brand['ten_thuong_hieu']) ?></option>
+                                <option value="<?= $brand['brand_id']; ?>"><?= htmlspecialchars($brand['brand_name']); ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -55,14 +55,31 @@
                         <label for="mota">Mô tả</label>
                         <textarea id="mota" name="mota"></textarea>
                     </div>
-                    <div class="buttons">
+                    <div class="buttons-add-product">
                         <button type="submit">Thêm sản phẩm</button>
-                        <button type="reset" class="cancel">Hủy</button>
+                        <button class="cancel-add-product"><a href="admin.php?page=product">Hủy</a></button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
 </body>
+<script>
+    function previewImage(event) {
+        const preview = document.getElementById('imagePreview');
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.innerHTML = "<span>📷</span>";
+        }
+    }
+</script>
 
 </html>

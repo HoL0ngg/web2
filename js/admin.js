@@ -113,7 +113,7 @@ async function loadUsers() {
     let userTable = document.getElementById("userTable");
     if(userTable) userTable.innerHTML = "";
     let rows = "";
-    console.log(users);
+    // console.log(users);
     
     if(users.length == 0){
         rows += `<tr>

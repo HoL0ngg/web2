@@ -13,13 +13,13 @@
 
         public function getAll()
         {
-            $sql = "SELECT matheloai,tentheloai FROM theloai";
+            $sql = "SELECT matheloai, tentheloai FROM theloai";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
             $result = $stmt->get_result();
-            $brand = $result->fetch_assoc();
+            $theloai = $result->fetch_all(MYSQLI_ASSOC); // ✔ Lấy toàn bộ
             $stmt->close();
-            return $brand;
+            return $theloai;
         }
     }
     ?>

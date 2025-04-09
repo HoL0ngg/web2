@@ -1,23 +1,23 @@
 <?php
-$action = $_GET['action'] ?? '';
+// $action = $_GET['action'] ?? '';
 
-switch ($action) {
-    case 'add':
-        include 'views/product/add.php'; // Giao diện thêm sản phẩm
-        break;
+// switch ($action) {
+//     case 'add':
+//         include 'views/product/add.php'; // Giao diện thêm sản phẩm
+//         break;
 
-    case 'edit':
-        include 'views/product/edit.php'; // Giao diện chỉnh sửa sản phẩm
-        break;
+//     case 'edit':
+//         include 'views/product/edit.php'; // Giao diện chỉnh sửa sản phẩm
+//         break;
 
-    case 'delete':
-        include 'views/product/delete.php'; // Xử lý xóa sản phẩm
-        break;
+//     case 'delete':
+//         include 'views/product/delete.php'; // Xử lý xóa sản phẩm
+//         break;
 
-    default:
-        echo ''; // Giao diện danh sách sản phẩm
-        break;
-}
+//     default:
+//         echo ''; // Giao diện danh sách sản phẩm
+//         break;
+// }
 
 ?>
 
@@ -53,7 +53,7 @@ switch ($action) {
                 <th>Thao tác</th>
             </tr>
             <?php
-            require("database/connect.php");
+            // require("database/connect.php");
             $db = new database();
             $conn = $db->getConnection();
             $sql = "SELECT * FROM sanpham";
@@ -179,7 +179,8 @@ switch ($action) {
     }
 
     #product-list {
-        overflow-x: auto;
+        overflow: auto;
+        max-height: 580;
     }
 
     #product-list table {
