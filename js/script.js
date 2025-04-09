@@ -482,9 +482,11 @@ const product = [
 
 // }
 
-function changeColorPagenum() {
+function changeColorPagenum(pagenum) {
     const btnArray = document.querySelectorAll("#pagenum div");
-    // btnArray[0].classList.add("active");
+    console.log(btnArray);
+    
+    btnArray[pagenum - 1].classList.add("active");
     btnArray.forEach(btn => {
         btn.addEventListener("click", function () {
             btnArray.forEach(item => {
@@ -545,7 +547,7 @@ async function loadProducts(pagenum = 1) {
         });
         pageNum.appendChild(button);
     }
-    changeColorPagenum();
+    changeColorPagenum(pagenum);
 }
 
 const priceRange = document.getElementById('price-range');
