@@ -518,7 +518,9 @@ function changeColorPagenum(pagenum) {
 //     changeColorPagenum();
 // }
 async function loadProducts(pagenum = 1) {
-    const response = await fetch(`../api/pagination_api.php?pagenum=${pagenum}`);
+    const keyword = document.getElementById("timkiem").value.trim();
+    console.log(keyword);
+    const response = await fetch(`../api/pagination_api.php?pagenum=${pagenum}&keyword=${encodeURIComponent(keyword)}`);
     const data = await response.json();
     console.log(data);
     let proContainer = document.getElementById("product-container");
@@ -550,6 +552,8 @@ async function loadProducts(pagenum = 1) {
     changeColorPagenum(pagenum);
 }
 
+document.getElementById("timkiem").addEventListener("keyup", () => loadProducts(1));
+
 const priceRange = document.getElementById('price-range');
 const minPrice = document.getElementById('min-price');
 const maxPrice = document.getElementById('max-price');
@@ -575,6 +579,33 @@ addToCart = (id, quantity) => {
             console.log(data); // debug
         });
 }
+
+
+function showOrderDetail(button) {
+    const orderId = button.value;
+    fetch('get_order_details.php',{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',//dưới dạng html
+        },
+        body: 'order_id=' + encodeURIComponent(orderId)
+    })
+    .then(response => response.text())
+    .then(data => {
+    // Đổ dữ liệu vào bảng chi tiết
+    document.getElementById("detail-table").getElementsByTagName("tbody")[0].innerHTML = data;
+    // Hiển thị popup
+    document.getElementById("order-detail-popup").classList.add("show");
+})
+.catch(error => {
+    console.error('Lỗi khi lấy chi tiết đơn hàng:', error);
+});
+    }
+    function hideOrderDetail() {
+const popup = document.getElementById("order-detail-popup");
+popup.classList.remove("show");
+}
+
 
 window.onload = function () {
     closeButton();

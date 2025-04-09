@@ -22,18 +22,19 @@ class ProductModel
         $stmt->close();
         return $name_product['product_name'];
     }
-    public function getProductsByPageNum($page = 1, $limit = 8)
+    public function getProductsByPageNum($page = 1, $limit = 8, $keyword = "")
     {
         $offset = ($page - 1) * $limit;
+        $keyword = "%$keyword%";
 
         $sql = "SELECT sp.*, ha.image_url
                 FROM SanPham sp
                 JOIN SanPhamHinhAnh ha ON sp.product_id = ha.product_id
-                WHERE ha.is_main = TRUE
+                WHERE ha.is_main = TRUE AND sp.product_name LIKE ?
                 LIMIT ? OFFSET ?";
 
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("ii", $limit, $offset);
+        $stmt->bind_param("sii",$keyword, $limit, $offset);
         $stmt->execute();
         $result = $stmt->get_result();
         $products = [];
@@ -44,10 +45,14 @@ class ProductModel
         return $products;
     }
 
-    public function getQuantityProducts()
+    public function getQuantityProducts($keyword ="")
     {
-        $sql = "SELECT COUNT(*) AS soluong FROM SanPham";
-        $result = $this->conn->query($sql);
+        $keyword = "%$keyword%";
+        $sql = "SELECT COUNT(*) AS soluong FROM SanPham WHERE product_name LIKE ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s",$keyword);
+        $stmt->execute();
+        $result = $stmt->get_result();
         $row = $result->fetch_assoc();
         return $row['soluong'];
     }

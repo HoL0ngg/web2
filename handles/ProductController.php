@@ -17,10 +17,11 @@ class ProductController
         return $this->model->getNameProductById($id);
     }
 
-    public function getProductsPaginated($page = 1, $limit = 8)
+    public function getProductsPaginated($page = 1, $limit = 8, $keyword= "")
     {
-        $products = $this->model->getProductsByPageNum($page, $limit);
-        $totalProducts = $this->model->getQuantityProducts();
+
+        $products = $this->model->getProductsByPageNum($page, $limit, $keyword);
+        $totalProducts = $this->model->getQuantityProducts($keyword);
         $pagenum = ceil($totalProducts / $limit);
 
         $response = ["products" => $products, "totalPage" => $pagenum];
