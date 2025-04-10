@@ -13,8 +13,10 @@ class FormProductModel
 
     public function getProductById($id)
     {
-        $id = (int)$id;
-        $sql = "SELECT * FROM SanPham WHERE product_id = ?";
+        $sql = "SELECT sp.*, ha.image_url
+                FROM SanPham sp
+                JOIN sanphamhinhanh ha ON sp.product_id = ha.product_id  
+                WHERE sp.product_id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();

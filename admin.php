@@ -102,7 +102,21 @@
                     require_once('handles/FormProductController.php');
                     $formProductController = new FormProductController();
                     if (isset($_GET['action'])) {
-                        $formProductController->addForm();
+                        $act = $_GET['action'];
+                        switch ($act) {
+                            case 'add':
+                                $formProductController->addForm();
+                                break;
+                            case 'edit':
+                                if (isset($_GET['id'])) {
+                                    $id = $_GET['id'];
+                                    $formProductController->updateForm($id);
+                                }
+                                break;
+                            default:
+                                # code...
+                                break;
+                        }
                     } else {
                         include('product.php');
                     }

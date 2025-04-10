@@ -94,14 +94,14 @@ CREATE TABLE NhaCungCap (
 );
 -- Bảng SanPham
 CREATE TABLE SanPham (
-    product_id INT PRIMARY KEY,
+    product_id INT AUTO_INCREMENT PRIMARY KEY,
     product_name VARCHAR(50),
     quantity INT,
     price INT,
-    description TEXT,
+    mota TEXT,
     brand_id INT,
     matheloai INT,
-    status ENUM('disable', 'enable'),
+    status TINYINT NOT NULL DEFAULT 1,
     FOREIGN KEY (brand_id) REFERENCES Brand(brand_id),
     FOREIGN KEY (matheloai) REFERENCES TheLoai(matheloai)
 );
@@ -384,7 +384,7 @@ INSERT INTO SanPham (
         product_name,
         quantity,
         price,
-        description,
+        mota,
         brand_id,
         matheloai,
         status
@@ -397,7 +397,7 @@ VALUES (
         'Son môi màu đỏ cổ điển, giúp làm sáng khuôn mặt',
         1,
         1,
-        'enable'
+        1
     ),
     (
         2,
@@ -407,7 +407,7 @@ VALUES (
         'Kem dưỡng ẩm giúp da mềm mịn, cấp nước sâu cho da khô',
         2,
         2,
-        'enable'
+        1
     ),
     (
         3,
@@ -417,7 +417,7 @@ VALUES (
         'Sữa rửa mặt dịu nhẹ, phù hợp với da nhạy cảm',
         3,
         2,
-        'enable'
+        1
     ),
     (
         4,
@@ -427,7 +427,7 @@ VALUES (
         'Kem chống nắng bảo vệ da khỏi tia UVA và UVB',
         4,
         2,
-        'enable'
+        1
     ),
     (
         5,
@@ -437,7 +437,7 @@ VALUES (
         'Mặt nạ dưỡng da, giúp da sáng khỏe và mịn màng',
         4,
         5,
-        'enable'
+        1
     ),
     (
         6,
@@ -447,7 +447,7 @@ VALUES (
         'Sữa tắm dưỡng ẩm, cho làn da mềm mịn',
         3,
         3,
-        'enable'
+        1
     ),
     (
         7,
@@ -457,7 +457,7 @@ VALUES (
         'Dầu gội làm sạch tóc, bảo vệ da đầu khỏi gàu',
         2,
         4,
-        'enable'
+        1
     ),
     (
         8,
@@ -467,7 +467,7 @@ VALUES (
         'Nước hoa nữ sang trọng với hương thơm quyến rũ',
         1,
         6,
-        'enable'
+        1
     ),
     -- Trang Điểm
     (
@@ -478,7 +478,7 @@ VALUES (
         'Son kem lì lâu trôi, màu sắc thời thượng',
         3,
         1,
-        'enable'
+        1
     ),
     -- Chăm Sóc Da Mặt
     (
@@ -489,7 +489,7 @@ VALUES (
         'Cung cấp độ ẩm chuyên sâu, giúp da căng mọng',
         2,
         2,
-        'enable'
+        1
     ),
     (
         11,
@@ -499,7 +499,7 @@ VALUES (
         'Chiết xuất trà xanh, làm sạch và kiềm dầu',
         1,
         2,
-        'enable'
+        1
     ),
     (
         12,
@@ -509,7 +509,7 @@ VALUES (
         'Chống nắng dạng sữa, nhẹ da và không bết dính',
         1,
         4,
-        'enable'
+        1
     ),
     (
         13,
@@ -519,7 +519,7 @@ VALUES (
         'Mặt nạ dưỡng da ban đêm, tái tạo làn da khi ngủ',
         2,
         5,
-        'enable'
+        1
     ),
     -- Chăm Sóc Cơ Thể
     (
@@ -530,7 +530,7 @@ VALUES (
         'Hương hoa hồng dịu nhẹ, mang lại cảm giác thư giãn',
         4,
         6,
-        'enable'
+        1
     ),
     -- Chăm Sóc Tóc & Da Đầu
     (
@@ -541,7 +541,7 @@ VALUES (
         'Ngăn rụng tóc, giúp tóc chắc khỏe và mềm mượt',
         1,
         7,
-        'enable'
+        1
     ),
     -- Nước Hoa
     (
@@ -552,7 +552,7 @@ VALUES (
         'Mùi hương nam tính, mạnh mẽ và lôi cuốn',
         3,
         8,
-        'enable'
+        1
     ),
     (
         17,
@@ -562,7 +562,7 @@ VALUES (
         'Mùi hương nhẹ nhàng, nữ tính từ hoa trắng',
         2,
         8,
-        'enable'
+        1
     );
 ;
 -- SanPhamHinhAnh

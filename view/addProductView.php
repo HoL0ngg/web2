@@ -92,6 +92,7 @@
                 preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
             };
             reader.readAsDataURL(file);
+
         } else {
             preview.innerHTML = `<span><img src="../imgs/addImg.png" alt="addImg"></span>`;
         }
