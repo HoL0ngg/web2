@@ -19,6 +19,6 @@ class FormProductController
 
         $theloai = $theloaiModel->getAll();
         $brands = $brandModel->getAll();
-        include('view/FormProductView.php');
+        include('view/addProductView.php');
     }
 }

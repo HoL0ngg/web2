@@ -25,14 +25,17 @@
                         <label for="ten">Tên sản phẩm</label>
                         <input type="text" id="ten" name="ten">
                     </div>
+
                     <div class="form-group">
                         <label for="soluong">Số lượng</label>
                         <input type="number" id="soluong" name="soluong">
                     </div>
+
                     <div class="form-group">
                         <label for="gia">Giá</label>
                         <input type="text" id="gia" name="gia">
                     </div>
+
                     <div class="form-group">
                         <label for="theloai">Thể loại</label>
                         <select id="theloai" name="theloai">
@@ -42,6 +45,7 @@
                             <?php endforeach; ?>
                         </select>
                     </div>
+
                     <div class="form-group">
                         <label for="thuonghieu">Thương hiệu</label>
                         <select id="thuonghieu" name="thuonghieu">
@@ -51,6 +55,18 @@
                             <?php endforeach; ?>
                         </select>
                     </div>
+
+                    <div class="form-group radio-product-status">
+                        <label>Trạng thái</label>
+                        <div id="container-product-status">
+                            <input type="radio" id="hien" name="trangthai" value="1" checked>
+                            <label for="hien">Hiện</label>
+
+                            <input type="radio" id="an" name="trangthai" value="0">
+                            <label for="an">Ẩn</label>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label for="mota">Mô tả</label>
                         <textarea id="mota" name="mota"></textarea>
@@ -77,7 +93,7 @@
             };
             reader.readAsDataURL(file);
         } else {
-            preview.innerHTML = "<span>📷</span>";
+            preview.innerHTML = `<span><img src="../imgs/addImg.png" alt="addImg"></span>`;
         }
     }
 </script>

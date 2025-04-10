@@ -66,7 +66,7 @@ const userFormHandler = function(event) {
     // Thêm action vào formData để server biết là thêm hay sửa
     formData.append('action', this.id === 'addUserForm' ? 'add' : 'update');
     
-    fetch("handles/handleUser.php", {  // Dùng chung endpoint
+    fetch("handles/handleUser.php", { 
         method: "POST",
         body: formData
     })
@@ -183,39 +183,6 @@ document.addEventListener("click", function(event) {
     }
 });
 
-// function deleteUser(){
-//     const delButtons = document.querySelectorAll(".delete-btn-user");
-//     console.log(delButtons);
-    
-//     if(delButtons.length > 0){
-//         delButtons.forEach(button => {
-//             button.addEventListener("click", function(){
-//                 console.log("hihi");
-                
-//                 let userId = button.getAttribute("data-id");
-//                 let dataForm = new FormData();
-//                 dataForm.append('action', 'xoa');
-//                 dataForm.append('id',userId);
-//                 fetch("handles/handleUser.php", {
-//                     method: "POST",
-//                     body: dataForm
-//                 })
-//                 .then(response => response.json())
-//                 .then(data =>{
-//                     if(data.success){
-//                         handleSuccessResponse(data);
-//                     }else{
-//                         handleErrorResponse(data);
-//                     }
-//                 })
-//                 .catch(error => {
-//                     console.error("Lỗi hệ thống: ", error);
-//                     showToast("Lỗi hệ thống", false);
-//                 })
-//             });
-//         });
-//     }
-// }
 window.onload = function () {
     effectSideBar();
     hiddenSideBar();  
