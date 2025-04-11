@@ -620,6 +620,7 @@ async function loadProducts(pagenum = 1) {
         button.textContent = i;
         button.addEventListener("click", function () {
             loadProducts(i);
+            scrollToContent()
         });
         pageNum.appendChild(button);
     }
@@ -627,12 +628,40 @@ async function loadProducts(pagenum = 1) {
 
    
 }
-
+function scrollToContent(){
+    const content = document.getElementById("content-wrapper");
+    const headerHeight = document.getElementById("header")?.offsetHeight || 0;
+if (content) {
+    const contentTop = content.offsetTop; // Vị trí top tương đối với <body>
+    const scrollToY = contentTop - headerHeight - 10; // Trừ đi chiều cao header nếu cần
+    console.log(contentTop);
+        console.log(scrollToY);
+        
+        
+        window.scrollTo({
+            top: scrollToY,
+            behavior: "smooth"
+        });
+    }
+    
+}
 document.getElementById("timkiem").addEventListener("keyup", () => loadProducts(1));
+
 document.querySelectorAll(".brandname").forEach(cb => {
     cb.addEventListener("change", () => {
         loadProducts(1); // Load lại sản phẩm trang đầu tiên
     });
+
+const priceRange = document.getElementById('price-range');
+const minPrice = document.getElementById('min-price');
+const maxPrice = document.getElementById('max-price');
+
+// Lắng nghe sự kiện thay đổi giá trị của thanh trượt
+if (priceRange) priceRange.addEventListener('input', function () {
+    const currentValue = priceRange.value;
+    minPrice.textContent = `0đ`;
+    maxPrice.textContent = currentValue + "đ";
+
 });
 document.querySelectorAll(".loaisanpham").forEach(cb => {
     cb.addEventListener("change", () => {

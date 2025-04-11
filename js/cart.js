@@ -48,6 +48,10 @@ updateCart = () => {
     const cartItems = document.querySelectorAll('.cart-item');
     let total = 0;
 
+    if (cartItems.length === 0) {
+
+    }
+
     cartItems.forEach(item => {
         const price = parseFloat(item.querySelector('.new-price').textContent.replace('đ', '').replace('.', ''));
         const quantity = parseInt(item.querySelector('.cart-quantity').textContent);
