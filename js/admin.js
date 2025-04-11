@@ -107,40 +107,40 @@ if (updateUserFrm) {
     updateUserFrm.addEventListener("submit", userFormHandler);
 }
 
-async function loadUsers() {        
-    const response = await fetch("handles/getUsers.php");
-    const users = await response.json();
-    let userTable = document.getElementById("userTable");
-    if(userTable) userTable.innerHTML = "";
-    let rows = "";
-    // console.log(users);
+// async function loadUsers() {        
+//     const response = await fetch("handles/getUsers.php");
+//     const users = await response.json();
+//     let userTable = document.getElementById("userTable");
+//     if(userTable) userTable.innerHTML = "";
+//     let rows = "";
+//     // console.log(users);
     
-    if(users.length == 0){
-        rows += `<tr>
-                    <td colspan="7">Không tìm thấy dữ liệu</td>
-                </tr>`
-    }else{
-        users.forEach(user =>{  
-            // console.log(user);
+//     if(users.length == 0){
+//         rows += `<tr>
+//                     <td colspan="7">Không tìm thấy dữ liệu</td>
+//                 </tr>`
+//     }else{
+//         users.forEach(user =>{  
+//             // console.log(user);
                           
-            rows += `<tr>
-                         <td>${user.user_id}</td>
-                         <td>${user.username}</td>
-                         <td>${user.phone}</td>
-                         <td>${user.email}</td>
-                         <td>${user.status == 0 ? `<span class="status-no-complete">Bị khóa</span>` : `<span class="status-complete">Hoạt động</span>`}</td>
-                         <td>${user.role_id == 1 ? "Admin" : "User"}</td>
-                         <td>
-                             <a href="admin.php?page=user&act=update&uid=${user.user_id}"><button class="edit-btn">✏️ Sửa</button></a>
-                             <button class="delete-btn-user" data-id=${user.user_id}>❌ Xóa</button>
-                         </td>            
-                     </tr>`;
-        });
-    }
-    if(userTable != null){
-        userTable.innerHTML = rows;
-    }
-}
+//             rows += `<tr>
+//                          <td>${user.user_id}</td>
+//                          <td>${user.username}</td>
+//                          <td>${user.phone}</td>
+//                          <td>${user.email}</td>
+//                          <td>${user.status == 0 ? `<span class="status-no-complete">Bị khóa</span>` : `<span class="status-complete">Hoạt động</span>`}</td>
+//                          <td>${user.role_id == 1 ? "Admin" : "User"}</td>
+//                          <td>
+//                              <a href="admin.php?page=user&act=update&uid=${user.user_id}"><button class="edit-btn">✏️ Sửa</button></a>
+//                              <button class="delete-btn-user" data-id=${user.user_id}>❌ Xóa</button>
+//                          </td>            
+//                      </tr>`;
+//         });
+//     }
+//     if(userTable != null){
+//         userTable.innerHTML = rows;
+//     }
+// }
 document.addEventListener("click", function(event) {
     if (event.target.classList.contains("delete-btn-user")) {
         let userId = event.target.getAttribute("data-id");
@@ -185,9 +185,7 @@ document.addEventListener("click", function(event) {
 
 window.onload = function () {
     effectSideBar();
-    hiddenSideBar();  
-    // addUsers();
-    // addUsers();
+    hiddenSideBar(); 
     loadUsers();      
     
     let message = sessionStorage.getItem("toastMessage");

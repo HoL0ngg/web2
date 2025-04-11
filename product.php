@@ -1,26 +1,3 @@
-<?php
-// $action = $_GET['action'] ?? '';
-
-// switch ($action) {
-//     case 'add':
-//         include 'views/product/add.php'; // Giao diện thêm sản phẩm
-//         break;
-
-//     case 'edit':
-//         include 'views/product/edit.php'; // Giao diện chỉnh sửa sản phẩm
-//         break;
-
-//     case 'delete':
-//         include 'views/product/delete.php'; // Xử lý xóa sản phẩm
-//         break;
-
-//     default:
-//         echo ''; // Giao diện danh sách sản phẩm
-//         break;
-// }
-
-?>
-
 <div id="product-container">
     <div id="product-header">
         <div class="header-left">
