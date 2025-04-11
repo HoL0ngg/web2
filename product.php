@@ -42,40 +42,46 @@
     <div id="product-list">
         <table>
             <tr>
-                <th>STT</th>
+                <!-- <th>STT</th> -->
                 <th>Mã sản phẩm</th>
                 <th>Tên sản phẩm</th>
                 <th>Tên thương hiệu</th>
                 <th>Số lượng</th>
                 <th>Giá</th>
                 <th>Ảnh</th>
-                <!-- <th>Danh mục</th> -->
+                <th>Thể loại</th>
                 <th>Thao tác</th>
             </tr>
             <?php
             // require("database/connect.php");
             $db = new database();
             $conn = $db->getConnection();
-            $sql = "SELECT * FROM sanpham";
+            $sql = "SELECT sp.*, ha.image_url, tl.tentheloai, brand.brand_name
+                FROM SanPham sp
+                JOIN SanPhamHinhAnh ha ON sp.product_id = ha.product_id
+                JOIN theloai tl ON sp.matheloai = tl.matheloai
+                JOIN brand ON sp.brand_id = brand.brand_id
+                WHERE ha.is_main = TRUE
+                ORDER BY product_id DESC";
             $result = $conn->query($sql);
             $i = 1;
             while ($row = mysqli_fetch_assoc($result)) {
             ?>
                 <tr>
-                    <td><?php echo $i; ?></td>
+                    <!-- <td><?php echo $i; ?></td> -->
                     <td><?php echo $row['product_id'] ?></td>
                     <td><?php echo $row['product_name']; ?></td>
-                    <td><?php echo $row['brand_id'] ?></td>
-                    <td><?php echo '10' ?></td>
+                    <td><?php echo $row['brand_name'] ?></td>
+                    <td><?php echo $row['quantity'] ?></td>
                     <td><?php echo $row['price']; ?></td>
-                    <td><img src="imgs/sp1.jpg" alt="product-image"></td>
-                    <!-- <td><img src="../imgs/<?php echo $row['hinhanh']; ?>" alt="product-image"></td> -->
-                    <!-- <td><?php echo $row['matheloai']; ?></td> -->
+                    <!-- <td><img src="imgs/sp1.jpg" alt="product-image"></td> -->
+                    <td><img src="<?php echo $row['image_url']; ?>" alt="product-image"></td>
+                    <td><?php echo $row['tentheloai']; ?></td>
                     <td>
                         <div>
                             <a href="admin.php?page=product&action=edit&id=<?php echo $row['product_id']; ?>" class="btn">✏️ Sửa</a>
                         </div>
-                        <div>
+                        <div style="margin-top: 5px;">
                             <a href="admin.php?page=product&action=delete&id=<?php echo $row['product_id']; ?>" class="btn">❌ Xóa</a>
                         </div>
                     </td>
@@ -255,4 +261,8 @@
             margin-top: 10px;
         }
     }
+
+    /* #product-list td:last-child div {
+        margin-bottom: 6px;
+    } */
 </style>
