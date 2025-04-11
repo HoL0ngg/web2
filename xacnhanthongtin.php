@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Kiểm tra nếu form được gửi đi
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Lấy dữ liệu từ form

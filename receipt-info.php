@@ -1,3 +1,7 @@
+<?php
+$order = $_SESSION['order_info'];
+?>
+
 <div style="width: 42%; margin: 32px auto 0px; padding: 24px 48px; background-color:rgba(52, 152, 219, 0.5); border-radius: 10px">
     <div class="progress-container">
         <div class="progress-step active" data-step="Giỏ hàng"><i class="fa-solid fa-cart-shopping"></i></div>
@@ -15,11 +19,11 @@
         <h1>HÓA ĐƠN THANH TOÁN</h1>
     </div>
     <div class="receipt-content">
-        <p><strong>Tên khách hàng: </strong>Long cute</p>
-        <p><strong>Địa chỉ giao hàng: </strong> hihihi</p>
-        <p><strong>Số điện thoại: </strong>0987654321</p>
-        <p><strong>Email: </strong> hihihi@gmail.com</p>
-        <p><strong>Ngày đặt hàng: </strong> 30/4/2025</p>
+        <p><strong>Tên khách hàng: </strong><?php echo $order['hoten'] ?></p>
+        <p><strong>Địa chỉ giao hàng: </strong><?php echo $order['diachi'] . ' ' . $order['phuong'] . ' ' . $order['quan'] . ' ' . $order['thanhpho'] ?></p>
+        <p><strong>Số điện thoại: </strong><?php echo $order['sdt'] ?></p>
+        <p><strong>Email: </strong> <?php echo $order['email'] ?></p>
+        <p><strong>Ngày đặt hàng: </strong> <?php echo $order['order_time'] ?></p>
     </div>
     <div class="receipt-items">
         <h2>Chi tiết đơn hàng</h2>
@@ -33,26 +37,37 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- <?php foreach ($order_items as $item): ?>
+                <?php
+                $productmodel = new ProductModel();
+                $total = 0;
+                foreach ($_SESSION['cart'] as $item):
+                    $id = $item['id'];
+                    $quantity = $item['quantity'];
+                    $row = $productmodel->getProductById($id);
+                    $img_url = $productmodel->getMainImageByProductId($id);
+                    if (!$row) {
+                        // xu li gi do
+                    } else {
+                        $subtotal = $row['price'] * $quantity;
+                        $total += $subtotal;
+                    }
+                ?>
                     <tr>
-                        <td><?php echo $item['product_name']; ?></td>
-                        <td><?php echo $item['quantity']; ?></td>
-                        <td><?php echo number_format($item['price'], 0, ',', '.'); ?> VNĐ</td>
-                        <td><?php echo number_format($item['total'], 0, ',', '.'); ?> VNĐ</td>
+                        <td><?php echo $row['product_name']; ?></td>
+                        <td><?php echo $quantity; ?></td>
+                        <td><?php echo number_format($row['price'], 0, ',', '.'); ?> VNĐ</td>
+                        <td><?php echo number_format($subtotal, 0, ',', '.'); ?> VNĐ</td>
                     </tr>
-                <?php endforeach; ?> -->
-                <td>Son j đó</td>
-                <td>2</td>
-                <td>100.000 VNĐ</td>
-                <td>200.000 VNĐ</td>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>
 
     <div class="receipt-total">
         <!-- <h2>Tổng tiền: <?php echo number_format($total_amount, 0, ',', '.'); ?> VNĐ</h2> -->
-        <h2>Tổng tiền: 400.000 VNĐ</h2>
+        <h2>Tổng tiền: <?php echo number_format($total, 0, ',', '.') ?> VNĐ</h2>
     </div>
+    <div class="btn-HoanThanh">HOÀN THÀNH</div>
 </div>
 
 
@@ -95,5 +110,16 @@
     .receipt-total {
         text-align: right;
         font-size: 1.2em;
+    }
+
+    .btn-HoanThanh {
+        padding: 10px 20px;
+        background-color: #3498db;
+        color: white;
+        text-align: center;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-top: 32px;
+        cursor: pointer;
     }
 </style>
