@@ -25,3 +25,6 @@ class database
         $this->conn->close();
     }
 }
+
+
+?>
