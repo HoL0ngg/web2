@@ -519,15 +519,6 @@ function changeColorPagenum(pagenum) {
 //     }
 //     changeColorPagenum();
 // }
-const priceRange = document.getElementById('price-range');
-const minPrice = document.getElementById('min-price');
-const maxPrice = document.getElementById('max-price');
-
-if (priceRange) priceRange.addEventListener('input', function () {
-    const currentValue = priceRange.value;
-    minPrice.textContent = `0đ`;
-    maxPrice.textContent = currentValue + "đ";
-});
 function loadCategories() {
     fetch('load_chungloaisp.php') // File này bạn phải có backend trả về JSON danh sách chủng loại
         .then(res => res.json())
@@ -645,12 +636,14 @@ if (content) {
     }
     
 }
+
 document.getElementById("timkiem").addEventListener("keyup", () => loadProducts(1));
 
 document.querySelectorAll(".brandname").forEach(cb => {
     cb.addEventListener("change", () => {
         loadProducts(1); // Load lại sản phẩm trang đầu tiên
     });
+});
 
 const priceRange = document.getElementById('price-range');
 const minPrice = document.getElementById('min-price');
@@ -699,12 +692,6 @@ if(resetbtn){
     });
 }
 
-// document.querySelectorAll('.chungloai-btn').forEach(btn => {
-//     btn.addEventListener('click', function () {
-//         const maChungloai = this.value;
-//         loadProducts(1, maChungloai);
-//     });
-// });
 
 
 

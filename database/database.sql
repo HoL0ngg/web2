@@ -5,10 +5,11 @@ DROP DATABASE IF EXISTS webbanhang;
 create database webbanhang;
 use webbanhang;
 -- Bảng ChungLoai
-CREATE TABLE ChungLoai (
-    machungloai INT PRIMARY KEY,
-    tenchungloai VARCHAR(50)
-);
+CREATE TABLE `chungloai` (
+  `machungloai` int(11) NOT NULL,
+  `tenchungloai` varchar(50) DEFAULT NULL,
+  `hinhanh` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 -- Bảng TheLoai
 CREATE TABLE TheLoai (
     matheloai INT PRIMARY KEY,
@@ -191,13 +192,13 @@ CREATE TABLE ChiTietPhieuNhap (
 );
 -- THÊM DỮ LIỆU MẪU --
 -- ChungLoai
-INSERT INTO ChungLoai
-VALUES (1, 'Trang Điểm'),
-    (2, 'Chăm Sóc Da Mặt'),
-    (3, 'Chăm Sóc Cơ Thể'),
-    (4, 'Chăm Sóc Tóc & Chăm Sóc Da Đầu'),
-    (5, 'Chăm Sóc Cá Nhân'),
-    (6, 'Nước Hoa');
+INSERT INTO `chungloai` (`machungloai`, `tenchungloai`, `hinhanh`) VALUES
+(1, 'Trang Điểm', 'imgs/trangdiem.webp'),
+(2, 'Chăm Sóc Da Mặt', 'imgs/chamsocdamat.webp'),
+(3, 'Chăm Sóc Cơ Thể', 'imgs/chamsoccothe.webp'),
+(4, 'Chăm Sóc Tóc & Chăm Sóc Da Đầu', 'imgs/chamsoctocdadau.webp'),
+(5, 'Chăm Sóc Cá Nhân', 'imgs/chamsoccanhan.webp'),
+(6, 'Nước Hoa', 'imgs/nuochoa.webp');
 -- TheLoai
 INSERT INTO TheLoai
 VALUES (1, 'Kem dưỡng da', 2),
