@@ -547,12 +547,30 @@ async function loadProducts(pagenum = 1) {
         button.textContent = i;
         button.addEventListener("click", function () {
             loadProducts(i);
+            scrollToContent()
         });
         pageNum.appendChild(button);
     }
     changeColorPagenum(pagenum);
 }
+function scrollToContent(){
+    const content = document.getElementById("content-wrapper");
+    const headerHeight = document.getElementById("header")?.offsetHeight || 0;
 
+    if (content) {
+        const contentTop = content.offsetTop; // Vị trí top tương đối với <body>
+        const scrollToY = contentTop - headerHeight - 10; // Trừ đi chiều cao header nếu cần
+        console.log(contentTop);
+        console.log(scrollToY);
+        
+        
+        window.scrollTo({
+            top: scrollToY,
+            behavior: "smooth"
+        });
+    }
+
+}
 const priceRange = document.getElementById('price-range');
 const minPrice = document.getElementById('min-price');
 const maxPrice = document.getElementById('max-price');
