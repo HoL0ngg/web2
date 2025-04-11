@@ -55,6 +55,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'delete_chungl
     echo json_encode(['success' => $result]);
     exit;
 }
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'add_theloai') {
+    header("Content-Type: application/json");
+
+    $model = new CategoryModel();
+    $ten = $_POST['tentheloai'];
+    $maCL = $_POST['machungloai'];
+
+    $result = $model->insertTheLoai($ten, $maCL);
+
+    if (!$result) {
+        http_response_code(500);
+        echo json_encode(["error" => "Lỗi khi thêm thể loại"]);
+        exit;
+    }
+
+    echo json_encode(["success" => true]);
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'edit_theloai') {
+    header("Content-Type: application/json");
+
+    $model = new CategoryModel();
+    $matheloai = $_POST['matheloai'];
+    $tentheloai = $_POST['tentheloai'];
+
+    $result = $model->updateTheLoai($matheloai, $tentheloai);
+
+    if (!$result) {
+        http_response_code(500);
+        echo json_encode(["error" => "Lỗi khi sửa thể loại"]);
+        exit;
+    }
+
+    echo json_encode(["success" => true]);
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'delete_theloai') {
+    header("Content-Type: application/json");
+
+    $model = new CategoryModel();
+    $matheloai = $_POST['matheloai'];
+
+    $result = $model->deleteTheLoai($matheloai);
+
+    if (!$result) {
+        http_response_code(500);
+        echo json_encode(["error" => "Lỗi khi xóa thể loại"]);
+        exit;
+    }
+
+    echo json_encode(["success" => true]);
+    exit;
+}
 
 
 function getCategoryData() {

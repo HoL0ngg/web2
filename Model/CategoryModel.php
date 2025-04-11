@@ -33,7 +33,27 @@ class CategoryModel {
         $stmt->bind_param("s", $machungloai);
         return $stmt->execute();
     }
+    function insertTheLoai($tentheloai, $machungloai) {
+        $stmt = $this->conn->prepare("INSERT INTO TheLoai (tentheloai, machungloai) VALUES (?, ?)");
+        $stmt->bind_param("si", $tentheloai, $machungloai);
+        return $stmt->execute();
+    }
     
+    public function updateTheLoai($matheloai, $tentheloai) {
+        $stmt = $this->conn->prepare("UPDATE TheLoai SET tentheloai = ? WHERE matheloai = ?");
+        $stmt->bind_param("ss", $tentheloai, $matheloai);
+        $result = $stmt->execute();
+        $stmt->close();
+        return $result;
+    }
+    
+    public function deleteTheLoai($matheloai) {
+        $stmt = $this->conn->prepare("DELETE FROM TheLoai WHERE matheloai = ?");
+        $stmt->bind_param("s", $matheloai);
+        $result = $stmt->execute();
+        $stmt->close();
+        return $result;
+    }
     
     
     public function getChungLoaiWithTheLoaiAndProductCount() {
