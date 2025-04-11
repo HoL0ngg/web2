@@ -192,7 +192,7 @@ function loginNotification() {
             body: formData
         })
             .then(response => response.json()) // Parse JSON response từ server            
-            
+
             .then(data => {
                 console.log(data)
                 // Hiển thị toast thông báo từ phản hồi của server
@@ -200,7 +200,7 @@ function loginNotification() {
                     showToast(data.message, data.success);
                     setTimeout(() => {
                         window.location.href = "../index.php";
-                    }, 1700);     
+                    }, 1700);
                 }
                 else {
                     showToast(data.message, data.success);
@@ -582,7 +582,7 @@ async function loadProducts(pagenum = 1) {
 
     const data = await response.json();
     console.log(data);
-    if (!data  || !data.products || data.products.length === 0) {
+    if (!data || !data.products || data.products.length === 0) {
         document.getElementById("product-container").innerHTML = "<p>Không tìm thấy sản phẩm nào phù hợp.</p>";
         document.getElementById("pagenum").innerHTML = "";
         return;
@@ -599,8 +599,13 @@ async function loadProducts(pagenum = 1) {
         </div>
         <div class="productArray-info">
             <p>${product.product_name}</p>
-            <div class="product-price">${product.price}</div>
+            <div class="product-price">${product.price} VNĐ</div>
+        </div>
+        <div class="product-button-container">
+            <div class="heart-icon" onClick="toggleLove(this, ${product.product_id})"><i class="fa-regular fa-heart"></i></div>
+            <div style="width: 100%; height: 100%;">
             <button class="add-to-cart" onClick='addToCart(${product.product_id}, 1)'>Thêm vào giỏ</button>
+            </div>
         </div>
     </div>`;
     });
@@ -617,24 +622,64 @@ async function loadProducts(pagenum = 1) {
     }
     changeColorPagenum(pagenum);
 
-   
+
 }
-function scrollToContent(){
+
+function toggleLove(element, productId) {
+    const icon = element.querySelector("i");
+    if (icon.classList.contains("fa-regular")) {
+        fetch('XuLyYeuThich.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `action=add&productId=${productId}`
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.status == "error") {
+                    showToast(data.message, false);
+                    return;
+                }
+                icon.classList.remove("fa-regular");
+                icon.classList.add("fa-solid");
+                showToast(data.message, true);
+            });
+    }
+    else {
+        fetch('XuLyYeuThich.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `action=remove&productId=${productId}`
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                icon.classList.remove("fa-solid");
+                icon.classList.add("fa-regular");
+                showToast(data.message, data.status == "success" ? true : false);
+            });
+    }
+}
+function scrollToContent() {
     const content = document.getElementById("content-wrapper");
     const headerHeight = document.getElementById("header")?.offsetHeight || 0;
-if (content) {
-    const contentTop = content.offsetTop; // Vị trí top tương đối với <body>
-    const scrollToY = contentTop - headerHeight - 10; // Trừ đi chiều cao header nếu cần
-    console.log(contentTop);
+    if (content) {
+        const contentTop = content.offsetTop; // Vị trí top tương đối với <body>
+        const scrollToY = contentTop - headerHeight - 10; // Trừ đi chiều cao header nếu cần
+        console.log(contentTop);
         console.log(scrollToY);
-        
-        
+
+
         window.scrollTo({
             top: scrollToY,
             behavior: "smooth"
         });
     }
-    
+
 }
 
 document.getElementById("timkiem").addEventListener("keyup", () => loadProducts(1));
@@ -680,13 +725,13 @@ if (priceApplyBtn) {
     });
 }
 const resetbtn = document.getElementById('reset-filters');
-if(resetbtn){
-    resetbtn.addEventListener('click',function(){
-        document.getElementById('price-range').value="10000000";
-        document.getElementById('max-price').textContent="10000000đ";
+if (resetbtn) {
+    resetbtn.addEventListener('click', function () {
+        document.getElementById('price-range').value = "10000000";
+        document.getElementById('max-price').textContent = "10000000đ";
         document.querySelectorAll(".brandname").forEach(cb => cb.checked = false);
         document.querySelectorAll(".loaisanpham").forEach(cb => cb.checked = false);
-        document.getElementById("timkiem").value="";
+        document.getElementById("timkiem").value = "";
         selectedPrice = 0;
         loadProducts(1);
     });
