@@ -123,29 +123,24 @@
                 } elseif ($page == 'category') {
                     include('category.php');
                 } elseif ($page == 'user') {
-                    include("chucnangAccount.php"); // Đảm bảo file chứa class được gọi
+                    require_once("handles/TKController.php");
+                    $tkController = new TKController(); // Đảm bảo file chứa class được gọi
                     if (isset($_GET['act'])) {
                         $act = $_GET['act'];
                         switch ($act) {
                             case 'add':
-                                $addAcc = new AccountFunction();
-                                $addAcc->accountForm("THÊM TÀI KHOẢN", "addUserForm");
+                                $tkController->addForm();
                                 break;
                             case 'update':
-                                require_once("Model/TKModel.php");
                                 $id = $_GET['uid'] ?? '';
                                 $id = (int)$id;
-                                $tkmodel = new TKModel();
-                                $user = $tkmodel->getUserById($id);
-                                $addAcc = new AccountFunction();
-                                $addAcc->accountForm("SỬA TÀI KHOẢN", "updateUserForm", $user);
+                                $tkController->updateForm($id);
                                 break;
                             default:
                                 break;
                         }
                     } else {
-
-                        include('user.php');
+                        $tkController->userList();
                     }
                 } elseif ($page == 'order') {
                     include('order.php');
