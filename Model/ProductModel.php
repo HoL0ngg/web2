@@ -37,28 +37,83 @@ class ProductModel
         $stmt->close();
         return $name_product['product_name'];
     }
-    public function getProductsByPageNum($page = 1, $limit = 8, $keyword = "")
-    {
+    public function getProductsByPageNum($page = 1, $limit = 8, $keyword = "", $selected_checkboxes_brand = [], $selected_checkboxes_loaisanpham=[], $price=0, $maChungLoai=0)
+    {   
+
         $offset = ($page - 1) * $limit;
         $keyword = "%$keyword%";
-
+    
         $sql = "SELECT sp.*, ha.image_url
                 FROM SanPham sp
                 JOIN SanPhamHinhAnh ha ON sp.product_id = ha.product_id
-                WHERE ha.is_main = TRUE AND sp.product_name LIKE ?
-                LIMIT ? OFFSET ?";
+                JOIN theloai tl ON sp.matheloai = tl.matheloai
+                WHERE ha.is_main = TRUE AND sp.product_name LIKE ?";
+    
+        $params = [];
+        $types = "s"; // keyword là string
+        $params[] = $keyword;
+    
+        if (!empty($selected_checkboxes_brand)) {
+            $chuoichamhoibrand = implode(",", array_fill(0, count($selected_checkboxes_brand), "?"));
+            $sql .= " AND sp.brand_id IN ($chuoichamhoibrand)";
+            foreach ($selected_checkboxes_brand as $brand_id) {
+                $types .= "i";
+                $params[] = $brand_id;
+            }
+        }
 
+        if(!empty($selected_checkboxes_loaisanpham)){
+            $chuoichamhoiloaisanpham = implode(",", array_fill(0, count($selected_checkboxes_loaisanpham), "?"));
+            $sql .= " AND sp.matheloai IN ($chuoichamhoiloaisanpham)";
+            foreach ($selected_checkboxes_loaisanpham as $maloaisanpham) {
+                $types .= "i";
+                $params[] = $maloaisanpham;
+            }
+        }
+
+        if ($price > 0) {
+            $sql .= " AND sp.price <= ?";
+            $types .= "i";
+            $params[] = $price;
+        }
+        
+        if ($maChungLoai!=0) {
+            $sql .= " AND tl.machungloai = ?";
+            $types .= "i";
+            $params[] = $maChungLoai;
+        }
+    
+        $sql .= " LIMIT ? OFFSET ?";
+        $types .= "ii";
+        $params[] = $limit;
+        $params[] = $offset;
+    
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("sii", $keyword, $limit, $offset);
+
+    
+        // Tạo mảng bind đúng chuẩn tham chiếu
+        $bind_names[] = $types;
+        foreach ($params as $key => $value) {
+            $bind_name = 'bind' . $key;
+            $$bind_name = $value;
+            $bind_names[] = &$$bind_name;
+        }
+    
+        call_user_func_array([$stmt, 'bind_param'], $bind_names);
+    
         $stmt->execute();
         $result = $stmt->get_result();
         $products = [];
+    
         while ($row = $result->fetch_assoc()) {
             $products[] = $row;
         }
+    
         $stmt->close();
         return $products;
     }
+    
+
 
     public function getMainImageByProductId($productId)
     {
@@ -74,15 +129,71 @@ class ProductModel
         }
     }
 
-    public function getQuantityProducts($keyword = "")
+    public function getQuantityProducts($keyword = "", $selected_checkboxes_brand = [], $selected_checkboxes_loaisanpham=[], $price=0,  $maChungLoai=null)
     {
         $keyword = "%$keyword%";
-        $sql = "SELECT COUNT(*) AS soluong FROM SanPham WHERE product_name LIKE ?";
+        // $sql = "SELECT COUNT(*) AS soluong FROM SanPham WHERE product_name LIKE ?";
+        $sql = "SELECT COUNT(*) AS soluong
+        FROM SanPham sp
+        JOIN theloai tl ON sp.matheloai = tl.matheloai
+        WHERE sp.product_name LIKE ?";
+
+
+    
+        $params = [];
+        $types = "s";
+        $params[] = $keyword;
+    
+        if (!empty($selected_checkboxes_brand)) {
+            $chuoichamhoibrand = implode(",", array_fill(0, count($selected_checkboxes_brand), "?"));
+            $sql .= " AND sp.brand_id IN ($chuoichamhoibrand)";
+            foreach ($selected_checkboxes_brand as $id) {
+                $types .= "i";
+                $params[] = $id;
+            }
+        }
+
+        if(!empty($selected_checkboxes_loaisanpham)){
+            $chuoichamhoiloaisanpham = implode(",", array_fill(0, count($selected_checkboxes_loaisanpham), "?"));
+            $sql .= " AND sp.matheloai IN ($chuoichamhoiloaisanpham)";
+            foreach ($selected_checkboxes_loaisanpham as $maloaisanpham) {
+                $types .= "i";
+                $params[] = $maloaisanpham;
+            }
+        }
+
+        if ($price > 0) {
+            $sql .= " AND sp.price <= ?";
+            $types .= "i";
+            $params[] = $price;
+        }
+        
+        if ($maChungLoai!=0) {
+            $sql .= " AND tl.machungloai = ?";
+            $types .= "i";
+            $params[] = $maChungLoai;
+        }
+    
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("s", $keyword);
+
+        // Tạo mảng bind đúng chuẩn tham chiếu
+        $bind_names[] = $types;
+        foreach ($params as $key => $value) {
+            $bind_name = 'bind' . $key;
+            $$bind_name = $value;
+            $bind_names[] = &$$bind_name;
+        }
+
+        
+    
+        call_user_func_array([$stmt, 'bind_param'], $bind_names);
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
+        $stmt->close();
+    
         return $row['soluong'];
     }
+    
+    
 }

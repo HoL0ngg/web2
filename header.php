@@ -81,8 +81,7 @@
                     <div class="icon-up"><i class="fa-solid fa-sort-up"></i></div>
                     <div id="product-menu">
                         <div id="product-menu-nav">
-                            <ul>
-
+                            <!-- <ul>
                                 <li>
                                     <a href="index.php?maChungloai=1">
                                         <img src="imgs/trangdiem.webp" alt="">
@@ -120,7 +119,7 @@
                                     </a>
                                 </li>
 
-                            </ul>
+                            </ul> -->
                         </div>
                     </div>
                 </div>
@@ -143,14 +142,14 @@
 </div>
 <div style="height: 139px;"></div>
 <script>
-    function loadSubCategories(maChungloai) {
+    function loadCategories(maChungloai) {
         // Gọi API để lấy các thể loại theo maChungloai
         fetch(`api.php?maChungloai=${maChungloai}`)
             .then(response => response.json())
             .then(data => {
                 // Hiển thị kết quả lên trang
-                const loaisanphamList = document.getElementById('loaisanpham-list');
-                loaisanphamList.innerHTML = ''; // Xóa danh sách cũ
+                const s = document.getElementById('product-menu-nav');
+                s.innerHTML = ''; // Xóa danh sách cũ
 
                 if (data.length > 0) {
                     data.forEach(loaisanpham => {
@@ -173,10 +172,10 @@
                         li.appendChild(span);
 
                         // Thêm thẻ <li> vào danh sách
-                        loaisanphamList.appendChild(li);
+                        s.appendChild(li);
                     });
                 } else {
-                    loaisanphamList.innerHTML = '<li>Không có thể loại nào</li>';
+                    s.innerHTML = '<li>Không có thể loại nào</li>';
                 }
             })
             .catch(error => {

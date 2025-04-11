@@ -16,11 +16,13 @@ class ProductController
         return $this->model->getNameProductById($id);
     }
 
-    public function getProductsPaginated($page = 1, $limit = 8, $keyword= "")
+    public function getProductsPaginated($page = 1, $limit = 8, $keyword= "" , $selected_checkboxes_brand = [], $selected_checkboxes_loaisanpham = [], $price=0, $maChungLoai)
     {
 
-        $products = $this->model->getProductsByPageNum($page, $limit, $keyword);
-        $totalProducts = $this->model->getQuantityProducts($keyword);
+        $products = $this->model->getProductsByPageNum($page, $limit, $keyword, $selected_checkboxes_brand, $selected_checkboxes_loaisanpham, $price,$maChungLoai);
+
+        
+        $totalProducts = $this->model->getQuantityProducts($keyword, $selected_checkboxes_brand,$selected_checkboxes_loaisanpham, $price,$maChungLoai);
         $pagenum = ceil($totalProducts / $limit);
 
         $response = ["products" => $products, "totalPage" => $pagenum];

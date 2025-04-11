@@ -20,5 +20,21 @@
             $stmt->close();
             return $brands;
         }
+
+        public function getBrandByMaChungLoai($machungloai){
+            $sql = "SELECT DISTINCT b.brand_id, b.brand_name
+                    FROM theloai t
+                    JOIN sanpham s ON t.matheloai = s.matheloai
+                    JOIN brand b ON s.brand_id = b.brand_id
+                    WHERE t.machungloai = ?;
+                    ";
+            $stmt= $this->conn->prepare($sql);
+            $stmt->bind_param("i", $machungloai);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $theloais = $result->fetch_all(MYSQLI_ASSOC);
+            $stmt->close();
+            return $theloais;
+        }
     }
     ?>

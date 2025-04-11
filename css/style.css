@@ -1053,6 +1053,10 @@ img {
     text-align: start;
     padding: 7px;
 }
+#leftmenu_product_checkbox>ul>li>span{
+    padding-left: 10px;
+    word-spacing: 1px;
+}
 
 #leftmenu_product_checkbox>ul {
     padding: 0;
@@ -1060,38 +1064,55 @@ img {
 }
 
 #leftmenu_product_title {
+    font-family: 'Montserrat', sans-serif;
     text-align: center;
     width: 100%;
-    height: 100px;
+    height: 70px;
     border-bottom: solid 2px rgb(200, 200, 200);
-    font-size: 18px;
+    font-size: 20px;
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: bold;
     margin-bottom: 10px;
+
 }
 
 #leftmenu_product_thuonghieu {
     text-align: center;
     width: 100%;
-    height: 200px;
+    height: fit-content;
+    min-height: 200px;
     border-bottom: solid 2px rgb(200, 200, 200);
     margin-bottom: 10px;
     padding: 10px;
 }
 
 #leftmenu_product_thuonghieu_title {
-    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
     text-transform: uppercase;
-    font-weight: 500;
-    margin-bottom: 10px;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
 }
 
 #leftmenu_product_gia {
     text-align: center;
     width: 100%;
-    height: 123px;
+    min-height: 123px;
+    height: max-content;
     border-bottom: solid 2px rgb(200, 200, 200);
     margin-bottom: 10px;
+}
+
+#leftmenu_product_gia_title{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
 }
 
 #leftmenu_product_range>input {
@@ -1117,7 +1138,8 @@ img {
 
 #leftmenu_product_button input {
     width: 100%;
-    height: 35%;
+    height: 40px;
+    margin-bottom: 10px;
 }
 
 #leftmenu_product_danhmucsanpham {
@@ -1127,11 +1149,14 @@ img {
     overflow-y: auto;
 }
 
-leftmenu_product_danhmucsanpham_tittle {
-    font-size: 18px;
+#leftmenu_product_danhmucsanpham_tittle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
     text-transform: uppercase;
-    font-weight: 500;
     margin-bottom: 10px;
+    letter-spacing: 1px;
 }
 
 #rightmenu_product {

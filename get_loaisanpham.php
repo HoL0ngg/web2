@@ -1,24 +1,20 @@
 <?php
 require_once('database/connect.php');
+require_once('./handles/TheLoaiController.php');
 if (isset($_GET['maChungloai'])) {
     $maChungloai = $_GET['maChungloai'];
-    $db = new database();
-    $conn = $db->getConnection();
-    // Truy vấn cơ sở dữ liệu để lấy các thể loại con (subcategories) theo maChungloai
-    $sql = "SELECT matheloai , tentheloai FROM theloai WHERE machungloai = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $maChungloai);
-    $stmt->execute();
+    $TheLoaiController = new TheLoaiController();
+    $theloais = $TheLoaiController->getTheLoaiByChungLoai($maChungloai);
 
-    $result = $stmt->get_result();
-    while ($row = $result->fetch_assoc()) {
-        $id = $row['matheloai'];
-        $ten = htmlspecialchars($row['tentheloai']);
+    foreach ($theloais as $theloai) {
+        $id = $theloai['matheloai'];
+        $ten = htmlspecialchars($theloai['tentheloai']);
         echo "<li>";
-        echo "<input type='checkbox' id='theloai_$id' value='$id'>";
+        echo "<input type='checkbox' id='theloai_$id' class='loaisanpham' value='$id'>";
         echo "<span>$ten</span>";
         echo "</li>";
     }
 } else {
     echo "Không có chủng loại được chọn.";
 }
+?>

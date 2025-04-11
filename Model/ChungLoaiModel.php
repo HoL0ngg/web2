@@ -1,7 +1,7 @@
-    <?php
+<?php
     require_once('database/connect.php');
 
-    class TheLoaiModel
+    class ChungLoaiModel
     {
         private $conn;
 
@@ -10,27 +10,26 @@
             $db = new database();
             $this->conn = $db->getConnection();
         }
-
-        public function getAll()
-        {
-            $sql = "SELECT matheloai, tentheloai FROM theloai";
-            $stmt = $this->conn->prepare($sql);
+        
+        public function getAllChungLoai(){
+            $sql = "SELECT * FROM chungloai";
+            $stmt= $this->conn->prepare($sql);
             $stmt->execute();
             $result = $stmt->get_result();
-            $theloai = $result->fetch_all(MYSQLI_ASSOC); // ✔ Lấy toàn bộ
+            $chungloais = $result->fetch_all(MYSQLI_ASSOC);
             $stmt->close();
-            return $theloai;
+            return $chungloais;
         }
 
-        public function getTheLoaiByChungLoai($machungloai){
-            $sql = "SELECT matheloai , tentheloai FROM theloai WHERE machungloai = ?";
+        public function getChungLoaiByChungLoai($machungloai){
+            $sql = "SELECT machungloai , tenchungloai FROM chungloai WHERE machungloai = ?";
             $stmt= $this->conn->prepare($sql);
             $stmt->bind_param("i", $machungloai);
             $stmt->execute();
             $result = $stmt->get_result();
-            $theloais = $result->fetch_all(MYSQLI_ASSOC);
+            $chungloais = $result->fetch_all(MYSQLI_ASSOC);
             $stmt->close();
-            return $theloais;
+            return $chungloais;
         }
     }
     ?>
