@@ -34,7 +34,7 @@
                         echo json_encode($response);
                         exit();
                     }
-                    if ($password == $user['password']) {
+                    if (password_verify($password, $user['password'])) {
                         $_SESSION['username'] = $username;
                         $response['success'] = true;
                         $response['message'] = "Đăng nhập thành công";

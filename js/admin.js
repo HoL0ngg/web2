@@ -65,13 +65,18 @@ const userFormHandler = function(event) {
     
     // Thêm action vào formData để server biết là thêm hay sửa
     formData.append('action', this.id === 'addUserForm' ? 'add' : 'update');
+    // const actionUrl = this.id === 'addUserForm' 
+    //     ? "admin.php?page=user&act=addUser" 
+    //     : "admin.php?page=user&act=updateUser";
     
-    fetch("handles/handleUser.php", { 
+    fetch("../api/user_api.php", { 
         method: "POST",
         body: formData
     })
     .then(response => response.json())
     .then(data => {
+        console.log(data);
+        
         if (data.success) {
             handleSuccessResponse(data);
         } else {            

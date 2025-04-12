@@ -53,7 +53,7 @@ CREATE TABLE `ChiTietNhomQuyen` (
 );
 -- Bảng NhanVien
 CREATE TABLE NhanVien (
-    employee_id INT PRIMARY KEY,
+    employee_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
     name VARCHAR(50),
     phone VARCHAR(20) UNIQUE,
@@ -62,7 +62,7 @@ CREATE TABLE NhanVien (
 );
 -- Bảng KhachHang
 CREATE TABLE KhachHang (
-    customer_id INT PRIMARY KEY,
+    customer_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
     customer_name VARCHAR(50),
     phone VARCHAR(20) UNIQUE,

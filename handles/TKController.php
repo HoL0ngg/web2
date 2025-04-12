@@ -1,8 +1,8 @@
     <?php
-    require_once('Model/TKModel.php');
-    require_once('view/chucnangAccount.php');
-    require_once('Model/NhomQuyenModel.php');
-    header('Content-Type: apllication/json');
+    require_once __DIR__ . '/../Model/TKModel.php';
+
+
+
     class TKController
     {
         private $tkmodel;
@@ -13,6 +13,8 @@
 
         public function addForm()
         {
+            require_once('view/chucnangAccount.php');
+            require_once('Model/NhomQuyenModel.php');
             $addUserForm = new AccountFunction();
             $roleModel = new NhomQuyenModel();
             $roles = $roleModel->getNhomQuyen();
@@ -21,6 +23,7 @@
 
         public function updateForm($id)
         {
+            require_once('Model/NhomQuyenModel.php');
             $addUserForm = new AccountFunction();
             $user = $this->tkmodel->getUserById($id);
             $roleModel = new NhomQuyenModel();
@@ -30,64 +33,66 @@
 
         public function userList()
         {
+            require_once('Model/NhomQuyenModel.php');
             $users = $this->tkmodel->getAllUsers();
             $roleModel = new NhomQuyenModel();
             $roles = $roleModel->getNhomQuyen();
             include('view/UserList.php');
         }
 
-        // public function addUser()
-        // {
-        //     $response = ["success" => false, "message" => ""];
+        public function addUser()
+        {
+            header('Content-Type: application/json');
+            $response = ["success" => false, "message" => "", "redirect"];
 
-        //     if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-        //         $response["message"] = "Phương thức không hợp lệ";
-        //         echo json_encode($response);
-        //         return;
-        //     }
+            if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+                $response["message"] = "Phương thức không hợp lệ";
+                echo json_encode($response);
+                return;
+            }
 
-        //     $username = $_POST['username'] ?? '';
-        //     $fullname = $_POST['fullname'] ?? '';
-        //     $phone = $_POST['phone'] ?? '';
-        //     $email = $_POST['email'] ?? '';
-        //     $password = $_POST['password'] ?? '';
-        //     $status = $_POST['status'] ?? '';
-        //     $role = $_POST['role'] ?? '';
+            $username = $_POST['username'] ?? '';
+            $fullname = $_POST['fullname'] ?? '';
+            $phone = $_POST['phone'] ?? '';
+            $email = $_POST['email'] ?? '';
+            $password = $_POST['password'] ?? '';
+            $status = $_POST['status'] ?? '1';
+            $role = $_POST['role'] ?? '1';
 
-        //     if (empty($username) || empty($fullname) || empty($phone) || empty($email) || empty($password)) {
-        //         $response["message"] = "Vui lòng nhập đầy đủ thông tin";
-        //         echo json_encode($response);
-        //         return;
-        //     }
+            if (empty($username) || empty($fullname) || empty($phone) || empty($email) || empty($password)) {
+                $response["message"] = "Vui lòng nhập đầy đủ thông tin";
+                echo json_encode($response);
+                return;
+            }
 
-        //     $result = $this->tkmodel->them($username, $fullname, $phone, $email, $password, $status, $role);
+            $result = $this->tkmodel->them($username, $fullname, $phone, $email, $password, $status, $role);
 
-        //     switch ($result) {
-        //         case 'success':
-        //             $response = ["success" => true, "message" => "Thêm tài khoản thành công"];
-        //             break;
-        //         case 'username_exists':
-        //             $response["message"] = "Tên đăng nhập đã tồn tại";
-        //             break;
-        //         case 'email_exists':
-        //             $response["message"] = "Email đã tồn tại";
-        //             break;
-        //         case 'phone_exists':
-        //             $response["message"] = "Số điện thoại đã tồn tại";
-        //             break;
-        //         case 'insert_failed':
-        //             $response["message"] = "Lỗi khi tạo tài khoản";
-        //             break;
-        //         case 'exception':
-        //             $response["message"] = "Có lỗi xảy ra";
-        //             break;
-        //         default:
-        //             $response["message"] = "Lỗi không xác định";
-        //             break;
-        //     }
+            switch ($result) {
+                case 'success':
+                    $response = ["success" => true, "message" => "Thêm tài khoản thành công", "redirect" => "admin.php?pge=user"];
+                    break;
+                case 'username_exists':
+                    $response["message"] = "Tên đăng nhập đã tồn tại";
+                    break;
+                case 'email_exists':
+                    $response["message"] = "Email đã tồn tại";
+                    break;
+                case 'phone_exists':
+                    $response["message"] = "Số điện thoại đã tồn tại";
+                    break;
+                case 'insert_failed':
+                    $response["message"] = "Lỗi khi tạo tài khoản";
+                    break;
+                case 'exception':
+                    $response["message"] = "Có lỗi xảy ra";
+                    break;
+                default:
+                    $response["message"] = "Lỗi không xác định";
+                    break;
+            }
 
-        //     echo json_encode($response);
-        // }
+            echo json_encode($response);
+        }
 
         public function updateUser() {}
     }
