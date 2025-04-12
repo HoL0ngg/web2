@@ -6,10 +6,10 @@ create database webbanhang;
 use webbanhang;
 -- Bảng ChungLoai
 CREATE TABLE `chungloai` (
-    `machungloai` int(11) NOT NULL PRIMARY KEY,
-    `tenchungloai` varchar(50) DEFAULT NULL,
-    `hinhanh` varchar(255) DEFAULT NULL
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
+  `machungloai` int PRIMARY key,
+  `tenchungloai` varchar(50) DEFAULT NULL,
+  `hinhanh` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 -- Bảng TheLoai
 CREATE TABLE TheLoai (
     matheloai INT PRIMARY KEY,
