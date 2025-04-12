@@ -48,6 +48,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'remove') {
     echo 'success';
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'update') {
+    $id = $_POST['id'];
+    $quantity = $_POST['quantity'];
+
+    if (isset($_SESSION['cart'])) {
+        foreach ($_SESSION['cart'] as &$item) {
+            if ($item['id'] == $id) {
+                echo 'success';
+                $item['quantity'] = $quantity;
+                break;
+            }
+        }
+        unset($item);
+    }
+}
+
 ?>
 <html lang="en">
 

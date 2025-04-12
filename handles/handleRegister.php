@@ -1,17 +1,20 @@
     <?php
     session_start();
-    header('Content-Type: application/json');
-    include(__DIR__ . '/../database/connect.php');
+    // header('Content-Type: application/json');
+    require_once('../database/connect.php');
 
     $response = ["success" => false, "message" => ""];
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        $conn = new database();
+        $conn = $conn->getConnection();
+
         $phone = trim($_POST["reg-phone"]);
         $username = trim($_POST["reg-username"]);
         $password = $_POST["reg-password"]; // No trimming here to prevent character loss
 
         if (!empty($phone)) {
-            $sql_phonenum = "SELECT * FROM user_table WHERE phone = ?";
+            $sql_phonenum = "SELECT * FROM khachhang WHERE phone = ?";
             $stmt_check = $conn->prepare($sql_phonenum);
             $stmt_check->bind_param("s", $phone);
             $stmt_check->execute();
@@ -27,7 +30,7 @@
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
             // Using Prepared Statements to prevent SQL Injection
-            $sql = "INSERT INTO `user_table` (`phone`, `username`, `password`) VALUES (?, ?, ?)";
+            $sql = "INSERT INTO `khachhang` (`phone`, `customer_name`, `password`) VALUES (?, ?, ?)";
             $stmt = $conn->prepare($sql);
 
             if ($stmt) {

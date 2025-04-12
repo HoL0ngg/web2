@@ -5,6 +5,20 @@ document.querySelectorAll('.plus').forEach(button => {
         let currentQuantity = parseInt(quantityElement.textContent);
         quantityElement.textContent = currentQuantity + 1;
 
+        const id = this.parentElement.dataset.id;
+        const quantity = parseInt(quantityElement.textContent);
+
+        fetch('cart.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `action=update&id=${id}&quantity=${quantity}`
+        }).then(res => res.text())
+            .then(data => console.log(data))
+            .catch(err => console.log(err));
+
+
         // Cập nhật giỏ hàng nếu cần
         updateCart();
     });
@@ -18,7 +32,13 @@ document.querySelectorAll('.minus').forEach(button => {
 
         if (currentQuantity > 1) {
             quantityElement.textContent = currentQuantity - 1;
-
+            fetch('cart.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `action=update&id=${id}&quantity=${quantity}`
+            })
             // Cập nhật giỏ hàng nếu cần
             updateCart();
         }
@@ -49,7 +69,7 @@ updateCart = () => {
     let total = 0;
 
     if (cartItems.length === 0) {
-
+        window.location.href = 'cart.php?action=cart';
     }
 
     cartItems.forEach(item => {
@@ -58,10 +78,8 @@ updateCart = () => {
         total += price * quantity;
     });
 
-    document.querySelector('.total-price').textContent = total.toLocaleString('vi-VN') + 'đ';
+    document.querySelector('.total-price').textContent = total.toLocaleString('vi-VN') + ' VNĐ';
 }
-
-updateCart();
 
 document.getElementById('cart-thanhtoan').addEventListener('click', function () {
     const cartItems = document.querySelectorAll('.cart-item');

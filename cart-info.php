@@ -46,9 +46,9 @@
                     </div>
                 </div>
                 <div class="cart-price">
-                    <div class="new-price"><?php echo number_format($row['price'], 0, ',', '.') ?>đ</div>
+                    <div class="new-price"><?php echo number_format($row['price'], 0, ',', '.') ?> VNĐ</div>
                     <!-- <div class="old-price">334.000đ</div> -->
-                    <div class="cart-quantity-container">
+                    <div class="cart-quantity-container" data-id="<?php echo $row['product_id'] ?>">
                         <button class="minus">-</button>
                         <p class="cart-quantity">1</p>
                         <button class="plus">+</button>
@@ -58,7 +58,7 @@
         <?php endforeach; ?>
         <div id="cart-total">
             <div>Tổng tiền: </div>
-            <div class="total-price"><?php echo number_format($total, 0, ',', '.') ?>VNĐ</div>
+            <div class="total-price"><?php echo number_format($total, 0, ',', '.') ?> VNĐ</div>
         </div>
         <?php $_SESSION['total'] = $total; ?>
         <div id="cart-thanhtoan">
