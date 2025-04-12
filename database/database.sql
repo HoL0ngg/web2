@@ -6,16 +6,16 @@ create database webbanhang;
 use webbanhang;
 -- Bảng ChungLoai
 CREATE TABLE `chungloai` (
-  `machungloai` int(11) NOT NULL,
-  `tenchungloai` varchar(50) DEFAULT NULL,
-  `hinhanh` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+    `machungloai` int(11) NOT NULL PRIMARY KEY,
+    `tenchungloai` varchar(50) DEFAULT NULL,
+    `hinhanh` varchar(255) DEFAULT NULL
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 -- Bảng TheLoai
 CREATE TABLE TheLoai (
     matheloai INT PRIMARY KEY,
     tentheloai VARCHAR(50),
     machungloai INT,
-    FOREIGN KEY (machungloai) REFERENCES ChungLoai(machungloai)
+    FOREIGN KEY (machungloai) REFERENCES chungloai(machungloai)
 );
 -- Bảng Brand
 CREATE TABLE Brand (
@@ -192,13 +192,17 @@ CREATE TABLE ChiTietPhieuNhap (
 );
 -- THÊM DỮ LIỆU MẪU --
 -- ChungLoai
-INSERT INTO `chungloai` (`machungloai`, `tenchungloai`, `hinhanh`) VALUES
-(1, 'Trang Điểm', 'imgs/trangdiem.webp'),
-(2, 'Chăm Sóc Da Mặt', 'imgs/chamsocdamat.webp'),
-(3, 'Chăm Sóc Cơ Thể', 'imgs/chamsoccothe.webp'),
-(4, 'Chăm Sóc Tóc & Chăm Sóc Da Đầu', 'imgs/chamsoctocdadau.webp'),
-(5, 'Chăm Sóc Cá Nhân', 'imgs/chamsoccanhan.webp'),
-(6, 'Nước Hoa', 'imgs/nuochoa.webp');
+INSERT INTO `chungloai` (`machungloai`, `tenchungloai`, `hinhanh`)
+VALUES (1, 'Trang Điểm', 'imgs/trangdiem.webp'),
+    (2, 'Chăm Sóc Da Mặt', 'imgs/chamsocdamat.webp'),
+    (3, 'Chăm Sóc Cơ Thể', 'imgs/chamsoccothe.webp'),
+    (
+        4,
+        'Chăm Sóc Tóc & Chăm Sóc Da Đầu',
+        'imgs/chamsoctocdadau.webp'
+    ),
+    (5, 'Chăm Sóc Cá Nhân', 'imgs/chamsoccanhan.webp'),
+    (6, 'Nước Hoa', 'imgs/nuochoa.webp');
 -- TheLoai
 INSERT INTO TheLoai
 VALUES (1, 'Kem dưỡng da', 2),
