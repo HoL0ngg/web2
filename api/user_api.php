@@ -1,6 +1,7 @@
     <?php
     header('Content-Type: application/json');
-    require_once("handles/TKController.php");
+    require_once __DIR__ . '/../handles/TKController.php';
+    // require_once("../handles/TKController.php");
     $action = $_POST['action'] ?? '';
     $userId = isset($_POST['id']) ? (int)$_POST['id'] : 0;
     $tkController = new TKController();

@@ -1,5 +1,5 @@
 <?php
-require_once("database/connect.php");
+require_once __DIR__ . '/../database/connect.php';
 class TKModel
 {
     private $conn;
@@ -9,37 +9,86 @@ class TKModel
         $this->conn = $db->getConnection();
     }
 
-    public function them($username, $phone, $email, $password, $status, $role)
+    public function them($username, $fullname, $phone, $email, $password, $status, $role)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!empty($username) && !empty($email) && !empty($password)) {
-                // Hash the password for security
-                $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                $sqlInsert = "";
+
                 try {
-                    $checkStmt = $this->conn->prepare("SELECT id FROM users WHERE email = ?");
-                    $checkStmt->bind_param("s", $email);
-                    $checkStmt->execute();
-                    if ($checkStmt->get_result()->num_rows > 0) {
-                        $checkStmt->close();
-                        return false; // Email đã tồn tại cho user khác
+                    // 1. Kiểm tra username đã tồn tại chưa
+                    $checkUsername = $this->conn->prepare("SELECT user_id FROM users WHERE username = ?");
+                    $checkUsername->bind_param("s", $username);
+                    $checkUsername->execute();
+                    if ($checkUsername->get_result()->num_rows > 0) {
+                        $checkUsername->close();
+                        return 'username_exists';
                     }
-                    $checkStmt->close();
-                    $stmt = $this->conn->prepare("INSERT INTO users (username, phone, email, password, status, role_id) VALUES (?, ?, ?, ?, ?, ?)");
-                    $stmt->bind_param("ssssii", $username, $phone, $email, $hashedPassword, $status, $role);
+                    $checkUsername->close();
+
+                    // 2. Tùy theo role để xác định bảng kiểm tra email và phone
+                    switch ($role) {
+                        case 1:
+                        case 2:
+                            $sqlCheckEmail = "SELECT employee_id FROM nhanvien WHERE email = ?";
+                            $sqlCheckPhone = "SELECT employee_id FROM nhanvien WHERE phone = ?";
+                            $sqlInsert = "INSERT INTO nhanvien(user_id, name, phone, email) VALUES(?, ?, ?, ?)";
+                            break;
+
+                        default:
+                            $sqlCheckEmail = "SELECT customer_id FROM khachhang WHERE email = ?";
+                            $sqlCheckPhone = "SELECT customer_id FROM khachhang WHERE phone = ?";
+                            $sqlInsert = "INSERT INTO khachhang(user_id, customer_name, phone, email) VALUES(?, ?, ?, ?)";
+                            break;
+                    }
+
+                    // 3. Kiểm tra số điện thoại trùng
+                    $checkPhone = $this->conn->prepare($sqlCheckPhone);
+                    $checkPhone->bind_param("s", $phone);
+                    $checkPhone->execute();
+                    if ($checkPhone->get_result()->num_rows > 0) {
+                        $checkPhone->close();
+                        return 'phone_exists';
+                    }
+                    $checkPhone->close();
+
+                    // 4. Kiểm tra email trùng
+                    $checkEmail = $this->conn->prepare($sqlCheckEmail);
+                    $checkEmail->bind_param("s", $email);
+                    $checkEmail->execute();
+                    if ($checkEmail->get_result()->num_rows > 0) {
+                        $checkEmail->close();
+                        return 'email_exists';
+                    }
+                    $checkEmail->close();
 
 
-                    $result = $stmt->execute();
+                    // 5. Insert vào bảng users
+                    $stmt = $this->conn->prepare("INSERT INTO users (username, password, status, role_id) VALUES (?, ?, ?, ?)");
+                    $stmt->bind_param("ssii", $username, $hashedPassword, $status, $role);
+                    if (!$stmt->execute()) {
+                        return 'insert_failed';
+                    }
                     $stmt->close();
 
-                    return $result;
+                    // 6. Insert vào bảng nhân viên hoặc khách hàng
+                    $user_id = $this->conn->insert_id;
+                    $stmtInsert = $this->conn->prepare($sqlInsert);
+                    $stmtInsert->bind_param("isss", $user_id, $fullname, $phone, $email);
+                    $stmtInsert->execute();
+                    $stmtInsert->close();
+
+                    return 'success';
                 } catch (Exception $e) {
-                    // Ghi log lỗi nếu cần
                     error_log("Error adding user: " . $e->getMessage());
-                    return false;
+                    return 'exception';
                 }
             }
         }
+        return 'invalid_request';
     }
+
 
     public function sua($id, $username, $phone, $email, $password, $status, $role)
     {
@@ -87,7 +136,8 @@ class TKModel
         $query = "SELECT 
             u.*,
             COALESCE(nv.phone, kh.phone) AS phone,
-            COALESCE(nv.email, kh.email) AS email
+            COALESCE(nv.email, kh.email) AS email,
+            COALESCE(nv.name, kh.customer_name) AS fullname
             FROM users u
             LEFT JOIN NhanVien nv ON nv.user_id = u.user_id
             LEFT JOIN KhachHang kh ON kh.user_id = u.user_id
@@ -132,7 +182,7 @@ class TKModel
 
             COALESCE(nv.email, kh.email) AS email,  
             -- Tương tự, ưu tiên lấy email từ bảng NhanVien, nếu không có thì lấy từ bảng KhachHang
-
+            COALESCE(nv.name, kh.customer_name) AS fullname,
             r.role_name  
             -- Lấy tên vai trò từ bảng roles dựa trên role_id
 
