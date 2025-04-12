@@ -17,4 +17,9 @@ class handleLove
     {
         return $this->model->removeLove($customer_id, $product_id);
     }
+
+    public function getLoveProducts($customer_id)
+    {
+        return $this->model->getLoveProducts($customer_id);
+    }
 }

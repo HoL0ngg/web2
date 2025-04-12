@@ -552,7 +552,39 @@ function loadCategories() {
         .catch(err => console.error("Lỗi khi load chủng loại:", err));
 }
 
+function loadLoveProducts() {
+    fetch('XuLyYeuThich.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `action=getLoveProducts`
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            if (data.status == "error") {
+                showToast(data.message, false);
+                return;
+            }
+            const heartIcons = document.querySelectorAll(".heart-icon i");
+            heartIcons.forEach(icon => {
+                icon.classList.remove("fa-solid");
+                icon.classList.add("fa-regular");
+            });
+            data.data.forEach(productId => {
+                const heartIcon = [...heartIcons].find(icon => icon.closest(".product").dataset.id == productId.product_id);
 
+
+                if (heartIcon) {
+                    heartIcon.classList.remove("fa-regular");
+                    heartIcon.classList.add("fa-solid");
+                }
+            });
+        }).catch(err => {
+            console.error("Lỗi khi load sản phẩm yêu thích:", err);
+        });
+}
 
 let selectedPrice = 0;
 async function loadProducts(pagenum = 1) {
@@ -593,7 +625,7 @@ async function loadProducts(pagenum = 1) {
     pageNum.innerHTML = "";
     let s = "";
     data.products.forEach(product => {
-        s += `<div class="product">
+        s += `<div class="product" data-id="${product.product_id}">
         <div class="product-img">
             <img src="${product.image_url}" alt="img1">
         </div>
@@ -621,9 +653,10 @@ async function loadProducts(pagenum = 1) {
         pageNum.appendChild(button);
     }
     changeColorPagenum(pagenum);
-
-
+    loadLoveProducts();
 }
+
+
 
 function toggleLove(element, productId) {
     const icon = element.querySelector("i");

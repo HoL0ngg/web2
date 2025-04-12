@@ -133,11 +133,10 @@ CREATE TABLE SanPhamGiamGia (
 );
 -- Bảng YeuThich
 CREATE TABLE YeuThich (
-    love_id INT,
-    customer_id INT,
+    love_id INT AUTO_INCREMENT PRIMARY KEY,
+    username varchar(50),
     product_id INT,
-    PRIMARY KEY (love_id),
-    FOREIGN KEY (customer_id) REFERENCES KhachHang(customer_id),
+    FOREIGN KEY (username) REFERENCES users(username),
     FOREIGN KEY (product_id) REFERENCES SanPham(product_id)
 );
 -- Bảng DonHang
@@ -602,9 +601,7 @@ VALUES (
 INSERT INTO SanPhamGiamGia
 VALUES (1, 1, 10, 20),
     (1, 3, 15, 50);
-INSERT INTO YeuThich
-VALUES (1, 1, 3),
-    (2, 2, 1);
+
 -- DonHang
 INSERT INTO DonHang
 VALUES (
