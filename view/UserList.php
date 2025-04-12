@@ -12,6 +12,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Tên đăng nhập</th>
+                    <th>Họ tên</th>
                     <th>Số điện thoại</th>
                     <th>Email</th>
                     <th>Trạng thái</th>
@@ -25,6 +26,7 @@
                         <tr>
                             <td><?= htmlspecialchars($user['user_id']) ?></td> <!-- dau = la php echo  -->
                             <td><?= htmlspecialchars($user['username']) ?></td>
+                            <td><?= htmlspecialchars($user['fullname']) ?></td>
                             <td><?= htmlspecialchars($user['phone']) ?></td>
                             <td><?= htmlspecialchars($user['email']) ?></td>
                             <td><?= $user['status'] == 0 ? '<span class="status-no-complete">Bị khóa</span>' : '<span class="status-complete">Hoạt động</span>' ?></td>

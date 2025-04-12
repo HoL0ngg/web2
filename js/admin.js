@@ -186,7 +186,7 @@ document.addEventListener("click", function(event) {
 window.onload = function () {
     effectSideBar();
     hiddenSideBar(); 
-    loadUsers();      
+    // loadUsers();      
     
     let message = sessionStorage.getItem("toastMessage");
     let success = sessionStorage.getItem("toastSuccess") === "true";
