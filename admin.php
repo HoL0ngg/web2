@@ -127,13 +127,6 @@
                     $tkController = new TKController(); // Đảm bảo file chứa class được gọi
                     if (isset($_GET['act'])) {
                         $act = $_GET['act'];
-                        // if (in_array($act, ['addUser', 'updateUser'])) {
-                        //     // Gọi hàm trả JSON
-                        //     if ($act == 'addUser') $tkController->addUser();
-                        //     if ($act == 'updateUser') $tkController->updateUser();
-                        //     exit();
-                        //     return;
-                        // }
                         switch ($act) {
                             case 'add':
                                 $tkController->addForm();
@@ -155,7 +148,9 @@
                 } elseif ($page == 'thongke') {
                     include('thongke.php');
                 } elseif ($page == 'phanquyen') {
-                    include('thongke.php');
+                    require_once('handles/PhanQuyenController.php');
+                    $phanquyenController = new PhanQuyenController();
+                    $phanquyenController->roleList();
                 } else {
                     include('admin/home.php');
                 }
