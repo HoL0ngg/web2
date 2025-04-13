@@ -188,6 +188,96 @@ document.addEventListener("click", function(event) {
     }
 });
 
+// ADD PRODUCT
+const productAddForm = document.getElementById("productAddForm");
+if(productAddForm){
+    productAddForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+    
+        if(validateAddProductForm()){
+            let formData = new FormData(e.target); // Sửa ở đây
+            formData.append("action","addProduct");
+            try {
+                const response = await fetch('api/product_api.php', {
+                    method: "POST",
+                    body: formData
+                });
+                const data = await response.json();
+                if (data.success) {
+                    handleSuccessResponse(data);
+                } else {
+                    handleErrorResponse(data);
+                    console.error("Lỗi:", data.message);
+                }
+            } catch (error) { // Sửa ở đây
+                console.error("Lỗi hệ thống: ", error);
+                showToast("Lỗi hệ thống", false);
+            }
+        }
+    });
+}
+function validateAddProductForm() {
+    let isValid = true;    
+    
+    const productName = document.getElementById('productname').value.trim();
+    const quantity = document.getElementById('quantity').value.trim();
+    const price = document.getElementById('price').value.trim();
+    const theloai = document.getElementById('theloai').value.trim();
+    const thuonghieu = document.getElementById('thuonghieu').value.trim();
+    const mota = document.getElementById('mota').value.trim();
+    const imageInput = document.getElementById('imageInput').files.length; 
+console.log(theloai);
+console.log(thuonghieu);
+
+console.log(imageInput);
+
+    if (productName === '') {
+        isValid = false;
+        showToast("Vui lòng nhập tên sản phẩm", isValid);
+        return isValid;
+    }
+
+    if (quantity === '' || isNaN(quantity) || quantity <= 0) {
+        isValid = false;
+        showToast("Vui lòng nhập số lượng hợp lệ!", isValid);
+        return isValid;
+    }
+
+    // Kiểm tra Giá
+    if (price === '' || isNaN(price) || price <= 0) {
+        isValid = false;
+        showToast("Vui lòng nhập giá hợp lệ.", isValid);
+        return isValid;
+    }
+
+    // Kiểm tra Thể loại
+    if (theloai === '') {
+        isValid = false;
+        showToast("Vui lòng chọn thể loại.", isValid);
+        return isValid;
+    }
+
+    // Kiểm tra Thương hiệu
+    if (thuonghieu === '') {
+        isValid = false;
+        showToast("Vui lòng chọn thương hiệu.", isValid);
+        return isValid;
+    }
+
+    // Kiểm tra Mô tả (không bắt buộc nhưng có thể kiểm tra nếu cần)
+    if (mota === '') {
+        isValid = false;
+        showToast("Vui lòng nhập mô tả sản phẩm", isValid);
+        return isValid;
+    }
+    if (imageInput == 0) {
+        isValid = false;
+        showToast("Vui lòng chọn hình ảnh sản phẩm.", isValid);
+        return isValid;        
+    }
+    return isValid;
+}
+
 window.onload = function () {
     effectSideBar();
     hiddenSideBar(); 

@@ -23,6 +23,7 @@
 
         public function updateForm($id)
         {
+            require_once('view/chucnangAccount.php');
             require_once('Model/NhomQuyenModel.php');
             $addUserForm = new AccountFunction();
             $user = $this->tkmodel->getUserById($id);
@@ -69,7 +70,7 @@
 
             switch ($result) {
                 case 'success':
-                    $response = ["success" => true, "message" => "Thêm tài khoản thành công", "redirect" => "admin.php?pge=user"];
+                    $response = ["success" => true, "message" => "Thêm tài khoản thành công", "redirect" => "admin.php?page=user"];
                     break;
                 case 'username_exists':
                     $response["message"] = "Tên đăng nhập đã tồn tại";
@@ -94,7 +95,56 @@
             echo json_encode($response);
         }
 
-        public function updateUser() {}
+        public function updateUser()
+        {
+            header('Content-Type: application/json');
+
+            $response = ["success" => false, "message" => "", "redirect" => ""];
+            if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+                $response["message"] = "Phương thức không hợp lệ";
+                echo json_encode($response);
+                return;
+            }
+            $id = (int)$_POST['id'];
+            $username = $_POST['username'] ?? '';
+            $fullname = $_POST['fullname'] ?? '';
+            $phone = $_POST['phone'] ?? '';
+            $email = $_POST['email'] ?? '';
+            $password = $_POST['password'] ?? '';
+            $status = $_POST['status'] ?? '1';
+            $role = $_POST['role'] ?? '1';
+
+            if (empty($username) || empty($fullname) || empty($phone) || empty($email)) {
+                $response["message"] = "Vui lòng nhập đầy đủ thông tin";
+                echo json_encode($response);
+                return;
+            }
+            $id = (int)$id;
+            $result = $this->tkmodel->sua($id, $username, $fullname, $phone, $email, $password, $status, $role);
+
+            switch ($result) {
+                case 'success':
+                    $response = ["success" => true, "message" => "Cập nhật tài khoản thành công", "redirect" => "admin.php?page=user"];
+                    break;
+                case 'username_exists':
+                    $response["message"] = "Tên đăng nhập đã tồn tại";
+                    break;
+                case 'email_exists':
+                    $response["message"] = "Email đã tồn tại";
+                    break;
+                case 'phone_exists':
+                    $response["message"] = "Số điện thoại đã tồn tại";
+                    break;
+                case 'exception':
+                    $response["message"] = "Có lỗi xảy ra";
+                    break;
+                default:
+                    $response["message"] = "Lỗi không xác định";
+                    break;
+            }
+
+            echo json_encode($response);
+        }
     }
 
     ?>

@@ -10,30 +10,31 @@
 <body>
     <div class="container-add-product">
         <div class="header-add-product">THÊM SẢN PHẨM</div>
-        <div class="form-wrapper-add-product">
-            <div class="image-upload">
-                <div class="preview" id="imagePreview">
-                    <span><img src="../imgs/addImg.png" alt="addImg"></span>
+        <form id="productAddForm" enctype="multipart/form-data">
+            <div class="form-wrapper-add-product">
+                <div class="image-upload">
+                    <div class="preview" id="imagePreview">
+                        <span><img src="../imgs/addImg.png" alt="addImg"></span>
+                    </div>
+                    <label for="imageInput" class="upload-btn-label"><i class="fa-solid fa-cloud-arrow-up"></i> Chọn hình ảnh</label>
+                    <input type="file" id="imageInput" name="image" accept="image/*" onchange="previewImage(event)">
                 </div>
-                <label for="imageInput" class="upload-btn-label"><i class="fa-solid fa-cloud-arrow-up"></i> Chọn hình ảnh</label>
-                <input type="file" id="imageInput" name="image" accept="image/*" onchange="previewImage(event)">
-            </div>
 
-            <div class="form-inputs">
-                <form method="POST" action="index.php?action=saveProduct" enctype="multipart/form-data">
+                <div class="form-inputs">
+
                     <div class="form-group">
-                        <label for="ten">Tên sản phẩm</label>
-                        <input type="text" id="ten" name="ten">
+                        <label for="productname">Tên sản phẩm</label>
+                        <input type="text" id="productname" name="productname">
                     </div>
 
                     <div class="form-group">
-                        <label for="soluong">Số lượng</label>
-                        <input type="number" id="soluong" name="soluong">
+                        <label for="quantity">Số lượng</label>
+                        <input type="number" id="quantity" name="quantity">
                     </div>
 
                     <div class="form-group">
-                        <label for="gia">Giá</label>
-                        <input type="text" id="gia" name="gia">
+                        <label for="price">Giá</label>
+                        <input type="text" id="price" name="price">
                     </div>
 
                     <div class="form-group">
@@ -59,10 +60,10 @@
                     <div class="form-group radio-product-status">
                         <label>Trạng thái</label>
                         <div id="container-product-status">
-                            <input type="radio" id="hien" name="trangthai" value="1" checked>
+                            <input type="radio" id="hien" name="status" value="1" checked>
                             <label for="hien">Hiện</label>
 
-                            <input type="radio" id="an" name="trangthai" value="0">
+                            <input type="radio" id="an" name="status" value="0">
                             <label for="an">Ẩn</label>
                         </div>
                     </div>
@@ -75,9 +76,9 @@
                         <button type="submit">Thêm sản phẩm</button>
                         <button class="cancel-add-product"><a href="admin.php?page=product">Hủy</a></button>
                     </div>
-                </form>
-            </div>
-        </div>
+                </div>
+        </form>
+    </div>
     </div>
 
 </body>
