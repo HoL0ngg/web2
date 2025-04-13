@@ -1,7 +1,7 @@
 <?php
 require_once("database/connect.php");
 
-class DetailOrderHistoryModel
+class DetailOrderModel
 {
     private $conn;
 
@@ -11,7 +11,7 @@ class DetailOrderHistoryModel
         $this->conn = $db->getConnection();
     }
 
-    public function getAllDetailOrderHistoryByOrderId($id)
+    public function getAllDetailOrderByOrderId($id)
     {
         $sql = "SELECT  * FROM chitietdonhang WHERE order_id = ?";
         $stmt = $this->conn->prepare($sql);

@@ -37,7 +37,7 @@ if (isset($_GET['maChungloai']))
             echo "</ul>
                         </div>
                         <div style='text-align:center; margin-top: 10px;'>
-                        <button id='reset-filters' style='padding: 8px 12px; background-color: #f44336; color: white; border: none; border-radius: 4px; cursor: pointer; float: right;'>
+                        <button id='reset-filters' style='padding: 8px 12px; background-color: #f44336; color: white; border: none; border-radius: 4px; cursor: pointer; float: right;  '>
                             Đặt lại
                         </button>
                         </div>

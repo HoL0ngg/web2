@@ -16,9 +16,9 @@
             break;
 
         case 'orderhistory':
-            require_once './handles/OrderHistoryController.php';
-            $OrderHistoryController = new OrderHistoryController();
-            $OrderHistoryController->getAllOrderHistoryByCustomerId(1);
+            require_once './handles/OrderController.php';
+            $OrderHistoryController = new OrderController();
+            $OrderHistoryController->getAllOrderHistoryByCustomerId(2);
             break;
 
         default:

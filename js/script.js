@@ -170,7 +170,7 @@ function showToast(message, isSuccess) {
         icon: isSuccess ? "success" : "error",
         title: isSuccess ? "Thành công!" : "Lỗi!",
         text: message,
-        toast: true, // Hiển thị dạng toast nhỏ thay vì popup lớn
+        toaxst: true, // Hiển thị dạng toast nhỏ thay vì popup lớn
         position: "top-end",
         showConfirmButton: false,
         timer: 3500,
@@ -773,9 +773,6 @@ if (resetbtn) {
 
 
 
-
-
-
 addToCart = (id, quantity) => {
     fetch('cart.php', {
         method: 'POST',
@@ -828,6 +825,40 @@ function hideOrderDetail() {
     popup.classList.remove("show");
 }
 
+function HuyDonHang(){
+    const cancelButtons = document.querySelectorAll('.cancel-btn');
+            cancelButtons.forEach(button => {
+                button.addEventListener('click',function(){
+                    const row = this.closest('tr');
+                    const statusCell = row.querySelector('.status-cell');
+                    const orderId = statusCell.dataset.orderId;
+                    const currentStatus = statusCell.innerText.trim();
+                    let newStatus = "cancelled";
+                    if(currentStatus === 'shipping'||currentStatus === 'delivered'){
+                        showToast('Đơn hàng đã được xử lý không thể hủy');
+                        return;
+                    }
+                    if(currentStatus === 'cancelled'){
+                        showToast('Đơn hàng đã được hủy');
+                        return;
+                    }
+                    if(confirm("xác nhận đơn hàng")){
+                        fetch('change_status_order.php',{
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                            body: `order_id=${orderId}&status=${newStatus}`
+                        })
+                    .then(res => res.text())
+                    .then(data=>{
+                        statusCell.innerText = newStatus;
+                        showToast("Hủy thành công",true);
+                    })
+                    }
+                });
+                    
+            });
+}
+
 
 window.onload = function () {
     closeButton();
@@ -842,5 +873,6 @@ window.onload = function () {
     // phantrang(1, product, 8);
     loadProducts();
     loadCategories();
+    HuyDonHang();
 }
 

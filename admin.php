@@ -151,7 +151,9 @@
                         $tkController->userList();
                     }
                 } elseif ($page == 'order') {
-                    include('order.php');
+                    require_once './handles/OrderController.php';
+                    $OrderHistoryController = new OrderController();
+                    $OrderHistoryController->getAllOrder();
                 } elseif ($page == 'thongke') {
                     include('thongke.php');
                 } elseif ($page == 'phanquyen') {

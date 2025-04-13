@@ -1,7 +1,7 @@
 <?php
 require_once("database/connect.php");
 
-class OrderHistoryModel
+class OrderModel
 {
     private $conn;
 
@@ -11,7 +11,7 @@ class OrderHistoryModel
         $this->conn = $db->getConnection();
     }
 
-    public function getAllOrderHistory()
+    public function getAllOrder()
     {
         $sql = "SELECT  * FROM donhang";
         $stmt = $this->conn->prepare($sql);
@@ -54,5 +54,12 @@ class OrderHistoryModel
         $order = $result->fetch_assoc();
         $stmt->close();
         return $order;
+    }
+
+    public function changeStatusById($orderId, $newStatus){
+        $sql="UPDATE donhang SET status = ? WHERE order_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("si", $newStatus, $orderId);
+        $stmt->execute();
     }
 }

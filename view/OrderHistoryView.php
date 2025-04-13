@@ -1,7 +1,7 @@
 <?php
 require_once './handles/EmployeeController.php';
 require_once './handles/AddressController.php';
-require_once './handles/DetailOrderHistoryController.php';
+require_once './handles/DetailOrderController.php';
 ?>
 
 <main class="main-content">
@@ -13,8 +13,7 @@ require_once './handles/DetailOrderHistoryController.php';
     <section class="order-list">
         <table>
             <thead>
-                <tr>
-                    <?php if (isset($_GET['orderhistory'])): ?>
+                <tr>                
                         <th>Mã hóa đơn</th>
                         <th>Nhân viên</th>
                         <th>Địa chỉ nhận</th>
@@ -22,17 +21,11 @@ require_once './handles/DetailOrderHistoryController.php';
                         <th>Tổng tiền</th>
                         <th>Trạng thái</th>
                         <th>Chi tiết</th>
-                    <?php endif; ?>
-                    <?php if (isset($_GET['id'])): ?>
-                        <th>Sản phẩm</th>
-                        <th>Số lượng</th>
-                        <th>Đơn giá</th>
-                    <?php endif; ?>
+                        <th>Hủy đơn</th>
                 </tr>
             </thead>
             <tbody id="orderTable">
                 <?php 
-                if (isset($_GET['orderhistory'])) {
                     foreach($orders as $order):
                         $EmployeeController = new EmployeeController();
                         $AddressController = new AddressController();
@@ -45,13 +38,16 @@ require_once './handles/DetailOrderHistoryController.php';
                         <td><?= $address ?></td>
                         <td><?= $order['orderDate'] ?></td>
                         <td><?= $order['total'] ?></td>
-                        <td><?= $order['status'] ?></td>
+                        <td class="status-cell" data-order-id="<?= $order['order_id'] ?>"><?= $order['status'] ?></td>
                         <td>
                             <button onclick="showOrderDetail(this)" value="<?= $order['order_id'] ?>">📄 Chi tiết</button>
                         </td>
+                        <td>
+                            <button class="cancel-btn" value="<?= $order['order_id'] ?>">❌ Hủy đơn </button>
+                        </td>
                     </tr>
                 <?php endforeach; 
-                } ?>
+                 ?>
             </tbody>
         </table>
     </section>
@@ -70,21 +66,7 @@ require_once './handles/DetailOrderHistoryController.php';
                 </tr>
             </thead>
             <tbody>
-               <?php
-                   $DetailOrderHistoryController = new DetailOrderHistoryController();
-                   $detailorders = $DetailOrderHistoryController->getAllDetailOrderHistoryByOrderId($id);
-                   $ProductController = new ProductController();
-                   foreach($detailorders as $detailorder):
-               ?>
-               <?php
-               $name_product = $ProductController->getNameProductById($detailorder['product_id']);
-               ?>
-                <tr>
-                    <td><?= $name_product ?></td>
-                    <td><?= $detailorder['quantity'] ?></td>
-                    <td><?= $detailorder['price'] ?></td>
-                </tr>
-                <?php endforeach; ?>
+              
             </tbody>
         </table>
         <button id="close-btn" onclick="hideOrderDetail()">Đóng</button>
@@ -94,115 +76,5 @@ require_once './handles/DetailOrderHistoryController.php';
 </main>
 
 <style>
-#content-wrapper {
-    display: block;
-}
 
-.order-list {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.order-list table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
-
-.order-list th,
-.order-list td {
-    border: 1px solid #BDC3C7;
-    padding: 10px;
-    text-align: center;
-}
-
-.order-list th {
-    background: #3498DB;
-    color: white;
-}
-
-.order-list td a {
-    text-decoration: none;
-    color: black;
-}
-
-
-
-
-
-/* Chi tiết đơn hàng popup */
-#order-detail-popup {
-    position: fixed;
-    top: -100%;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: top 0.4s ease;
-    z-index: 999;
-}
-
-#order-detail-popup.show {
-    top: 0;
-}
-
-#order-detail-content {
-    background: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    width: 600px;
-    max-height: 80%;
-    overflow-y: auto;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    animation: slideDown 0.4s ease;
-}
-
-/* Hiệu ứng trượt xuống */
-@keyframes slideDown {
-    from {
-        transform: translateY(-50px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-#detail-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
-
-#detail-table th,
-#detail-table td {
-    border: 1px solid #BDC3C7;
-    padding: 10px;
-    text-align: center;
-}
-
-#detail-table th {
-    background: #3498DB;
-    color: white;
-}
-
-#close-btn {
-    margin-top: 20px;
-    padding: 8px 20px;
-    background: #C0392B;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#close-btn:hover {
-    background: #A93226;
-}
 </style>
