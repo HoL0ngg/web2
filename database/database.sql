@@ -108,9 +108,9 @@ CREATE TABLE SanPham (
 -- Bảng SanPhamHinhAnh
 CREATE TABLE SanPhamHinhAnh (
     image_id INT AUTO_INCREMENT PRIMARY KEY,
-    image_url VARCHAR(255),
-    is_main BOOLEAN DEFAULT FALSE,
-    product_id INT,
+    image_url VARCHAR(255) NOT NULL,
+    is_main TINYINT NOT NULL DEFAULT 1,
+    product_id INT NOT NULL,
     FOREIGN KEY (product_id) REFERENCES SanPham(product_id)
 );
 -- Bảng SuKienGiamGia
