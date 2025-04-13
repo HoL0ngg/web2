@@ -1,5 +1,5 @@
 <?php
-require_once './handles/DetailOrderHistoryController.php';
+require_once './handles/DetailOrderController.php';
 require_once './handles/ProductController.php';
 
 // Kiểm tra nếu có dữ liệu POST
@@ -7,10 +7,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['order_id'])) {
     $orderId = $_POST['order_id'];
 
     // Lấy chi tiết đơn hàng từ CSDL
-    $DetailOrderHistoryController = new DetailOrderHistoryController();
+    $DetailOrderController = new DetailOrderController();
     $ProductController = new ProductController();
 
-    $detailorders = $DetailOrderHistoryController->getAllDetailOrderHistoryByOrderId($orderId);
+    $detailorders = $DetailOrderController->getAllDetailOrderByOrderId($orderId);
 
     // Xuất HTML bảng
     foreach ($detailorders as $detailorder) {
