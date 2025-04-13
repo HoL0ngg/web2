@@ -5,13 +5,16 @@
     </header>
 
     <section class="permission-management">
-        <form method="POST" action="index.php?controller=phanquyen&action=luu">
+        <form>
             <!-- Combobox chọn nhóm quyền -->
             <div class="permission-header">
                 <label for="nhom_quyen">Nhóm quyền:</label>
-                <select name="nhom_quyen" id="nhom_quyen">
+                <select name="nhom_quyen" id="nhom_quyen" onchange="window.location.href='admin.php?page=phanquyen&role_id=' + this.value;">
+                    <!-- <select name="nhom_quyen" id="nhom_quyen"> -->
                     <?php foreach ($nhomQuyen as $nhom): ?>
-                        <option value="<?= $nhom['role_id'] ?>"><?= $nhom['role_name'] ?></option>
+                        <option value="<?= $nhom['role_id'] ?>" <?= ($nhom['role_id'] == $_GET['role_id']) ? 'selected' : '' ?>>
+                            <?= $nhom['role_name'] ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -36,11 +39,14 @@
                         </thead>
                         <tbody>
                             <?php foreach ($chucNang as $chuc): ?>
+                                <?php
+                                $actions = $quyenMap[$chuc['function_id']] ?? [];
+                                ?>
                                 <tr>
-                                    <td><input type="checkbox" name="permissions[<?= $chuc['function_id'] ?>][tao]"></td>
-                                    <td><input type="checkbox" name="permissions[<?= $chuc['function_id'] ?>][xem]"></td>
-                                    <td><input type="checkbox" name="permissions[<?= $chuc['function_id'] ?>][sua]"></td>
-                                    <td><input type="checkbox" name="permissions[<?= $chuc['function_id'] ?>][xoa]"></td>
+                                    <td><input type="checkbox" name="permissions[<?= $chuc['function_id'] ?>][create]" <?= in_array('create', $actions) ? 'checked' : '' ?>></td>
+                                    <td><input type="checkbox" name="permissions[<?= $chuc['function_id'] ?>][read]" <?= in_array('read', $actions) ? 'checked' : '' ?>></td>
+                                    <td><input type="checkbox" name="permissions[<?= $chuc['function_id'] ?>][update]" <?= in_array('update', $actions) ? 'checked' : '' ?>></td>
+                                    <td><input type="checkbox" name="permissions[<?= $chuc['function_id'] ?>][delete]" <?= in_array('delete', $actions) ? 'checked' : '' ?>></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

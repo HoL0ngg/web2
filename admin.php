@@ -69,7 +69,7 @@
                     </li>
 
                     <li>
-                        <a href="admin.php?page=phanquyen">
+                        <a href="admin.php?page=phanquyen&role_id=1">
                             <i class="fa-solid fa-users-gear"></i>
                             <span class="text">Phân quyền</span>
                         </a>
