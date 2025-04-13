@@ -11,126 +11,152 @@ class TKModel
 
     public function them($username, $fullname, $phone, $email, $password, $status, $role)
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (!empty($username) && !empty($email) && !empty($password)) {
-                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                $sqlInsert = "";
-
-                try {
-                    // 1. Kiểm tra username đã tồn tại chưa
-                    $checkUsername = $this->conn->prepare("SELECT user_id FROM users WHERE username = ?");
-                    $checkUsername->bind_param("s", $username);
-                    $checkUsername->execute();
-                    if ($checkUsername->get_result()->num_rows > 0) {
-                        $checkUsername->close();
-                        return 'username_exists';
-                    }
-                    $checkUsername->close();
-
-                    // 2. Tùy theo role để xác định bảng kiểm tra email và phone
-                    switch ($role) {
-                        case 1:
-                        case 2:
-                            $sqlCheckEmail = "SELECT employee_id FROM nhanvien WHERE email = ?";
-                            $sqlCheckPhone = "SELECT employee_id FROM nhanvien WHERE phone = ?";
-                            $sqlInsert = "INSERT INTO nhanvien(user_id, name, phone, email) VALUES(?, ?, ?, ?)";
-                            break;
-
-                        default:
-                            $sqlCheckEmail = "SELECT customer_id FROM khachhang WHERE email = ?";
-                            $sqlCheckPhone = "SELECT customer_id FROM khachhang WHERE phone = ?";
-                            $sqlInsert = "INSERT INTO khachhang(user_id, customer_name, phone, email) VALUES(?, ?, ?, ?)";
-                            break;
-                    }
-
-                    // 3. Kiểm tra số điện thoại trùng
-                    $checkPhone = $this->conn->prepare($sqlCheckPhone);
-                    $checkPhone->bind_param("s", $phone);
-                    $checkPhone->execute();
-                    if ($checkPhone->get_result()->num_rows > 0) {
-                        $checkPhone->close();
-                        return 'phone_exists';
-                    }
-                    $checkPhone->close();
-
-                    // 4. Kiểm tra email trùng
-                    $checkEmail = $this->conn->prepare($sqlCheckEmail);
-                    $checkEmail->bind_param("s", $email);
-                    $checkEmail->execute();
-                    if ($checkEmail->get_result()->num_rows > 0) {
-                        $checkEmail->close();
-                        return 'email_exists';
-                    }
-                    $checkEmail->close();
-
-
-                    // 5. Insert vào bảng users
-                    $stmt = $this->conn->prepare("INSERT INTO users (username, password, status, role_id) VALUES (?, ?, ?, ?)");
-                    $stmt->bind_param("ssii", $username, $hashedPassword, $status, $role);
-                    if (!$stmt->execute()) {
-                        return 'insert_failed';
-                    }
-                    $stmt->close();
-
-                    // 6. Insert vào bảng nhân viên hoặc khách hàng
-                    $user_id = $this->conn->insert_id;
-                    $stmtInsert = $this->conn->prepare($sqlInsert);
-                    $stmtInsert->bind_param("isss", $user_id, $fullname, $phone, $email);
-                    $stmtInsert->execute();
-                    $stmtInsert->close();
-
-                    return 'success';
-                } catch (Exception $e) {
-                    error_log("Error adding user: " . $e->getMessage());
-                    return 'exception';
-                }
+        try {
+            // 1. Kiểm tra username đã tồn tại chưa
+            $checkUsername = $this->conn->prepare("SELECT user_id FROM users WHERE username = ?");
+            $checkUsername->bind_param("s", $username);
+            $checkUsername->execute();
+            if ($checkUsername->get_result()->num_rows > 0) {
+                $checkUsername->close();
+                return 'username_exists';
             }
+            $checkUsername->close();
+
+            // 2. Tùy theo role để xác định bảng kiểm tra email và phone
+            switch ($role) {
+                case 1: // Admin
+                case 2: // Nhân viên
+                    $sqlCheckEmail = "SELECT employee_id FROM nhanvien WHERE email = ?";
+                    $sqlCheckPhone = "SELECT employee_id FROM nhanvien WHERE phone = ?";
+                    $sqlInsert = "INSERT INTO nhanvien(user_id, name, phone, email) VALUES(?, ?, ?, ?)";
+                    break;
+
+                default: // Khách hàng
+                    $sqlCheckEmail = "SELECT customer_id FROM khachhang WHERE email = ?";
+                    $sqlCheckPhone = "SELECT customer_id FROM khachhang WHERE phone = ?";
+                    $sqlInsert = "INSERT INTO khachhang(user_id, customer_name, phone, email) VALUES(?, ?, ?, ?)";
+                    break;
+            }
+
+            // 3. Kiểm tra số điện thoại trùng
+            $checkPhone = $this->conn->prepare($sqlCheckPhone);
+            $checkPhone->bind_param("s", $phone);
+            $checkPhone->execute();
+            if ($checkPhone->get_result()->num_rows > 0) {
+                $checkPhone->close();
+                return 'phone_exists';
+            }
+            $checkPhone->close();
+
+            // 4. Kiểm tra email trùng
+            $checkEmail = $this->conn->prepare($sqlCheckEmail);
+            $checkEmail->bind_param("s", $email);
+            $checkEmail->execute();
+            if ($checkEmail->get_result()->num_rows > 0) {
+                $checkEmail->close();
+                return 'email_exists';
+            }
+            $checkEmail->close();
+
+            // 5. Hash mật khẩu
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+            // 6. Insert vào bảng users
+            $stmtUser = $this->conn->prepare("INSERT INTO users (username, password, status, role_id) VALUES (?, ?, ?, ?)");
+            $stmtUser->bind_param("ssii", $username, $hashedPassword, $status, $role);
+            if (!$stmtUser->execute()) {
+                return 'insert_failed';
+            }
+            $user_id = $this->conn->insert_id;
+            $stmtUser->close();
+
+            // 7. Insert vào bảng nhân viên hoặc khách hàng
+            $stmtDetail = $this->conn->prepare($sqlInsert);
+            $stmtDetail->bind_param("isss", $user_id, $fullname, $phone, $email);
+            $stmtDetail->execute();
+            $stmtDetail->close();
+
+            return 'success';
+        } catch (Exception $e) {
+            error_log("Lỗi thêm user: " . $e->getMessage());
+            return 'exception';
         }
-        return 'invalid_request';
     }
 
 
-    public function sua($id, $username, $phone, $email, $password, $status, $role)
+    public function sua($id, $username, $fullname, $phone, $email, $password, $status, $role)
     {
-        if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-            return false;
-        }
-
-        if (empty($username) || empty($email)) {
-            return false;
-        }
-
         try {
-            // Kiểm tra email trùng (trừ user hiện tại)
-            $checkStmt = $this->conn->prepare("SELECT id FROM users WHERE email = ? AND id != ?");
-            $checkStmt->bind_param("si", $email, $id);
-            $checkStmt->execute();
-            if (mysqli_num_rows($checkStmt->get_result()) > 0) {
-                $checkStmt->close();
-                return false; // Email đã tồn tại cho user khác
+            // 1. Kiểm tra username đã tồn tại chưa
+            $checkUsername = $this->conn->prepare("SELECT user_id FROM users WHERE username = ? AND user_id != ?");
+            $checkUsername->bind_param("si", $username, $id);
+            $checkUsername->execute();
+            if ($checkUsername->get_result()->num_rows > 0) {
+                $checkUsername->close();
+                return 'username_exists';
             }
-            $checkStmt->close();
+            $checkUsername->close();
 
-            // Xử lý mật khẩu
+            // 2. Tùy theo role để xác định bảng kiểm tra email và phone
+            switch ($role) {
+                case 1:
+                case 2:
+                    $sqlCheckEmail = "SELECT user_id FROM nhanvien WHERE email = ? AND user_id != ?";
+                    $sqlCheckPhone = "SELECT user_id FROM nhanvien WHERE phone = ? AND user_id != ?";
+                    $sqlUpdate = "UPDATE nhanvien SET name = ?, phone = ?, email = ? WHERE user_id = ?";
+                    break;
+                default:
+                    $sqlCheckEmail = "SELECT user_id FROM khachhang WHERE email = ? AND user_id != ?";
+                    $sqlCheckPhone = "SELECT user_id FROM khachhang WHERE phone = ? AND user_id != ?";
+                    $sqlUpdate = "UPDATE khachhang SET customer_name = ?, phone = ?, email = ? WHERE user_id = ?";
+                    break;
+            }
+
+            // 3. Kiểm tra số điện thoại trùng
+            $checkPhone = $this->conn->prepare($sqlCheckPhone);
+            $checkPhone->bind_param("si", $phone, $id);
+            $checkPhone->execute();
+            if ($checkPhone->get_result()->num_rows > 0) {
+                $checkPhone->close();
+                return 'phone_exists';
+            }
+            $checkPhone->close();
+
+            // 4. Kiểm tra email trùng
+            $checkEmail = $this->conn->prepare($sqlCheckEmail);
+            $checkEmail->bind_param("si", $email, $id);
+            $checkEmail->execute();
+            if ($checkEmail->get_result()->num_rows > 0) {
+                $checkEmail->close();
+                return 'email_exists';
+            }
+            $checkEmail->close();
+
+            // 5. Cập nhật bảng users
             if (!empty($password)) {
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                $stmt = $this->conn->prepare("UPDATE users SET username = ?, phone = ?, email = ?, password = ?, status = ?, role_id = ? WHERE id = ?");
-                $stmt->bind_param("ssssiii", $username, $phone, $email, $hashedPassword, $status, $role, $id);
+                $stmt = $this->conn->prepare("UPDATE users SET username = ?, password = ?, status = ?, role_id = ? WHERE user_id = ?");
+                $stmt->bind_param("ssiii", $username, $hashedPassword, $status, $role, $id);
             } else {
-                // Nếu không nhập mật khẩu mới thì giữ nguyên mật khẩu cũ
-                $stmt = $this->conn->prepare("UPDATE users SET username = ?, phone = ?, email = ?, status = ?, role_id = ? WHERE id = ?");
-                $stmt->bind_param("sssiii", $username, $phone, $email, $status, $role, $id);
+                $stmt = $this->conn->prepare("UPDATE users SET username = ?, status = ?, role_id = ? WHERE user_id = ?");
+                $stmt->bind_param("siii", $username, $status, $role, $id);
             }
-
-            $result = $stmt->execute();
+            $stmt->execute();
             $stmt->close();
 
-            return $result;
+            // 6. Cập nhật bảng nhân viên hoặc khách hàng
+            $stmtUpdate = $this->conn->prepare($sqlUpdate);
+            $stmtUpdate->bind_param("sssi", $fullname, $phone, $email, $id);
+            $stmtUpdate->execute();
+            $stmtUpdate->close();
+
+            return 'success';
         } catch (Exception $e) {
             error_log("Error updating user: " . $e->getMessage());
-            return false;
+            return 'exception';
         }
     }
+
     public function getUserById($id)
     {
         $query = "SELECT 
