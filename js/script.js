@@ -396,74 +396,7 @@ window.addEventListener("scroll", function () {
 // }
 
 //Pagination
-const product = [
-    {
-        id: 1,
-        img: "imgs/sp1.jpg",
-        name: "Tinh chất làm mờ nám và nếp nhăn Clinical 1% Retinol Treatment 30ml",
-        price: 20000
-    },
-    {
-        id: 2,
-        img: "imgs/sp2.jpg",
-        name: "Kem dưỡng ẩm phục hồi da ban đêm",
-        price: 25000
-    },
-    {
-        id: 3,
-        img: "imgs/sp3.jpg",
-        name: "Serum vitamin C sáng da",
-        price: 30000
-    },
-    {
-        id: 4,
-        img: "imgs/sp4.jpg",
-        name: "Sữa rửa mặt dịu nhẹ",
-        price: 15000
-    },
-    {
-        id: 5,
-        img: "imgs/sp5.jpg",
-        name: "Kem chống nắng SPF 50",
-        price: 28000
-    },
-    {
-        id: 6,
-        img: "imgs/sp6.png",
-        name: "Mặt nạ dưỡng ẩm",
-        price: 18000
-    },
-    {
-        id: 7,
-        img: "imgs/sp7.jpg",
-        name: "Son môi dưỡng ẩm",
-        price: 22000
-    },
-    {
-        id: 8,
-        img: "imgs/sp8.jpg",
-        name: "Dầu tẩy trang thiên nhiên",
-        price: 27000
-    },
-    {
-        id: 9,
-        img: "imgs/sp9.jpg",
-        name: "Nước hoa hồng cân bằng da",
-        price: 19000
-    },
-    {
-        id: 10,
-        img: "imgs/sp10.jpg",
-        name: "Tẩy tế bào chết da mặt",
-        price: 23000
-    },
-    {
-        id: 11,
-        img: "imgs/sp11.jpg",
-        name: "Kem mắt giảm quầng thâm",
-        price: 32000
-    }
-];
+
 // function displayProduct(pagenum, productArray, numOfProducts) {
 //     const startIndex = (pagenum - 1) * numOfProducts;
 //     const endIndex = startIndex + numOfProducts;
@@ -798,6 +731,7 @@ addToCart = (id, quantity) => {
             }).showToast();
         });
 }
+//PRODUCT DETAIL
 
 
 function showOrderDetail(button) {
@@ -870,7 +804,7 @@ window.onload = function () {
     openChangePasswordForm();
     changePasswordNotification();
     openLoginForm();
-    // phantrang(1, product, 8);
+    openLoginForm();        
     loadProducts();
     loadCategories();
     HuyDonHang();
