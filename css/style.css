@@ -973,6 +973,17 @@ input[type=password] {
     transition: all 0.3s ease;
 
 }
+.product-detail-button{
+    border: none;
+    padding: 10px;
+    background-color: #3bb4f2;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    width: 170px;
+    transition: all 0.3s ease;
+}
 
 .add-to-cart:hover {
     opacity: 0.8;
@@ -1319,6 +1330,7 @@ img {
     padding: 20px;
     font-family: Arial, sans-serif;
     background-color: rgba(0, 0, 0, 0.2);
+    z-index: 100;
 }
 
 #product-detail {
@@ -1328,7 +1340,7 @@ img {
     background: #f9f9f9;
     padding: 30px;
     border-radius: 10px;
-    width: 70%;
+    width: 60%;
     margin: 40px auto;
     position: relative;
 }
@@ -1359,7 +1371,7 @@ img {
     margin: 10px 0;
     line-height: 1.7;
     border-bottom: 2px solid #ccc;
-    padding: 17px;
+    padding: 10px;
     min-height: 200px;
 }
 

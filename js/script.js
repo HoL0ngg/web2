@@ -558,9 +558,9 @@ async function loadProducts(pagenum = 1) {
     pageNum.innerHTML = "";
     let s = "";
     data.products.forEach(product => {
-        s += `<div class="product" data-id="${product.product_id}">
+        s += `<div class="product" data-id="${product.product_id} ">
         <div class="product-img">
-            <img src="${product.image_url}" alt="img1">
+            <img src="${product.image_url}" alt="img1" onclick="getInfoProduct(${product.product_id})">
         </div>
         <div class="productArray-info">
             <p>${product.product_name}</p>
@@ -570,7 +570,10 @@ async function loadProducts(pagenum = 1) {
             <div class="heart-icon" onClick="toggleLove(this, ${product.product_id})"><i class="fa-regular fa-heart"></i></div>
             <div style="width: 100%; height: 100%;">
             <button class="add-to-cart" onClick='addToCart(${product.product_id}, 1)'>Thêm vào giỏ</button>
-            </div>
+            </div>        
+        </div>
+        <div style="margin: 7px;">
+                <button class="product-detail-button" onClick='getInfoProduct(${product.product_id})'>Chi tiết</button>
         </div>
     </div>`;
     });
@@ -636,9 +639,8 @@ function scrollToContent() {
     if (content) {
         const contentTop = content.offsetTop; // Vị trí top tương đối với <body>
         const scrollToY = contentTop - headerHeight - 10; // Trừ đi chiều cao header nếu cần
-        console.log(contentTop);
-        console.log(scrollToY);
-
+        // console.log(contentTop);
+        // console.log(scrollToY);  
 
         window.scrollTo({
             top: scrollToY,
@@ -732,6 +734,51 @@ addToCart = (id, quantity) => {
         });
 }
 //PRODUCT DETAIL
+function getInfoProduct(productId){
+    fetch(`view/product_detail.php?productId=${productId}`,)
+    .then(response => response.text())
+    .then(html =>{        
+        document.getElementById("modal-container").innerHTML = html;
+        
+        const container = document.getElementById("container-product-detail");
+            // container.style.display = 'flex';
+
+            const detail = document.getElementById("product-detail");
+
+            // Đóng khi click ra ngoài modal
+            document.addEventListener("mousedown", function handler(e) {
+                if (!detail.contains(e.target)) {
+                    container.style.display = 'none';
+                    document.removeEventListener("mousedown", handler); // tránh gắn nhiều lần
+                }
+            });
+
+            // Đóng khi nhấn nút close
+            document.querySelector("#product-detail .btn-close").addEventListener("click", () => {
+                container.style.display = 'none';
+            });
+
+            // Gắn lại nút tăng/giảm
+            document.querySelector(".quantity-control button:first-child").addEventListener("click", () => {
+                const input = document.getElementById("quantity");
+                if (parseInt(input.value) > 1) input.value = parseInt(input.value) - 1;
+            });
+
+            document.querySelector(".quantity-control button:last-child").addEventListener("click", () => {
+                const input = document.getElementById("quantity");
+                const max = parseInt(input.getAttribute('max'));
+                if (parseInt(input.value) < max) input.value = parseInt(input.value) + 1;
+            });
+
+            // // Xử lý nút Thêm vào giỏ
+            // document.querySelector(".add-to-cart").addEventListener("click", () => {
+            //     const qty = document.getElementById("quantity").value;
+            //     console.log("Thêm vào giỏ với số lượng:", qty);
+            //     // TODO: Gửi dữ liệu qua fetch đến API thêm vào giỏ
+            // });
+        
+    })
+}   
 
 
 function showOrderDetail(button) {

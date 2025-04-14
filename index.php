@@ -129,8 +129,8 @@ session_start();
     <!-- Login -->
     <?php include("login-wrapper.php") ?>
 
-    <!-- Toast -->
-    <div id="toast"></div>
+    <!-- modal -->
+    <div id="modal-container"></div>
 
     <!-- Register -->
     <?php include("register-wrapper.php") ?>
