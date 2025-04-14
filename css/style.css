@@ -1190,9 +1190,9 @@ img {
     flex-direction: column;
     width: 100%;
 }
-#content-wrapper {
+/* #content-wrapper {
     display: block;
-}
+} */
 
 .order-list {
     background: white;

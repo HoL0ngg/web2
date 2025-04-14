@@ -170,7 +170,7 @@ function showToast(message, isSuccess) {
         icon: isSuccess ? "success" : "error",
         title: isSuccess ? "Thành công!" : "Lỗi!",
         text: message,
-        toaxst: true, // Hiển thị dạng toast nhỏ thay vì popup lớn
+        toast: true, // Hiển thị dạng toast nhỏ thay vì popup lớn
         position: "top-end",
         showConfirmButton: false,
         timer: 3500,
