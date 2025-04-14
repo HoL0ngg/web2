@@ -234,4 +234,34 @@ class TKModel
         $stmt->close();
         return $users;
     }
+
+    public function getIdByUsername($username)
+    {
+        $sql = "SELECT user_id FROM users WHERE username = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row['user_id'];
+        } else {
+            return null; // Không tìm thấy user_id
+        }
+    }
+
+    public function getCustomerIdByUserId($user_id)
+    {
+        $sql = "SELECT customer_id FROM khachhang WHERE user_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row['customer_id'];
+        } else {
+            return null; // Không tìm thấy customer_id
+        }
+    }
 }

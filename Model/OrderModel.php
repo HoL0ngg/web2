@@ -56,10 +56,45 @@ class OrderModel
         return $order;
     }
 
-    public function changeStatusById($orderId, $newStatus){
-        $sql="UPDATE donhang SET status = ? WHERE order_id = ?";
+    public function changeStatusById($orderId, $newStatus)
+    {
+        $sql = "UPDATE donhang SET status = ? WHERE order_id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("si", $newStatus, $orderId);
         $stmt->execute();
+    }
+
+    public function addOrder($customer_id, $order_date, $total_price, $status, $address_id, $note, $pttt)
+    {
+        $sql = "INSERT INTO donhang (customer_id, orderDate, total, status, address_id, note, pttt) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("isisiss", $customer_id, $order_date, $total_price, $status, $address_id, $note, $pttt);
+        if ($stmt->execute()) {
+            return $this->conn->insert_id; // Trả về ID của đơn hàng vừa thêm
+        } else {
+            return false;
+        }
+    }
+
+    public function addDetailOrder($order_id, $product_id, $quantity, $price)
+    {
+        $sql = "INSERT INTO chitietdonhang (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("iiii", $order_id, $product_id, $quantity, $price);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getAutoIncrementId()
+    {
+        $sql = "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'webbanhang' AND TABLE_NAME = 'donhang'";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row['AUTO_INCREMENT'];
     }
 }

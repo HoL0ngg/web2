@@ -14,10 +14,7 @@ document.querySelectorAll('.plus').forEach(button => {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: `action=update&id=${id}&quantity=${quantity}`
-        }).then(res => res.text())
-            .then(data => console.log(data))
-            .catch(err => console.log(err));
-
+        })
 
         // Cập nhật giỏ hàng nếu cần
         updateCart();
@@ -31,13 +28,14 @@ document.querySelectorAll('.minus').forEach(button => {
         let currentQuantity = parseInt(quantityElement.textContent);
 
         if (currentQuantity > 1) {
+            const id = this.parentElement.dataset.id;
             quantityElement.textContent = currentQuantity - 1;
             fetch('cart.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: `action=update&id=${id}&quantity=${quantity}`
+                body: `action=update&id=${id}&quantity=${currentQuantity - 1}`
             })
             // Cập nhật giỏ hàng nếu cần
             updateCart();
@@ -81,6 +79,7 @@ updateCart = () => {
     document.querySelector('.total-price').textContent = total.toLocaleString('vi-VN') + ' VNĐ';
 }
 
+
 document.getElementById('cart-thanhtoan').addEventListener('click', function () {
     const cartItems = document.querySelectorAll('.cart-item');
     if (cartItems.length === 0) {
@@ -92,3 +91,6 @@ document.getElementById('cart-thanhtoan').addEventListener('click', function () 
     window.location.href = 'cart.php?action=thanhtoan';
 })
 
+window.addEventListener('load', function () {
+    updateCart();
+});

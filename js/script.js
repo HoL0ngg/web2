@@ -825,38 +825,38 @@ function hideOrderDetail() {
     popup.classList.remove("show");
 }
 
-function HuyDonHang(){
+function HuyDonHang() {
     const cancelButtons = document.querySelectorAll('.cancel-btn');
-            cancelButtons.forEach(button => {
-                button.addEventListener('click',function(){
-                    const row = this.closest('tr');
-                    const statusCell = row.querySelector('.status-cell');
-                    const orderId = statusCell.dataset.orderId;
-                    const currentStatus = statusCell.innerText.trim();
-                    let newStatus = "cancelled";
-                    if(currentStatus === 'shipping'||currentStatus === 'delivered'){
-                        showToast('Đơn hàng đã được xử lý không thể hủy');
-                        return;
-                    }
-                    if(currentStatus === 'cancelled'){
-                        showToast('Đơn hàng đã được hủy');
-                        return;
-                    }
-                    if(confirm("xác nhận đơn hàng")){
-                        fetch('change_status_order.php',{
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                            body: `order_id=${orderId}&status=${newStatus}`
-                        })
+    cancelButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const row = this.closest('tr');
+            const statusCell = row.querySelector('.status-cell');
+            const orderId = statusCell.dataset.orderId;
+            const currentStatus = statusCell.innerText.trim();
+            let newStatus = "cancelled";
+            if (currentStatus === 'shipping' || currentStatus === 'delivered') {
+                showToast('Đơn hàng đã được xử lý không thể hủy');
+                return;
+            }
+            if (currentStatus === 'cancelled') {
+                showToast('Đơn hàng đã được hủy');
+                return;
+            }
+            if (confirm("xác nhận đơn hàng")) {
+                fetch('change_status_order.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `order_id=${orderId}&status=${newStatus}`
+                })
                     .then(res => res.text())
-                    .then(data=>{
+                    .then(data => {
                         statusCell.innerText = newStatus;
-                        showToast("Hủy thành công",true);
+                        showToast("Hủy thành công", true);
                     })
-                    }
-                });
-                    
-            });
+            }
+        });
+
+    });
 }
 
 

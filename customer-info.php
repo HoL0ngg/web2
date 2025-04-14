@@ -27,20 +27,39 @@
                 <div><input type="text" name="email" id="txtEmail" placeholder="Địa chỉ Email"></div>
             </div>
             <h3>Địa chỉ giao hàng</h3>
+            <div class="diachi-user-container">
+                <select name="diachi_user" id="diachi_user">
+                    <option value="0">Chọn địa chỉ đã lưu</option>
+                    <?php
+                    require_once 'Model/DiaChiModel.php';
+                    require_once 'Model/TKModel.php';
+                    $diachiModel = new DiaChiModel();
+                    $userModel = new TKModel();
+                    $customer_id = $userModel->getIdByUsername($_SESSION['username']);
+                    $customer_id = $userModel->getCustomerIdByUserId($customer_id);
+                    $addresses = $diachiModel->getAllDiaChiByCustomerId($customer_id);
+                    // var_dump($addresses);
+                    foreach ($addresses as $address) {
+                        echo '<option value="' . $address['address_id'] . '" data-sonha="' . $address['SoNha'] . '" data-thanhpho="' . $address['ThanhPho'] . '" data-quan="' . $address['Quan'] . '" data-phuong="' . $address['Phuong'] . '">' . $address['SoNha'] . ', ' . $address['Phuong'] . ', ' . $address['Quan'] . ', ' . $address['ThanhPho'] . '</option>';
+                    }
+                    echo '<option value="-1">Nhập địa chỉ mới</option>';
+                    ?>
+                </select>
+            </div>
             <div class="diachi-container">
                 <div class="diachi-item">
-                    <select name="thanhpho" id="thanhpho" onchange="loadQuan()">
+                    <select name="thanhpho" id="thanhpho" disabled>
                         <option value="">Chọn tỉnh/thành phố</option>
                     </select>
                 </div>
                 <div class="diachi-item">
-                    <select name="quan" id="quan" onchange="loadPhuong()">
+                    <select name="quan" id="quan" disabled>
                         <option value="">Chọn quận/huyện</option>
                     </select>
                 </div>
                 <div class="diachi-item">
-                    <select name="phuong" id="phuong">
-                        <option value="">Chọn xã/phường</option>
+                    <select name="phuong" id="phuong" disabled>
+                        <option value="">Chọn phường/xã</option>
                     </select>
                 </div>
                 <div class="diachi-item">
@@ -60,7 +79,7 @@
                     <input type="radio" name="payment-method" id="bank-transfer" value="bank-transfer"><img src="https://file.hstatic.net/200000636033/file/icon_atm_eb07d9eabaef47e088d7f214e3562b97.svg" alt="bank-transfer"><label for="bank-transfer">Chuyển khoản ngân hàng</label>
                 </div>
                 <div class="payment-method-item">
-                    <input type="radio" name="payment-method" id="mono" value="mono"><img src="https://file.hstatic.net/200000636033/file/momo_50d207f0cbd34562b936001ab362bd8e.png" alt="mono"><label for="mono">Thanh toán qua ví Mono</label>
+                    <input type="radio" name="payment-method" id="momo" value="momo"><img src="https://file.hstatic.net/200000636033/file/momo_50d207f0cbd34562b936001ab362bd8e.png" alt="momo"><label for="mono">Thanh toán qua ví Mono</label>
                 </div>
                 <div class="payment-method-item">
                     <input type="radio" name="payment-method" id="vnpay" value="vnpay"><img src="https://file.hstatic.net/1000006063/file/img-vivnpay.jpg" alt="vnpay"><label for="vnpay">Thanh toán qua ví VNPay</label>
@@ -139,6 +158,30 @@
 
     .info-container div:nth-child(3) {
         width: 100%;
+    }
+
+    .diachi-user-container {
+        margin: 16px 0px;
+    }
+
+    .diachi-user-container select {
+        width: 100%;
+        padding: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        outline: none;
+        background-color: #fff;
+    }
+
+    .diachi-user-container select.error {
+        border: 1px solid red;
+        margin: 0;
+        color: black;
+        font-size: 1em;
+    }
+
+    .diachi-user-container select option {
+        padding: 8px;
     }
 
     .diachi-container {
