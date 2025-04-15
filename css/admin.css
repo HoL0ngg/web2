@@ -217,9 +217,10 @@ label {
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+
 .btn-submit {
     width: 100%;
-    background-color: green;
+    background-color: #00bfff;
     color: white;
     padding: 10px;
     margin-top: 20px;
@@ -229,7 +230,7 @@ label {
 }
 
 .btn-submit:hover {
-    background-color: darkgreen;
+    background-color: #009ad8;
 }
 
 /* Toast */
@@ -450,5 +451,7 @@ label {
 .radio-product-status{
     display: flex;
 }
-
+.hidden-product {
+    opacity: 0.5;
+}
 
