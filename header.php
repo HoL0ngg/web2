@@ -1,3 +1,6 @@
+<?php
+$cartCount = isset($_SESSION['cart']) ? array_sum(array_column($_SESSION['cart'], 'quantity')) : 0;
+?>
 <div id="header">
     <div id="top-header">
         <div id="left-header">
@@ -54,7 +57,7 @@
                 <div style="position: relative;">
                     <i class="fa-regular fa-heart fa-xl"></i>
                     <div
-                        style="position: absolute; top: -16px; right: -8px; background-color: #c8edf7; border-radius: 100%; width: 16px; height: 16px; text-align: center;">
+                        style="position: absolute; top: -16px; right: -12px; background-color: #c8edf7; border-radius: 100%; width: 20px; height: 20px; text-align: center;">
                         0</div>
                 </div>
             </div>
@@ -62,9 +65,10 @@
                 <div id="cart-container">
                     <div style="position: relative;">
                         <i class="fa-solid fa-bag-shopping fa-xl" style="color: white;"></i>
-                        <div
-                            style="position: absolute; top: -16px; right: -8px; background-color: #c8edf7; border-radius: 100%; width: 16px; height: 16px; text-align: center;">
-                            0</div>
+                        <div id="cart-count"
+                            style="position: absolute; top: -16px; right: -12px; background-color: #c8edf7; border-radius: 100%; width: 20px; height: 20px; text-align: center;">
+                            <?php if ($cartCount < 10) echo $cartCount;
+                            else echo "9+" ?></div>
                     </div>
                     <div style="color: white;">Giỏ hàng</div>
                 </div>
@@ -81,27 +85,29 @@
                     <div class="icon-up"><i class="fa-solid fa-sort-up"></i></div>
                     <div id="product-menu">
                         <div id="product-menu-nav">
-                            <div id="brand"> 
-                            <h2>Hãng</h2>
+                            <div id="brand">
+                                <h2>Hãng</h2>
                                 <?php
-                                 include('get_brand.php');
+                                include('get_brand.php');
                                 ?>
                             </div>
                             <div id="theloai">
-                            <h2>Thể loại</h2>
-                                 <?php
-                                 require_once('get_loaisanpham.php');
-                                    $get_loaisanpham=new get_loaisanpham();
-                                    $get_loaisanpham->get_loaisanphamfilter();
-                                 ?>
+                                <h2>Thể loại</h2>
+                                <?php
+                                require_once('get_loaisanpham.php');
+                                $get_loaisanpham = new get_loaisanpham();
+                                $get_loaisanpham->get_loaisanphamfilter();
+                                ?>
                             </div>
                             <div id="price">
-                                <h2 >Khoảng giá</h2>
-                                <div id="input"><input type="text" id="minprice" placeholder="0"  />
-                                <span>-</span>
-                                <input type="text" id="maxprice" placeholder="100.000.000"  /></div>
+                                <h2>Khoảng giá</h2>
+                                <div id="input"><input type="text" id="minprice" placeholder="0" />
+                                    <span>-</span>
+                                    <input type="text" id="maxprice" placeholder="100.000.000" />
+                                </div>
                                 <div id="button"><button id='filters'>Áp dụng lọc</button>
-                                <button id='reset-filters'> Đặt lại</button></div>                     
+                                    <button id='reset-filters'> Đặt lại</button>
+                                </div>
                             </div>
                         </div>
                     </div>

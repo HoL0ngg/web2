@@ -1,12 +1,19 @@
-<div style="width: 42%; margin: 32px auto 0px; padding: 24px 48px; background-color:rgba(52, 152, 219, 0.5); border-radius: 10px">
+<?php
+require_once 'Model/TKModel.php';
+$tkModel = new TKModel();
+$customer_id = $tkModel->getIdByUsername($_SESSION['username']);
+$customer = $tkModel->getUserById($customer_id);
+?>
+
+<div style="width: 38%; margin: 32px auto 0px; padding: 24px 48px; background-color:rgba(52, 152, 219, 0.5); border-radius: 10px">
     <div class="progress-container">
         <div class="progress-step active" data-step="Giỏ hàng"><i class="fa-solid fa-cart-shopping"></i></div>
         <span class="progress-line active"></span>
         <div class="progress-step active" data-step="Thông tin cá nhân"><i class="fa-solid fa-address-card"></i></div>
         <span class="progress-line"></span>
         <div class="progress-step" data-step="Hóa đơn"><i class="fa-solid fa-receipt"></i></div>
-        <span class="progress-line"></span>
-        <div class="progress-step" data-step="Hoàn tất"><i class="fa-solid fa-circle-check"></i></div>
+        <!-- <span class="progress-line"></span>
+        <div class="progress-step" data-step="Hoàn tất"><i class="fa-solid fa-circle-check"></i></div> -->
     </div>
 </div>
 
@@ -22,9 +29,9 @@
                 </div>
             </div>
             <div class="info-container">
-                <div><input type="text" name="hoten" id="txtHoten" placeholder="Họ và tên"></div>
-                <div><input type="text" name="sdt" id="txtSDT" placeholder="Số điện thoại"></div>
-                <div><input type="text" name="email" id="txtEmail" placeholder="Địa chỉ Email"></div>
+                <div class="input-group"><input type="text" name="hoten" id="txtHoten" placeholder="" value=""><label for="txtHoten">Họ và tên</label></div>
+                <div class="input-group"><input type="text" name="sdt" id="txtSDT" placeholder="" value="<?= $customer['phone'] ?>"><label for="txtSDT">Số điện thoại</label></div>
+                <div class="input-group"><input type="text" name="email" id="txtEmail" placeholder="" value="<?= $customer['email'] ?>"><label for="txtEmail">Email</label></div>
             </div>
             <h3>Địa chỉ giao hàng</h3>
             <div class="diachi-user-container">
@@ -125,13 +132,14 @@
     .info-container {
         display: flex;
         flex-wrap: wrap;
-        margin: 16px 0px;
+        margin: 12px 0px;
         gap: 12px;
     }
 
     .info-container div.error {
         border: 1px solid red;
         margin: 0;
+        margin-top: 20px;
     }
 
     .info-container div {
@@ -158,6 +166,40 @@
 
     .info-container div:nth-child(3) {
         width: 100%;
+    }
+
+    .input-group {
+        position: relative;
+        margin-top: 20px;
+    }
+
+    /* .input-group input {
+        width: 100%;
+        padding: 12px 8px 8px 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        outline: none;
+    } */
+
+    .input-group label {
+        position: absolute;
+        left: 8px;
+        top: 12px;
+        background: white;
+        color: #aaa;
+        font-size: 16px;
+        transition: 0.2s ease;
+        pointer-events: none;
+        padding: 0 4px;
+    }
+
+    /* Khi input focus hoặc có nội dung thì label nổi lên trên */
+    .input-group input:focus+label,
+    .input-group input:not(:placeholder-shown)+label {
+        top: -8px;
+        font-size: 12px;
+        /* color: #3f51b5; */
     }
 
     .diachi-user-container {

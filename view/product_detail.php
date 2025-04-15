@@ -26,7 +26,7 @@ $img_url = $productController->getImgUrlById($product_id);
                 <button>+</button>
             </div>
             <div class="stock">Số lượng còn lại: <?php echo $product['quantity']; ?></div>
-            <div><button class="add-to-cart" onclick="addToCart()">Thêm vào giỏ</button></div>
+            <div><button class="add-to-cart">Thêm vào giỏ</button></div>
         </div>
     </div>
 </div>

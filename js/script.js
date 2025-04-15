@@ -187,7 +187,7 @@ function loginNotification() {
         let formData = new FormData(this); // Lấy dữ liệu từ form
 
         // Gửi dữ liệu bằng AJAX với fetch
-        fetch("handles/LoginController.php", { 
+        fetch("handles/LoginController.php", {
             method: "POST",
             body: formData
         })
@@ -220,7 +220,7 @@ document.getElementById('cart-container').addEventListener('click', (e) => {
 function registerNotification() {
     let frmRegister = document.frmRegister;
     // console.log(frmRegister);  
-    if(!frmRegister) return;  
+    if (!frmRegister) return;
     frmRegister.addEventListener('submit', function (event) {
         event.preventDefault();
         if (checkRegister()) {
@@ -491,7 +491,7 @@ async function loadProducts(pagenum = 1) {
     const urlParams = new URLSearchParams(window.location.search);
     const maChungLoai = parseInt(urlParams.get("maChungloai") || 0);
     const maTheLoai = parseInt(urlParams.get("maTheLoai") || 0);
-    console.log(maChungLoai,maTheLoai);
+    console.log(maChungLoai, maTheLoai);
     let minPrice = document.getElementById("minprice").value.replace(/,/g, "");
     minPrice = parseInt(minPrice) || 0;
     let maxPrice = document.getElementById("maxprice").value.replace(/,/g, "");
@@ -626,10 +626,10 @@ function scrollToContent() {
 
 document.getElementById("timkiem").addEventListener("keyup", () => loadProducts(1));
 
-document.getElementById("filters").addEventListener("click", function(){
+document.getElementById("filters").addEventListener("click", function () {
     const url = new URL(window.location.href);
     url.searchParams.delete("maChungloai");
-    url.searchParams.delete("maTheLoai");   
+    url.searchParams.delete("maTheLoai");
     window.history.pushState({}, '', url);
     loadProducts(1);
 });
@@ -638,8 +638,8 @@ document.getElementById("filters").addEventListener("click", function(){
 const resetbtn = document.getElementById('reset-filters');
 if (resetbtn) {
     resetbtn.addEventListener('click', function () {
-        document.getElementById('minprice').value= "";
-        document.getElementById('maxprice').value= "";
+        document.getElementById('minprice').value = "";
+        document.getElementById('maxprice').value = "";
         document.querySelectorAll(".brandname").forEach(cb => cb.checked = false);
         document.querySelectorAll(".loaisanphamcb").forEach(cb => cb.checked = false);
         document.getElementById("timkiem").value = "";
@@ -647,48 +647,48 @@ if (resetbtn) {
     });
 }
 
-document.getElementById("filters").addEventListener('click', function(){
-            const url = new URL(window.location.href);
-            url.searchParams.delete("maChungloai");
-            url.searchParams.delete("maTheLoai");
-            loadProducts(1);
+document.getElementById("filters").addEventListener('click', function () {
+    const url = new URL(window.location.href);
+    url.searchParams.delete("maChungloai");
+    url.searchParams.delete("maTheLoai");
+    loadProducts(1);
 });
 
 
 const loaiSanPhamItems = document.querySelectorAll(".loaisanpham");
 
-    loaiSanPhamItems.forEach(item => {
-        item.addEventListener("click", function () {
-            // Lấy maTheLoai từ data-matheloai
-            const maTheLoai = parseInt(this.dataset.matheloai);
-            const maChungloai = parseInt(this.dataset.machungloai);
+loaiSanPhamItems.forEach(item => {
+    item.addEventListener("click", function () {
+        // Lấy maTheLoai từ data-matheloai
+        const maTheLoai = parseInt(this.dataset.matheloai);
+        const maChungloai = parseInt(this.dataset.machungloai);
 
-            const url = new URL(window.location.href);
-            url.searchParams.delete("maChungloai")
-            url.searchParams.set("maChungloai", maChungloai);
-            url.searchParams.set("maTheLoai", maTheLoai);
-            history.pushState({}, "", url);
+        const url = new URL(window.location.href);
+        url.searchParams.delete("maChungloai")
+        url.searchParams.set("maChungloai", maChungloai);
+        url.searchParams.set("maTheLoai", maTheLoai);
+        history.pushState({}, "", url);
 
-            loaiSanPhamItems.forEach(i => i.classList.remove("active"));
-            this.classList.add("active");
+        loaiSanPhamItems.forEach(i => i.classList.remove("active"));
+        this.classList.add("active");
 
-            loadProducts(1);
-        });
+        loadProducts(1);
     });
+});
 
-    function formatNumberInput(input) {
-        let value = input.value.replace(/\D/g, "");
-    
-        input.value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
-    
-    document.getElementById("minprice").addEventListener("input", function () {
-        formatNumberInput(this);
-    });
-    document.getElementById("maxprice").addEventListener("input", function () {
-        formatNumberInput(this);
-    });
-    
+function formatNumberInput(input) {
+    let value = input.value.replace(/\D/g, "");
+
+    input.value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+document.getElementById("minprice").addEventListener("input", function () {
+    formatNumberInput(this);
+});
+document.getElementById("maxprice").addEventListener("input", function () {
+    formatNumberInput(this);
+});
+
 
 
 
@@ -716,15 +716,34 @@ addToCart = (id, quantity) => {
                 }
             }).showToast();
         });
+    updateCartCount();
+}
+
+function updateCartCount() {
+    // Cập nhật số lượng sản phẩm trong giỏ hàng
+    fetch('cart.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `action=getCartCount`
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.count < 10)
+                document.getElementById("cart-count").innerText = data.count;
+            else document.getElementById("cart-count").innerText = "9+";
+            console.log(data);
+        })
 }
 //PRODUCT DETAIL
-function getInfoProduct(productId){
-    fetch(`view/product_detail.php?productId=${productId}`,)
-    .then(response => response.text())
-    .then(html =>{        
-        document.getElementById("modal-container").innerHTML = html;
-        
-        const container = document.getElementById("container-product-detail");
+function getInfoProduct(productId) {
+    fetch(`view/product_detail.php?productId=${productId}`)
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById("modal-container").innerHTML = html;
+
+            const container = document.getElementById("container-product-detail");
             // container.style.display = 'flex';
 
             const detail = document.getElementById("product-detail");
@@ -752,17 +771,21 @@ function getInfoProduct(productId){
                 const input = document.getElementById("quantity");
                 const max = parseInt(input.getAttribute('max'));
                 if (parseInt(input.value) < max) input.value = parseInt(input.value) + 1;
+                console.log(input.value);
+
             });
 
-            // // Xử lý nút Thêm vào giỏ
-            // document.querySelector(".add-to-cart").addEventListener("click", () => {
-            //     const qty = document.getElementById("quantity").value;
-            //     console.log("Thêm vào giỏ với số lượng:", qty);
-            //     // TODO: Gửi dữ liệu qua fetch đến API thêm vào giỏ
-            // });
-        
-    })
-}   
+            // Xử lý nút Thêm vào giỏ
+            document.querySelector("#container-product-detail .add-to-cart").addEventListener("click", () => {
+                const quantity = parseInt(document.getElementById("quantity").value);
+                console.log("Đã thêm " + quantity + " sản phẩm vào giỏ hàng");
+                addToCart(productId, quantity);
+
+                container.style.display = 'none';
+            });
+
+        });
+}
 
 
 function showOrderDetail(button) {
@@ -835,7 +858,7 @@ window.onload = function () {
     openChangePasswordForm();
     changePasswordNotification();
     openLoginForm();
-    openLoginForm();        
+    openLoginForm();
     loadProducts();
     HuyDonHang();
 }

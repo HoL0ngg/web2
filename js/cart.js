@@ -86,9 +86,19 @@ document.getElementById('cart-thanhtoan').addEventListener('click', function () 
         alert('Giỏ hàng của bạn đang trống!');
         return;
     }
+    fetch('/handles/getSession.php')
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            // return;
+            if (!data.success) {
+                showToast('Vui lòng đăng nhập để thanh toán', false);
+                return;
+            } else
+                window.location.href = 'cart.php?action=thanhtoan';
+        })
 
     // Chuyển hướng đến trang thanh toán
-    window.location.href = 'cart.php?action=thanhtoan';
 })
 
 window.addEventListener('load', function () {

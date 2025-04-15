@@ -5,15 +5,15 @@ $order = $_SESSION['order_info'];
 $diachi = $diachiController->getDiaChiById($order['address_id']);
 ?>
 
-<div style="width: 42%; margin: 32px auto 0px; padding: 24px 48px; background-color:rgba(52, 152, 219, 0.5); border-radius: 10px">
+<div style="width: 38%; margin: 32px auto 0px; padding: 24px 48px; background-color:rgba(52, 152, 219, 0.5); border-radius: 10px">
     <div class="progress-container">
         <div class="progress-step active" data-step="Giỏ hàng"><i class="fa-solid fa-cart-shopping"></i></div>
         <span class="progress-line active"></span>
         <div class="progress-step active" data-step="Thông tin cá nhân"><i class="fa-solid fa-address-card"></i></div>
         <span class="progress-line active"></span>
         <div class="progress-step active" data-step="Hóa đơn"><i class="fa-solid fa-receipt"></i></div>
-        <span class="progress-line"></span>
-        <div class="progress-step" data-step="Hoàn tất"><i class="fa-solid fa-circle-check"></i></div>
+        <!-- <span class="progress-line"></span>
+        <div class="progress-step" data-step="Hoàn tất"><i class="fa-solid fa-circle-check"></i></div> -->
     </div>
 </div>
 
@@ -126,3 +126,17 @@ $diachi = $diachiController->getDiaChiById($order['address_id']);
         cursor: pointer;
     }
 </style>
+<script>
+    document.querySelector('.btn-HoanThanh').addEventListener('click', function() {
+        Swal.fire({
+            title: 'Đặt hàng thành công!',
+            text: 'Cảm ơn bạn đã đặt hàng tại cửa hàng của chúng tôi!',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '/index.php';
+            }
+        });
+    });
+</script>
