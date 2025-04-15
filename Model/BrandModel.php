@@ -16,7 +16,7 @@
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
             $result = $stmt->get_result();
-            $brands = $result->fetch_all(MYSQLI_ASSOC); // ✔ Lấy toàn bộ
+            $brands = $result->fetch_all(MYSQLI_ASSOC);
             $stmt->close();
             return $brands;
         }

@@ -37,7 +37,7 @@ class ProductModel
         $stmt->close();
         return $name_product['product_name'];
     }
-    public function getProductsByPageNum($page = 1, $limit = 8, $keyword = "", $selected_checkboxes_brand = [], $selected_checkboxes_loaisanpham=[], $price=0, $maChungLoai=0)
+    public function getProductsByPageNum($page = 1, $limit = 8, $keyword = "", $selected_checkboxes_brand = [],$selected_checkboxes_loaisanpham = [], $maTheLoai=0, $minprice=0,$maxprice=9000000, $maChungLoai=0)
     {   
 
         $offset = ($page - 1) * $limit;
@@ -71,10 +71,11 @@ class ProductModel
             }
         }
 
-        if ($price > 0) {
-            $sql .= " AND sp.price <= ?";
-            $types .= "i";
-            $params[] = $price;
+        if ($maxprice>$minprice) {
+            $sql .= " AND sp.price BETWEEN ? AND ?";
+            $types .= "ii";
+            $params[] = $minprice;
+            $params[] = $maxprice;
         }
         
         if ($maChungLoai!=0) {
@@ -82,6 +83,16 @@ class ProductModel
             $types .= "i";
             $params[] = $maChungLoai;
         }
+
+        if ($maTheLoai!=0) {
+            $sql .= " AND sp.maTheLoai = ?";
+            $types .= "i";
+            $params[] = $maTheLoai;
+        }
+
+
+
+        
     
         $sql .= " LIMIT ? OFFSET ?";
         $types .= "ii";
@@ -129,7 +140,7 @@ class ProductModel
         }
     }
 
-    public function getQuantityProducts($keyword = "", $selected_checkboxes_brand = [], $selected_checkboxes_loaisanpham=[], $price=0,  $maChungLoai=null)
+    public function getQuantityProducts($keyword = "", $selected_checkboxes_brand = [], $selected_checkboxes_loaisanpham=[],$maTheLoai=0, $minprice=0,$maxprice=9000000,  $maChungLoai=0)
     {
         $keyword = "%$keyword%";
         // $sql = "SELECT COUNT(*) AS soluong FROM SanPham WHERE product_name LIKE ?";
@@ -162,16 +173,23 @@ class ProductModel
             }
         }
 
-        if ($price > 0) {
-            $sql .= " AND sp.price <= ?";
-            $types .= "i";
-            $params[] = $price;
+        if ($maxprice>$minprice) {
+            $sql .= " AND sp.price BETWEEN ? AND ?";
+            $types .= "ii";
+            $params[] = $minprice;
+            $params[] = $maxprice;
         }
         
         if ($maChungLoai!=0) {
             $sql .= " AND tl.machungloai = ?";
             $types .= "i";
             $params[] = $maChungLoai;
+        }
+
+        if ($maTheLoai!=0) {
+            $sql .= " AND sp.maTheLoai = ?";
+            $types .= "i";
+            $params[] = $maTheLoai;
         }
     
         $stmt = $this->conn->prepare($sql);

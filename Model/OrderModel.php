@@ -62,4 +62,65 @@ class OrderModel
         $stmt->bind_param("si", $newStatus, $orderId);
         $stmt->execute();
     }
+    public function getOrdersByDateRange($from, $to) {
+        $sql = "SELECT * FROM donhang WHERE orderDate BETWEEN ? AND ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("ss", $from, $to);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        $orders = [];
+        while ($row = $result->fetch_assoc()) {
+            $orders[] = $row;
+        }
+        $stmt->close();
+        return $orders;
+    }
+
+    public function getOrdersWithFilters($from = null, $to = null, $customerId = null, $status = null) {
+        $sql = "SELECT * FROM donhang WHERE 1=1";
+        $params = [];
+        $types = "";
+        
+        if($from && $to){
+            $sql.= " AND orderDate BETWEEN ? AND ?";
+            $types.= "ss";
+            $params[] = $from;
+            $params[] = $to;
+        }
+        else if($from){
+            $sql.=" AND orderDate >= ?";
+            $types.="s";
+            $params[] = $from;
+        }else if($to){
+            $sql.=" AND orderDate <= ?";
+            $types.="s";
+            $params[] = $to;
+        }
+
+        if ($customerId) {
+            $sql .= " AND customer_id = ?";
+            $types .= "i";
+            $params[] = $customerId;
+        }
+    
+        if ($status) {
+            $sql .= " AND status = ?";
+            $types .= "s";
+            $params[] = $status;
+        }
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param($types, ...$params);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $orders = [];
+        while ($row = $result->fetch_assoc()) {
+            $orders[] = $row;
+        }
+        $stmt->close();
+
+        return $orders;
+    }
+    
 }

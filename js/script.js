@@ -519,39 +519,6 @@ function changeColorPagenum(pagenum) {
 //     }
 //     changeColorPagenum();
 // }
-function loadCategories() {
-    fetch('load_chungloaisp.php') // File này bạn phải có backend trả về JSON danh sách chủng loại
-        .then(res => res.json())
-        .then(data => {
-            const nav = document.getElementById('product-menu-nav');
-            if (!nav) return;
-
-            const ul = document.createElement('ul');
-            nav.innerHTML = ''; // Xoá nội dung cũ
-            nav.appendChild(ul);
-
-            if (!data || data.length === 0) {
-                ul.innerHTML = '<li>Không có chủng loại nào</li>';
-                return;
-            }
-            let s = "<ul>";
-            data.forEach(chungloai => {
-                s += `
-                    <li>
-                        <a href="index.php?maChungloai=${chungloai.machungloai}"">
-                            <img src="${chungloai.hinhanh}">
-                            <span>${chungloai.tenchungloai}</span>
-                        </a>
-                    </li>
-                `;
-            });
-            s += "</ul>";
-            nav.innerHTML = s;
-
-        })
-        .catch(err => console.error("Lỗi khi load chủng loại:", err));
-}
-
 function loadLoveProducts() {
     fetch('XuLyYeuThich.php', {
         method: 'POST',
@@ -586,11 +553,14 @@ function loadLoveProducts() {
         });
 }
 
-let selectedPrice = 0;
 async function loadProducts(pagenum = 1) {
     const urlParams = new URLSearchParams(window.location.search);
     const maChungLoai = parseInt(urlParams.get("maChungloai") || 0);
-    const price = selectedPrice;
+    const maTheLoai = parseInt(urlParams.get("maTheLoai") || 0);
+    let minPrice = document.getElementById("minprice").value.replace(/,/g, "");
+    minPrice = parseInt(minPrice) || 0;
+    let maxPrice = document.getElementById("maxprice").value.replace(/,/g, "");
+    maxPrice = parseInt(maxPrice) || 9000000;
     const keyword = document.getElementById("timkiem").value.trim();
     const checkboxes_brand = document.querySelectorAll(".brandname");
     const selected_checkboxes_brand = [];
@@ -601,7 +571,7 @@ async function loadProducts(pagenum = 1) {
         }
     }
 
-    const checkboxes_loaisanpham = document.querySelectorAll(".loaisanpham");
+    const checkboxes_loaisanpham = document.querySelectorAll(".loaisanphamcb");
     const selected_checkboxes_loaisanpham = [];
 
     for (let i = 0; i < checkboxes_loaisanpham.length; i++) {
@@ -610,7 +580,9 @@ async function loadProducts(pagenum = 1) {
         }
     }
 
-    const response = await fetch(`../api/pagination_api.php?pagenum=${pagenum}&keyword=${encodeURIComponent(keyword)}&selected_checkboxes_brand=${encodeURIComponent(JSON.stringify(selected_checkboxes_brand))}&selected_checkboxes_loaisanpham=${encodeURIComponent(JSON.stringify(selected_checkboxes_loaisanpham))}&price=${price}&maChungLoai=${maChungLoai}`);
+
+
+    const response = await fetch(`../api/pagination_api.php?pagenum=${pagenum}&keyword=${encodeURIComponent(keyword)}&selected_checkboxes_brand=${encodeURIComponent(JSON.stringify(selected_checkboxes_brand))}&selected_checkboxes_loaisanpham=${encodeURIComponent(JSON.stringify(selected_checkboxes_loaisanpham))}&minprice=${minPrice}&maxprice=${maxPrice}&maChungLoai=${maChungLoai}&maTheLoai=${maTheLoai}`);
 
     const data = await response.json();
     console.log(data);
@@ -717,59 +689,84 @@ function scrollToContent() {
 
 document.getElementById("timkiem").addEventListener("keyup", () => loadProducts(1));
 
-document.querySelectorAll(".brandname").forEach(cb => {
-    cb.addEventListener("change", () => {
-        loadProducts(1); // Load lại sản phẩm trang đầu tiên
-    });
+document.getElementById("filters").addEventListener("click", function(){
+    const url = new URL(window.location.href);
+    url.searchParams.delete("maChungloai");
+    url.searchParams.delete("maTheLoai");   
+    window.history.pushState({}, '', url);
+    loadProducts(1);
 });
 
-const priceRange = document.getElementById('price-range');
-const minPrice = document.getElementById('min-price');
-const maxPrice = document.getElementById('max-price');
 
-// Lắng nghe sự kiện thay đổi giá trị của thanh trượt
-if (priceRange) priceRange.addEventListener('input', function () {
-    const currentValue = priceRange.value;
-    minPrice.textContent = `0đ`;
-    maxPrice.textContent = currentValue + "đ";
-
-});
 document.querySelectorAll(".loaisanpham").forEach(cb => {
     cb.addEventListener("change", () => {
         loadProducts(1); // Load lại sản phẩm trang đầu tiên
     });
 });
-const priceApplyBtn = document.querySelector('#leftmenu_product_button input');
-if (priceApplyBtn) {
-    priceApplyBtn.addEventListener('click', () => {
-        const price = document.getElementById('price-range')?.value;
-        if (price > 0) {
-            selectedPrice = price;
-        } else {
-            showToast("Giá Phải Lớn Hơn 0");
-            document.getElementById('price-range').value = 0;
 
-            const maxPrice = document.getElementById('max-price');
-            if (maxPrice) maxPrice.textContent = "10000000đ";
-            return;
-        }
-        console.log("Giá được chọn:", selectedPrice);
-        loadProducts(1);
-    });
-}
 const resetbtn = document.getElementById('reset-filters');
 if (resetbtn) {
     resetbtn.addEventListener('click', function () {
-        document.getElementById('price-range').value = "10000000";
-        document.getElementById('max-price').textContent = "10000000đ";
+        document.getElementById('minprice').value= "";
+        document.getElementById('maxprice').value= "";
         document.querySelectorAll(".brandname").forEach(cb => cb.checked = false);
-        document.querySelectorAll(".loaisanpham").forEach(cb => cb.checked = false);
+        document.querySelectorAll(".loaisanphamcb").forEach(cb => cb.checked = false);
         document.getElementById("timkiem").value = "";
-        selectedPrice = 0;
         loadProducts(1);
     });
 }
 
+document.getElementById("filters").addEventListener('click', function(){
+            const url = new URL(window.location.href);
+            url.searchParams.delete("maChungloai");
+            url.searchParams.delete("maTheLoai");
+            loadProducts(1);
+});
+
+
+const loaiSanPhamItems = document.querySelectorAll(".loaisanpham");
+
+    loaiSanPhamItems.forEach(item => {
+        item.addEventListener("click", function () {
+            // Lấy maTheLoai từ data-matheloai
+            const maTheLoai = parseInt(this.dataset.matheloai);
+            const maChungloai = parseInt(this.dataset.machungloai);
+            
+      
+
+            // Cập nhật URL mà không reload trang
+            const url = new URL(window.location.href);
+            url.searchParams.delete("maChungloai")
+            url.searchParams.set("maChungloai", maChungloai);
+            url.searchParams.set("maTheLoai", maTheLoai);
+            history.pushState({}, "", url);
+
+            loaiSanPhamItems.forEach(i => i.classList.remove("active"));
+            this.classList.add("active");
+
+            loadProducts(1);
+        });
+    });
+
+    function formatNumberInput(input) {
+        let value = input.value.replace(/\D/g, "");
+    
+        input.value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    
+    document.getElementById("minprice").addEventListener("input", function () {
+        formatNumberInput(this);
+    });
+    document.getElementById("maxprice").addEventListener("input", function () {
+        formatNumberInput(this);
+    });
+    
+
+
+  
+  
+
+  
 
 
 
@@ -872,7 +869,6 @@ window.onload = function () {
     openLoginForm();
     // phantrang(1, product, 8);
     loadProducts();
-    loadCategories();
     HuyDonHang();
 }
 

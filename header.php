@@ -77,49 +77,32 @@
                 <div><a href="index.php">Trang chủ</a></div>
                 <div>Giới thiệu</div>
                 <div id="sp" style="display: flex; align-items: center; gap: 8px;">
-                    <div>Sản phẩm</div>
+                    <div>Lọc Sản Phẩm</div>
                     <div class="icon-up"><i class="fa-solid fa-sort-up"></i></div>
                     <div id="product-menu">
                         <div id="product-menu-nav">
-                            <!-- <ul>
-                                <li>
-                                    <a href="index.php?maChungloai=1">
-                                        <img src="imgs/trangdiem.webp" alt="">
-                                        <span>Trang Điểm</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="index.php?maChungloai=2">
-                                        <img src="imgs/chamsocdamat.webp" alt="">
-                                        <span>Chăm Sóc Da Mặt</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="index.php?maChungloai=3">
-                                        <img src="imgs/chamsoccothe.webp" alt="">
-                                        <span>Chăm Sóc Cơ Thể</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="index.php?maChungloai=4">
-                                        <img src="imgs/chamsoctocdadau.webp" alt="">
-                                        <span>Chăm Sóc Tóc & Chăm Sóc Da Đầu</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="index.php?maChungloai=5">
-                                        <img src="imgs/chamsoccanhan.webp" alt="">
-                                        <span>Chăm Sóc Cá Nhân</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="index.php?maChungloai=6">
-                                        <img src="imgs/nuochoa.webp" alt="">
-                                        <span>Nước Hoa</span>
-                                    </a>
-                                </li>
-
-                            </ul> -->
+                            <div id="brand"> 
+                            <h2>Hãng</h2>
+                                <?php
+                                 include('get_brand.php');
+                                ?>
+                            </div>
+                            <div id="theloai">
+                            <h2>Thể loại</h2>
+                                 <?php
+                                 require_once('get_loaisanpham.php');
+                                    $get_loaisanpham=new get_loaisanpham();
+                                    $get_loaisanpham->get_loaisanphamfilter();
+                                 ?>
+                            </div>
+                            <div id="price">
+                                <h2 >Khoảng giá</h2>
+                                <div id="input"><input type="text" id="minprice" placeholder="0"  />
+                                <span>-</span>
+                                <input type="text" id="maxprice" placeholder="100.000.000"  /></div>
+                                <div id="button"><button id='filters'>Áp dụng lọc</button>
+                                <button id='reset-filters'> Đặt lại</button></div>                     
+                            </div>
                         </div>
                     </div>
                 </div>

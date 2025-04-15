@@ -7,6 +7,38 @@
         <header>
             <h1>Quản Lý Đơn Hàng</h1>
         </header>
+    <div class="filter-form">
+        <label>Ngày từ:
+            <input type="date" id="fromDate">
+        </label>
+
+        <label>đến:
+            <input type="date" id="toDate">
+        </label>
+
+        <label>Khách hàng:
+            <select id="customerId">
+                <option value="">Tất cả</option>
+                <option value="1">Nguyễn Văn A</option>
+                <option value="2">Trần Thị B</option>
+                <option value="3">Lê Văn C</option>
+                <!-- Bạn có thể load động bằng PHP nếu cần -->
+            </select>
+        </label>
+
+        <label>Trạng thái:
+            <select id="orderStatus">
+                <option value="">Tất cả</option>
+                <option value="pending">Chờ xử lý</option>
+                <option value="shipping">Đang giao</option>
+                <option value="delivered">Đã giao</option>
+                <option value="cancelled">Đã hủy</option>
+            </select>
+        </label>
+
+        <button onclick="filterOrders()">Lọc</button>
+        <button onclick="refreshOrders()">Làm mới</button>
+    </div>
 
         <!-- Danh sách đơn hàng -->
         <section class="order-list">
@@ -197,6 +229,40 @@
     }
 
 
+
+ .filter-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.filter-form label {
+    display: flex;
+    /* align-items: center; */
+    justify-content: space-around;
+    font-weight: bold;
+}
+.filter-form button{
+    margin-top: 15px;
+    height: 35px;
+    width:100px;
+    cursor: pointer;
+    background-color: #3498DB;
+    border: none;
+    border-radius: 5px;
+}
+
+.filter-form button:hover{
+    background-color:rgb(36, 108, 156);
+} 
+
+.filter-form input, .filter-form select, .filter-form button {
+    margin-left: 5px;
+    padding: 4px 6px;
+    font-size: 14px;
+} 
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -269,5 +335,39 @@
                     
             });
     }); 
+    function filterOrders() {
+    const from = document.getElementById('fromDate').value;
+    const to = document.getElementById('toDate').value;
+    const customerId = document.getElementById('customerId').value;
+    const status = document.getElementById('orderStatus').value;
+
+    fetch(`filter_order.php?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&customerId=${encodeURIComponent(customerId)}&status=${encodeURIComponent(status)}`)
+        .then(res => res.json())
+        .then(data => {
+            const tbody = document.getElementById('orderTable');
+            tbody.innerHTML = '';
+
+            data.forEach(order => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${order.order_id}</td>
+                    <td>${order.customer_name}</td>
+                    <td>${order.address}</td>
+                    <td>${order.orderDate}</td>
+                    <td>${order.total}</td>
+                    <td class="status-cell" data-order-id="${order.order_id}">${order.status}</td>
+                    <td><button onclick="showOrderDetail(this)" value="${order.order_id}">📄 Chi tiết</button></td>
+                    <td><button class="cancel-btn" value="${order.order_id}">❌ Hủy đơn</button></td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            HuyDonHang(); // gọi lại sự kiện click cho nút "Hủy đơn"
+        })
+        .catch(error => {
+            console.error("Lỗi khi lọc đơn hàng:", error);
+        });
+}
+
 
     </script>

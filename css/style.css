@@ -1012,44 +1012,133 @@ input[type=password] {
     height: fit-content;
     width: fit-content;
     top: 100%;
-    left: 21%;
+    left: 10%;
     right: 0;
     opacity: 0;
     visibility: hidden;
     transition: all 0.5s;
-}
-
-#product-menu-nav>ul {
+    width: 80%;
     list-style-type: none;
-    margin: 0;
-    padding: 0;
-    height: max-content;
+    padding: 10px;
+    background-color:white;
 }
 
-#product-menu-nav>ul>li {
-    width: 100%;
+#sp:hover #product-menu{
+    opacity: 1;
+    visibility: visible;
+}
+
+#product-menu-nav {
+   height: 230px;
+   background-color: gainsboro;
+   display: flex;
+   justify-content: space-around;
+}
+
+#product-menu-nav span{
+    padding-left: 10px;
+}
+#product-menu-nav h2{
+    text-align: center;
+}
+
+#brand{
+    height: 230px;
+    background-color:white;
     color: black;
-    background-color: white;
-    font-size: small;
-    font-family: 'HelveticaNeue', 'Arial', sans-serif;
-    padding-left: 15px;
-    padding-right: 15px;
+    width: 33%;
+    overflow-y: auto;
+    padding-left: 20px;
 }
 
-#product-menu-nav>ul>li>a {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    /* Loại bỏ gạch chân */
-
+#price{
+    height: 230px;
+    background-color:white;
+    color: black;
+    width: 33%;
+    padding: 30px;
+    padding-top: 0;
+}
+#price span{
+    padding: 5px;
+}
+#input{
+    margin-left:40px;
+}
+#minprice{
+    width: 40%;
 }
 
-/* #product-menu-nav>ul>li>a>span{
-    width: 500px;
-} */
-#product-menu-nav>ul>li:hover {
-    background-color: rgb(219, 219, 219);
+#maxprice{
+    width: 40%;
 }
+
+#button{
+    position: relative;
+    height: 90px;
+}
+
+#filters{
+    margin-left: 95px;
+    width: 50%;
+    height: 50%;
+    background-color: #79c7ff; 
+    color: white; 
+    border: none; 
+    border-radius: 10px; 
+    cursor: pointer; 
+    transition: ease 0.4s;
+}
+#filters:hover{
+    background-color: #2585ca;
+}
+
+#reset-filters{
+    background-color: #f44f44; 
+    color: white; 
+    border: none; 
+    border-radius: 10px; 
+    cursor: pointer; 
+    float: right;
+    position: absolute;
+    bottom: 10%;
+    height: 30%;
+    right: 0;
+    transition: ease 0.4s;
+}
+
+#reset-filters:hover{
+    background-color:  #d61f12;
+}
+
+#theloai{
+    height: 230px;
+    background-color:white;
+    color: black;
+    width: 34%;
+    overflow-y: auto;
+    padding-left: 20px;
+} 
+
+#brand::-webkit-scrollbar,
+#theloai::-webkit-scrollbar,
+#price::-webkit-scrollbar {
+    width: 4px;
+}
+
+#brand::-webkit-scrollbar-track,
+#theloai::-webkit-scrollbar-track,
+#price::-webkit-scrollbar-track {
+    background: #ccc;
+}
+
+#brand::-webkit-scrollbar-thumb,
+#theloai::-webkit-scrollbar-thumb,
+#price::-webkit-scrollbar-thumb {
+    background-color: #333;
+    border-radius: 10px;
+}
+  
 
 img {
     vertical-align: middle;
@@ -1062,137 +1151,72 @@ img {
     font-weight: 500;
 }
 
-#sp:hover #product-menu,
-#product-menu:hover {
-    opacity: 1;
-    visibility: visible;
-}
-
-#leftmenu_product {
-    width: 25%;
-    margin-right: 10px;
-}
-
-#leftmenu_product_checkbox>ul>li {
-    list-style-type: none;
-    text-align: start;
-    padding: 7px;
-}
-
-#leftmenu_product_checkbox>ul>li>span {
-    padding-left: 10px;
-    word-spacing: 1px;
-}
-
-#leftmenu_product_checkbox>ul {
-    padding: 0;
-    margin: 0;
-}
-
-#leftmenu_product_title {
-    font-family: 'Montserrat', sans-serif;
-    text-align: center;
-    width: 100%;
-    height: 70px;
-    border-bottom: solid 2px rgb(200, 200, 200);
-    font-size: 20px;
-    text-transform: uppercase;
-    font-weight: bold;
-    margin-bottom: 10px;
-
-}
-
-#leftmenu_product_thuonghieu {
-    text-align: center;
-    width: 100%;
-    height: fit-content;
-    min-height: 200px;
-    border-bottom: solid 2px rgb(200, 200, 200);
-    margin-bottom: 10px;
-    padding: 10px;
-}
-
-#leftmenu_product_thuonghieu_title {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 28px;
-    font-weight: bold;
-    color: #333;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-    letter-spacing: 1px;
-}
-
-#leftmenu_product_gia {
-    text-align: center;
-    width: 100%;
-    min-height: 123px;
-    height: max-content;
-    border-bottom: solid 2px rgb(200, 200, 200);
-    margin-bottom: 10px;
-}
-
-#leftmenu_product_gia_title {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-    letter-spacing: 1px;
-}
-
-#leftmenu_product_range>input {
-    width: 100%;
-}
-
-#min-price {
-    float: left;
-    width: 50%;
-    text-align: left;
-}
-
-#max-price {
-    float: right;
-    width: 50%;
-    text-align: right;
-}
-
-#leftmenu_product_button {
-    margin-top: 10px;
-    width: 100%;
-}
-
-#leftmenu_product_button input {
-    width: 100%;
-    height: 40px;
-    margin-bottom: 10px;
-}
-
-#leftmenu_product_danhmucsanpham {
-    text-align: center;
-    width: 100%;
-    height: calc(100% - 377px);
-    overflow-y: auto;
-}
-
-#leftmenu_product_danhmucsanpham_tittle {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-    letter-spacing: 1px;
-}
 
 #rightmenu_product {
     display: flex;
     flex-direction: column;
     width: 100%;
 }
-/* #content-wrapper {
-    display: block;
-} */
+
+#leftmenu_product ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Chủng loại (li ngoài cùng) */
+#chungloai-list > li {
+  position: relative;  /* Để submenu có thể căn chỉnh chính xác */
+  padding: 10px 15px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  min-height: 50px;
+  font-size: large;
+  text-align: start;
+}
+#chungloai-list a{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 8px;
+    color: black;
+}
+
+/* Submenu - thể loại */
+.sub-loai {
+  display: none;      /* Canh submenu theo chiều ngang của chủng loại */
+  min-width: 180px;
+  background-color: #fff;
+}
+
+/* Thể loại (li trong submenu) */
+.sub-loai .loaisanpham {
+  padding: 10px;
+  background-color: #fff;
+  margin-left: 30px;
+  transition: 0.4s ease; 
+}
+
+.sub-loai .loaisanpham:hover {
+  background-color: #79c7ff;
+  border-radius: 10px;
+}
+
+.sub-loai .loaisanpham.active {
+    background-color: #79c7ff;
+    border-radius: 10px;
+}
+
+
+/* Hiện submenu khi hover chủng loại */
+#chungloai-list > li:hover .sub-loai 
+ {
+  display: block;
+}
+
+
+
+
 
 .order-list {
     background: white;
