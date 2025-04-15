@@ -57,81 +57,83 @@ function loadWards(cityName, districtName) {
         phuong.appendChild(option);
     });
 }
-
-document.getElementById('confirm-btn').addEventListener('click', function (e) {
-    const form = document.getElementById('checkoutForm');
-    let cnt = 0;
-    // --- Lấy dữ liệu input ---
-    const fullname = form.querySelector('#txtHoten');
-    const phone = form.querySelector('#txtSDT');
-    const email = form.querySelector('#txtEmail');
-    const diachi = form.diachi_user;
-
-    const city = form.thanhpho;
-    const district = form.quan;
-    const ward = form.phuong;
-    const addressDetail = form.diachi;
-    const paymentMethod = form.querySelector('input[name="payment-method"]:checked');
-
-    // --- Validate Họ tên ---
-    if (fullname.value.trim() === '') {
-        ++cnt;
-        fullname.parentElement.classList.add('error');
-        fullname.focus();
-    } else
-        fullname.parentElement.classList.remove('error');
-
-
-    // --- Validate số điện thoại ---
-    const phoneRegex = /^0\d{9}$/;
-    if (!phoneRegex.test(phone.value.trim())) {
-        ++cnt;
-        phone.parentElement.classList.add('error');
-        phone.focus();
-    } else phone.parentElement.classList.remove('error');
-
-    // --- Validate Email ---
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email.value.trim())) {
-        ++cnt;
-        email.parentElement.classList.add('error');
-        email.focus();
-    } else email.parentElement.classList.remove('error');
-
-    // --- Validate địa chỉ-- -
-    if (!diachi.value) {
-        ++cnt;
-        diachi.classList.add('error');
-        diachi.focus();
-    } else diachi.classList.remove('error');
-    if (!city.value) {
-        ++cnt;
-        city.classList.add('error');
-        city.focus();
-    } else city.classList.remove('error');
-    if (!district.value) {
-        ++cnt;
-        district.classList.add('error');
-        district.focus();
-    } else district.classList.remove('error');
-    if (!ward.value) {
-        ++cnt;
-        ward.classList.add('error');
-        ward.focus();
-    } else ward.classList.remove('error');
-    if (addressDetail.value.trim() === '') {
-        addressDetail.classList.add('error');
-        addressDetail.focus();
-    } else addressDetail.classList.remove('error');
-
-    if (cnt > 0) {
-        e.preventDefault();
-    } else {
-
-        form.submit(); // ✅ Gửi form nếu không có lỗi
-    }
-});
-
+const confirmBtn = document.getElementById('confirm-btn');
+if(confirmBtn){
+        confirmBtn.addEventListener('click', function (e) {
+        const form = document.getElementById('checkoutForm');
+        let cnt = 0;
+        // --- Lấy dữ liệu input ---
+        const fullname = form.querySelector('#txtHoten');
+        const phone = form.querySelector('#txtSDT');
+        const email = form.querySelector('#txtEmail');
+        const diachi = form.diachi_user;
+    
+        const city = form.thanhpho;
+        const district = form.quan;
+        const ward = form.phuong;
+        const addressDetail = form.diachi;
+        const paymentMethod = form.querySelector('input[name="payment-method"]:checked');
+    
+        // --- Validate Họ tên ---
+        if (fullname.value.trim() === '') {
+            ++cnt;
+            fullname.parentElement.classList.add('error');
+            fullname.focus();
+        } else
+            fullname.parentElement.classList.remove('error');
+    
+    
+        // --- Validate số điện thoại ---
+        const phoneRegex = /^0\d{9}$/;
+        if (!phoneRegex.test(phone.value.trim())) {
+            ++cnt;
+            phone.parentElement.classList.add('error');
+            phone.focus();
+        } else phone.parentElement.classList.remove('error');
+    
+        // --- Validate Email ---
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email.value.trim())) {
+            ++cnt;
+            email.parentElement.classList.add('error');
+            email.focus();
+        } else email.parentElement.classList.remove('error');
+    
+        // --- Validate địa chỉ-- -
+        if (!diachi.value) {
+            ++cnt;
+            diachi.classList.add('error');
+            diachi.focus();
+        } else diachi.classList.remove('error');
+        if (!city.value) {
+            ++cnt;
+            city.classList.add('error');
+            city.focus();
+        } else city.classList.remove('error');
+        if (!district.value) {
+            ++cnt;
+            district.classList.add('error');
+            district.focus();
+        } else district.classList.remove('error');
+        if (!ward.value) {
+            ++cnt;
+            ward.classList.add('error');
+            ward.focus();
+        } else ward.classList.remove('error');
+        if (addressDetail.value.trim() === '') {
+            addressDetail.classList.add('error');
+            addressDetail.focus();
+        } else addressDetail.classList.remove('error');
+    
+        if (cnt > 0) {
+            e.preventDefault();
+        } else {
+    
+            form.submit(); // ✅ Gửi form nếu không có lỗi
+        }
+    });
+    
+}
 function setupSavedAddressSelection() {
     const diachiSelect = document.getElementById('diachi_user');
     const citySelect = document.getElementById('thanhpho');
@@ -139,45 +141,47 @@ function setupSavedAddressSelection() {
     const wardSelect = document.getElementById('phuong');
     const addressInput = document.getElementById('diachi');
 
-    diachiSelect.addEventListener('change', function () {
-        const selectedOption = diachiSelect.options[diachiSelect.selectedIndex];
-
-        const city = selectedOption.getAttribute('data-thanhpho');
-        const district = selectedOption.getAttribute('data-quan');
-        const ward = selectedOption.getAttribute('data-phuong');
-        const sonha = selectedOption.getAttribute('data-sonha');
-
-        if (diachiSelect.value > 0) {
-            // 1. Gán tỉnh/thành phố
-            citySelect.value = city;
-            loadDistricts(city); // gọi lại để load quận sau khi chọn tỉnh
-
-            // 2. Chờ chút để quận được tạo ra
-            setTimeout(() => {
-                districtSelect.value = district;
-                loadWards(city, district); // load tiếp phường
-
+    if(diachiSelect){
+        diachiSelect.addEventListener('change', function () {
+            const selectedOption = diachiSelect.options[diachiSelect.selectedIndex];
+    
+            const city = selectedOption.getAttribute('data-thanhpho');
+            const district = selectedOption.getAttribute('data-quan');
+            const ward = selectedOption.getAttribute('data-phuong');
+            const sonha = selectedOption.getAttribute('data-sonha');
+    
+            if (diachiSelect.value > 0) {
+                // 1. Gán tỉnh/thành phố
+                citySelect.value = city;
+                loadDistricts(city); // gọi lại để load quận sau khi chọn tỉnh
+    
+                // 2. Chờ chút để quận được tạo ra
                 setTimeout(() => {
-                    wardSelect.value = ward;
-                }, 100); // thêm delay để đảm bảo phường được load xong
-            }, 100);
-
-            addressInput.value = sonha;
-
-            citySelect.disabled = true;
-            districtSelect.disabled = true;
-            wardSelect.disabled = true;
-            addressInput.disabled = true;
-        } else {
-            citySelect.disabled = false;
-            districtSelect.disabled = false;
-            wardSelect.disabled = false;
-            addressInput.disabled = false;
-
-            citySelect.value = '';
-            districtSelect.innerHTML = '<option value="">Chọn quận/huyện</option>';
-            wardSelect.innerHTML = '<option value="">Chọn phường/xã</option>';
-            addressInput.value = '';
-        }
-    });
+                    districtSelect.value = district;
+                    loadWards(city, district); // load tiếp phường
+    
+                    setTimeout(() => {
+                        wardSelect.value = ward;
+                    }, 100); // thêm delay để đảm bảo phường được load xong
+                }, 100);
+    
+                addressInput.value = sonha;
+    
+                citySelect.disabled = true;
+                districtSelect.disabled = true;
+                wardSelect.disabled = true;
+                addressInput.disabled = true;
+            } else {
+                citySelect.disabled = false;
+                districtSelect.disabled = false;
+                wardSelect.disabled = false;
+                addressInput.disabled = false;
+    
+                citySelect.value = '';
+                districtSelect.innerHTML = '<option value="">Chọn quận/huyện</option>';
+                wardSelect.innerHTML = '<option value="">Chọn phường/xã</option>';
+                addressInput.value = '';
+            }
+        });
+    }
 }

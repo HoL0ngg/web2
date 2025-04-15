@@ -95,7 +95,7 @@ function validateUsername(username) {
     return reg.test(username)
 }
 function validatePassword(password) {
-    let reg = /.{5,}/;
+    let reg = /.{8,}/;
     return reg.test(password);
 }
 
@@ -187,7 +187,7 @@ function loginNotification() {
         let formData = new FormData(this); // Lấy dữ liệu từ form
 
         // Gửi dữ liệu bằng AJAX với fetch
-        fetch("handles/LoginController.php", { // Sử dụng action của form (handleLogin.php)
+        fetch("handles/LoginController.php", { 
             method: "POST",
             body: formData
         })
@@ -219,12 +219,13 @@ document.getElementById('cart-container').addEventListener('click', (e) => {
 
 function registerNotification() {
     let frmRegister = document.frmRegister;
-    // console.log(frmRegister);    
+    // console.log(frmRegister);  
+    if(!frmRegister) return;  
     frmRegister.addEventListener('submit', function (event) {
         event.preventDefault();
         if (checkRegister()) {
             let formData = new FormData(this);
-            fetch("handles/handleRegister.php", {
+            fetch("handles/RegisterController.php", {
                 method: "POST",
                 body: formData
             })
