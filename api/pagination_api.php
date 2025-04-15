@@ -6,7 +6,7 @@
  $minprice = isset($_GET['minprice']) ? intval($_GET['minprice']) : 0;
  $maxprice = isset($_GET['maxprice']) ? intval($_GET['maxprice']) : 9000000;
  $maChungLoai = isset($_GET['maChungLoai']) ? $_GET['maChungLoai'] : 0;
- $matheloai = isset($_GET['matheloai']) ? $_GET['matheloai'] : 0;
+ $matheloai = isset($_GET['maTheLoai']) ? $_GET['maTheLoai'] : 0;
  $selected_checkboxes_brandJson = isset($_GET['selected_checkboxes_brand']) ? $_GET['selected_checkboxes_brand'] : '[]';
  $selected_checkboxes_brand = json_decode($selected_checkboxes_brandJson,true);
  $selected_checkboxes_loaisanphamJson = isset($_GET['selected_checkboxes_loaisanpham']) ? $_GET['selected_checkboxes_loaisanpham'] : '[]';

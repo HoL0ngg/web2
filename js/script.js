@@ -491,6 +491,7 @@ async function loadProducts(pagenum = 1) {
     const urlParams = new URLSearchParams(window.location.search);
     const maChungLoai = parseInt(urlParams.get("maChungloai") || 0);
     const maTheLoai = parseInt(urlParams.get("maTheLoai") || 0);
+    console.log(maChungLoai,maTheLoai);
     let minPrice = document.getElementById("minprice").value.replace(/,/g, "");
     minPrice = parseInt(minPrice) || 0;
     let maxPrice = document.getElementById("maxprice").value.replace(/,/g, "");
@@ -634,12 +635,6 @@ document.getElementById("filters").addEventListener("click", function(){
 });
 
 
-document.querySelectorAll(".loaisanpham").forEach(cb => {
-    cb.addEventListener("change", () => {
-        loadProducts(1); // Load lại sản phẩm trang đầu tiên
-    });
-});
-
 const resetbtn = document.getElementById('reset-filters');
 if (resetbtn) {
     resetbtn.addEventListener('click', function () {
@@ -667,10 +662,7 @@ const loaiSanPhamItems = document.querySelectorAll(".loaisanpham");
             // Lấy maTheLoai từ data-matheloai
             const maTheLoai = parseInt(this.dataset.matheloai);
             const maChungloai = parseInt(this.dataset.machungloai);
-            
-      
 
-            // Cập nhật URL mà không reload trang
             const url = new URL(window.location.href);
             url.searchParams.delete("maChungloai")
             url.searchParams.set("maChungloai", maChungloai);
@@ -697,12 +689,6 @@ const loaiSanPhamItems = document.querySelectorAll(".loaisanpham");
         formatNumberInput(this);
     });
     
-
-
-  
-  
-
-  
 
 
 

@@ -1154,90 +1154,6 @@ img {
     font-weight: 500;
 }
 
-<<<<<<< HEAD
-=======
-#sp:hover #product-menu,
-#product-menu:hover {
-    opacity: 1;
-    visibility: visible;
-}
-
-#leftmenu_product {
-    width: 25%;
-    margin-right: 10px;
-}
-
-#leftmenu_product_checkbox>ul>li {
-    list-style-type: none;
-    text-align: start;
-    padding: 7px;
-}
-
-#leftmenu_product_checkbox>ul>li>span {
-    padding-left: 10px;
-    word-spacing: 1px;
-}
-
-#leftmenu_product_checkbox>ul {
-    padding: 0;
-    margin: 0;
-}
-
-#leftmenu_product_title {
-    font-family: 'Montserrat', sans-serif;
-    text-align: center;
-    width: 100%;
-    height: 70px;
-    border-bottom: solid 2px rgb(200, 200, 200);
-    font-size: 20px;
-    text-transform: uppercase;
-    font-weight: bold;
-    margin-bottom: 10px;
-
-}
-
-#leftmenu_product_thuonghieu {
-    text-align: center;
-    width: 100%;
-    height: fit-content;
-    min-height: 200px;
-    border-bottom: solid 2px rgb(200, 200, 200);
-    margin-bottom: 10px;
-    padding: 10px;
-}
-
-#leftmenu_product_thuonghieu_title {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 28px;
-    font-weight: bold;
-    color: #333;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-    letter-spacing: 1px;
-}
-
-#leftmenu_product_gia {
-    text-align: center;
-    width: 100%;
-    min-height: 123px;
-    height: max-content;
-    border-bottom: solid 2px rgb(200, 200, 200);
-    margin-bottom: 10px;
-}
-
-#leftmenu_product_gia_title {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-    letter-spacing: 1px;
-}
-
-#leftmenu_product_range>input {
-    width: 100%;
-}
 
 #min-price {
     float: left;
@@ -1250,36 +1166,56 @@ img {
     width: 50%;
     text-align: right;
 }
-
-#leftmenu_product_button {
-    margin-top: 10px;
-    width: 100%;
+#chungloai-list{
+    list-style-type: none;
 }
-
-#leftmenu_product_button input {
-    width: 100%;
-    height: 40px;
-    margin-bottom: 10px;
-}
-
-#leftmenu_product_danhmucsanpham {
-    text-align: center;
-    width: 100%;
-    height: calc(100% - 377px);
-    overflow-y: auto;
-}
-
-
-#leftmenu_product_danhmucsanpham_tittle {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-    letter-spacing: 1px;
-}
->>>>>>> eb05b5c7b85bcc93521ee849786b149829ad0f70
+#chungloai-list > li {
+    position: relative;  /* Để submenu có thể căn chỉnh chính xác */
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    min-height: 50px;
+    font-size: large;
+    text-align: start;
+  }
+  #chungloai-list a{
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      gap: 8px;
+      color: black;
+  }
+  
+  /* Submenu - thể loại */
+  .sub-loai {
+    display: none;      /* Canh submenu theo chiều ngang của chủng loại */
+    min-width: 180px;
+    background-color: #fff;
+  }
+  
+  /* Thể loại (li trong submenu) */
+  .sub-loai .loaisanpham {
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #fff;
+    transition: 0.4s ease; 
+    list-style-type: none;
+  }
+  
+  .sub-loai .loaisanpham:hover {
+    background-color: #79c7ff;
+    border-radius: 10px;
+  }
+  
+  .sub-loai .loaisanpham.active {
+    background-color: #79c7ff;
+  }
+  
+  
+  /* Hiện submenu khi hover chủng loại */
+  #chungloai-list > li:hover .sub-loai {
+    display: block;
+  }
 
 #rightmenu_product {
     display: flex;
@@ -1287,71 +1223,9 @@ img {
     width: 100%;
 }
 
-<<<<<<< HEAD
-#leftmenu_product ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-/* Chủng loại (li ngoài cùng) */
-#chungloai-list > li {
-  position: relative;  /* Để submenu có thể căn chỉnh chính xác */
-  padding: 10px 15px;
-  border-bottom: 1px solid #ddd;
-  cursor: pointer;
-  min-height: 50px;
-  font-size: large;
-  text-align: start;
-}
-#chungloai-list a{
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    gap: 8px;
-    color: black;
-}
-
-/* Submenu - thể loại */
-.sub-loai {
-  display: none;      /* Canh submenu theo chiều ngang của chủng loại */
-  min-width: 180px;
-  background-color: #fff;
-}
-
-/* Thể loại (li trong submenu) */
-.sub-loai .loaisanpham {
-  padding: 10px;
-  background-color: #fff;
-  margin-left: 30px;
-  transition: 0.4s ease; 
-}
-
-.sub-loai .loaisanpham:hover {
-  background-color: #79c7ff;
-  border-radius: 10px;
-}
-
-.sub-loai .loaisanpham.active {
-    background-color: #79c7ff;
-    border-radius: 10px;
-}
-
-
-/* Hiện submenu khi hover chủng loại */
-#chungloai-list > li:hover .sub-loai 
- {
-  display: block;
-}
-
-
-
-
-=======
 /* #content-wrapper {
     display: block;
 } */
->>>>>>> eb05b5c7b85bcc93521ee849786b149829ad0f70
 
 .order-list {
     background: white;
