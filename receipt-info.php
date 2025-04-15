@@ -1,5 +1,8 @@
 <?php
+require_once './handles/DiaChiController.php';
+$diachiController = new DiaChiController();
 $order = $_SESSION['order_info'];
+$diachi = $diachiController->getDiaChiById($order['address_id']);
 ?>
 
 <div style="width: 42%; margin: 32px auto 0px; padding: 24px 48px; background-color:rgba(52, 152, 219, 0.5); border-radius: 10px">
@@ -20,7 +23,7 @@ $order = $_SESSION['order_info'];
     </div>
     <div class="receipt-content">
         <p><strong>Tên khách hàng: </strong><?php echo $order['hoten'] ?></p>
-        <p><strong>Địa chỉ giao hàng: </strong><?php echo $order['diachi'] . ' ' . $order['phuong'] . ' ' . $order['quan'] . ' ' . $order['thanhpho'] ?></p>
+        <p><strong>Địa chỉ giao hàng: </strong><?php echo $diachi['SoNha'] . ' ' . $diachi['Phuong'] . ' ' . $diachi['Quan'] . ' ' . $diachi['ThanhPho']; ?></p>
         <p><strong>Số điện thoại: </strong><?php echo $order['sdt'] ?></p>
         <p><strong>Email: </strong> <?php echo $order['email'] ?></p>
         <p><strong>Ngày đặt hàng: </strong> <?php echo $order['order_time'] ?></p>
@@ -40,7 +43,7 @@ $order = $_SESSION['order_info'];
                 <?php
                 $productmodel = new ProductModel();
                 $total = 0;
-                foreach ($_SESSION['cart'] as $item):
+                foreach ($_SESSION['order_info']['cart'] as $item):
                     $id = $item['id'];
                     $quantity = $item['quantity'];
                     $row = $productmodel->getProductById($id);

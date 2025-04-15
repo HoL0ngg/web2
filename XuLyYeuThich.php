@@ -1,8 +1,11 @@
 <?php
 session_start();
 require_once 'handles/handleLove.php';
+require_once 'Model/TKModel.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $customer_id = $_SESSION['username'] ?? null; // Assuming customer_id is stored in session
+    $user = new TKModel();
+
+    $customer_id = $user->getIdByUsername($_SESSION['username']);
     if (!$customer_id) {
         echo json_encode(['status' => 'error', 'message' => 'Khách hàng chưa đăng nhập']);
         exit;
@@ -29,9 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $lovedProducts = $handleLove->getLoveProducts($customer_id);
         if ($lovedProducts) {
             echo json_encode(['status' => 'success', 'data' => $lovedProducts]);
-        } else {
-            echo json_encode(['status' => 'error', 'message' => 'Không tìm thấy sản phẩm yêu thích.']);
         }
+        // } else {
+        //     echo json_encode(['status' => 'error', 'message' => 'Không tìm thấy sản phẩm yêu thích.']);
+        // }
     } else {
         echo json_encode(['status' => 'error', 'message' => 'Hành động không hợp lệ.']);
     }

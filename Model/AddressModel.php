@@ -19,7 +19,7 @@ class AdressModel
         $stmt->execute();
         $result = $stmt->get_result();
         $diachi = $result->fetch_assoc();
-        $diachichitiet = $diachi['level4'] . ", " . $diachi['level3'] . ", " . $diachi['level2'] . ", " . $diachi['level1'];
+        $diachichitiet = $diachi['SoNha'] . ", " . $diachi['Phuong'] . ", " . $diachi['Quan'] . ", " . $diachi['ThanhPho'];
         $stmt->close();
         return $diachi ? $diachichitiet : 'Không rõ';
     }

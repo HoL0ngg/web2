@@ -95,7 +95,7 @@ function validateUsername(username) {
     return reg.test(username)
 }
 function validatePassword(password) {
-    let reg = /.{5,}/;
+    let reg = /.{8,}/;
     return reg.test(password);
 }
 
@@ -187,7 +187,7 @@ function loginNotification() {
         let formData = new FormData(this); // Lấy dữ liệu từ form
 
         // Gửi dữ liệu bằng AJAX với fetch
-        fetch("handles/LoginController.php", { // Sử dụng action của form (handleLogin.php)
+        fetch("handles/LoginController.php", { 
             method: "POST",
             body: formData
         })
@@ -219,12 +219,13 @@ document.getElementById('cart-container').addEventListener('click', (e) => {
 
 function registerNotification() {
     let frmRegister = document.frmRegister;
-    // console.log(frmRegister);    
+    // console.log(frmRegister);  
+    if(!frmRegister) return;  
     frmRegister.addEventListener('submit', function (event) {
         event.preventDefault();
         if (checkRegister()) {
             let formData = new FormData(this);
-            fetch("handles/handleRegister.php", {
+            fetch("handles/RegisterController.php", {
                 method: "POST",
                 body: formData
             })
@@ -396,74 +397,7 @@ window.addEventListener("scroll", function () {
 // }
 
 //Pagination
-const product = [
-    {
-        id: 1,
-        img: "imgs/sp1.jpg",
-        name: "Tinh chất làm mờ nám và nếp nhăn Clinical 1% Retinol Treatment 30ml",
-        price: 20000
-    },
-    {
-        id: 2,
-        img: "imgs/sp2.jpg",
-        name: "Kem dưỡng ẩm phục hồi da ban đêm",
-        price: 25000
-    },
-    {
-        id: 3,
-        img: "imgs/sp3.jpg",
-        name: "Serum vitamin C sáng da",
-        price: 30000
-    },
-    {
-        id: 4,
-        img: "imgs/sp4.jpg",
-        name: "Sữa rửa mặt dịu nhẹ",
-        price: 15000
-    },
-    {
-        id: 5,
-        img: "imgs/sp5.jpg",
-        name: "Kem chống nắng SPF 50",
-        price: 28000
-    },
-    {
-        id: 6,
-        img: "imgs/sp6.png",
-        name: "Mặt nạ dưỡng ẩm",
-        price: 18000
-    },
-    {
-        id: 7,
-        img: "imgs/sp7.jpg",
-        name: "Son môi dưỡng ẩm",
-        price: 22000
-    },
-    {
-        id: 8,
-        img: "imgs/sp8.jpg",
-        name: "Dầu tẩy trang thiên nhiên",
-        price: 27000
-    },
-    {
-        id: 9,
-        img: "imgs/sp9.jpg",
-        name: "Nước hoa hồng cân bằng da",
-        price: 19000
-    },
-    {
-        id: 10,
-        img: "imgs/sp10.jpg",
-        name: "Tẩy tế bào chết da mặt",
-        price: 23000
-    },
-    {
-        id: 11,
-        img: "imgs/sp11.jpg",
-        name: "Kem mắt giảm quầng thâm",
-        price: 32000
-    }
-];
+
 // function displayProduct(pagenum, productArray, numOfProducts) {
 //     const startIndex = (pagenum - 1) * numOfProducts;
 //     const endIndex = startIndex + numOfProducts;
@@ -597,9 +531,9 @@ async function loadProducts(pagenum = 1) {
     pageNum.innerHTML = "";
     let s = "";
     data.products.forEach(product => {
-        s += `<div class="product" data-id="${product.product_id}">
+        s += `<div class="product" data-id="${product.product_id} ">
         <div class="product-img">
-            <img src="${product.image_url}" alt="img1">
+            <img src="${product.image_url}" alt="img1" onclick="getInfoProduct(${product.product_id})">
         </div>
         <div class="productArray-info">
             <p>${product.product_name}</p>
@@ -609,7 +543,10 @@ async function loadProducts(pagenum = 1) {
             <div class="heart-icon" onClick="toggleLove(this, ${product.product_id})"><i class="fa-regular fa-heart"></i></div>
             <div style="width: 100%; height: 100%;">
             <button class="add-to-cart" onClick='addToCart(${product.product_id}, 1)'>Thêm vào giỏ</button>
-            </div>
+            </div>        
+        </div>
+        <div style="margin: 7px;">
+                <button class="product-detail-button" onClick='getInfoProduct(${product.product_id})'>Chi tiết</button>
         </div>
     </div>`;
     });
@@ -675,9 +612,8 @@ function scrollToContent() {
     if (content) {
         const contentTop = content.offsetTop; // Vị trí top tương đối với <body>
         const scrollToY = contentTop - headerHeight - 10; // Trừ đi chiều cao header nếu cần
-        console.log(contentTop);
-        console.log(scrollToY);
-
+        // console.log(contentTop);
+        // console.log(scrollToY);  
 
         window.scrollTo({
             top: scrollToY,
@@ -795,6 +731,52 @@ addToCart = (id, quantity) => {
             }).showToast();
         });
 }
+//PRODUCT DETAIL
+function getInfoProduct(productId){
+    fetch(`view/product_detail.php?productId=${productId}`,)
+    .then(response => response.text())
+    .then(html =>{        
+        document.getElementById("modal-container").innerHTML = html;
+        
+        const container = document.getElementById("container-product-detail");
+            // container.style.display = 'flex';
+
+            const detail = document.getElementById("product-detail");
+
+            // Đóng khi click ra ngoài modal
+            document.addEventListener("mousedown", function handler(e) {
+                if (!detail.contains(e.target)) {
+                    container.style.display = 'none';
+                    document.removeEventListener("mousedown", handler); // tránh gắn nhiều lần
+                }
+            });
+
+            // Đóng khi nhấn nút close
+            document.querySelector("#product-detail .btn-close").addEventListener("click", () => {
+                container.style.display = 'none';
+            });
+
+            // Gắn lại nút tăng/giảm
+            document.querySelector(".quantity-control button:first-child").addEventListener("click", () => {
+                const input = document.getElementById("quantity");
+                if (parseInt(input.value) > 1) input.value = parseInt(input.value) - 1;
+            });
+
+            document.querySelector(".quantity-control button:last-child").addEventListener("click", () => {
+                const input = document.getElementById("quantity");
+                const max = parseInt(input.getAttribute('max'));
+                if (parseInt(input.value) < max) input.value = parseInt(input.value) + 1;
+            });
+
+            // // Xử lý nút Thêm vào giỏ
+            // document.querySelector(".add-to-cart").addEventListener("click", () => {
+            //     const qty = document.getElementById("quantity").value;
+            //     console.log("Thêm vào giỏ với số lượng:", qty);
+            //     // TODO: Gửi dữ liệu qua fetch đến API thêm vào giỏ
+            // });
+        
+    })
+}   
 
 
 function showOrderDetail(button) {
@@ -822,38 +804,38 @@ function hideOrderDetail() {
     popup.classList.remove("show");
 }
 
-function HuyDonHang(){
+function HuyDonHang() {
     const cancelButtons = document.querySelectorAll('.cancel-btn');
-            cancelButtons.forEach(button => {
-                button.addEventListener('click',function(){
-                    const row = this.closest('tr');
-                    const statusCell = row.querySelector('.status-cell');
-                    const orderId = statusCell.dataset.orderId;
-                    const currentStatus = statusCell.innerText.trim();
-                    let newStatus = "cancelled";
-                    if(currentStatus === 'shipping'||currentStatus === 'delivered'){
-                        showToast('Đơn hàng đã được xử lý không thể hủy');
-                        return;
-                    }
-                    if(currentStatus === 'cancelled'){
-                        showToast('Đơn hàng đã được hủy');
-                        return;
-                    }
-                    if(confirm("xác nhận đơn hàng")){
-                        fetch('change_status_order.php',{
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                            body: `order_id=${orderId}&status=${newStatus}`
-                        })
+    cancelButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const row = this.closest('tr');
+            const statusCell = row.querySelector('.status-cell');
+            const orderId = statusCell.dataset.orderId;
+            const currentStatus = statusCell.innerText.trim();
+            let newStatus = "cancelled";
+            if (currentStatus === 'shipping' || currentStatus === 'delivered') {
+                showToast('Đơn hàng đã được xử lý không thể hủy');
+                return;
+            }
+            if (currentStatus === 'cancelled') {
+                showToast('Đơn hàng đã được hủy');
+                return;
+            }
+            if (confirm("xác nhận đơn hàng")) {
+                fetch('change_status_order.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `order_id=${orderId}&status=${newStatus}`
+                })
                     .then(res => res.text())
-                    .then(data=>{
+                    .then(data => {
                         statusCell.innerText = newStatus;
-                        showToast("Hủy thành công",true);
+                        showToast("Hủy thành công", true);
                     })
-                    }
-                });
-                    
-            });
+            }
+        });
+
+    });
 }
 
 
@@ -867,7 +849,7 @@ window.onload = function () {
     openChangePasswordForm();
     changePasswordNotification();
     openLoginForm();
-    // phantrang(1, product, 8);
+    openLoginForm();        
     loadProducts();
     HuyDonHang();
 }
