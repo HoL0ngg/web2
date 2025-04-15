@@ -62,5 +62,40 @@ class FormProductModel
             return 'exception';
         }
     }
-    public function sua($data) {}
+    public function sua($img, $product_id, $product_name, $quantity, $price, $theloai, $thuonghieu, $status, $mota)
+    {
+        try {
+            $stmtCheckProName = "SELECT product_name FROM sanpham WHERE product_name = ? && product_id != ?";
+            $stmtCheckProName = $this->conn->prepare($stmtCheckProName);
+            $stmtCheckProName->bind_param("si", $product_name, $product_id);
+            $stmtCheckProName->execute();
+            if ($stmtCheckProName->get_result()->num_rows > 0) {
+                $stmtCheckProName->close();
+                return 'name_exists';
+            }
+
+            $sqlUpdate = "UPDATE sanpham SET product_name = ?,quantity = ?,price = ?,mota = ?,brand_id = ?, matheloai = ?,status  = ? WHERE product_id = ?";
+            $stmt = $this->conn->prepare($sqlUpdate);
+            $stmt->bind_param("siisiiii", $product_name, $quantity, $price, $mota, $thuonghieu, $theloai, $status, $product_id);
+            if (!$stmt->execute()) {
+                return 'update_failed';
+            }
+            $stmt->close();
+
+            if ($img !== null) {
+                $stmtUpdateImg = "UPDATE sanphamhinhanh SET image_url = ? WHERE product_id = ? AND is_main = ?";
+                $stmtUpdateImg = $this->conn->prepare($stmtUpdateImg);
+                $is_main = 1;
+                $stmtUpdateImg->bind_param("sii", $img, $product_id, $is_main);
+                if (!$stmtUpdateImg->execute()) {
+                    return 'updateImg_failed';
+                }
+                $stmtUpdateImg->close();
+            }
+            return 'success';
+        } catch (Exception $e) {
+            error_log("Error updating user: " . $e->getMessage());
+            return 'exception';
+        }
+    }
 }

@@ -109,6 +109,68 @@
             echo json_encode($response);
         }
 
-        public function editProduct() {}
+        public function editProduct($product_id)
+        {
+            header('Content-Type: application/json');
+            $response = ["success" => false, "message" => "", "redirect" => ""];
+
+            if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+                $response["message"] = "Phương thức không hợp lệ";
+                echo json_encode($response);
+                return;
+            }
+            $productName = $_POST['productname'] ?? '';
+            $quantity = $_POST['quantity'] ?? 0;
+            $price = $_POST['price'] ?? 0;
+            $theloai = $_POST['theloai'] ?? '';
+            $thuonghieu = $_POST['thuonghieu'] ?? '';
+            $status = $_POST['status'] ?? 1;
+            $mota = $_POST['mota'] ?? '';
+            $imagePath = null;
+
+            if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+                $uploadDir = '../imgs/';
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0755, true);
+                }
+
+                $filename = basename($_FILES['image']['name']);
+                $targetFile = $uploadDir . uniqid() . '_' . $filename;
+
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
+                    $imagePath = $targetFile;
+                } else {
+                    $response["message"] = "Không thể lưu ảnh.";
+                    echo json_encode($response);
+                    return;
+                }
+            }
+
+            $result = $this->model->sua($imagePath, $product_id, $productName, $quantity, $price, $theloai, $thuonghieu, $status, $mota);
+
+            switch ($result) {
+                case 'name_exists':
+                    $response["message"] = "Tên sản phẩm đã tồn tại.";
+                    break;
+                case 'update_failed':
+                    $response["message"] = "Không thể cập nhật sản phẩm.";
+                    break;
+                case 'updateImg_failed':
+                    $response["message"] = "Cập nhật ảnh sản phẩm thất bại.";
+                    break;
+                case 'exception':
+                    $response["message"] = "Có lỗi xảy ra trong quá trình cập nhật.";
+                    break;
+                case 'success':
+                    $response["success"] = true;
+                    $response["message"] = "Cập nhật sản phẩm thành công!";
+                    $response["redirect"] = "admin.php?page=product";
+                    break;
+                default:
+                    $response["message"] = "Không xác định.";
+            }
+
+            echo json_encode($response);
+        }
     }
     ?>

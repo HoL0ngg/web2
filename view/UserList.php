@@ -2,7 +2,7 @@
 <main class="main-content">
     <header>
         <h1>Quản Lý Người Dùng</h1>
-        <button class="add-user-btn"><a href="admin.php?page=user&act=add">➕Thêm người dùng</a></button>
+        <a href="admin.php?page=user&act=add" class="add-user-btn">➕Thêm người dùng</a>
     </header>
 
     <!-- Danh sách người dùng -->
@@ -23,7 +23,7 @@
             <tbody id="userTable">
                 <?php if (!empty($users)) : ?> <!-- dau : de ket hop php voi html -->
                     <?php foreach ($users as $user) : ?>
-                        <tr>
+                        <tr class="<?= ($user['status'] == 0) ? 'hidden-product' : ''; ?>">
                             <td><?= htmlspecialchars($user['user_id']) ?></td> <!-- dau = la php echo  -->
                             <td><?= htmlspecialchars($user['username']) ?></td>
                             <td><?= htmlspecialchars($user['fullname']) ?></td>
@@ -73,7 +73,7 @@
         margin-bottom: 20px;
     }
 
-    .add-user-btn {
+    /* .add-user-btn {
         background: #27AE60;
         color: white;
         border: none;
@@ -81,7 +81,7 @@
         height: 30px;
         border-radius: 5px;
         cursor: pointer;
-    }
+    } */
 
     .add-user-btn a {
         font-weight: 600;
@@ -92,8 +92,28 @@
         /* border: 3px solid black; */
     }
 
-    .add-user-btn:hover {
+    /* .add-user-btn:hover {
         background: #219150;
+    } */
+
+    .add-user-btn {
+        background-color: #3498db;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        white-space: nowrap;
+    }
+
+    .add-user-btn:hover {
+        background-color: #2980b9;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     /* Bảng danh sách người dùng */

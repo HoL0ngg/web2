@@ -39,7 +39,7 @@ class AccountFunction
                 <label for="status">Trạng Thái:</label>
                 <select id="status" name="status">
                     <option value="1" ' . ($status == '1' ? 'selected' : '') . '>Hoạt động</option>
-                    <option value="0" ' . ($status == '0' ? 'selected' : '') . '>Không hoạt động</option>
+                    <option value="0" ' . ($status == '0' ? 'selected' : '') . '>Khóa tài khoản</option>
                 </select>
 
                 <label for="role">Quyền:</label>
