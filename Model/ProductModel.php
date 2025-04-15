@@ -210,4 +210,11 @@ class ProductModel
 
         return $row['soluong'];
     }
+
+    public function removeQuantity($productId, $quantity)
+    {
+        $stmt = $this->conn->prepare("UPDATE sanpham SET quantity = quantity - ? WHERE product_id = ?");
+        $stmt->bind_param("ii", $quantity, $productId);
+        return $stmt->execute();
+    }
 }

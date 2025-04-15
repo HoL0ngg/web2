@@ -73,6 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Thêm đơn hàng vào cơ sở dữ liệu
     $order_id = $orderController->addOrder($customer_id, date("Y-m-d H:i:s"), $total_price, 'processing', $finalAddressId, $note, $pttt);
+    // Thêm chi tiết đơn hàng vào cơ sở dữ liệu
     foreach ($cart as $item) {
         $product_id = $item['id'];
         $quantity = $item['quantity'];
@@ -81,6 +82,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $product = $productModel->getProductById($product_id);
         $orderController->addDetailOrder($order_id, $product_id, $quantity, $product['price']);
     }
+
+    // Xóa sản phẩm sau khi đã thêm vào đơn hàng
+    foreach ($cart as $item) {
+        $product_id = $item['id'];
+        $quantity = $item['quantity'];
+        // Giả sử bạn có một hàm để lấy giá sản phẩm theo ID
+        $productModel = new ProductModel();
+        // Cập nhật số lượng sản phẩm trong kho
+        $productModel->removeQuantity($product_id, $quantity);
+    }
+
+    // Xóa giỏ hàng của người dùng
+
 
     // Chuyển hướng sang trang hóa đơn
     header("Location: cart.php?action=hoadon");

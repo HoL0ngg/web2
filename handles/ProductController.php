@@ -16,7 +16,7 @@ class ProductController
         return $this->model->getNameProductById($id);
     }
 
-    public function getProductsPaginated($page = 1, $limit = 8, $keyword = "", $selected_checkboxes_brand = [], $selected_checkboxes_loaisanpham = [], $matheloai=0, $price = 0, $maChungLoai=0)
+    public function getProductsPaginated($page = 1, $limit = 8, $keyword = "", $selected_checkboxes_brand = [], $selected_checkboxes_loaisanpham = [], $matheloai = 0, $price = 0, $maChungLoai = 0)
     {
 
         $products = $this->model->getProductsByPageNum($page, $limit, $keyword, $selected_checkboxes_brand, $selected_checkboxes_loaisanpham, $matheloai, $price, $maChungLoai);
@@ -38,5 +38,10 @@ class ProductController
     public function getImgUrlById($id)
     {
         return $this->model->getMainImageByProductId($id);
+    }
+
+    public function removeQuantity($productId, $quantity)
+    {
+        return $this->model->removeQuantity($productId, $quantity);
     }
 }
