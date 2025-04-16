@@ -65,9 +65,11 @@ document.querySelectorAll('.cart-remove').forEach(button => {
 updateCart = () => {
     const cartItems = document.querySelectorAll('.cart-item');
     let total = 0;
+    // const cartCount = fetch('cart.php?action=getCartCount');
 
     if (cartItems.length === 0) {
-        window.location.href = 'cart.php?action=cart';
+        document.getElementById('cart-info').style.display = 'none';
+        document.getElementById('cart_empty_container').style.display = 'flex';
     }
 
     cartItems.forEach(item => {
@@ -80,7 +82,7 @@ updateCart = () => {
 }
 
 
-document.getElementById('cart-thanhtoan').addEventListener('click', function () {
+if (document.getElementById('cart-thanhtoan')) document.getElementById('cart-thanhtoan').addEventListener('click', function () {
     const cartItems = document.querySelectorAll('.cart-item');
     if (cartItems.length === 0) {
         alert('Giỏ hàng của bạn đang trống!');

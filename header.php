@@ -54,11 +54,13 @@ $cartCount = isset($_SESSION['cart']) ? array_sum(array_column($_SESSION['cart']
                 </div>
             </div>
             <div>
-                <div style="position: relative;">
-                    <i class="fa-regular fa-heart fa-xl"></i>
-                    <div
-                        style="position: absolute; top: -16px; right: -12px; background-color: #c8edf7; border-radius: 100%; width: 20px; height: 20px; text-align: center;">
-                        0</div>
+                <div id="love-container">
+                    <div style="position: relative;">
+                        <i class="fa-regular fa-heart fa-xl"></i>
+                        <div
+                            style="position: absolute; top: -16px; right: -12px; background-color: #c8edf7; border-radius: 100%; width: 20px; height: 20px; text-align: center;">
+                            0</div>
+                    </div>
                 </div>
             </div>
             <div>

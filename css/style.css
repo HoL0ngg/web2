@@ -236,6 +236,10 @@
     /* color: #5cb3f1;    */
 }
 
+#love-container {
+    cursor: pointer;
+}
+
 #cart-container {
     background-color: #2399ed;
     height: 100%;

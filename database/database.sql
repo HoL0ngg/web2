@@ -78,6 +78,17 @@ CREATE TABLE DiaChi (
     Phuong VARCHAR(50),
     SoNha VARCHAR(50)
 );
+
+CREATE TABLE giohang (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL DEFAULT 1,
+    
+    -- Ràng buộc khóa ngoại
+    FOREIGN KEY (customer_id) REFERENCES khachhang(customer_id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
+);
 -- Bảng KhachHang_DiaChi
 CREATE TABLE KhachHang_DiaChi (
     customer_id INT,

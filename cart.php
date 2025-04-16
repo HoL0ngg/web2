@@ -1,79 +1,143 @@
 <?php
 session_start();
 require_once 'Model/ProductModel.php';
+require_once 'Model/TKModel.php';
+require_once 'handles/CartController.php';
+require_once 'handles/ProductController.php';
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'addtocart') {
-    $id = intval($_POST['id']);
-    $quantity = intval($_POST['quantity']);
+    if (!isset($_SESSION['username'])) {
+        // Chưa đăng nhập -> xử lý bằng session
+        if (!isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = [];
+        } else {
+            $id = intval($_POST['id']);
+            $quantity = intval($_POST['quantity']);
 
-    // Kiểm tra xem sản phẩm đã có trong giỏ chưa
-    $found = false;
-    foreach ($_SESSION['cart'] as &$item) {
-        if ($item['id'] === $id) {
-            $item['quantity'] += $quantity;
-            $found = true;
-            break;
+            // Kiểm tra xem sản phẩm đã có trong giỏ chưa
+            $found = false;
+            foreach ($_SESSION['cart'] as &$item) {
+                if ($item['id'] === $id) {
+                    $item['quantity'] += $quantity;
+                    $found = true;
+                    break;
+                }
+            }
+            unset($item);
+
+            if (!$found) {
+                $_SESSION['cart'][] = [
+                    'id' => $id,
+                    'quantity' => $quantity
+                ];
+            }
+            echo json_encode(['status' => 'success', 'message' => 'Đã thêm sản phẩm vào giỏ hàng']);
         }
-    }
-    unset($item);
+        exit;
+    } else {
+        // Đã đăng nhập -> xử lý bằng database
 
-    if (!$found) {
-        $_SESSION['cart'][] = [
-            'id' => $id,
-            'quantity' => $quantity
-        ];
+        $user = new TKModel();
+        $cartController = new CartController();
+        $customer_id = $user->getIdByUsername($_SESSION['username']);
+        $customer_id = $user->getCustomerIdByUserId($customer_id);
+        $productId = $_POST['id'];
+        $quantity = $_POST['quantity'];
+        $cartController->addProductToCart($productId, $quantity, $customer_id);
+        echo json_encode(['status' => 'success', 'message' => 'Đã thêm sản phẩm vào giỏ hàng']);
+        exit;
     }
-
-    echo "success";
-    exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'remove') {
-    $idToRemove = $_POST['id'];
-
-    if (isset($_SESSION['cart'])) {
-        foreach ($_SESSION['cart'] as $index => $item) {
-            if ($item['id'] == $idToRemove) {
-                unset($_SESSION['cart'][$index]);
-                // Re-index mảng để tránh lỗi sau này
-                $_SESSION['cart'] = array_values($_SESSION['cart']);
-                break;
+    if (!isset($_SESSION['username'])) {
+        // Chưa đăng nhập -> xử lý bằng session
+        if (isset($_SESSION['cart'])) {
+            foreach ($_SESSION['cart'] as $index => $item) {
+                if ($item['id'] == $_POST['id']) {
+                    unset($_SESSION['cart'][$index]);
+                    // Re-index mảng để tránh lỗi sau này
+                    $_SESSION['cart'] = array_values($_SESSION['cart']);
+                    break;
+                }
             }
         }
-    }
+        echo json_encode(['status' => 'success', 'message' => 'Đã xóa sản phẩm khỏi giỏ hàng']);
+        exit;
+    } else {
+        // Đã đăng nhập -> xử lý bằng database
 
-    echo 'success';
-    exit;
+        $user = new TKModel();
+        $cartController = new CartController();
+        $customer_id = $user->getIdByUsername($_SESSION['username']);
+        $customer_id = $user->getCustomerIdByUserId($customer_id);
+        $productId = $_POST['id'];
+        $cartController->removeProductInCart($productId, $customer_id);
+        echo json_encode(['status' => 'success', 'message' => 'Đã xóa sản phẩm khỏi giỏ hàng']);
+        exit;
+    }
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'update') {
-    $id = $_POST['id'];
-    $quantity = $_POST['quantity'];
+    if (isset($_SESSION['username'])) {
+        // Đã đăng nhập -> xử lý bằng database
 
-    if (isset($_SESSION['cart'])) {
-        foreach ($_SESSION['cart'] as &$item) {
-            if ($item['id'] == $id) {
-                echo 'success';
-                $item['quantity'] = $quantity;
-                break;
+        $user = new TKModel();
+        $cartController = new CartController();
+        $customer_id = $user->getIdByUsername($_SESSION['username']);
+        $productId = $_POST['id'];
+        $quantity = $_POST['quantity'];
+        $cartController->updateProductInCart($productId, $quantity, $customer_id);
+    } else {
+        // Chưa đăng nhập -> xử lý bằng session
+        if (isset($_SESSION['cart'])) {
+            foreach ($_SESSION['cart'] as &$item) {
+                if ($item['id'] == $_POST['id']) {
+                    $item['quantity'] = $_POST['quantity'];
+                    break;
+                }
             }
+            unset($item);
         }
-        unset($item);
     }
+    exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'getCartCount') {
     $cartCount = 0;
-    if (isset($_SESSION['cart'])) {
-        foreach ($_SESSION['cart'] as $item) {
-            $cartCount += $item['quantity'];
+    if (isset($_SESSION['username'])) {
+        require_once 'Model/TKModel.php';
+        $user = new TKModel();
+        $customer_id = $user->getIdByUsername($_SESSION['username']);
+        $customer_id = $user->getCustomerIdByUserId($customer_id);
+        $cartController = new CartController();
+        $cartProducts = $cartController->getAllProductInCart($customer_id);
+        $cartCount = is_array($cartProducts) ? count($cartProducts) : 0;
+    } else {
+        if (isset($_SESSION['cart'])) {
+            foreach ($_SESSION['cart'] as $item) {
+                $cartCount += $item['quantity'];
+            }
         }
     }
     echo json_encode(['count' => $cartCount]);
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'UpdateCartSessionToDatabase') {
+
+    $user = new TKModel();
+    $cartController = new CartController();
+    $customer_id = $user->getIdByUsername($_SESSION['username']);
+    $customer_id = $user->getCustomerIdByUserId($customer_id);
+    $cart = $_SESSION['cart'] ?? [];
+    $cartController->updateCartSessionToDatabase($customer_id, $cart);
+    unset($_SESSION['cart']);
+    echo json_encode(['status' => 'success', 'message' => 'Đã cập nhật giỏ hàng vào cơ sở dữ liệu']);
     exit;
 }
 

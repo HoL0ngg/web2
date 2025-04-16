@@ -198,9 +198,12 @@ function loginNotification() {
                 // Hiển thị toast thông báo từ phản hồi của server
                 if (data.success) {
                     showToast(data.message, data.success);
+                    // Cập nhật session cart và wishlist vào database
+                    UpdateCartSessionToDatabase();
+                    UpdateWishlistSessionToDatabase();
                     setTimeout(() => {
                         window.location.href = "../index.php";
-                    }, 1700);
+                    }, 1000);
                 }
                 else {
                     showToast(data.message, data.success);
@@ -216,6 +219,38 @@ function loginNotification() {
 document.getElementById('cart-container').addEventListener('click', (e) => {
     window.location.href = "cart.php?action=cart";
 })
+
+document.getElementById('love-container').addEventListener('click', (e) => {
+    window.location.href = "index.php?loveProduct";
+})
+
+function UpdateCartSessionToDatabase() {
+    fetch('cart.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `action=UpdateCartSessionToDatabase`
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+        });
+}
+
+function UpdateWishlistSessionToDatabase() {
+    fetch('XuLyYeuThich.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `action=UpdateWishlistSessionToDatabase`
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+        });
+}
 
 function registerNotification() {
     let frmRegister = document.frmRegister;
@@ -476,7 +511,6 @@ function loadLoveProducts() {
             data.data.forEach(productId => {
                 const heartIcon = [...heartIcons].find(icon => icon.closest(".product").dataset.id == productId.product_id);
 
-
                 if (heartIcon) {
                     heartIcon.classList.remove("fa-regular");
                     heartIcon.classList.add("fa-solid");
@@ -570,42 +604,30 @@ async function loadProducts(pagenum = 1) {
 
 function toggleLove(element, productId) {
     const icon = element.querySelector("i");
-    if (icon.classList.contains("fa-regular")) {
-        fetch('XuLyYeuThich.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: `action=add&productId=${productId}`
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                if (data.status == "error") {
-                    showToast(data.message, false);
-                    return;
-                }
+    fetch('XuLyYeuThich.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `action=toggleLove&productId=${productId}`
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            if (data.status == "error") {
+                showToast(data.message, false);
+                return;
+            }
+            if (icon.classList.contains("fa-solid")) {
+                icon.classList.add("fa-regular");
+                icon.classList.remove("fa-solid");
+            }
+            else {
                 icon.classList.remove("fa-regular");
                 icon.classList.add("fa-solid");
-                showToast(data.message, true);
-            });
-    }
-    else {
-        fetch('XuLyYeuThich.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: `action=remove&productId=${productId}`
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                icon.classList.remove("fa-solid");
-                icon.classList.add("fa-regular");
-                showToast(data.message, data.status == "success" ? true : false);
-            });
-    }
+            }
+            showToast(data.message, true);
+        });
 }
 function scrollToContent() {
     const content = document.getElementById("content-wrapper");
@@ -733,7 +755,6 @@ function updateCartCount() {
             if (data.count < 10)
                 document.getElementById("cart-count").innerText = data.count;
             else document.getElementById("cart-count").innerText = "9+";
-            console.log(data);
         })
 }
 //PRODUCT DETAIL

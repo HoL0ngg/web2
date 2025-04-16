@@ -35,4 +35,13 @@ class LoveModel
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function checkProductInWishlist($userId, $productId)
+    {
+        $sql = "SELECT * FROM yeuthich WHERE user_id = ? AND product_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("ii", $userId, $productId);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
 }
