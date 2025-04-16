@@ -848,6 +848,41 @@ function HuyDonHang() {
 }
 
 
+function filterOrders() {
+    const from = document.getElementById('fromDate').value;
+    const to = document.getElementById('toDate').value;
+    const status = document.getElementById('orderStatus').value;
+
+    const formData = new URLSearchParams();
+    formData.append('from', from);
+    formData.append('to', to);
+    formData.append('customerId', 2);
+    formData.append('status', status);
+
+    fetch('get_filter_orderhistory.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: formData.toString()
+    })
+    .then(res => res.text())
+    .then(data => {
+        const tbody = document.getElementById('orderTable');
+        tbody.innerHTML = data;
+        HuyDonHang();
+    })
+    .catch(error => {
+        console.error("Lỗi khi lọc đơn hàng:", error);
+    });
+}
+ function refreshOrders(){
+    document.getElementById('fromDate').value="";
+    document.getElementById('toDate').value="";
+    document.getElementById('orderStatus').selectedIndex = 0;
+    filterOrders();
+ }
+
 window.onload = function () {
     closeButton();
     loginNotification();

@@ -13,4 +13,4 @@
  $selected_checkboxes_loaisanpham = json_decode($selected_checkboxes_loaisanphamJson,true);
  $productController = new ProductController();
  $productController->getProductsPaginated($page, 8, $keyword, $selected_checkboxes_brand, $selected_checkboxes_loaisanpham, $matheloai, $minprice,$maxprice, $maChungLoai);
-    ?>
+   ?>

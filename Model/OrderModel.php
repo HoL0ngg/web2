@@ -78,51 +78,61 @@ class OrderModel
         return $orders;
     }
 
-    public function getOrdersWithFilters($from = null, $to = null, $customerId = null, $status = null) {
+    public function getOrdersWithFilters($from = "", $to = "", $customerId = 0, $status = "") {
+        // 👉 Nếu không có bất kỳ điều kiện nào → gọi luôn getAllOrder()
+        if (empty($from) && empty($to) && $customerId == 0 && empty($status)) {
+            return $this->getAllOrder();
+        }
+    
         $sql = "SELECT * FROM donhang WHERE 1=1";
         $params = [];
         $types = "";
-        
-        if($from && $to){
-            $sql.= " AND orderDate BETWEEN ? AND ?";
-            $types.= "ss";
+    
+        if ($from && $to) {
+            $sql .= " AND orderDate BETWEEN ? AND ?";
+            $types .= "ss";
             $params[] = $from;
             $params[] = $to;
-        }
-        else if($from){
-            $sql.=" AND orderDate >= ?";
-            $types.="s";
+        } else if ($from) {
+            $sql .= " AND orderDate >= ?";
+            $types .= "s";
             $params[] = $from;
-        }else if($to){
-            $sql.=" AND orderDate <= ?";
-            $types.="s";
+        } else if ($to) {
+            $sql .= " AND orderDate <= ?";
+            $types .= "s";
             $params[] = $to;
         }
-
-        if ($customerId) {
+    
+        if ($customerId != 0) {
             $sql .= " AND customer_id = ?";
             $types .= "i";
             $params[] = $customerId;
         }
     
-        if ($status) {
+        if ($status != "") {
             $sql .= " AND status = ?";
             $types .= "s";
             $params[] = $status;
         }
-
+    
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param($types, ...$params);
+    
+        if (!empty($types)) {
+            $stmt->bind_param($types, ...$params);
+        }
+    
         $stmt->execute();
         $result = $stmt->get_result();
+    
         $orders = [];
         while ($row = $result->fetch_assoc()) {
             $orders[] = $row;
         }
+    
         $stmt->close();
-
         return $orders;
     }
+    
     
 
     public function addOrder($customer_id, $order_date, $total_price, $status, $address_id, $note, $pttt)

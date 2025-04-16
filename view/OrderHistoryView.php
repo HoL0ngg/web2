@@ -1,9 +1,9 @@
 <?php
-require_once './handles/EmployeeController.php';
-require_once './handles/AddressController.php';
-require_once './handles/DetailOrderController.php';
-?>
-
+    require_once './handles/EmployeeController.php';
+    require_once './handles/AddressController.php';
+    require_once './handles/DetailOrderController.php';
+    require_once './handles/CustomerController.php';
+    ?>
 <main class="main-content">
     <header>
         <h1>Lịch Sử Mua Hàng</h1>
@@ -17,23 +17,13 @@ require_once './handles/DetailOrderController.php';
             <input type="date" id="toDate">
         </label>
 
-        <label>Khách hàng:
-            <select id="customerId">
-                <option value="">Tất cả</option>
-                <option value="1">Nguyễn Văn A</option>
-                <option value="2">Trần Thị B</option>
-                <option value="3">Lê Văn C</option>
-                <!-- Bạn có thể load động bằng PHP nếu cần -->
-            </select>
-        </label>
-
         <label>Trạng thái:
             <select id="orderStatus">
                 <option value="">Tất cả</option>
-                <option value="pending">Chờ xử lý</option>
-                <option value="shipping">Đang giao</option>
-                <option value="delivered">Đã giao</option>
-                <option value="cancelled">Đã hủy</option>
+                <option value="processing">processing</option>
+                <option value="shipping">shipping</option>
+                <option value="delivered">delivered</option>
+                <option value="cancelled">cancelled</option>
             </select>
         </label>
 
