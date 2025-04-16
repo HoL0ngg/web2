@@ -22,4 +22,31 @@ class CartController
     {
         return $this->model->removeCart($customerId);
     }
+
+    public function removeProductInCart($productId, $customerId)
+    {
+        return $this->model->removeProductInCart($productId, $customerId);
+    }
+
+    public function updateProductInCart($productId, $quantity, $customerId)
+    {
+        return $this->model->updateProductInCart($productId, $quantity, $customerId);
+    }
+
+    public function updateCartSessionToDatabase($customerId, $cart)
+    {
+        if (empty($cart)) {
+            return;
+        } else {
+            foreach ($cart as $item) {
+                $productId = $item['id'];
+                $quantity = $item['quantity'];
+                if ($this->model->checkProductInCart($productId, $customerId)->num_rows > 0) {
+                    $this->updateProductInCart($productId, $quantity, $customerId);
+                } else {
+                    $this->addProductToCart($productId, $quantity, $customerId);
+                }
+            }
+        }
+    }
 }

@@ -40,4 +40,28 @@ class CartModel
         $stmt->bind_param("i", $customerId);
         return $stmt->execute();
     }
+
+    public function checkProductInCart($productId, $customerId)
+    {
+        $sql = "SELECT * FROM giohang WHERE product_id = ? AND customer_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("ii", $productId, $customerId);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+    public function removeProductInCart($productId, $customerId)
+    {
+        $sql = "DELETE FROM giohang WHERE product_id = ? AND customer_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("ii", $productId, $customerId);
+        return $stmt->execute();
+    }
+
+    public function updateProductInCart($productId, $quantity, $customerId)
+    {
+        $sql = "UPDATE giohang SET quantity = ? WHERE product_id = ? AND customer_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("iii", $quantity, $productId, $customerId);
+        return $stmt->execute();
+    }
 }
