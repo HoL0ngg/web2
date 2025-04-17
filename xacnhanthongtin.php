@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'handles/OrderController.php';
+require_once 'handles/CartController.php';
 require_once 'handles/DiaChiController.php';
 require_once 'Model/ProductModel.php';
 require_once 'Model/TKModel.php';
@@ -8,6 +9,7 @@ require_once 'Model/TKModel.php';
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $orderController = new OrderController();
     $TkModel = new TKModel();
+    $CartController = new CartController();
 
     // Lấy dữ liệu từ form
     $gioitinh = $_POST['gioitinh'] ?? '';
@@ -40,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
     $note = $_POST['note'] ?? '';
     $pttt = $_POST['payment-method'] ?? '';
-    $cart = $_SESSION['cart'];
+    $cart = $CartController->getAllProductInCart($customer_id);
 
     $_SESSION['order_info'] = [
         'customer_id' => $customer_id,
@@ -60,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Tính tổng giá trị đơn hàng
     $total_price = 0;
     foreach ($cart as $item) {
-        $product_id = $item['id'];
+        $product_id = $item['product_id'];
         $quantity = $item['quantity'];
         // Giả sử bạn có một hàm để lấy giá sản phẩm theo ID
         $productModel = new ProductModel();
@@ -75,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $order_id = $orderController->addOrder($customer_id, date("Y-m-d H:i:s"), $total_price, 'processing', $finalAddressId, $note, $pttt);
     // Thêm chi tiết đơn hàng vào cơ sở dữ liệu
     foreach ($cart as $item) {
-        $product_id = $item['id'];
+        $product_id = $item['product_id'];
         $quantity = $item['quantity'];
         // Giả sử bạn có một hàm để lấy giá sản phẩm theo ID
         $productModel = new ProductModel();
@@ -85,15 +87,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Xóa sản phẩm sau khi đã thêm vào đơn hàng
     foreach ($cart as $item) {
-        $product_id = $item['id'];
+        $product_id = $item['product_id'];
         $quantity = $item['quantity'];
-        // Giả sử bạn có một hàm để lấy giá sản phẩm theo ID
         $productModel = new ProductModel();
         // Cập nhật số lượng sản phẩm trong kho
         $productModel->removeQuantity($product_id, $quantity);
     }
 
     // Xóa giỏ hàng của người dùng
+    $CartController->deleteCart($customer_id);
+    unset($_SESSION['cart']);
 
 
     // Chuyển hướng sang trang hóa đơn

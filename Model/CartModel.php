@@ -64,4 +64,22 @@ class CartModel
         $stmt->bind_param("iii", $quantity, $productId, $customerId);
         return $stmt->execute();
     }
+
+    public function deleteCart($customerId)
+    {
+        $sql = "DELETE FROM giohang WHERE customer_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $customerId);
+        return $stmt->execute();
+    }
+
+    public function getCartCount($customerId)
+    {
+        $sql = "SELECT COUNT(*) as count FROM giohang WHERE customer_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $customerId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc()['count'];
+    }
 }

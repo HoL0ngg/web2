@@ -44,7 +44,7 @@ $diachi = $diachiController->getDiaChiById($order['address_id']);
                 $productmodel = new ProductModel();
                 $total = 0;
                 foreach ($_SESSION['order_info']['cart'] as $item):
-                    $id = $item['id'];
+                    $id = $item['product_id'];
                     $quantity = $item['quantity'];
                     $row = $productmodel->getProductById($id);
                     $img_url = $productmodel->getMainImageByProductId($id);

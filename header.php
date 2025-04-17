@@ -1,5 +1,21 @@
 <?php
-$cartCount = isset($_SESSION['cart']) ? array_sum(array_column($_SESSION['cart'], 'quantity')) : 0;
+$cartCount = 0;
+require_once('handles/CartController.php');
+require_once 'Model/TKModel.php';
+if (isset($_SESSION['username'])) {
+    $tkmodel = new TKModel();
+    $customer_id = $tkmodel->getIdByUsername($_SESSION['username']);
+    $customer_id = $tkmodel->getCustomerIdByUserId($customer_id);
+    $cartController = new CartController();
+    $cartCount = $cartController->getCartCount($customer_id);
+} else {
+    if (isset($_SESSION['cart'])) {
+        $cartCount = count($_SESSION['cart']);
+    } else {
+        $cartCount = 0;
+    }
+}
+
 ?>
 <div id="header">
     <div id="top-header">

@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'addtocart') {
             // Kiểm tra xem sản phẩm đã có trong giỏ chưa
             $found = false;
             foreach ($_SESSION['cart'] as &$item) {
-                if ($item['id'] === $id) {
+                if ($item['product_id'] === $id) {
                     $item['quantity'] += $quantity;
                     $found = true;
                     break;
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'addtocart') {
 
             if (!$found) {
                 $_SESSION['cart'][] = [
-                    'id' => $id,
+                    'product_id' => $id,
                     'quantity' => $quantity
                 ];
             }
@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'remove') {
         // Chưa đăng nhập -> xử lý bằng session
         if (isset($_SESSION['cart'])) {
             foreach ($_SESSION['cart'] as $index => $item) {
-                if ($item['id'] == $_POST['id']) {
+                if ($item['product_id'] == $_POST['id']) {
                     unset($_SESSION['cart'][$index]);
                     // Re-index mảng để tránh lỗi sau này
                     $_SESSION['cart'] = array_values($_SESSION['cart']);
@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'update') {
         // Chưa đăng nhập -> xử lý bằng session
         if (isset($_SESSION['cart'])) {
             foreach ($_SESSION['cart'] as &$item) {
-                if ($item['id'] == $_POST['id']) {
+                if ($item['product_id'] == $_POST['id']) {
                     $item['quantity'] = $_POST['quantity'];
                     break;
                 }

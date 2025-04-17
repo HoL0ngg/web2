@@ -39,7 +39,7 @@ class CartController
             return;
         } else {
             foreach ($cart as $item) {
-                $productId = $item['id'];
+                $productId = $item['product_id'];
                 $quantity = $item['quantity'];
                 if ($this->model->checkProductInCart($productId, $customerId)->num_rows > 0) {
                     $this->updateProductInCart($productId, $quantity, $customerId);
@@ -48,5 +48,15 @@ class CartController
                 }
             }
         }
+    }
+
+    public function deleteCart($customerId)
+    {
+        return $this->model->deleteCart($customerId);
+    }
+
+    public function getCartCount($customerId)
+    {
+        return $this->model->getCartCount($customerId);
     }
 }
