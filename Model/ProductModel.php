@@ -28,7 +28,7 @@ class ProductModel
 
     public function getNameProductById($id)
     {
-        $sql = "SELECT product_name FROM sanpham WHERE product_id = ?";
+        $sql = "SELECT product_name FROM SanPham WHERE product_id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();
@@ -117,7 +117,7 @@ class ProductModel
 
     public function getMainImageByProductId($productId)
     {
-        $stmt = $this->conn->prepare("SELECT image_url FROM SanphamHinhanh WHERE product_id = ? AND is_main = 1");
+        $stmt = $this->conn->prepare("SELECT image_url FROM SanPhamHinhAnh WHERE product_id = ? AND is_main = 1");
         $stmt->bind_param("i", $productId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -135,7 +135,7 @@ class ProductModel
         // $sql = "SELECT COUNT(*) AS soluong FROM SanPham WHERE product_name LIKE ?";
         $sql = "SELECT COUNT(*) AS soluong
         FROM SanPham sp
-        JOIN theloai tl ON sp.matheloai = tl.matheloai
+        JOIN TheLoai tl ON sp.matheloai = tl.matheloai
         WHERE sp.product_name LIKE ?";
 
 

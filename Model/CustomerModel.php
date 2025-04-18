@@ -1,7 +1,7 @@
 <?php
 require_once("database/connect.php");
 
-class AdressModel
+class CustomerModel
 {
     private $conn;
 
@@ -11,16 +11,17 @@ class AdressModel
         $this->conn = $db->getConnection();
     }
 
-    public function getAddressByID($id)
+    public function getCustomerByID($id)
     {
-        $sql = "SELECT * FROM DiaChi WHERE address_id = ?";
+        $sql = "SELECT * FROM KhachHang WHERE customer_id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $result = $stmt->get_result();
-        $diachi = $result->fetch_assoc();
-        $diachichitiet = $diachi['level4'] . ", " . $diachi['level3'] . ", " . $diachi['level2'] . ", " . $diachi['level1'];
+        $cus = $result->fetch_assoc();
         $stmt->close();
-        return $diachi ? $diachichitiet : 'Không rõ';
+        // echo "$cus";
+        return $cus;
     }
 }
+?>

@@ -13,7 +13,7 @@ class EmployeeModel
 
     public function getNameEmployeeByID($id)
     {
-        $sql = "SELECT name FROM nhanvien WHERE employee_id = ?";
+        $sql = "SELECT name FROM NhanVien WHERE employee_id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();

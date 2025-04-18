@@ -1,5 +1,5 @@
     <?php
-    require_once './handles/EmployeeController.php';
+    require_once './handles/CustomerController.php';
     require_once './handles/AddressController.php';
     require_once './handles/DetailOrderController.php';
     ?>
@@ -15,25 +15,26 @@
                     <tr>
                         <th>Mã hóa đơn</th>
                         <th>Khách hàng</th>
+                        <th>SĐT</th>
                         <th>Địa chỉ</th>
                         <th>Ngày đặt</th>
                         <th>Tổng tiền</th>
                         <th>Trạng thái</th>
                         <th>Xem chi tiết</th>
-                        <th>Hủy đơn</th>
                     </tr>
                 </thead>
                 <tbody id="orderTable">
                 <?php 
                         foreach($orders as $order):
-                            $EmployeeController = new EmployeeController();
+                            $CustomerController = new CustomerController();
                             $AddressController = new AddressController();
-                            $name = $EmployeeController->getNameEmployeeByID($order['employee_id']);
+                            $customer = $CustomerController->getCustomerByID($order['customer_id']);
                             $address = $AddressController->getAddressByID($order['address_id']);
                     ?>
                     <tr>
                         <td><?= $order['order_id'] ?></td>
-                        <td><?= $name ?></td>
+                        <td><?= $customer['customer_name'] ?></td>
+                        <td><?= $customer['phone'] ?></td>
                         <td><?= $address ?></td>
                         <td><?= $order['orderDate'] ?></td>
                         <td><?= $order['total'] ?></td>
@@ -44,7 +45,7 @@
                             <?php endif; ?>
                         </td>
                         <td>    
-                            <button onclick="showOrderDetail(this)" value="<?= $order['order_id'] ?>">📄 Chi tiết</button>
+                            <button onclick="showOrderDetail(this)" value="<?= $order['order_id']?> | <?= $customer['customer_name']?> | <?= $order['status']?>">📄 Chi tiết</button>
                         </td>
                         <td>
                             <button class="cancel-btn">❌ Hủy đơn </button>

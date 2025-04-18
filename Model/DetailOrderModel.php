@@ -13,7 +13,7 @@ class DetailOrderModel
 
     public function getAllDetailOrderByOrderId($id)
     {
-        $sql = "SELECT  * FROM chitietdonhang WHERE order_id = ?";
+        $sql = "SELECT  * FROM ChiTietDonHang WHERE order_id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();

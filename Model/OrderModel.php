@@ -13,7 +13,7 @@ class OrderModel
 
     public function getAllOrder()
     {
-        $sql = "SELECT  * FROM donhang";
+        $sql = "SELECT  * FROM DonHang";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -29,7 +29,7 @@ class OrderModel
 
     public function getAllOrderHistoryByCustomerId($id)
     {
-        $sql = "SELECT  * FROM donhang WHERE customer_id = ?";
+        $sql = "SELECT  * FROM DonHang WHERE customer_id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();
@@ -46,7 +46,7 @@ class OrderModel
 
     public function getOrderHistoryByStatus($status)
     {
-        $sql = "SELECT  * FROM donhang WHERE status = ?";
+        $sql = "SELECT  * FROM DonHang WHERE status = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("s", $status);
         $stmt->execute();
@@ -57,7 +57,7 @@ class OrderModel
     }
 
     public function changeStatusById($orderId, $newStatus){
-        $sql="UPDATE donhang SET status = ? WHERE order_id = ?";
+        $sql="UPDATE DonHang SET status = ? WHERE order_id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("si", $newStatus, $orderId);
         $stmt->execute();
