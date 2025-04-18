@@ -144,7 +144,7 @@ class ProductModel
         $sql = "SELECT COUNT(*) AS soluong
         FROM SanPham sp
         JOIN TheLoai tl ON sp.matheloai = tl.matheloai
-        WHERE sp.product_name LIKE ?";
+        WHERE sp.product_name LIKE ? AND sp.status = 1";
 
 
         $params = [];

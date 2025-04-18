@@ -6,10 +6,10 @@ create database webbanhang;
 use webbanhang;
 -- Bảng ChungLoai
 CREATE TABLE `chungloai` (
-  `machungloai` int PRIMARY key,
-  `tenchungloai` varchar(50) DEFAULT NULL,
-  `hinhanh` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+    `machungloai` int PRIMARY key,
+    `tenchungloai` varchar(50) DEFAULT NULL,
+    `hinhanh` varchar(255) DEFAULT NULL
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 -- Bảng TheLoai
 CREATE TABLE TheLoai (
     matheloai INT PRIMARY KEY,
@@ -78,17 +78,6 @@ CREATE TABLE DiaChi (
     Phuong VARCHAR(50),
     SoNha VARCHAR(50)
 );
-
-CREATE TABLE giohang (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    customer_id INT NOT NULL,
-    product_id INT NOT NULL,
-    quantity INT NOT NULL DEFAULT 1,
-    
-    -- Ràng buộc khóa ngoại
-    FOREIGN KEY (customer_id) REFERENCES khachhang(customer_id) ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
-);
 -- Bảng KhachHang_DiaChi
 CREATE TABLE KhachHang_DiaChi (
     customer_id INT,
@@ -124,6 +113,15 @@ CREATE TABLE SanPhamHinhAnh (
     is_main TINYINT NOT NULL DEFAULT 1,
     product_id INT NOT NULL,
     FOREIGN KEY (product_id) REFERENCES SanPham(product_id)
+);
+CREATE TABLE giohang (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL DEFAULT 1,
+    -- Ràng buộc khóa ngoại
+    FOREIGN KEY (customer_id) REFERENCES KhachHang(customer_id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES SanPham(product_id) ON DELETE CASCADE
 );
 -- Bảng SuKienGiamGia
 CREATE TABLE SuKienGiamGia (
@@ -386,8 +384,7 @@ VALUES (
     );
 -- KhachHang_DiaChi
 INSERT INTO KhachHang_DiaChi
-VALUES 
-    (2, 1, FALSE),
+VALUES (2, 1, FALSE),
     (2, 2, FALSE),
     (2, 3, FALSE);
 -- NhaCungCap
@@ -613,7 +610,6 @@ VALUES (
 INSERT INTO SanPhamGiamGia
 VALUES (1, 1, 10, 20),
     (1, 3, 15, 50);
-
 -- DonHang
 INSERT INTO DonHang
 VALUES (
