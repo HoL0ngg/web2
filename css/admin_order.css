@@ -58,9 +58,6 @@ header {
 }
 
 
-
-
-
 /* Chi tiết đơn hàng popup */
 #order-detail-popup {
     position: fixed;
@@ -136,7 +133,8 @@ header {
 }
 
 /* Nút Chi tiết */
-.order-list button {
+.order-list button.detail-btn,
+.order-list button.cancel-btn {
     border: none;
     width: 72px;
     height: 30px;
@@ -147,12 +145,14 @@ header {
     background: white;
 }
 
-.order-list button:not(.cancel-btn) {
-    background-color: #e6f3ff; /* Nền xanh nhạt giống nút "Lọc" */
+/* Nền */
+
+.order-list button.detail-btn {
+    background-color: #e6f3ff; 
 }
 
-.order-list button:not(.cancel-btn):hover {
-    background-color: #69b7ff; /* Nền sáng hơn khi hover */
+.order-list button.detail-btn:hover {
+    background-color: #69b7ff; 
     color: white;
 }
 
@@ -167,6 +167,36 @@ header {
     background-color: #C0392B; /* Nền đỏ sáng hơn khi hover */
     color: white;
 }
+
+/* Nút Xác nhận */
+.confirm-btn {
+    border: none;
+    border-radius: 5px; /* Bo góc nhẹ, giống nút Hủy đơn */
+    padding: 5px; /* Padding nhỏ hơn để nút gọn */
+    width: 95px; /* Chiều rộng vừa phải */
+    font-size: 14px; /* Kích thước chữ giống các nút khác */
+    cursor: pointer;
+    margin-top: 8px; /* Khoảng cách phía trên để tách biệt với status */
+    display: inline-flex; /* Đảm bảo căn giữa nội dung */
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease; /* Hiệu ứng chuyển màu mượt */
+}
+
+.status-cell .confirm-btn:hover {
+    background-color: #27ae60; /* Màu xanh lá đậm hơn khi hover */
+    color: white
+}
+
+/* Status */
+/* Định dạng chung cho văn bản trạng thái */
+.status-cell .status {
+    /* display: inline-block; */
+    padding: 4px 8px; /* Padding nhỏ để tạo không gian quanh text */
+    font-size: 14px; /* Kích thước chữ đồng bộ với các nút */
+    border-radius: 8px; /* Bo góc nhẹ để tạo cảm giác giống nút */
+}
+
 
 
 /* Filter form */

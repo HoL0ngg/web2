@@ -90,13 +90,24 @@
                         <td><?= $order['orderDate'] ?></td>
                         <td><?= $order['total'] ?></td>
                         <td class="status-cell" data-order-id="<?= $order['order_id'] ?>">
-                            <div class="status"><?= $order['status'] ?></div>
+                            <?php
+                            // Định nghĩa màu nền và kiểu dáng cho từng trạng thái
+                            $statusStyles = [
+                                'processing' => 'background-color: rgba(218, 174, 0, 0.7); color: #fff;', // Vàng mờ
+                                'shipping' => 'background-color: rgba(41, 128, 185, 0.7); color: #fff;', // Xanh nước biển mờ
+                                'delivered' => 'background-color: rgba(39, 174, 96, 0.7); color: #fff;', // Xanh lá mờ
+                                'cancelled' => 'background-color: rgba(192, 57, 43, 0.7); color: #fff;' // Đỏ mờ
+                            ];
+                            // Lấy kiểu dáng tương ứng với trạng thái, mặc định là nền xám nếu trạng thái không hợp lệ
+                            $style = isset($statusStyles[$order['status']]) ? $statusStyles[$order['status']] : 'background-color: rgba(0, 0, 0, 0.2); color: #fff;';
+                            ?>
+                            <div class="status" style="display: inline-block; padding: 4px 8px; font-size: 14px; border-radius: 6px; <?= $style ?>"><?= $order['status'] ?></div>
                             <?php if ($order['status'] === 'processing' || $order['status'] === 'shipping'): ?>
                                 <button class="confirm-btn">✅ Xác nhận</button>
                             <?php endif; ?>
                         </td>
                         <td>    
-                            <button onclick="showOrderDetail(this)" value="<?= $order['order_id']?> | <?= $customer['customer_name']?> | <?= $order['status']?>">📄 Chi tiết</button>
+                            <button class="detail-btn" onclick="showOrderDetail(this)" value="<?= $order['order_id']?> | <?= $customer['customer_name']?> | <?= $order['status']?>">📄 Chi tiết</button>
                         </td>
                         <td>
                             <button class="cancel-btn">❌ Hủy đơn </button>
