@@ -59,9 +59,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                   </tr>';
         }
     } else {
-        echo '<tr><td colspan="8">Không có đơn hàng nào phù hợp.</td></tr>';
+        echo '<tr><td colspan="9">Không có đơn hàng nào phù hợp.</td></tr>';
     }
 } else {
-    echo '<tr><td colspan="8">Yêu cầu không hợp lệ</td></tr>';
+    echo '<tr><td colspan="9">Yêu cầu không hợp lệ</td></tr>';
 }
 ?>
