@@ -32,4 +32,14 @@
             $stmt->close();
             return $name ? $name['customer_name'] : 'Không rõ';
         }
+        public function getPhoneCustomerByID($id){
+            $sql = "SELECT phone FROM KhachHang WHERE customer_id = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $phone = $result->fetch_assoc();
+            $stmt->close();
+            return $phone ? $phone['phone'] : 'Không rõ';
+        }
 }

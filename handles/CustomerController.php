@@ -15,4 +15,7 @@ class CustomerController
     public function getNameCustomerByID($id){
         return $this->model->getNameCustomerByID($id);
     }
+    public function getPhoneCustomerByID($id){
+        return $this->model->getPhoneCustomerByID($id);
+    }
 }

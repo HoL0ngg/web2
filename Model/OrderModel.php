@@ -56,20 +56,15 @@ class OrderModel
         return $order;
     }
 
-<<<<<<< HEAD
-    public function changeStatusById($orderId, $newStatus){
-        $sql="UPDATE DonHang SET status = ? WHERE order_id = ?";
-=======
     public function changeStatusById($orderId, $newStatus)
     {
-        $sql = "UPDATE donhang SET status = ? WHERE order_id = ?";
->>>>>>> a8551e3852308ca35e498f0e9f03780e95fb4195
+        $sql = "UPDATE DonHang SET status = ? WHERE order_id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("si", $newStatus, $orderId);
         $stmt->execute();
     }
     public function getOrdersByDateRange($from, $to) {
-        $sql = "SELECT * FROM donhang WHERE orderDate BETWEEN ? AND ?";
+        $sql = "SELECT * FROM DonHang WHERE orderDate BETWEEN ? AND ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("ss", $from, $to);
         $stmt->execute();
@@ -89,7 +84,7 @@ class OrderModel
             return $this->getAllOrder();
         }
     
-        $sql = "SELECT * FROM donhang WHERE 1=1";
+        $sql = "SELECT * FROM DonHang WHERE 1=1";
         $params = [];
         $types = "";
     
@@ -142,7 +137,7 @@ class OrderModel
 
     public function addOrder($customer_id, $order_date, $total_price, $status, $address_id, $note, $pttt)
     {
-        $sql = "INSERT INTO donhang (customer_id, orderDate, total, status, address_id, note, pttt) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO DonHang (customer_id, orderDate, total, status, address_id, note, pttt) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("isisiss", $customer_id, $order_date, $total_price, $status, $address_id, $note, $pttt);
         if ($stmt->execute()) {
@@ -154,7 +149,7 @@ class OrderModel
 
     public function addDetailOrder($order_id, $product_id, $quantity, $price)
     {
-        $sql = "INSERT INTO chitietdonhang (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO ChiTietDonHang (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("iiii", $order_id, $product_id, $quantity, $price);
         if ($stmt->execute()) {
@@ -166,7 +161,7 @@ class OrderModel
 
     public function getAutoIncrementId()
     {
-        $sql = "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'webbanhang' AND TABLE_NAME = 'donhang'";
+        $sql = "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'webbanhang' AND TABLE_NAME = 'DonHang'";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();

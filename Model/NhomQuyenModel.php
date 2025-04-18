@@ -13,7 +13,7 @@
 
         public function getNhomQuyen()
         {
-            $sql = "SELECT * FROM nhomquyen";
+            $sql = "SELECT * FROM NhomQuyen";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
             $result = $stmt->get_result();

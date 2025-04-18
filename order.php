@@ -4,6 +4,17 @@
     require_once './handles/DetailOrderController.php';
     require_once './handles/CustomerController.php';
     ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Gọi file CSS -->
+    <link rel="stylesheet" href="css/admin_order.css">
+</head>
+<body>
     <main class="main-content">
         <header>
             <h1>Quản Lý Đơn Hàng</h1>
@@ -17,6 +28,8 @@
             <input type="date" id="toDate">
         </label>
 
+        <!-- ------------ -->
+         
         <label>Khách hàng:
             <select id="customerId">
                 <option value="">Tất cả</option>
@@ -56,7 +69,8 @@
                         <th>Ngày đặt</th>
                         <th>Tổng tiền</th>
                         <th>Trạng thái</th>
-                        <th>Xem chi tiết</th>
+                        <th>Chi tiết</th>
+                        <th>Hủy đơn</th>
                     </tr>
                 </thead>
                 <tbody id="orderTable">
@@ -65,12 +79,13 @@
                             $CustomerController = new CustomerController();
                             $AddressController = new AddressController();
                             $name = $CustomerController->getNameCustomerByID($order['customer_id']);
+                            $phone = $CustomerController->getPhoneCustomerByID($order['customer_id']);
                             $address = $AddressController->getAddressByID($order['address_id']);
                     ?>
                     <tr>
                         <td><?= $order['order_id'] ?></td>
-                        <td><?= $customer['customer_name'] ?></td>
-                        <td><?= $customer['phone'] ?></td>
+                        <td><?= $name ?></td>
+                        <td><?= $phone ?></td>
                         <td><?= $address ?></td>
                         <td><?= $order['orderDate'] ?></td>
                         <td><?= $order['total'] ?></td>
@@ -112,163 +127,9 @@
         </div>
     </div>
 
-
-
     </main>
 
-
-
-    <style>
-        /* Dùng lại các class gốc từ người dùng */
-
-        #content-wrapper {
-        display: block;
-    }
-
-    .order-list {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .order-list table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 10px;
-    }
-
-    .order-list th,
-    .order-list td {
-        border: 1px solid #BDC3C7;
-        padding: 10px;
-        text-align: center;
-    }
-
-    .order-list th {
-        background: #3498DB;
-        color: white;
-    }
-
-    .order-list td a {
-        text-decoration: none;
-        color: black;
-    }
-
-
-
-
-
-    /* Chi tiết đơn hàng popup */
-    #order-detail-popup {
-        position: fixed;
-        top: -100%;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.4);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: top 0.4s ease;
-        z-index: 999;
-    }
-
-    #order-detail-popup.show {
-        top: 0;
-    }
-
-    #order-detail-content {
-        background: #fff;
-        padding: 30px;
-        border-radius: 10px;
-        width: 600px;
-        max-height: 80%;
-        overflow-y: auto;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        animation: slideDown 0.4s ease;
-    }
-
-    /* Hiệu ứng trượt xuống */
-    @keyframes slideDown {
-        from {
-            transform: translateY(-50px);
-            opacity: 0;
-        }
-        to {
-            transform: translateY(0);
-            opacity: 1;
-        }
-    }
-
-    #detail-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 10px;
-    }
-
-    #detail-table th,
-    #detail-table td {
-        border: 1px solid #BDC3C7;
-        padding: 10px;
-        text-align: center;
-    }
-
-    #detail-table th {
-        background: #3498DB;
-        color: white;
-    }
-
-    #close-btn {
-        margin-top: 20px;
-        padding: 8px 20px;
-        background: #C0392B;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    #close-btn:hover {
-        background: #A93226;
-    }
-
-
-
- .filter-form {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 15px;
-}
-
-.filter-form label {
-    display: flex;
-    /* align-items: center; */
-    justify-content: space-around;
-    font-weight: bold;
-}
-.filter-form button{
-    margin-top: 15px;
-    height: 35px;
-    width:100px;
-    cursor: pointer;
-    background-color: #3498DB;
-    border: none;
-    border-radius: 5px;
-}
-
-.filter-form button:hover{
-    background-color:rgb(36, 108, 156);
-} 
-
-.filter-form input, .filter-form select, .filter-form button {
-    margin-left: 5px;
-    padding: 4px 6px;
-    font-size: 14px;
-} 
-    </style>
+    
     <script>
         function cancelOrder(){
             const cancelButtons = document.querySelectorAll('.cancel-btn');
@@ -349,44 +210,48 @@
         cancelOrder();
 
 
-    }); 
-    function filterOrders() {
-    const from = document.getElementById('fromDate').value;
-    const to = document.getElementById('toDate').value;
-    const customerId = document.getElementById('customerId').value;
-    const status = document.getElementById('orderStatus').value;
+        }); 
+        function filterOrders() {
+            const from = document.getElementById('fromDate').value;
+            const to = document.getElementById('toDate').value;
+            const customerId = document.getElementById('customerId').value;
+            const status = document.getElementById('orderStatus').value;
 
-    const formData = new URLSearchParams();
-    formData.append('from', from);
-    formData.append('to', to);
-    formData.append('customerId', customerId);
-    formData.append('status', status);
+            const formData = new URLSearchParams();
+            formData.append('from', from);
+            formData.append('to', to);
+            formData.append('customerId', customerId);
+            formData.append('status', status);
 
-    fetch('get_filter_order.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: formData.toString()
-    })
-    .then(res => res.text())
-    .then(data => {
-        const tbody = document.getElementById('orderTable');
-        tbody.innerHTML = data;
-        confirmOrder();
-        cancelOrder();
-    })
-    .catch(error => {
-        console.error("Lỗi khi lọc đơn hàng:", error);
-    });
-}
- function refreshOrders(){
-    document.getElementById('fromDate').value="";
-    document.getElementById('toDate').value="";
-    document.getElementById('customerId').selectedIndex = 0;
-    document.getElementById('orderStatus').selectedIndex = 0;
-    filterOrders();
- }
-
+            fetch('get_filter_order.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: formData.toString()
+            })
+            .then(res => res.text())
+            .then(data => {
+                const tbody = document.getElementById('orderTable');
+                tbody.innerHTML = data;
+                confirmOrder();
+                cancelOrder();
+            })
+            .catch(error => {
+                console.error("Lỗi khi lọc đơn hàng:", error);
+            });
+        }
+        function refreshOrders(){
+            document.getElementById('fromDate').value="";
+            document.getElementById('toDate').value="";
+            document.getElementById('customerId').selectedIndex = 0;
+            document.getElementById('orderStatus').selectedIndex = 0;
+            filterOrders();
+        }
 
     </script>
+
+
+</body>
+</html>
+
