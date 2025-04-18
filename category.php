@@ -16,13 +16,32 @@ $category_data = getCategoryData();
     <!-- Main Content -->
     <main class="main-content">
         <header>
-            <h1>Quản Lý Chủng Loại</h1>
+            <h1>Quản Lý Chủng Loại </h1>
             <button class="add-chungloai-btn">➕ Thêm chủng loại</button>
             <!-- <a href="admin.php?page=category&act=add">
             </a> -->
     
         </header>
-    
+        <!-- Popup chỉnh sửa chủng loại -->
+        <div id="popup-edit-chungloai" class="popup-overlay">
+            <div class="popup-content">
+                <div class="popup-header">
+                    <h2>Chỉnh sửa chủng loại</h2>
+                    <span id="close-popup-edit-chungloai" class="close-btn">✖</span>
+                </div>
+                <div class="popup-body">
+                    <input type="hidden" id="edit_machungloai">
+                    <div class="input-row">
+                        <label for="edit_tenchungloai">Tên chủng loại:</label>
+                        <input type="text" id="edit_tenchungloai">
+                    </div>
+                    <div class="popup-footer">
+                        <button id="edit-chungloai-btn_popup">Sửa</button>
+                        <button id="btn-xoa-chungloai">Xóa</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Popup thêm chủng loại (giữa màn hình) -->
         <div id="popup-add-chungloai" class="popup-overlay">
             <div class="popup-content">
@@ -73,9 +92,12 @@ $category_data = getCategoryData();
                 </div>
                 <div class="popup-body">
                     <input type="hidden" id="edit_matheloai">
+                    <input type="hidden" id="edit_machungloai">
+                    
                     <div class="input-row">
-                        <label for="edit_tenchungloai_hienthi">Tên chủng loại:</label>
-                        <span id="edit_tenchungloai_hienthi" style="font-weight: bold;"></span>
+                        <!-- ERROR -->
+                        <label for="edit_tenchungloai_theloai">Tên chủng loại:</label>
+                        <input type="text" id="edit_tenchungloai_theloai" style="font-weight: bold;"></input>
                     </div>
                     <div class="input-row">
                         <label for="edit_tentheloai">Tên thể loại:</label>
@@ -105,184 +127,106 @@ $category_data = getCategoryData();
                 </thead>
     
                 <tbody>
-                <?php
-$prev_chungloai = "";
-$rowspan = 0;
-$temp_rows = [];
+                    <?php
+                        $prev_chungloai = "";
+                        $rowspan = 0;
+                        $temp_rows = [];
 
-foreach ($category_data as $index => $row) {
-    $curr_chungloai = $row["machungloai"];
-    $temp_rows[$curr_chungloai][] = $row;
-}
+                        foreach ($category_data as $index => $row) {
+                            $curr_chungloai = $row["machungloai"];
+                            $temp_rows[$curr_chungloai][] = $row;
+                        }
 
-// Lặp theo chủng loại
-foreach ($temp_rows as $machungloai => $rows) {
-    $first = true;
+                        // Lặp theo chủng loại
+                        foreach ($temp_rows as $machungloai => $rows) {
+                            $first = true;
 
-    // Kiểm tra nếu không có thể loại nào
-    $has_theloai = !empty($rows[0]['matheloai']);
+                            // Kiểm tra nếu không có thể loại nào
+                            $has_theloai = !empty($rows[0]['matheloai']);
 
-    if (!$has_theloai) {
-        echo "<tr>";
-        echo "<td>{$rows[0]['machungloai']}</td>";
-        echo "<td>{$rows[0]['tenchungloai']}</td>";
-        echo "<td colspan='3'>Không có thể loại</td>";
+                            if (!$has_theloai) {
+                                echo "<tr>";
+                                echo "<td>{$rows[0]['machungloai']}</td>";
+                                echo "<td>{$rows[0]['tenchungloai']}</td>";
+                                echo "<td colspan='3'>Không có thể loại</td>";
 
-        // Xóa chủng loại nếu không có thể loại con
-        echo "<td>";
-        echo "<a href='admin.php?page=category&act=del&id={$rows[0]['machungloai']}' 
-                data-machungloai='{$rows[0]['machungloai']}' 
-                data-tenchungloai='{$rows[0]['tenchungloai']}'>
-                <button class='delete-chungloai-btn'>❌ Xóa</button></a>";
-        echo "</td>";
+                                // echo "<td>";
+                                // echo "<a href='admin.php?page=category&act=edit_chungloai&id={$rows[0]['machungloai']}' 
+                                //         data-machungloai='{$rows[0]['machungloai']}' 
+                                //         data-tenchungloai='{$rows[0]['tenchungloai']}' >
+                                //         <button class='edit-chungloai-btn'>✏️ Sửa</button></a>";
+                                // echo "</td>";
+                                echo "<td>";
+                                echo "<a href='admin.php?page=category&act=edit_chungloai&id={$rows[0]['machungloai']}' 
+                                        data-machungloai='{$rows[0]['machungloai']}' 
+                                        data-tenchungloai='" . htmlspecialchars($rows[0]['tenchungloai'], ENT_QUOTES, 'UTF-8') . "'>
+                                        <button class='edit-chungloai-btn'>✏️ Sửa</button></a>";
+                                echo "</td>";
 
-        echo "<td>";
-        echo "<a href='admin.php?page=category&act=add_type&cl_id={$rows[0]['machungloai']}' 
-                data-machungloai='{$rows[0]['machungloai']}' 
-                data-tenchungloai='{$rows[0]['tenchungloai']}'>
-                <button class='add-theloai-btn'>➕ Thêm thể loại</button></a>";
-        echo "</td>";
-        echo "</tr>";
-        continue;
-    }
 
-    // Nếu có thể loại
-    $rowspan = count($rows);
-    foreach ($rows as $r) {
-        echo "<tr>";
-        if ($first) {
-            echo "<td rowspan='{$rowspan}'>{$r['machungloai']}</td>";
-            echo "<td rowspan='{$rowspan}'>{$r['tenchungloai']}</td>";
-        }
+                                echo "<td>";
+                                echo "<a href='admin.php?page=category&act=add_type&cl_id={$rows[0]['machungloai']}' 
+                                        data-machungloai='{$rows[0]['machungloai']}' 
+                                        data-tenchungloai='{$rows[0]['tenchungloai']}'>
+                                        <button class='add-theloai-btn'>➕ Thêm thể loại</button></a>";
+                                echo "</td>";
+                                echo "</tr>";
+                                continue;
+                            }
 
-        echo "<td>{$r['matheloai']}</td>";
-        echo "<td>{$r['tentheloai']}</td>";
-        echo "<td>{$r['so_sanpham']}</td>";
+                            // Nếu có thể loại
+                            $rowspan = count($rows);
+                            foreach ($rows as $r) {
+                                echo "<tr>";
+                                if ($first) {
+                                    echo "<td rowspan='{$rowspan}'>{$r['machungloai']}</td>";
+                                    echo "<td rowspan='{$rowspan}'>{$r['tenchungloai']}</td>";
+                                }
 
-        // Cột Hành động cho thể loại
-        echo "<td>";
-        // Luôn có nút Sửa
-        echo "<a href='admin.php?page=category&act=edit_type&id={$r['matheloai']}' 
-                data-machungloai='{$r['machungloai']}' 
-                data-tenchungloai='{$r['tenchungloai']}' 
-                data-matheloai='{$r['matheloai']}' 
-                data-tentheloai='{$r['tentheloai']}' 
-                data-so-sanpham='{$r['so_sanpham']}'>
-                <button class='edit-theloai-btn'>✏️ Sửa</button></a>";
+                                echo "<td>{$r['matheloai']}</td>";
+                                echo "<td>{$r['tentheloai']}</td>";
+                                echo "<td>{$r['so_sanpham']}</td>";
 
-        // Chỉ hiện nút Xóa nếu số lượng sản phẩm = 0
-        if ((int)$r['so_sanpham'] == 0) {
-            echo "<a href='admin.php?page=category&act=delete_type&id={$r['matheloai']}' 
-                    data-machungloai='{$r['machungloai']}' 
-                    data-tenchungloai='{$r['tenchungloai']}' 
-                    data-matheloai='{$r['matheloai']}' 
-                    data-tentheloai='{$r['tentheloai']}' 
-                    data-so-sanpham='{$r['so_sanpham']}'>
-                    <button class='delete-theloai-btn'>❌ Xóa</button></a>";
-        }
+                                // Cột Hành động cho thể loại
+                                echo "<td>";
+                                // Luôn có nút Sửa
+                                echo "<a href='admin.php?page=category&act=edit_type&id={$r['matheloai']}' 
+                                        data-machungloai='{$r['machungloai']}' 
+                                        data-tenchungloai='{$r['tenchungloai']}' 
+                                        data-matheloai='{$r['matheloai']}' 
+                                        data-tentheloai='{$r['tentheloai']}' 
+                                        data-so-sanpham='{$r['so_sanpham']}'>
+                                        <button class='edit-theloai-btn'>✏️ Sửa</button></a>";
 
-        echo "</td>";
+                                // Chỉ hiện nút Xóa nếu số lượng sản phẩm = 0
+                                // if ((int)$r['so_sanpham'] == 0) {
+                                //     echo "<a href='admin.php?page=category&act=delete_type&id={$r['matheloai']}' 
+                                //             data-machungloai='{$r['machungloai']}' 
+                                //             data-tenchungloai='{$r['tenchungloai']}' 
+                                //             data-matheloai='{$r['matheloai']}' 
+                                //             data-tentheloai='{$r['tentheloai']}' 
+                                //             data-so-sanpham='{$r['so_sanpham']}'>
+                                //             <button class='delete-theloai-btn'>❌ Xóa</button></a>";
+                                // }
 
-        // Cột Thêm thể loại (chỉ ở dòng đầu tiên)
-        if ($first) {
-            echo "<td rowspan='{$rowspan}'>
-                    <a href='admin.php?page=category&act=add_type&cl_id={$r['machungloai']}' 
-                       data-machungloai='{$r['machungloai']}' 
-                       data-tenchungloai='{$r['tenchungloai']}'>
-                       <button class='add-theloai-btn'>➕ Thêm thể loại</button></a>
-                </td>";
-            $first = false;
-        }
+                                echo "</td>";
 
-        echo "</tr>";
-    }
-}
-?>
+                                // Cột Thêm thể loại (chỉ ở dòng đầu tiên)
+                                if ($first) {
+                                    echo "<td rowspan='{$rowspan}'>
+                                            <a href='admin.php?page=category&act=add_type&cl_id={$r['machungloai']}' 
+                                            data-machungloai='{$r['machungloai']}' 
+                                            data-tenchungloai='{$r['tenchungloai']}'>
+                                            <button class='add-theloai-btn'>➕ Thêm thể loại</button></a>
+                                        </td>";
+                                    $first = false;
+                                }
+
+                                echo "</tr>";
+                            }
+                        }
+                    ?>
                 </tbody>
-
-    
-    
-                <!-- <tbody> -->
-                    <!-- Chủng loại "Da mặt" -->
-                    <!-- <tr>
-                        <td rowspan="3">CL001</td>
-                        <td rowspan="3">Da mặt</td>
-                        <td>TL001</td>
-                        <td>Sữa rửa mặt</td>
-                        <td>30</td>
-                        <td>
-                            <a href="admin.php?page=category&act=edit_type&id=TL001"><button class="edit-theloai-btn">✏️ Sửa</button></a>
-                            <a href="admin.php?page=category&act=delete_type&id=TL001"><button class="delete-theloai-btn">❌ Xóa</button></a>
-                        </td>
-                        <td rowspan="3">
-                            <a href="admin.php?page=category&act=add_type&cl_id=CL001">
-                                <button class="add-theloai-btn">➕ Thêm thể loại</button>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>TL002</td>
-                        <td>Tẩy tế bào chết</td>
-                        <td>15</td>
-                        <td>
-                            <a href="admin.php?page=category&act=edit_type&id=TL002"><button class="edit-theloai-btn">✏️ Sửa</button></a>
-                            <a href="admin.php?page=category&act=delete_type&id=TL002"><button class="delete-theloai-btn">❌ Xóa</button></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>TL003</td>
-                        <td>Mặt nạ</td>
-                        <td>20</td>
-                        <td>
-                            <a href="admin.php?page=category&act=edit_type&id=TL003"><button class="edit-theloai-btn">✏️ Sửa</button></a>
-                            <a href="admin.php?page=category&act=delete_type&id=TL003"><button class="delete-theloai-btn">❌ Xóa</button></a>
-                        </td>
-                    </tr> -->
-    
-                    <!-- Chủng loại "Chăm sóc tóc" -->
-                    <!-- <tr>
-                        <td rowspan="2">CL002</td>
-                        <td rowspan="2">Chăm sóc tóc</td>
-                        <td>TL004</td>
-                        <td>Dầu gội</td>
-                        <td>50</td>
-                        <td>
-                            <a href="admin.php?page=category&act=edit_type&id=TL004"><button class="edit-theloai-btn">✏️ Sửa</button></a>
-                            <a href="admin.php?page=category&act=delete_type&id=TL004"><button class="delete-theloai-btn">❌ Xóa</button></a>
-                        </td>
-                        <td rowspan="2">
-                            <a href="admin.php?page=category&act=add_type&cl_id=CL002">
-                                <button class="add-theloai-btn">➕ Thêm thể loại</button>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>TL005</td>
-                        <td>Dầu xả</td>
-                        <td>40</td>
-                        <td>
-                            <a href="admin.php?page=category&act=edit_type&id=TL005"><button class="edit-theloai-btn">✏️ Sửa</button></a>
-                            <a href="admin.php?page=category&act=delete_type&id=TL005"><button class="delete-theloai-btn">❌ Xóa</button></a>
-                        </td>
-                    </tr>
-    
-                    <tr>
-                        <td rowspan="1">CL002</td>
-                        <td rowspan="1">Chăm sóc tóc</td>
-                        <td>TL004</td>
-                        <td>Dầu gội</td>
-                        <td>50</td>
-                        <td>
-                            <a href="admin.php?page=category&act=edit_type&id=TL004"><button class="edit-theloai-btn">✏️ Sửa</button></a>
-                            <a href="admin.php?page=category&act=delete_type&id=TL004"><button class="delete-theloai-btn">❌ Xóa</button></a>
-                        </td>
-                        <td rowspan="1">
-                            <a href="admin.php?page=category&act=add_type&cl_id=CL002">
-                                <button class="add-theloai-btn">➕ Thêm thể loại</button>
-                            </a>
-                        </td>
-                    </tr> -->
-                <!-- </tbody> -->
     
             </table>
         </section>
@@ -334,44 +278,44 @@ foreach ($temp_rows as $machungloai => $rows) {
             });
         });
         
-        // Xóa chủng loại
-        $(document).on("click", ".delete-chungloai-btn", function (e) {
-            e.preventDefault();
-            const row = $(this).closest("tr"); // hàng hiện tại
-            const maCL = $(this).closest("a").attr("href").split("id=")[1];
+        // // Xóa chủng loại
+        // $(document).on("click", ".delete-chungloai-btn", function (e) {
+        //     e.preventDefault();
+        //     const row = $(this).closest("tr"); // hàng hiện tại
+        //     const maCL = $(this).closest("a").attr("href").split("id=")[1];
 
-            if (confirm("Bạn có chắc muốn xóa chủng loại này không?")) {
-                $.ajax({
-                    url: "handles/CategoryController.php",
-                    method: "POST",
-                    dataType: "json",
-                    data: {
-                        action: "delete_chungloai",
-                        machungloai: maCL
-                    },
-                    success: function (res) {
-                        if (res.success) {
-                            // Xoá tất cả hàng có rowspan (nếu có thể loại)
-                            $(`td[rowspan][rowspan!='1']:contains('${maCL}')`).each(function () {
-                                const rowspan = parseInt($(this).attr("rowspan"));
-                                const rowIndex = $(this).closest("tr").index();
-                                for (let i = 0; i < rowspan; i++) {
-                                    $("tbody tr").eq(rowIndex).remove();
-                                }
-                            });
+        //     if (confirm("Bạn có chắc muốn xóa chủng loại này không?")) {
+        //         $.ajax({
+        //             url: "handles/CategoryController.php",
+        //             method: "POST",
+        //             dataType: "json",
+        //             data: {
+        //                 action: "delete_chungloai",
+        //                 machungloai: maCL
+        //             },
+        //             success: function (res) {
+        //                 if (res.success) {
+        //                     // Xoá tất cả hàng có rowspan (nếu có thể loại)
+        //                     $(`td[rowspan][rowspan!='1']:contains('${maCL}')`).each(function () {
+        //                         const rowspan = parseInt($(this).attr("rowspan"));
+        //                         const rowIndex = $(this).closest("tr").index();
+        //                         for (let i = 0; i < rowspan; i++) {
+        //                             $("tbody tr").eq(rowIndex).remove();
+        //                         }
+        //                     });
 
-                            // Nếu là hàng đơn (không rowspan)
-                            row.remove();
-                        } else {
-                            alert("Xóa thất bại");
-                        }
-                    },
-                    error: function () {
-                        alert("Lỗi khi gửi yêu cầu xoá chủng loại");
-                    }
-                });
-            }
-        });
+        //                     // Nếu là hàng đơn (không rowspan)
+        //                     row.remove();
+        //                 } else {
+        //                     alert("Xóa thất bại");
+        //                 }
+        //             },
+        //             error: function () {
+        //                 alert("Lỗi khi gửi yêu cầu xoá chủng loại");
+        //             }
+        //         });
+        //     }
+        // });
         // Mở popup thêm thể loại
         $(document).on("click", ".add-theloai-btn", function (e) {
             e.preventDefault();
@@ -425,14 +369,25 @@ foreach ($temp_rows as $machungloai => $rows) {
             
             const $link = $(this).closest("a");
             const matheloai = $link.data("matheloai");
+            const machungloai = $link.data("machungloai");
             const tenchungloai = $link.data("tenchungloai");
             const tentheloai = $link.data("tentheloai");
             const so_sanpham = $link.data("so-sanpham");
+            
+            // Testing
+            console.log("matheloai:", matheloai);
+            console.log("machungloai:", machungloai);
+            console.log("tenchungloai:", tenchungloai);
+            console.log("tentheloai:", tentheloai);
+            console.log("so_sanpham:", so_sanpham);
 
             $("#edit_matheloai").val(matheloai);
-            $("#edit_tenchungloai_hienthi").text(tenchungloai);
+            $("#edit_tenchungloai_theloai").val(tenchungloai);
             $("#edit_tentheloai").val(tentheloai);
+            $("#edit_machungloai").val(machungloai);
             
+            console.log("Giá trị input #edit_tenchungloai_theloai:", $("#edit_tenchungloai_theloai").val());
+
             // Hiển thị hoặc ẩn nút Xóa dựa trên số lượng sản phẩm
             if (parseInt(so_sanpham) === 0) {
                 $("#btn-xoa-theloai").show();
@@ -465,7 +420,9 @@ foreach ($temp_rows as $machungloai => $rows) {
                 data: {
                     action: "edit_theloai",
                     matheloai: matheloai,
-                    tentheloai: tentheloai
+                    tentheloai: tentheloai,
+                    machungloai: $("#edit_machungloai").val(),
+                    tenchungloai: $("#edit_tenchungloai_theloai").val().trim()
                 },
                 success: function (response) {
                     if (response.success) {
@@ -502,6 +459,86 @@ foreach ($temp_rows as $machungloai => $rows) {
                     },
                     error: function () {
                         alert("Lỗi khi gửi yêu cầu xóa thể loại");
+                    }
+                });
+            }
+        });
+
+        // Mở popup chỉnh sửa chủng loại
+        $(document).on("click", ".edit-chungloai-btn", function (e) {
+            e.preventDefault();
+            
+            const $link = $(this).closest("a");
+            const machungloai = $link.data("machungloai");
+            const tenchungloai = $link.data("tenchungloai");
+
+            $("#edit_machungloai").val(machungloai);
+            $("#edit_tenchungloai").val(tenchungloai);
+            $("#popup-edit-chungloai").addClass("active");
+            
+            console.log("Giá trị input #edit_tenchungloai:", $("#edit_tenchungloai").val());
+
+        });
+
+        // Đóng popup chỉnh sửa chủng loại
+        $("#close-popup-edit-chungloai").on("click", function () {
+            $("#popup-edit-chungloai").removeClass("active");
+        });
+
+        // Gửi AJAX sửa chủng loại
+        $("#edit-chungloai-btn_popup").on("click", function () {
+            const machungloai = $("#edit_machungloai").val();
+            const tenchungloai = $("#edit_tenchungloai").val().trim();
+
+            if (tenchungloai === "") {
+                alert("Vui lòng nhập tên chủng loại");
+                return;
+            }
+
+            $.ajax({
+                url: "handles/CategoryController.php",
+                method: "POST",
+                dataType: "json",
+                data: {
+                    action: "edit_chungloai",
+                    machungloai: machungloai,
+                    tenchungloai: tenchungloai
+                },
+                success: function (response) {
+                    if (response.success) {
+                        location.reload(); // Reload để cập nhật bảng
+                    } else {
+                        alert("Sửa thất bại: " + response.error);
+                    }
+                },
+                error: function () {
+                    alert("Lỗi khi gửi yêu cầu sửa chủng loại");
+                }
+            });
+        });
+
+        // Gửi AJAX xóa chủng loại từ popup
+        $("#btn-xoa-chungloai").on("click", function () {
+            const machungloai = $("#edit_machungloai").val();
+
+            if (confirm("Bạn có chắc muốn xóa chủng loại này không?")) {
+                $.ajax({
+                    url: "handles/CategoryController.php",
+                    method: "POST",
+                    dataType: "json",
+                    data: {
+                        action: "delete_chungloai",
+                        machungloai: machungloai
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            location.reload(); // Reload để cập nhật bảng
+                        } else {
+                            alert("Xóa thất bại: " + response.error);
+                        }
+                    },
+                    error: function () {
+                        alert("Lỗi khi gửi yêu cầu xóa chủng loại");
                     }
                 });
             }

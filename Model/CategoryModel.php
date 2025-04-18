@@ -33,6 +33,13 @@ class CategoryModel {
         $stmt->bind_param("s", $machungloai);
         return $stmt->execute();
     }
+    public function updateChungLoai($machungloai, $tenchungloai) {
+        $stmt = $this->conn->prepare("UPDATE ChungLoai SET tenchungloai = ? WHERE machungloai = ?");
+        $stmt->bind_param("ss", $tenchungloai, $machungloai);
+        $result = $stmt->execute();
+        $stmt->close();
+        return $result;
+    }
     function insertTheLoai($tentheloai, $machungloai) {
         $stmt = $this->conn->prepare("INSERT INTO TheLoai (tentheloai, machungloai) VALUES (?, ?)");
         $stmt->bind_param("si", $tentheloai, $machungloai);

@@ -83,6 +83,7 @@ th {
 
 /* Nút chỉnh sửa */
 .edit-theloai-btn,
+.edit-chungloai-btn,
 .delete-theloai-btn,
 .delete-chungloai-btn{
     border: none;
@@ -103,7 +104,8 @@ th {
     background: #C0392B;
     color: white;
 }
-.edit-theloai-btn:hover {
+.edit-theloai-btn:hover,
+.edit-chungloai-btn:hover {
     background: #D4AC0D;
     color: white;
 }
@@ -131,7 +133,7 @@ th {
     background: white;
     padding: 20px 30px;
     border-radius: 8px;
-    width: 400px;
+    width: 450px;
     /* height: 400px; */
     position: relative;
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
@@ -220,7 +222,8 @@ th {
     color: white;
 }
 
-#btn-xoa-theloai {
+#btn-xoa-theloai,
+#btn-xoa-chungloai {
     background-color: #f44336;
     color: white;
 }
