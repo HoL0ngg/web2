@@ -23,10 +23,11 @@
                 <th>Mã sản phẩm</th>
                 <th>Tên sản phẩm</th>
                 <th>Tên thương hiệu</th>
+                <th>Thể loại</th>
                 <th>Số lượng</th>
                 <th>Giá</th>
                 <th>Ảnh</th>
-                <th>Thể loại</th>
+                <th>Trạng thái</th>
                 <th>Thao tác</th>
             </tr>
             <?php
@@ -44,16 +45,17 @@
             $i = 1;
             while ($row = mysqli_fetch_assoc($result)) {
             ?>
-                <tr>
+                <tr class="<?php echo ($row['status'] == 0) ? 'hidden-product' : ''; ?>">
                     <!-- <td><?php echo $i; ?></td> -->
                     <td><?php echo $row['product_id'] ?></td>
                     <td><?php echo $row['product_name']; ?></td>
                     <td><?php echo $row['brand_name'] ?></td>
+                    <td><?php echo $row['tentheloai']; ?></td>
                     <td><?php echo $row['quantity'] ?></td>
                     <td><?php echo $row['price']; ?></td>
                     <!-- <td><img src="imgs/sp1.jpg" alt="product-image"></td> -->
                     <td><img src="<?php echo $row['image_url']; ?>" alt="product-image"></td>
-                    <td><?php echo $row['tentheloai']; ?></td>
+                    <td><?php echo $row['status'] == 0 ? '<span class="status-no-complete">Ẩn sản phẩm</span>' : '<span class="status-complete">Hiển thị</span>' ?></td>
                     <td>
                         <div>
                             <a href="admin.php?page=product&action=edit&id=<?php echo $row['product_id']; ?>" class="btn">✏️ Sửa</a>
@@ -152,7 +154,7 @@
         transition: all 0.3s ease;
         display: inline-flex;
         align-items: center;
-        white-space: nowrap
+        white-space: nowrap;
     }
 
     #product-header-btn .btn:hover {

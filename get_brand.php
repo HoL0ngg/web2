@@ -1,11 +1,9 @@
 <?php
 require_once('database/connect.php');
 require_once('./handles/BrandController.php');
-if (isset($_GET['maChungloai'])) {
-    $maChungloai = $_GET['maChungloai'];
 
     $BrandController = new BrandController();
-    $brandnames = $BrandController->getBrandByMaChungLoai($maChungloai);
+    $brandnames = $BrandController->getAllBrand();
 
     foreach ($brandnames as $brandname) {
         $id = $brandname['brand_id'];
@@ -15,6 +13,5 @@ if (isset($_GET['maChungloai'])) {
         echo "<span>$ten</span>";
         echo "</li>";
     }
-}
 ?> 
 

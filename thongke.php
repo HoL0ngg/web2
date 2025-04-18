@@ -61,34 +61,33 @@
         <a href="#" class="export-btn">Xuất Excel</a>
     </div>
     <table>
-        <tr>
-            <th>STT</th>
-            <th>Tên khách hàng</th>
-            <th>Tổng hóa đơn</th>
-            <th>Số lượng đơn</th>
-            <th>Hành động</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Nguyễn Văn A</td>
-            <td>25,000,000 VND</td>
-            <td>15</td>
-            <td><a href="#">Xem chi tiết</a></td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Nguyễn Văn B</td>
-            <td>24,000,000 VND</td>
-            <td>15</td>
-            <td><a href="#">Xem chi tiết</a></td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Nguyễn Văn C</td>
-            <td>20,000,000 VND</td>
-            <td>15</td>
-            <td><a href="#">Xem chi tiết</a></td>
-        </tr>
+        <?php
+        require_once 'Model/TKModel.php';
+        $tkModel = new TKModel();
+
+        $top5 = $tkModel->getTop5KhachHang();
+        if ($top5) {
+            echo '<tr>';
+            echo '<th>STT</th>';
+            echo '<th>Tên khách hàng</th>';
+            echo '<th>Số điện thoại</th>';
+            // echo '<th>Địa chỉ</th>';
+            echo '<th>Tổng tiền</th>';
+            echo '</tr>';
+
+            foreach ($top5 as $index => $khachHang) {
+                echo '<tr>';
+                echo '<td>' . ($index + 1) . '</td>';
+                echo '<td>' . htmlspecialchars($khachHang['customer_name']) . '</td>';
+                echo '<td>' . htmlspecialchars($khachHang['phone']) . '</td>';
+                // echo '<td>' . htmlspecialchars($khachHang['dia_chi']) . '</td>';
+                echo '<td>' . number_format($khachHang['order_sum'], 0, ',', '.') . ' VNĐ</td>';
+                echo '</tr>';
+            }
+        } else {
+            echo '<tr><td colspan="5">Không có dữ liệu.</td></tr>';
+        }
+        ?>
     </table>
 
 </div>
@@ -111,9 +110,9 @@
 
     .thongke-item {
         background-color: white;
-        height: 100px;
-        width: calc(100% / 2 - 160px);
-        margin: 24px 80px;
+        height: 140px;
+        width: calc(100% / 2 - 140px);
+        margin: 24px 70px;
         display: flex;
         align-items: center;
         border-radius: 6px;

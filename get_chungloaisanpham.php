@@ -1,18 +1,26 @@
 <?php
 require_once('database/connect.php');
 require_once('./handles/ChungLoaiController.php');
-if (isset($_GET['maChungloai'])) {
-    $maChungloai = $_GET['maChungloai'];
+require_once('get_loaisanpham.php');
     $ChungLoaiController = new ChungLoaiController();
-    $chungloais = $ChungLoaiController->getChungLoaiByChungLoai($maChungloai);
+    $chungloais = $ChungLoaiController->getAllChungLoai();
+
+    $get_loaisanpham = new get_loaisanpham();
 
     foreach ($chungloais as $chungloai) {
         $ten = htmlspecialchars($chungloai['tenchungloai']);
-        echo "<div>";
-        echo "$ten";
-        echo "</div>";
+    $maCL = $chungloai['machungloai'];
+    $hinhAnh = htmlspecialchars($chungloai['hinhanh']);
+
+    echo "<li class='chungloaisanpham'>";
+    echo "<a href='index.php?maChungloai=$maCL'>";
+    echo "<img src='$hinhAnh' alt='$ten' />"; 
+    echo "<span class='chungloai-title'>$ten</span>";
+    echo "</a>";
+
+    // Hiển thị danh sách thể loại
+    $get_loaisanpham->get_loaisanpham($maCL);
+
+    echo "</li>";
     }
-} else {
-    echo "Không có chủng loại được chọn.";
-}
 ?>

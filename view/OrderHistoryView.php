@@ -1,13 +1,35 @@
 <?php
-require_once './handles/EmployeeController.php';
-require_once './handles/AddressController.php';
-require_once './handles/DetailOrderController.php';
-?>
-
+    require_once './handles/EmployeeController.php';
+    require_once './handles/AddressController.php';
+    require_once './handles/DetailOrderController.php';
+    require_once './handles/CustomerController.php';
+    ?>
 <main class="main-content">
     <header>
         <h1>Lịch Sử Mua Hàng</h1>
     </header>
+    <div class="filter-form">
+        <label>Ngày từ:
+            <input type="date" id="fromDate">
+        </label>
+
+        <label>đến:
+            <input type="date" id="toDate">
+        </label>
+
+        <label>Trạng thái:
+            <select id="orderStatus">
+                <option value="">Tất cả</option>
+                <option value="processing">processing</option>
+                <option value="shipping">shipping</option>
+                <option value="delivered">delivered</option>
+                <option value="cancelled">cancelled</option>
+            </select>
+        </label>
+
+        <button onclick="filterOrders()">Lọc</button>
+        <button onclick="refreshOrders()">Làm mới</button>
+    </div>
 
     <!-- Danh sách đơn hàng -->
     <section class="order-list">
@@ -76,5 +98,38 @@ require_once './handles/DetailOrderController.php';
 </main>
 
 <style>
+.filter-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    margin-top: 15px;
+}
 
+.filter-form label {
+    display: flex;
+    /* align-items: center; */
+    justify-content: space-around;
+    font-weight: bold;
+}
+.filter-form button{
+    /* margin-top: 15px; */
+    height: 30px;
+    width:100px;
+    cursor: pointer;
+    background-color: #3498DB;
+    border: none;
+    border-radius: 5px;
+}
+
+.filter-form button:hover{
+    background-color:rgb(36, 108, 156);
+} 
+
+.filter-form input, .filter-form select, .filter-form button {
+    margin-left: 5px;
+    padding: 4px 6px;
+    font-size: 14px;
+} 
 </style>

@@ -12,4 +12,8 @@ class BrandController
     public function getBrandByMaChungLoai($machungloai){
         return $this->model->getBrandByMaChungLoai($machungloai);
     }
+
+    public function getAllBrand(){
+        return $this->model->getALL();
+    }
 }

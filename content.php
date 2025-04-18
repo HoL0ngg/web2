@@ -2,32 +2,24 @@
     <?php
     $action = '';
 
-    if (isset($_GET['maChungloai'])) {
-        $action = 'maChungloai';
-    } elseif (isset($_GET['orderhistory'])) {
+    if (isset($_GET['orderhistory'])) {
         $action = 'orderhistory';
-    } else {
+    } else if (isset($_GET['loveProduct'])) {
+        $action = 'loveProduct';
+    } else
         $action = 'default';
-    }
 
     switch ($action) {
-        case 'maChungloai':
-            include('left_menu.php');
-            break;
-
         case 'orderhistory':
             require_once './handles/OrderController.php';
             $OrderHistoryController = new OrderController();
             $OrderHistoryController->getAllOrderHistoryByCustomerId(2);
             break;
-
+        case 'loveProduct':
+            include 'view/LoveProductView.php';
+            break;
         default:
-            echo '
-                <div id="rightmenu_product">
-                    <div id="product-container"></div>
-                    <div id="pagenum"></div>
-                </div>
-            ';
+            include('left_menu.php');
             break;
     }
     ?>

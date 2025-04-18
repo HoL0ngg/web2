@@ -112,40 +112,6 @@ if (updateUserFrm) {
     updateUserFrm.addEventListener("submit", userFormHandler);
 }
 
-// async function loadUsers() {        
-//     const response = await fetch("handles/getUsers.php");
-//     const users = await response.json();
-//     let userTable = document.getElementById("userTable");
-//     if(userTable) userTable.innerHTML = "";
-//     let rows = "";
-//     // console.log(users);
-    
-//     if(users.length == 0){
-//         rows += `<tr>
-//                     <td colspan="7">Không tìm thấy dữ liệu</td>
-//                 </tr>`
-//     }else{
-//         users.forEach(user =>{  
-//             // console.log(user);
-                          
-//             rows += `<tr>
-//                          <td>${user.user_id}</td>
-//                          <td>${user.username}</td>
-//                          <td>${user.phone}</td>
-//                          <td>${user.email}</td>
-//                          <td>${user.status == 0 ? `<span class="status-no-complete">Bị khóa</span>` : `<span class="status-complete">Hoạt động</span>`}</td>
-//                          <td>${user.role_id == 1 ? "Admin" : "User"}</td>
-//                          <td>
-//                              <a href="admin.php?page=user&act=update&uid=${user.user_id}"><button class="edit-btn">✏️ Sửa</button></a>
-//                              <button class="delete-btn-user" data-id=${user.user_id}>❌ Xóa</button>
-//                          </td>            
-//                      </tr>`;
-//         });
-//     }
-//     if(userTable != null){
-//         userTable.innerHTML = rows;
-//     }
-// }
 document.addEventListener("click", function(event) {
     if (event.target.classList.contains("delete-btn-user")) {
         let userId = event.target.getAttribute("data-id");
@@ -194,7 +160,7 @@ if(productAddForm){
     productAddForm.addEventListener('submit', async (e) => {
         e.preventDefault();
     
-        if(validateAddProductForm()){
+        if(validateProductForm()){
             let formData = new FormData(e.target); // Sửa ở đây
             formData.append("action","addProduct");
             try {
@@ -216,7 +182,40 @@ if(productAddForm){
         }
     });
 }
-function validateAddProductForm() {
+const productUpdateForm = document.getElementById("productUpdateForm");
+if(productUpdateForm){
+    productUpdateForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+    
+        if(validateProductForm()){
+            let formData = new FormData(e.target); // Sửa ở đây
+            formData.append("action","updateProduct");
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+            if (productId) {
+                formData.append("product_id", productId);
+            }     
+            try {
+                const response = await fetch('api/product_api.php', {
+                    method: "POST",
+                    body: formData
+                });
+                const data = await response.json();
+                if (data.success) {
+                    handleSuccessResponse(data);
+                } else {
+                    handleErrorResponse(data);
+                    console.error("Lỗi:", data.message);
+                }
+            } catch (error) { // Sửa ở đây
+                console.error("Lỗi hệ thống: ", error);
+                showToast("Lỗi hệ thống", false);
+            }
+        }
+    });
+}
+function validateProductForm() {
     let isValid = true;    
     
     const productName = document.getElementById('productname').value.trim();
@@ -225,11 +224,9 @@ function validateAddProductForm() {
     const theloai = document.getElementById('theloai').value.trim();
     const thuonghieu = document.getElementById('thuonghieu').value.trim();
     const mota = document.getElementById('mota').value.trim();
-    const imageInput = document.getElementById('imageInput').files.length; 
-console.log(theloai);
-console.log(thuonghieu);
-
-console.log(imageInput);
+    const imageInput = document.getElementById('imageInput').files.length;     
+    const previewImage = document.querySelector('#imagePreview img');
+    const hasPreviewImage = previewImage && previewImage.getAttribute('src') !== 'imgs/addImg.png';
 
     if (productName === '') {
         isValid = false;
@@ -270,10 +267,10 @@ console.log(imageInput);
         showToast("Vui lòng nhập mô tả sản phẩm", isValid);
         return isValid;
     }
-    if (imageInput == 0) {
+    if (imageInput === 0 && !hasPreviewImage) {
         isValid = false;
         showToast("Vui lòng chọn hình ảnh sản phẩm.", isValid);
-        return isValid;        
+        return isValid;
     }
     return isValid;
 }

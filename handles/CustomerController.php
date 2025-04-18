@@ -8,8 +8,11 @@ class CustomerController
         $this->model = new CustomerModel();
     }
 
-    public function getCustomerByID($id)
-    {
-        return $this->model->getCustomerByID($id);
+    public function getAllKhachHang(){
+        return $this->model->getAllKhachHang();
+    }
+
+    public function getNameCustomerByID($id){
+        return $this->model->getNameCustomerByID($id);
     }
 }

@@ -1,3 +1,22 @@
+<?php
+$cartCount = 0;
+require_once('handles/CartController.php');
+require_once 'Model/TKModel.php';
+if (isset($_SESSION['username'])) {
+    $tkmodel = new TKModel();
+    $customer_id = $tkmodel->getIdByUsername($_SESSION['username']);
+    $customer_id = $tkmodel->getCustomerIdByUserId($customer_id);
+    $cartController = new CartController();
+    $cartCount = $cartController->getCartCount($customer_id);
+} else {
+    if (isset($_SESSION['cart'])) {
+        $cartCount = count($_SESSION['cart']);
+    } else {
+        $cartCount = 0;
+    }
+}
+
+?>
 <div id="header">
     <div id="top-header">
         <div id="left-header">
@@ -51,20 +70,23 @@
                 </div>
             </div>
             <div>
-                <div style="position: relative;">
-                    <i class="fa-regular fa-heart fa-xl"></i>
-                    <div
-                        style="position: absolute; top: -16px; right: -8px; background-color: #c8edf7; border-radius: 100%; width: 16px; height: 16px; text-align: center;">
-                        0</div>
+                <div id="love-container">
+                    <div style="position: relative;">
+                        <i class="fa-regular fa-heart fa-xl"></i>
+                        <div
+                            style="position: absolute; top: -16px; right: -12px; background-color: #c8edf7; border-radius: 100%; width: 20px; height: 20px; text-align: center;">
+                            0</div>
+                    </div>
                 </div>
             </div>
             <div>
                 <div id="cart-container">
                     <div style="position: relative;">
                         <i class="fa-solid fa-bag-shopping fa-xl" style="color: white;"></i>
-                        <div
-                            style="position: absolute; top: -16px; right: -8px; background-color: #c8edf7; border-radius: 100%; width: 16px; height: 16px; text-align: center;">
-                            0</div>
+                        <div id="cart-count"
+                            style="position: absolute; top: -16px; right: -12px; background-color: #c8edf7; border-radius: 100%; width: 20px; height: 20px; text-align: center;">
+                            <?php if ($cartCount < 10) echo $cartCount;
+                            else echo "9+" ?></div>
                     </div>
                     <div style="color: white;">Giỏ hàng</div>
                 </div>
@@ -77,49 +99,34 @@
                 <div><a href="index.php">Trang chủ</a></div>
                 <div>Giới thiệu</div>
                 <div id="sp" style="display: flex; align-items: center; gap: 8px;">
-                    <div>Sản phẩm</div>
+                    <div>Lọc Sản Phẩm</div>
                     <div class="icon-up"><i class="fa-solid fa-sort-up"></i></div>
                     <div id="product-menu">
                         <div id="product-menu-nav">
-                            <!-- <ul>
-                                <li>
-                                    <a href="index.php?maChungloai=1">
-                                        <img src="imgs/trangdiem.webp" alt="">
-                                        <span>Trang Điểm</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="index.php?maChungloai=2">
-                                        <img src="imgs/chamsocdamat.webp" alt="">
-                                        <span>Chăm Sóc Da Mặt</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="index.php?maChungloai=3">
-                                        <img src="imgs/chamsoccothe.webp" alt="">
-                                        <span>Chăm Sóc Cơ Thể</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="index.php?maChungloai=4">
-                                        <img src="imgs/chamsoctocdadau.webp" alt="">
-                                        <span>Chăm Sóc Tóc & Chăm Sóc Da Đầu</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="index.php?maChungloai=5">
-                                        <img src="imgs/chamsoccanhan.webp" alt="">
-                                        <span>Chăm Sóc Cá Nhân</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="index.php?maChungloai=6">
-                                        <img src="imgs/nuochoa.webp" alt="">
-                                        <span>Nước Hoa</span>
-                                    </a>
-                                </li>
-
-                            </ul> -->
+                            <div id="brand">
+                                <h2>Hãng</h2>
+                                <?php
+                                include('get_brand.php');
+                                ?>
+                            </div>
+                            <div id="theloai">
+                                <h2>Thể loại</h2>
+                                <?php
+                                require_once('get_loaisanpham.php');
+                                $get_loaisanpham = new get_loaisanpham();
+                                $get_loaisanpham->get_loaisanphamfilter();
+                                ?>
+                            </div>
+                            <div id="price">
+                                <h2>Khoảng giá</h2>
+                                <div id="input"><input type="text" id="minprice" placeholder="0" />
+                                    <span>-</span>
+                                    <input type="text" id="maxprice" placeholder="100.000.000" />
+                                </div>
+                                <div id="button"><button id='filters'>Áp dụng lọc</button>
+                                    <button id='reset-filters'> Đặt lại</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

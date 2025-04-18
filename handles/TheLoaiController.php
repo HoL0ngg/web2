@@ -12,4 +12,8 @@ class TheLoaiController
     public function getTheLoaiByChungLoai($machungloai){
         return $this->model->getTheLoaiByChungLoai($machungloai);
     }
+
+    public function getALLtheloai(){
+        return $this->model->getALL();
+    }
 }

@@ -72,11 +72,22 @@ CREATE TABLE KhachHang (
 );
 -- Bảng DiaChi
 CREATE TABLE DiaChi (
-    address_id INT PRIMARY KEY,
-    level1 VARCHAR(50),
-    level2 VARCHAR(50),
-    level3 VARCHAR(50),
-    level4 VARCHAR(50)
+    address_id INT PRIMARY KEY AUTO_INCREMENT,
+    ThanhPho VARCHAR(50),
+    Quan VARCHAR(50),
+    Phuong VARCHAR(50),
+    SoNha VARCHAR(50)
+);
+
+CREATE TABLE giohang (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL DEFAULT 1,
+    
+    -- Ràng buộc khóa ngoại
+    FOREIGN KEY (customer_id) REFERENCES khachhang(customer_id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
 );
 -- Bảng KhachHang_DiaChi
 CREATE TABLE KhachHang_DiaChi (
@@ -134,14 +145,14 @@ CREATE TABLE SanPhamGiamGia (
 -- Bảng YeuThich
 CREATE TABLE YeuThich (
     love_id INT AUTO_INCREMENT PRIMARY KEY,
-    username varchar(50),
+    user_id int,
     product_id INT,
-    FOREIGN KEY (username) REFERENCES users(username),
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (product_id) REFERENCES SanPham(product_id)
 );
 -- Bảng DonHang
 CREATE TABLE DonHang (
-    order_id INT PRIMARY KEY,
+    order_id INT PRIMARY KEY AUTO_INCREMENT,
     employee_id INT,
     customer_id INT,
     address_id INT,
@@ -153,8 +164,8 @@ CREATE TABLE DonHang (
         'delivered',
         'cancelled'
     ),
-    reviewDate DATE,
-    reviewDetails VARCHAR(255),
+    note varchar(255),
+    PTTT varchar(50),
     FOREIGN KEY (employee_id) REFERENCES NhanVien(employee_id),
     FOREIGN KEY (customer_id) REFERENCES KhachHang(customer_id),
     FOREIGN KEY (address_id) REFERENCES DiaChi(address_id)
@@ -354,29 +365,30 @@ VALUES (
 INSERT INTO DiaChi
 VALUES (
         1,
-        'TP. HCM',
+        'Thành phố Hồ Chí Minh',
         'Quận 1',
         'Phường Bến Nghé',
         '123 Lê Lợi'
     ),
     (
         2,
-        'TP. HCM',
+        'Thành phố Hồ Chí Minh',
         'Quận Bình Thạnh',
         'Phường 1',
         '113 Xô Viết Nghệ Tĩnh'
     ),
     (
         3,
-        'TP. HCM',
+        'Thành phố Hồ Chí Minh',
         'Quận 3',
         'Phường 6',
         '456 Cách Mạng'
     );
 -- KhachHang_DiaChi
 INSERT INTO KhachHang_DiaChi
-VALUES (1, 1, TRUE),
-    (2, 2, TRUE),
+VALUES 
+    (2, 1, FALSE),
+    (2, 2, FALSE),
     (2, 3, FALSE);
 -- NhaCungCap
 INSERT INTO NhaCungCap

@@ -2,11 +2,47 @@
     require_once './handles/CustomerController.php';
     require_once './handles/AddressController.php';
     require_once './handles/DetailOrderController.php';
+    require_once './handles/CustomerController.php';
     ?>
     <main class="main-content">
         <header>
             <h1>Quản Lý Đơn Hàng</h1>
         </header>
+    <div class="filter-form">
+        <label>Ngày từ:
+            <input type="date" id="fromDate">
+        </label>
+
+        <label>đến:
+            <input type="date" id="toDate">
+        </label>
+
+        <label>Khách hàng:
+            <select id="customerId">
+                <option value="">Tất cả</option>
+                <?php
+                $CustomerController = new CustomerController();
+                $khachhangs = $CustomerController -> getAllKhachHang();
+                foreach($khachhangs as $khachhang):
+                ?>
+                <option value="<?= $khachhang['customer_id'] ?>"><?= $khachhang['customer_name'] ?></option>
+                <?php endforeach; ?>
+            </select>
+        </label>
+
+        <label>Trạng thái:
+            <select id="orderStatus">
+                <option value="">Tất cả</option>
+                <option value="processing">processing</option>
+                <option value="shipping">shipping</option>
+                <option value="delivered">delivered</option>
+                <option value="cancelled">cancelled</option>
+            </select>
+        </label>
+
+        <button onclick="filterOrders()">Lọc</button>
+        <button onclick="refreshOrders()">Làm mới</button>
+    </div>
 
         <!-- Danh sách đơn hàng -->
         <section class="order-list">
@@ -28,7 +64,7 @@
                         foreach($orders as $order):
                             $CustomerController = new CustomerController();
                             $AddressController = new AddressController();
-                            $customer = $CustomerController->getCustomerByID($order['customer_id']);
+                            $name = $CustomerController->getNameCustomerByID($order['customer_id']);
                             $address = $AddressController->getAddressByID($order['address_id']);
                     ?>
                     <tr>
@@ -198,43 +234,44 @@
     }
 
 
+
+ .filter-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.filter-form label {
+    display: flex;
+    /* align-items: center; */
+    justify-content: space-around;
+    font-weight: bold;
+}
+.filter-form button{
+    margin-top: 15px;
+    height: 35px;
+    width:100px;
+    cursor: pointer;
+    background-color: #3498DB;
+    border: none;
+    border-radius: 5px;
+}
+
+.filter-form button:hover{
+    background-color:rgb(36, 108, 156);
+} 
+
+.filter-form input, .filter-form select, .filter-form button {
+    margin-left: 5px;
+    padding: 4px 6px;
+    font-size: 14px;
+} 
     </style>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Xử lý nút xác nhận đơn hàng
-            const confirmButtons = document.querySelectorAll('.confirm-btn');
-
-            confirmButtons.forEach(button => {
-                button.addEventListener('click', function(){
-                    const statusCell = this.closest('.status-cell');
-                    const orderId = statusCell.dataset.orderId;
-                    const currentStatus = statusCell.querySelector('.status').innerText.trim();
-
-                    let newStatus = "";
-                    if (currentStatus === 'processing') newStatus = 'shipping';
-                    else if (currentStatus === 'shipping') newStatus = 'delivered';
-                    else return;
-
-                    if(confirm("xác nhận đơn hàng")){
-                        fetch('change_status_order.php',{
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                            body: `order_id=${orderId}&status=${newStatus}`
-                        })
-                    .then(res => res.text())
-                    .then(data=>{
-                        statusCell.querySelector('.status').innerText = newStatus;
-                        if (newStatus === 'delivered') {
-                        this.style.display = 'none';
-                        
-                    }
-                    showToast("Thay đổi thành công", true);
-                    })
-                    }
-            });
-        });
-
-        const cancelButtons = document.querySelectorAll('.cancel-btn');
+        function cancelOrder(){
+            const cancelButtons = document.querySelectorAll('.cancel-btn');
             cancelButtons.forEach(button => {
                 button.addEventListener('click',function(){
                     const row = this.closest('tr');
@@ -269,6 +306,87 @@
                 });
                     
             });
+        }
+
+        function confirmOrder(){
+                const confirmButtons = document.querySelectorAll('.confirm-btn');
+
+                confirmButtons.forEach(button => {
+                button.addEventListener('click', function(){
+                const statusCell = this.closest('.status-cell');
+                const orderId = statusCell.dataset.orderId;
+                const currentStatus = statusCell.querySelector('.status').innerText.trim();
+
+                let newStatus = "";
+                if (currentStatus === 'processing') newStatus = 'shipping';
+                else if (currentStatus === 'shipping') newStatus = 'delivered';
+                else return;
+
+                if(confirm("xác nhận đơn hàng")){
+                    fetch('change_status_order.php',{
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: `order_id=${orderId}&status=${newStatus}`
+                    })
+                .then(res => res.text())
+                .then(data=>{
+                    statusCell.querySelector('.status').innerText = newStatus;
+                    if (newStatus === 'delivered') {
+                    this.style.display = 'none';
+                    
+                }
+                showToast("Thay đổi thành công", true);
+                })
+                }
+        });
+        });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Xử lý nút xác nhận đơn hàng
+          
+        confirmOrder();
+        cancelOrder();
+
+
     }); 
+    function filterOrders() {
+    const from = document.getElementById('fromDate').value;
+    const to = document.getElementById('toDate').value;
+    const customerId = document.getElementById('customerId').value;
+    const status = document.getElementById('orderStatus').value;
+
+    const formData = new URLSearchParams();
+    formData.append('from', from);
+    formData.append('to', to);
+    formData.append('customerId', customerId);
+    formData.append('status', status);
+
+    fetch('get_filter_order.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: formData.toString()
+    })
+    .then(res => res.text())
+    .then(data => {
+        const tbody = document.getElementById('orderTable');
+        tbody.innerHTML = data;
+        confirmOrder();
+        cancelOrder();
+    })
+    .catch(error => {
+        console.error("Lỗi khi lọc đơn hàng:", error);
+    });
+}
+ function refreshOrders(){
+    document.getElementById('fromDate').value="";
+    document.getElementById('toDate').value="";
+    document.getElementById('customerId').selectedIndex = 0;
+    document.getElementById('orderStatus').selectedIndex = 0;
+    filterOrders();
+ }
+
 
     </script>

@@ -22,4 +22,9 @@ class handleLove
     {
         return $this->model->getLoveProducts($customer_id);
     }
+
+    public function checkProductInWishlist($userId, $productId)
+    {
+        return $this->model->checkProductInWishlist($userId, $productId);
+    }
 }

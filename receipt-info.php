@@ -1,16 +1,19 @@
 <?php
+require_once './handles/DiaChiController.php';
+$diachiController = new DiaChiController();
 $order = $_SESSION['order_info'];
+$diachi = $diachiController->getDiaChiById($order['address_id']);
 ?>
 
-<div style="width: 42%; margin: 32px auto 0px; padding: 24px 48px; background-color:rgba(52, 152, 219, 0.5); border-radius: 10px">
+<div style="width: 38%; margin: 32px auto 0px; padding: 24px 48px; background-color:rgba(52, 152, 219, 0.5); border-radius: 10px">
     <div class="progress-container">
         <div class="progress-step active" data-step="Giỏ hàng"><i class="fa-solid fa-cart-shopping"></i></div>
         <span class="progress-line active"></span>
         <div class="progress-step active" data-step="Thông tin cá nhân"><i class="fa-solid fa-address-card"></i></div>
         <span class="progress-line active"></span>
         <div class="progress-step active" data-step="Hóa đơn"><i class="fa-solid fa-receipt"></i></div>
-        <span class="progress-line"></span>
-        <div class="progress-step" data-step="Hoàn tất"><i class="fa-solid fa-circle-check"></i></div>
+        <!-- <span class="progress-line"></span>
+        <div class="progress-step" data-step="Hoàn tất"><i class="fa-solid fa-circle-check"></i></div> -->
     </div>
 </div>
 
@@ -20,7 +23,7 @@ $order = $_SESSION['order_info'];
     </div>
     <div class="receipt-content">
         <p><strong>Tên khách hàng: </strong><?php echo $order['hoten'] ?></p>
-        <p><strong>Địa chỉ giao hàng: </strong><?php echo $order['diachi'] . ' ' . $order['phuong'] . ' ' . $order['quan'] . ' ' . $order['thanhpho'] ?></p>
+        <p><strong>Địa chỉ giao hàng: </strong><?php echo $diachi['SoNha'] . ' ' . $diachi['Phuong'] . ' ' . $diachi['Quan'] . ' ' . $diachi['ThanhPho']; ?></p>
         <p><strong>Số điện thoại: </strong><?php echo $order['sdt'] ?></p>
         <p><strong>Email: </strong> <?php echo $order['email'] ?></p>
         <p><strong>Ngày đặt hàng: </strong> <?php echo $order['order_time'] ?></p>
@@ -40,8 +43,8 @@ $order = $_SESSION['order_info'];
                 <?php
                 $productmodel = new ProductModel();
                 $total = 0;
-                foreach ($_SESSION['cart'] as $item):
-                    $id = $item['id'];
+                foreach ($_SESSION['order_info']['cart'] as $item):
+                    $id = $item['product_id'];
                     $quantity = $item['quantity'];
                     $row = $productmodel->getProductById($id);
                     $img_url = $productmodel->getMainImageByProductId($id);
@@ -123,3 +126,17 @@ $order = $_SESSION['order_info'];
         cursor: pointer;
     }
 </style>
+<script>
+    document.querySelector('.btn-HoanThanh').addEventListener('click', function() {
+        Swal.fire({
+            title: 'Đặt hàng thành công!',
+            text: 'Cảm ơn bạn đã đặt hàng tại cửa hàng của chúng tôi!',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '/index.php';
+            }
+        });
+    });
+</script>

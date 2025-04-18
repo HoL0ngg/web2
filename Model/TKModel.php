@@ -234,4 +234,113 @@ class TKModel
         $stmt->close();
         return $users;
     }
+
+    public function getIdByUsername($username)
+    {
+        $sql = "SELECT user_id FROM users WHERE username = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row['user_id'];
+        } else {
+            return null; // Không tìm thấy user_id
+        }
+    }
+
+    public function getCustomerIdByUserId($user_id)
+    {
+        $sql = "SELECT customer_id FROM khachhang WHERE user_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row['customer_id'];
+        } else {
+            return null; // Không tìm thấy customer_id
+        }
+    }
+    public function isUsernameExists($username)
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        return $stmt->get_result()->num_rows > 0;
+    }
+
+    public function isPhoneExists($phone)
+    {
+        $tables = ['khachhang', 'nhanvien'];
+        foreach ($tables as $table) {
+            $stmt = $this->conn->prepare("SELECT 1 FROM $table WHERE phone = ? LIMIT 1");
+            $stmt->bind_param("s", $phone);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result->num_rows > 0) {
+                $stmt->close();
+                return true;
+            }
+            $stmt->close();
+        }
+        return false;
+    }
+    public function insertUser($username, $password, $role_id = 3)
+    {
+        $sql = "INSERT INTO users(username, password, role_id) VALUES(?,?,?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("ssi", $username, $password, $role_id);
+        $stmt->execute();
+        $user_id = $this->conn->insert_id;
+        $stmt->close();
+        return $user_id;
+    }
+    public function insertKhachHang($user_id, $phone)
+    {
+        $sql = "INSERT INTO khachhang(user_id,phone) VALUES(?,?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("is", $user_id, $phone);
+        $stmt->execute();
+        $customer_id = $this->conn->insert_id;
+        $stmt->close();
+        return $customer_id;
+    }
+
+    public function insertDiaChi($thanhpho, $quan, $phuong, $sonha)
+    {
+        $stmt = $this->conn->prepare("INSERT INTO diachi (ThanhPho, Quan, Phuong, SoNha) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $thanhpho, $quan, $phuong, $sonha);
+        $stmt->execute();
+        $insertId = $stmt->insert_id;
+        $stmt->close();
+        return $insertId; // trả về address_id
+    }
+
+    public function insertKhachHangDiaChi($customer_id, $address_id, $isDefault = false)
+    {
+        $sql = "INSERT INTO khachhang_diachi(customer_id, address_id,is_default) VALUES(?,?,?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("iis", $customer_id, $address_id, $isDefault);
+        $stmt->execute();
+        $stmt->close();
+    }
+
+    public function getTop5KhachHang()
+    {
+        $sql = "SELECT kh.customer_id, kh.customer_name, kh.phone, SUM(dh.total) AS order_sum
+                FROM khachhang kh
+                JOIN donhang dh ON kh.customer_id = dh.customer_id
+                GROUP BY kh.customer_id, kh.customer_name, kh.phone
+                ORDER BY order_sum DESC
+                LIMIT 5";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $topCustomers = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $topCustomers;
+    }
 }
