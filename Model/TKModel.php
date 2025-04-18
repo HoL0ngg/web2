@@ -343,4 +343,20 @@ class TKModel
         $stmt->close();
         return $topCustomers;
     }
+
+    public function getOrderById($id)
+    {
+        $sql = "SELECT khachhang.customer_name, khachhang.phone, khachhang.customer_id 
+                FROM donhang 
+                JoIN khachhang 
+                ON donhang.customer_id = khachhang.customer_id 
+                WHERE donhang.customer_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $order = $result->fetch_assoc();
+        $stmt->close();
+        return $order;
+    }
 }

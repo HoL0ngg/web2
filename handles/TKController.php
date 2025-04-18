@@ -145,6 +145,13 @@
 
             echo json_encode($response);
         }
+
+        public function getOrderById($id)
+        {
+            $id = (int)$id;
+            $order = $this->tkmodel->getOrderById($id);
+            return $order;
+        }
     }
 
     ?>
