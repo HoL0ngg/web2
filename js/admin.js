@@ -1,19 +1,38 @@
+// function effectSideBar() {
+//     const allSideMenu = document.querySelectorAll("#menu ul li a");
+//     // Lấy đường dẫn hiện tại trên URL
+//     const currentPage = new URLSearchParams(window.location.search).get("page");
+
+//     allSideMenu.forEach(item => {
+//         // Lấy giá trị 'page' từ href
+//         const page = new URL(item.href).searchParams.get("page");
+//         if (page === currentPage) {
+//             item.parentElement.classList.add("active");
+//         } else {
+//             item.parentElement.classList.remove("active");
+//         }
+//     });
+
+// }
 function effectSideBar() {
     const allSideMenu = document.querySelectorAll("#menu ul li a");
-    // Lấy đường dẫn hiện tại trên URL
-    const currentPage = new URLSearchParams(window.location.search).get("page");
+    // Get the current page from the URL, default to 'admin_home' if no page parameter
+    const currentPage = new URLSearchParams(window.location.search).get("page") || "admin_home";
 
     allSideMenu.forEach(item => {
-        // Lấy giá trị 'page' từ href
-        const page = new URL(item.href).searchParams.get("page");
+        // Get the 'page' parameter from the href
+        const page = new URL(item.href, window.location.origin).searchParams.get("page") || "admin_home";
+        // Set the active class if the page matches
         if (page === currentPage) {
             item.parentElement.classList.add("active");
         } else {
             item.parentElement.classList.remove("active");
         }
     });
-
 }
+
+// Call the function when the page loads
+document.addEventListener("DOMContentLoaded", effectSideBar);
 function hiddenSideBar() {
     let hiddenBtn = document.getElementById("hideSideBar");
     let leftContainer = document.getElementById("container-left");

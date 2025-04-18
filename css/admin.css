@@ -98,7 +98,8 @@ body {
     /* border-bottom: 1px solid #ccc;     */
     text-decoration: none;
     font-size: 1.1rem;
-    border-radius: 48px 0 0 48px;
+    border-radius: 48px;
+    /* border-radius: 48px 0 0 48px; */
     height: 48px;
     display: flex;
     align-items: center;
