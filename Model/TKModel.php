@@ -327,4 +327,20 @@ class TKModel
         $stmt->execute();
         $stmt->close();
     }
+
+    public function getTop5KhachHang()
+    {
+        $sql = "SELECT kh.customer_id, kh.customer_name, kh.phone, SUM(dh.total) AS order_sum
+                FROM khachhang kh
+                JOIN donhang dh ON kh.customer_id = dh.customer_id
+                GROUP BY kh.customer_id, kh.customer_name, kh.phone
+                ORDER BY order_sum DESC
+                LIMIT 5";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $topCustomers = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $topCustomers;
+    }
 }
