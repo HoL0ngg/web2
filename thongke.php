@@ -73,6 +73,7 @@
             echo '<th>Số điện thoại</th>';
             // echo '<th>Địa chỉ</th>';
             echo '<th>Tổng tiền</th>';
+            echo '<th>Hành động</th>';
             echo '</tr>';
 
             foreach ($top5 as $index => $khachHang) {
@@ -82,6 +83,7 @@
                 echo '<td>' . htmlspecialchars($khachHang['phone']) . '</td>';
                 // echo '<td>' . htmlspecialchars($khachHang['dia_chi']) . '</td>';
                 echo '<td>' . number_format($khachHang['order_sum'], 0, ',', '.') . ' VNĐ</td>';
+                echo '<td><a href="admin.php?page=thongke&id=' . $khachHang['customer_id'] . '">Xem chi tiết</a></td>';
                 echo '</tr>';
             }
         } else {

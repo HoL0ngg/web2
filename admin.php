@@ -148,7 +148,15 @@
                     $OrderHistoryController = new OrderController();
                     $OrderHistoryController->getAllOrder();
                 } elseif ($page == 'thongke') {
-                    include('thongke.php');
+                    if (isset($_GET['id'])) {
+                        $id = $_GET['id'];
+                        require_once 'handles/TKController.php';
+                        $tkController = new TKController();
+                        $result = $tkController->getOrderById($id);
+                        var_dump($result);
+                    } else {
+                        include('thongke.php');
+                    }
                 } elseif ($page == 'phanquyen') {
                     require_once('handles/PhanQuyenController.php');
                     $phanquyenController = new PhanQuyenController();
