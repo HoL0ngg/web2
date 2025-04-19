@@ -346,7 +346,7 @@ class TKModel
 
     public function getOrderById($id)
     {
-        $sql = "SELECT KhachHang.customer_name, KhachHang.phone, KhachHang.customer_id 
+        $sql = "SELECT KhachHang.customer_name, KhachHang.phone, KhachHang.customer_id, DonHang.total, DonHang.order_id, DonHang.OrderDate
                 FROM DonHang 
                 JoIN KhachHang 
                 ON DonHang.customer_id = KhachHang.customer_id 
@@ -355,8 +355,12 @@ class TKModel
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $result = $stmt->get_result();
-        $order = $result->fetch_assoc();
+
+        $orders = [];
+        while ($row = $result->fetch_assoc()) {
+            $orders[] = $row;
+        }
         $stmt->close();
-        return $order;
+        return $orders;
     }
 }
