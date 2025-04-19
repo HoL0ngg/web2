@@ -22,41 +22,46 @@
                 <h1>Quản Lý Đơn Hàng</h1>
             </header>
             <div class="filter-form">
-                <label>Ngày từ:
-                    <input type="date" id="fromDate">
-                </label>
+                <div class="filter-form_input">
 
-                <label>đến:
-                    <input type="date" id="toDate">
-                </label>
+                    <label>Ngày từ:
+                        <input type="date" id="fromDate">
+                    </label>
+    
+                    <label>đến:
+                        <input type="date" id="toDate">
+                    </label>
+    
+                    <!-- ------------ -->
+    
+                    <label>Khách hàng:
+                        <select id="customerId">
+                            <option value="">Tất cả</option>
+                            <?php
+                            $CustomerController = new CustomerController();
+                            $khachhangs = $CustomerController->getAllKhachHang();
+                            foreach ($khachhangs as $khachhang):
+                            ?>
+                                <option value="<?= $khachhang['customer_id'] ?>"><?= $khachhang['customer_name'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </label>
+    
+                    <label>Trạng thái:
+                        <select id="orderStatus">
+                            <option value="">Tất cả</option>
+                            <option value="processing">processing</option>
+                            <option value="shipping">shipping</option>
+                            <option value="delivered">delivered</option>
+                            <option value="cancelled">cancelled</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="filter-form_button">
+                    <button onclick="filterOrders()">Lọc</button>
+                    <button onclick="refreshOrders()">Làm mới</button>
+                </div>
 
-                <!-- ------------ -->
-
-                <label>Khách hàng:
-                    <select id="customerId">
-                        <option value="">Tất cả</option>
-                        <?php
-                        $CustomerController = new CustomerController();
-                        $khachhangs = $CustomerController->getAllKhachHang();
-                        foreach ($khachhangs as $khachhang):
-                        ?>
-                            <option value="<?= $khachhang['customer_id'] ?>"><?= $khachhang['customer_name'] ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </label>
-
-                <label>Trạng thái:
-                    <select id="orderStatus">
-                        <option value="">Tất cả</option>
-                        <option value="processing">processing</option>
-                        <option value="shipping">shipping</option>
-                        <option value="delivered">delivered</option>
-                        <option value="cancelled">cancelled</option>
-                    </select>
-                </label>
-
-                <button onclick="filterOrders()">Lọc</button>
-                <button onclick="refreshOrders()">Làm mới</button>
             </div>
 
             <!-- Danh sách đơn hàng -->
