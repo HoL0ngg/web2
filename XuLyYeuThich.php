@@ -28,6 +28,7 @@
         } else {
             // Đã đăng nhập 
             $userId = $user->getIdByUsername($_SESSION['username']);
+            $userId = $user->getCustomerIdByUserId($userId);
 
             $stmt = $handleLove->checkProductInWishlist($userId, $productId);
 
@@ -47,6 +48,7 @@
     if ($action === 'getLoveProducts') {
         if (isset($_SESSION['username'])) {
             $userId = $user->getIdByUsername($_SESSION['username']);
+            $userId = $user->getCustomerIdByUserId($userId);
 
             $result = $handleLove->getLoveProducts($userId);
 
@@ -72,6 +74,8 @@
     if ($action === 'UpdateWishlistSessionToDatabase') {
         if (isset($_SESSION['username'])) {
             $userId = $user->getIdByUsername($_SESSION['username']);
+            $userId = $user->getCustomerIdByUserId($userId);
+
             $wishlist = isset($_SESSION['wishlist']) ? $_SESSION['wishlist'] : [];
 
             // Gộp lại các sản phẩm từ session vào database
@@ -85,6 +89,20 @@
             echo json_encode(['status' => 'success', 'message' => 'Cập nhật danh sách yêu thích thành công']);
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Bạn chưa đăng nhập']);
+        }
+        exit;
+    }
+
+    if ($action === 'getLoveCount') {
+        if (isset($_SESSION['username'])) {
+            $userId = $user->getIdByUsername($_SESSION['username']);
+            $userId = $user->getCustomerIdByUserId($userId);
+
+            $count = $handleLove->getLoveCount($userId);
+            echo json_encode(['status' => 'success', 'count' => $count]);
+        } else {
+            $count = isset($_SESSION['wishlist']) ? count($_SESSION['wishlist']) : 0;
+            echo json_encode(['status' => 'success', 'count' => $count]);
         }
         exit;
     }

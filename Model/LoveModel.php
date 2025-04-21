@@ -44,4 +44,14 @@ class LoveModel
         $stmt->execute();
         return $stmt->get_result();
     }
+
+    public function getLoveCount($customerId)
+    {
+        $sql = "SELECT COUNT(*) as count FROM yeuthich WHERE user_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $customerId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc()['count'];
+    }
 }

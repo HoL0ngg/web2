@@ -151,32 +151,9 @@
                     if (isset($_GET['id'])) {
                         $id = $_GET['id'];
                         require_once 'handles/TKController.php';
-                        require_once 'view/OrderView.php';
                         $tkController = new TKController();
                         $orders = $tkController->getOrderById($id);
-                        // var_dump($result);
-                        if (!empty($orders)) {
-                            echo "<table border='1' cellpadding='10'>";
-                            echo "<tr>
-                                    <th>Order ID</th>
-                                    <th>Order Date</th>
-                                    <th>Total</th>
-                                    <th>Customer Name</th>
-                                    <th>Phone</th>
-                                  </tr>";
-                            foreach ($orders as $order) {
-                                echo "<tr>
-                                        <td>{$order['order_id']}</td>
-                                        <td>{$order['OrderDate']}</td>
-                                        <td>{$order['total']}</td>
-                                        <td>{$order['customer_name']}</td>
-                                        <td>{$order['phone']}</td>
-                                      </tr>";
-                            }
-                            echo "</table>";
-                        } else {
-                            echo "Không có đơn hàng nào.";
-                        }
+                        require_once 'view/OrderView.php';
                     } else {
                         include('thongke.php');
                     }

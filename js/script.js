@@ -221,7 +221,16 @@ document.getElementById('cart-container').addEventListener('click', (e) => {
 })
 
 document.getElementById('love-container').addEventListener('click', (e) => {
-    window.location.href = "index.php?loveProduct";
+    fetch('/handles/getSession.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                loadProducts(1, true);
+                // window.location.href = "XuLyYeuThich.php?action=yeuthich";
+            } else {
+                showToast("Vui lòng đăng nhập để xem sản phẩm yêu thích!", false);
+            }
+        })
 })
 
 function UpdateCartSessionToDatabase() {
@@ -456,6 +465,8 @@ window.addEventListener("scroll", function () {
 
 function changeColorPagenum(pagenum) {
     const btnArray = document.querySelectorAll("#pagenum div");
+    if (btnArray.length == 0) return;
+
     // console.log(btnArray);
     btnArray[pagenum - 1].classList.add("active");
     btnArray.forEach(btn => {
@@ -521,7 +532,7 @@ function loadLoveProducts() {
         });
 }
 
-async function loadProducts(pagenum = 1) {
+async function loadProducts(pagenum = 1, isLove = false) {
     const urlParams = new URLSearchParams(window.location.search);
     const maChungLoai = parseInt(urlParams.get("maChungloai") || 0);
     const maTheLoai = parseInt(urlParams.get("maTheLoai") || 0);
@@ -551,7 +562,7 @@ async function loadProducts(pagenum = 1) {
 
 
 
-    const response = await fetch(`../api/pagination_api.php?pagenum=${pagenum}&keyword=${encodeURIComponent(keyword)}&selected_checkboxes_brand=${encodeURIComponent(JSON.stringify(selected_checkboxes_brand))}&selected_checkboxes_loaisanpham=${encodeURIComponent(JSON.stringify(selected_checkboxes_loaisanpham))}&minprice=${minPrice}&maxprice=${maxPrice}&maChungLoai=${maChungLoai}&maTheLoai=${maTheLoai}`);
+    const response = await fetch(`../api/pagination_api.php?pagenum=${pagenum}&keyword=${encodeURIComponent(keyword)}&selected_checkboxes_brand=${encodeURIComponent(JSON.stringify(selected_checkboxes_brand))}&selected_checkboxes_loaisanpham=${encodeURIComponent(JSON.stringify(selected_checkboxes_loaisanpham))}&minprice=${minPrice}&maxprice=${maxPrice}&maChungLoai=${maChungLoai}&maTheLoai=${maTheLoai}&isLove=${isLove}`);
 
     const data = await response.json();
     console.log(data);
@@ -565,6 +576,7 @@ async function loadProducts(pagenum = 1) {
     if (!pageNum) return;
     pageNum.innerHTML = "";
     let s = "";
+    proContainer.innerHTML = "";
     data.products.forEach(product => {
         s += `<div class="product" data-id="${product.product_id} ">
         <div class="product-img">
@@ -626,6 +638,7 @@ function toggleLove(element, productId) {
                 icon.classList.remove("fa-regular");
                 icon.classList.add("fa-solid");
             }
+            updateLoveCount();
             showToast(data.message, true);
         });
 }
@@ -737,8 +750,8 @@ addToCart = (id, quantity) => {
                     borderRadius: "8px",
                 }
             }).showToast();
+            updateCartCount();
         });
-    updateCartCount();
 }
 
 function updateCartCount() {
@@ -755,6 +768,23 @@ function updateCartCount() {
             if (data.count < 10)
                 document.getElementById("cart-count").innerText = data.count;
             else document.getElementById("cart-count").innerText = "9+";
+        })
+}
+
+function updateLoveCount() {
+    // Cập nhật số lượng sản phẩm yêu thích
+    fetch('XuLyYeuThich.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `action=getLoveCount`
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.count < 10)
+                document.getElementById("love-count").innerText = data.count;
+            else document.getElementById("love-count").innerText = "9+";
         })
 }
 //PRODUCT DETAIL
@@ -887,22 +917,22 @@ function filterOrders() {
         },
         body: formData.toString()
     })
-    .then(res => res.text())
-    .then(data => {
-        const tbody = document.getElementById('orderTable');
-        tbody.innerHTML = data;
-        HuyDonHang();
-    })
-    .catch(error => {
-        console.error("Lỗi khi lọc đơn hàng:", error);
-    });
+        .then(res => res.text())
+        .then(data => {
+            const tbody = document.getElementById('orderTable');
+            tbody.innerHTML = data;
+            HuyDonHang();
+        })
+        .catch(error => {
+            console.error("Lỗi khi lọc đơn hàng:", error);
+        });
 }
- function refreshOrders(){
-    document.getElementById('fromDate').value="";
-    document.getElementById('toDate').value="";
+function refreshOrders() {
+    document.getElementById('fromDate').value = "";
+    document.getElementById('toDate').value = "";
     document.getElementById('orderStatus').selectedIndex = 0;
     filterOrders();
- }
+}
 
 window.onload = function () {
     closeButton();
@@ -915,7 +945,7 @@ window.onload = function () {
     changePasswordNotification();
     openLoginForm();
     openLoginForm();
-    loadProducts();
+    loadProducts(1, false);
     HuyDonHang();
 }
 

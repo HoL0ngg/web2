@@ -27,4 +27,9 @@ class handleLove
     {
         return $this->model->checkProductInWishlist($userId, $productId);
     }
+
+    public function getLoveCount($customerId)
+    {
+        return $this->model->getLoveCount($customerId);
+    }
 }

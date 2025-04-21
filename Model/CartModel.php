@@ -27,10 +27,23 @@ class CartModel
 
     public function addProductToCart($productId, $quantity, $customerId)
     {
-        $sql = "INSERT INTO giohang (product_id, quantity, customer_id) VALUES (?, ?, ?)";
+        $sql = "Select * from giohang where product_id = ? and customer_id = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("iii", $productId, $quantity, $customerId);
-        return $stmt->execute();
+        $stmt->bind_param("ii", $productId, $customerId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $sql = "UPDATE giohang SET quantity = quantity + ? WHERE product_id = ? AND customer_id = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("iii", $quantity, $productId, $customerId);
+        } else {
+            $sql = "INSERT INTO giohang (product_id, quantity, customer_id) VALUES (?, ?, ?)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("iii", $productId, $quantity, $customerId);
+        }
+        $stmt->execute();
+        $stmt->close();
+        return $stmt->affected_rows > 0;
     }
 
     public function removeCart($customerId)

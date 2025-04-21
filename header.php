@@ -1,18 +1,24 @@
 <?php
 $cartCount = 0;
-require_once('handles/CartController.php');
+$loveCount = 0;
+require_once 'handles/CartController.php';
 require_once 'Model/TKModel.php';
+require_once 'handles/handleLove.php';
 if (isset($_SESSION['username'])) {
     $tkmodel = new TKModel();
     $customer_id = $tkmodel->getIdByUsername($_SESSION['username']);
     $customer_id = $tkmodel->getCustomerIdByUserId($customer_id);
     $cartController = new CartController();
+    $loveController = new handleLove();
     $cartCount = $cartController->getCartCount($customer_id);
+    $loveCount = $loveController->getLoveCount($customer_id);
 } else {
     if (isset($_SESSION['cart'])) {
         $cartCount = count($_SESSION['cart']);
+        $loveCount = count($_SESSION['wishlist']);
     } else {
         $cartCount = 0;
+        $loveCount = 0;
     }
 }
 
@@ -73,9 +79,9 @@ if (isset($_SESSION['username'])) {
                 <div id="love-container">
                     <div style="position: relative;">
                         <i class="fa-regular fa-heart fa-xl"></i>
-                        <div
+                        <div id="love-count"
                             style="position: absolute; top: -16px; right: -12px; background-color: #c8edf7; border-radius: 100%; width: 20px; height: 20px; text-align: center;">
-                            0</div>
+                            <?php echo ($loveCount < 10 ? $loveCount : '9+') ?></div>
                     </div>
                 </div>
             </div>
@@ -85,8 +91,7 @@ if (isset($_SESSION['username'])) {
                         <i class="fa-solid fa-bag-shopping fa-xl" style="color: white;"></i>
                         <div id="cart-count"
                             style="position: absolute; top: -16px; right: -12px; background-color: #c8edf7; border-radius: 100%; width: 20px; height: 20px; text-align: center;">
-                            <?php if ($cartCount < 10) echo $cartCount;
-                            else echo "9+" ?></div>
+                            <?php echo ($cartCount < 10 ? $cartCount : '9+') ?></div>
                     </div>
                     <div style="color: white;">Giỏ hàng</div>
                 </div>
