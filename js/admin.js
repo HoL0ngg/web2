@@ -253,18 +253,18 @@ function validateProductForm() {
         return isValid;
     }
 
-    if (quantity === '' || isNaN(quantity) || quantity <= 0) {
-        isValid = false;
-        showToast("Vui lòng nhập số lượng hợp lệ!", isValid);
-        return isValid;
-    }
+    // if (quantity === '' || isNaN(quantity) || quantity <= 0) {
+    //     isValid = false;
+    //     showToast("Vui lòng nhập số lượng hợp lệ!", isValid);
+    //     return isValid;
+    // }
 
     // Kiểm tra Giá
-    if (price === '' || isNaN(price) || price <= 0) {
-        isValid = false;
-        showToast("Vui lòng nhập giá hợp lệ.", isValid);
-        return isValid;
-    }
+    // if (price === '' || isNaN(price) || price <= 0) {
+    //     isValid = false;
+    //     showToast("Vui lòng nhập giá hợp lệ.", isValid);
+    //     return isValid;
+    // }
 
     // Kiểm tra Thể loại
     if (theloai === '') {
