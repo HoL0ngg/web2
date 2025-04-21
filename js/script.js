@@ -651,7 +651,7 @@ document.getElementById("timkiem").addEventListener("keyup", () => loadProducts(
 document.getElementById("filters").addEventListener("click", function () {
     const url = new URL(window.location.href);
     url.searchParams.delete("maChungloai");
-    url.searchParams.delete("maTheLoai");
+    url.searchParams.delete("maTheLoai");   
     window.history.pushState({}, '', url);
     loadProducts(1);
 });
@@ -673,15 +673,22 @@ document.getElementById("filters").addEventListener('click', function () {
     const url = new URL(window.location.href);
     url.searchParams.delete("maChungloai");
     url.searchParams.delete("maTheLoai");
+    document.querySelectorAll(".loaisanpham").forEach(i => i.classList.remove("active"));
     loadProducts(1);
 });
 
 
-const loaiSanPhamItems = document.querySelectorAll(".loaisanpham");
-
-loaiSanPhamItems.forEach(item => {
+function loadproductleftmenu(){
+    const loaiSanPhamItems = document.querySelectorAll(".loaisanpham");
+    loaiSanPhamItems.forEach(item => {
     item.addEventListener("click", function () {
         // Lấy maTheLoai từ data-matheloai
+        document.getElementById('minprice').value = "";
+        document.getElementById('maxprice').value = "";
+        document.querySelectorAll(".brandname").forEach(cb => cb.checked = false);
+        document.querySelectorAll(".loaisanphamcb").forEach(cb => cb.checked = false);
+        document.getElementById("timkiem").value = "";
+
         const maTheLoai = parseInt(this.dataset.matheloai);
         const maChungloai = parseInt(this.dataset.machungloai);
 
@@ -697,6 +704,7 @@ loaiSanPhamItems.forEach(item => {
         loadProducts(1);
     });
 });
+}
 
 function formatNumberInput(input) {
     let value = input.value.replace(/\D/g, "");
@@ -874,10 +882,10 @@ function filterOrders() {
     const to = document.getElementById('toDate').value;
     const status = document.getElementById('orderStatus').value;
 
+
     const formData = new URLSearchParams();
     formData.append('from', from);
     formData.append('to', to);
-    formData.append('customerId', 2);
     formData.append('status', status);
 
     fetch('get_filter_orderhistory.php', {
@@ -925,5 +933,6 @@ window.onload = function () {
 
     loadProducts();
     HuyDonHang();
+    loadproductleftmenu();
 }
 
