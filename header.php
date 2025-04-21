@@ -15,9 +15,12 @@ if (isset($_SESSION['username'])) {
 } else {
     if (isset($_SESSION['cart'])) {
         $cartCount = count($_SESSION['cart']);
-        $loveCount = count($_SESSION['wishlist']);
     } else {
         $cartCount = 0;
+    }
+    if (isset($_SESSION['wishlist'])) {
+        $loveCount = count($_SESSION['wishlist']);
+    } else {
         $loveCount = 0;
     }
 }

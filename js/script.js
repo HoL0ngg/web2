@@ -664,7 +664,7 @@ document.getElementById("timkiem").addEventListener("keyup", () => loadProducts(
 document.getElementById("filters").addEventListener("click", function () {
     const url = new URL(window.location.href);
     url.searchParams.delete("maChungloai");
-    url.searchParams.delete("maTheLoai");   
+    url.searchParams.delete("maTheLoai");
     window.history.pushState({}, '', url);
     loadProducts(1);
 });
@@ -691,32 +691,32 @@ document.getElementById("filters").addEventListener('click', function () {
 });
 
 
-function loadproductleftmenu(){
+function loadproductleftmenu() {
     const loaiSanPhamItems = document.querySelectorAll(".loaisanpham");
     loaiSanPhamItems.forEach(item => {
-    item.addEventListener("click", function () {
-        // Lấy maTheLoai từ data-matheloai
-        document.getElementById('minprice').value = "";
-        document.getElementById('maxprice').value = "";
-        document.querySelectorAll(".brandname").forEach(cb => cb.checked = false);
-        document.querySelectorAll(".loaisanphamcb").forEach(cb => cb.checked = false);
-        document.getElementById("timkiem").value = "";
+        item.addEventListener("click", function () {
+            // Lấy maTheLoai từ data-matheloai
+            document.getElementById('minprice').value = "";
+            document.getElementById('maxprice').value = "";
+            document.querySelectorAll(".brandname").forEach(cb => cb.checked = false);
+            document.querySelectorAll(".loaisanphamcb").forEach(cb => cb.checked = false);
+            document.getElementById("timkiem").value = "";
 
-        const maTheLoai = parseInt(this.dataset.matheloai);
-        const maChungloai = parseInt(this.dataset.machungloai);
+            const maTheLoai = parseInt(this.dataset.matheloai);
+            const maChungloai = parseInt(this.dataset.machungloai);
 
-        const url = new URL(window.location.href);
-        url.searchParams.delete("maChungloai")
-        url.searchParams.set("maChungloai", maChungloai);
-        url.searchParams.set("maTheLoai", maTheLoai);
-        history.pushState({}, "", url);
+            const url = new URL(window.location.href);
+            url.searchParams.delete("maChungloai")
+            url.searchParams.set("maChungloai", maChungloai);
+            url.searchParams.set("maTheLoai", maTheLoai);
+            history.pushState({}, "", url);
 
-        loaiSanPhamItems.forEach(i => i.classList.remove("active"));
-        this.classList.add("active");
+            loaiSanPhamItems.forEach(i => i.classList.remove("active"));
+            this.classList.add("active");
 
-        loadProducts(1);
+            loadProducts(1);
+        });
     });
-});
 }
 
 function formatNumberInput(input) {
@@ -743,21 +743,9 @@ addToCart = (id, quantity) => {
         },
         body: `action=addtocart&id=${id}&quantity=${quantity}`
     })
-        .then(res => res.text())
+        .then(res => res.json())
         .then(data => {
-            Toastify({
-                text: `🛒 Đã thêm vào giỏ hàng!`,
-                duration: 3000,
-                gravity: "top",
-                position: "center",
-                timerProgressBar: true,
-                style: {
-                    background: "#4CAF50",
-                    color: "#fff",
-                    padding: "10px",
-                    borderRadius: "8px",
-                }
-            }).showToast();
+            showToast("Thêm vào giỏ hàng thành công", true);
             updateCartCount();
         });
 }

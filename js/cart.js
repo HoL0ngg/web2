@@ -71,13 +71,15 @@ updateCart = () => {
         document.getElementById('cart-info').style.display = 'none';
         document.getElementById('cart_empty_container').style.display = 'flex';
     }
+    let cartCount = 0;
 
     cartItems.forEach(item => {
         const price = parseFloat(item.querySelector('.new-price').textContent.replace('đ', '').replace('.', ''));
         const quantity = parseInt(item.querySelector('.cart-quantity').textContent);
         total += price * quantity;
+        cartCount += quantity;
     });
-
+    document.querySelector('#cart-count').textContent = cartCount;
     document.querySelector('.total-price').textContent = total.toLocaleString('vi-VN') + ' VNĐ';
 }
 

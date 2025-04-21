@@ -122,6 +122,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'getCartCount'
             foreach ($_SESSION['cart'] as $item) {
                 $cartCount += $item['quantity'];
             }
+        } else {
+            $cartCount = 0;
         }
     }
     echo json_encode(['count' => $cartCount]);
