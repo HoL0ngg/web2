@@ -905,6 +905,7 @@ function filterOrders() {
  }
 
 window.onload = function () {
+    console.log("Window loaded");
     closeButton();
     loginNotification();
     registerNotification();
@@ -913,8 +914,15 @@ window.onload = function () {
     closeWithoutButton("changepassword-container");
     openChangePasswordForm();
     changePasswordNotification();
+
+    console.log("Window loaded: before openLoginForm");
+
     openLoginForm();
     openLoginForm();
+
+    console.log("Window loaded: after openLoginForm");
+
+
     loadProducts();
     HuyDonHang();
 }

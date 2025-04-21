@@ -12,7 +12,7 @@
 
         public function getAll()
         {
-            $sql = "SELECT brand_id, brand_name FROM brand";
+            $sql = "SELECT brand_id, brand_name FROM Brand";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -23,9 +23,9 @@
 
         public function getBrandByMaChungLoai($machungloai){
             $sql = "SELECT DISTINCT b.brand_id, b.brand_name
-                    FROM theloai t
-                    JOIN sanpham s ON t.matheloai = s.matheloai
-                    JOIN brand b ON s.brand_id = b.brand_id
+                    FROM TheLoai t
+                    JOIN SanPham s ON t.matheloai = s.matheloai
+                    JOIN Brand b ON s.brand_id = b.brand_id
                     WHERE t.machungloai = ?;
                     ";
             $stmt= $this->conn->prepare($sql);

@@ -13,7 +13,7 @@
 
         public function getAll()
         {
-            $sql = "SELECT matheloai, tentheloai FROM theloai";
+            $sql = "SELECT matheloai, tentheloai FROM TheLoai";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -23,7 +23,7 @@
         }
 
         public function getTheLoaiByChungLoai($machungloai){
-            $sql = "SELECT matheloai , tentheloai FROM theloai WHERE machungloai = ?";
+            $sql = "SELECT matheloai , tentheloai FROM TheLoai WHERE machungloai = ?";
             $stmt= $this->conn->prepare($sql);
             $stmt->bind_param("i", $machungloai);
             $stmt->execute();
