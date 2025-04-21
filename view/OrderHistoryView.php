@@ -4,31 +4,47 @@
     require_once './handles/DetailOrderController.php';
     require_once './handles/CustomerController.php';
     ?>
+<!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <!-- Gọi file CSS -->
+        <link rel="stylesheet" href="css/orderhistory.css">
+    </head>
+<body>
+    
 <main class="main-content">
     <header>
         <h1>Lịch Sử Mua Hàng</h1>
     </header>
     <div class="filter-form">
+       <div class="filter-form_input">
         <label>Ngày từ:
-            <input type="date" id="fromDate">
-        </label>
+                <input type="date" id="fromDate">
+            </label>
 
-        <label>đến:
-            <input type="date" id="toDate">
-        </label>
+            <label>đến:
+                <input type="date" id="toDate">
+            </label>
 
-        <label>Trạng thái:
-            <select id="orderStatus">
-                <option value="">Tất cả</option>
-                <option value="processing">processing</option>
-                <option value="shipping">shipping</option>
-                <option value="delivered">delivered</option>
-                <option value="cancelled">cancelled</option>
-            </select>
-        </label>
+            <label>Trạng thái:
+                <select id="orderStatus">
+                    <option value="">Tất cả</option>
+                    <option value="processing">processing</option>
+                    <option value="shipping">shipping</option>
+                    <option value="delivered">delivered</option>
+                    <option value="cancelled">cancelled</option>
+                </select>
+            </label>
+       </div>
 
-        <button onclick="filterOrders()">Lọc</button>
-        <button onclick="refreshOrders()">Làm mới</button>
+        <div class="filter-form_button">
+            <button onclick="filterOrders()">Lọc</button>
+            <button onclick="refreshOrders()">Làm mới</button>
+        </div>
     </div>
 
     <!-- Danh sách đơn hàng -->
@@ -96,8 +112,9 @@
 </div>
 
 </main>
+</body>
 
-<style>
+<!-- <style>
 .filter-form {
     display: flex;
     align-items: center;
@@ -132,4 +149,5 @@
     padding: 4px 6px;
     font-size: 14px;
 } 
-</style>
+</style> -->
+    </html>
