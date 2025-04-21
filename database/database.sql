@@ -143,9 +143,9 @@ CREATE TABLE SanPhamGiamGia (
 -- Bảng YeuThich
 CREATE TABLE YeuThich (
     love_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id int,
+    customer_id int,
     product_id INT,
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (customer_id) REFERENCES KhachHang(customer_id),
     FOREIGN KEY (product_id) REFERENCES SanPham(product_id)
 );
 -- Bảng DonHang
