@@ -42,7 +42,7 @@ class CartModel
             $stmt->bind_param("iii", $productId, $quantity, $customerId);
         }
         $stmt->execute();
-        $stmt->close();
+        // $stmt->close();
         return $stmt->affected_rows > 0;
     }
 

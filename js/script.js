@@ -747,6 +747,9 @@ addToCart = (id, quantity) => {
         .then(data => {
             showToast("Thêm vào giỏ hàng thành công", true);
             updateCartCount();
+        })
+        .catch(err => {
+            console.error("Lỗi khi thêm vào giỏ hàng:", err);
         });
 }
 

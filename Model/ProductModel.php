@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once __DIR__ . '/../database/connect.php';
 // require_once('database/connect.php');
 class ProductModel

@@ -56,7 +56,7 @@
             foreach ($result as $row) {
                 $data[] = [
                     'product_id' => $row['product_id'],
-                    'user_id' => $row['user_id']
+                    'customer_id' => $row['customer_id']
                 ];
             }
 
