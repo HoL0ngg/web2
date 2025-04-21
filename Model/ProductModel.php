@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once __DIR__ . '/../database/connect.php';
 // require_once('database/connect.php');
 class ProductModel
@@ -91,12 +92,12 @@ class ProductModel
         }
 
         if ($isLove == true) {
-            $sql .= " AND sp.product_id IN (SELECT product_id FROM yeuthich WHERE user_id = ?)";
+            $sql .= " AND sp.product_id IN (SELECT product_id FROM yeuthich WHERE customer_id = ?)";
             $types .= "i";
             require_once __DIR__ . '/../Model/TKModel.php';
             $tkModel = new TKModel();
             $userId = $tkModel->getIdByUsername($_SESSION['username']);
-            // $userId = $tkModel->getCustomerIdByUserId($userId);
+            $userId = $tkModel->getCustomerIdByUserId($userId);
             $params[] = $userId;
         }
 
@@ -199,7 +200,7 @@ class ProductModel
         }
 
         if ($isLove) {
-            $sql .= " AND sp.product_id IN (SELECT product_id FROM yeuthich WHERE user_id = ?)";
+            $sql .= " AND sp.product_id IN (SELECT product_id FROM yeuthich WHERE customer_id = ?)";
             $types .= "i";
             require_once __DIR__ . '/../Model/TKModel.php';
             $tkModel = new TKModel();

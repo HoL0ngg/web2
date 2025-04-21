@@ -16,12 +16,12 @@ class ProductController
         return $this->model->getNameProductById($id);
     }
 
-    public function getProductsPaginated($page = 1, $limit = 8, $keyword = "", $selected_checkboxes_brand = [], $selected_checkboxes_loaisanpham = [], $matheloai = 0, $price = 0, $maChungLoai = 0, $isLove = false)
+    public function getProductsPaginated($page = 1, $limit = 8, $keyword = "", $selected_checkboxes_brand = [], $selected_checkboxes_loaisanpham = [], $matheloai = 0, $minprice, $maxprice, $maChungLoai = 0, $isLove = false)
     {
 
-        $products = $this->model->getProductsByPageNum($page, $limit, $keyword, $selected_checkboxes_brand, $selected_checkboxes_loaisanpham, $matheloai, $price, $maChungLoai, $isLove);
+        $products = $this->model->getProductsByPageNum($page, $limit, $keyword, $selected_checkboxes_brand, $selected_checkboxes_loaisanpham, $matheloai, $minprice, $maxprice, $maChungLoai, $isLove);
         // var_dump($products);
-        $totalProducts = $this->model->getQuantityProducts($keyword, $selected_checkboxes_brand, $selected_checkboxes_loaisanpham, $matheloai, $price, $maChungLoai, $isLove);
+        $totalProducts = $this->model->getQuantityProducts($keyword, $selected_checkboxes_brand, $selected_checkboxes_loaisanpham, $matheloai, $minprice, $maxprice, $maChungLoai, $isLove);
         $pagenum = ceil($totalProducts / $limit);
 
         $response = ["products" => $products, "totalPage" => $pagenum];
