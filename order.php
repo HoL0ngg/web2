@@ -5,7 +5,7 @@
     require_once './handles/CustomerController.php';
     ?>
 
-    <!DOCTYPE html>
+<!DOCTYPE html>
     <html lang="en">
 
     <head>

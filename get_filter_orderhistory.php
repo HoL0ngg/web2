@@ -1,15 +1,18 @@
 <?php
+session_start();
 require_once './handles/OrderController.php';
 require_once './handles/EmployeeController.php';
 require_once './handles/AddressController.php';
 require_once './handles/DetailOrderController.php';
+require_once './Model/TKModel.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $from = isset($_POST['from']) ? $_POST['from'] : "";
     $to = isset($_POST['to']) ? $_POST['to'] : "";
-    $customerId = isset($_POST['customerId']) ? intval($_POST['customerId']) : 0;
+    $user = new TKModel();
+    $customerId = $user->getIdByUsername($_SESSION['username']);
+    $customerId = $user->getCustomerIdByUserId($customerId);
     $status = isset($_POST['status']) ? $_POST['status'] : "";
-
     $OrderController = new OrderController();
     $EmployeeController = new EmployeeController();
     $AddressController = new AddressController();

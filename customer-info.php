@@ -31,7 +31,7 @@ $customer = $tkModel->getUserById($customer_id);
             <div class="info-container">
                 <div class="input-group"><input type="text" name="hoten" id="txtHoten" placeholder="" value=""><label for="txtHoten">Họ và tên</label></div>
                 <div class="input-group"><input type="text" name="sdt" id="txtSDT" placeholder="" value="<?= $customer['phone'] ?>" readonly><label for="txtSDT">Số điện thoại</label></div>
-                <div class="input-group"><input type="text" name="email" id="txtEmail" placeholder="" value="<?= $customer['email'] ?>" readonly><label for="txtEmail">Email</label></div>
+                <div class="input-group"><input type="text" name="email" id="txtEmail" placeholder="" value="<?= $customer['email'] ?>" ><label for="txtEmail">Email</label></div>
             </div>
             <h3>Địa chỉ giao hàng</h3>
             <div class="diachi-user-container">
