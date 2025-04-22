@@ -62,6 +62,20 @@
                     </li>
 
                     <li>
+                        <a href="admin.php?page=supplier">
+                            <i class="fa-solid fa-truck-field"></i>
+                            <span class="text">Nhà cung cấp</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="admin.php?page=import">
+                            <i class="fa-solid fa-file-invoice"></i>
+                            <span class="text">Nhập hàng</span>
+                        </a>
+                    </li>
+
+                    <li>
                         <a href="admin.php?page=thongke">
                             <i class="fa-solid fa-chart-simple"></i>
                             <span class="text">Thống kê</span>
@@ -147,6 +161,10 @@
                     require_once './handles/OrderController.php';
                     $OrderHistoryController = new OrderController();
                     $OrderHistoryController->getAllOrder();
+                } elseif ($page == 'supplier'){
+                    include('supplier.php');
+                } elseif ($page == 'import'){
+                    include('import.php');
                 } elseif ($page == 'thongke') {
                     if (isset($_GET['id'])) {
                         $id = $_GET['id'];
