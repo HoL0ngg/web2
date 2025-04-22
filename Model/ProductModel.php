@@ -1,4 +1,5 @@
 <?php
+// session_start();
 require_once __DIR__ . '/../database/connect.php';
 // require_once('database/connect.php');
 class ProductModel
@@ -40,6 +41,7 @@ class ProductModel
 
     public function getProductsByPageNum($page = 1, $limit = 8, $keyword = "", $selected_checkboxes_brand = [], $selected_checkboxes_loaisanpham = [], $maTheLoai = 0, $minprice = 0, $maxprice = 9000000, $maChungLoai = 0, $isLove = false)
     {
+        session_start();
         $offset = ($page - 1) * $limit;
         $keyword = "%$keyword%";
 

@@ -1,3 +1,14 @@
+<?php
+session_start();
+if (!isset($_SESSION['admin'])) {
+    header('Location: index.php');
+    exit;
+}
+
+// Nếu đã đăng nhập:
+$admin = $_SESSION['admin'];
+?>
+
 <html lang="en">
 
 <head>
@@ -80,11 +91,11 @@
             <div id="footer">
 
                 <div id="admin-info">
-                    <p>Xin chào: <span>admin</span></p>
+                    <p>Xin chào: <span><?= $_SESSION['admin'] ?></span></p>
                 </div>
 
                 <div id="admin-logout">
-                    <a href="index.php">
+                    <a href="view/admin/logout.php">
                         <i class="fa-solid fa-right-from-bracket"></i>
                         <span class="text">Đăng xuất</span>
                     </a>
