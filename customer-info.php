@@ -86,7 +86,7 @@ $customer = $tkModel->getUserById($customer_id);
                     <input type="radio" name="payment-method" id="visa" value="visa"><img src="https://file.hstatic.net/200000636033/file/icon_atm_eb07d9eabaef47e088d7f214e3562b97.svg" alt="visa"><label for="visa">Thanh toán bằng VISA</label>
                 </div>
                 <div class="payment-method-item">
-                    <input type="radio" name="payment-method" id="momo" value="momo"><img src="https://file.hstatic.net/200000636033/file/momo_50d207f0cbd34562b936001ab362bd8e.png" alt="momo"><label for="mono">Thanh toán qua ví Mono</label>
+                    <input type="radio" name="payment-method" id="momo" value="momo"><img src="https://file.hstatic.net/200000636033/file/momo_50d207f0cbd34562b936001ab362bd8e.png" alt="momo"><label for="momo">Thanh toán qua ví Mono</label>
                 </div>
                 <div class="payment-method-item">
                     <input type="radio" name="payment-method" id="vnpay" value="vnpay"><img src="https://file.hstatic.net/1000006063/file/img-vivnpay.jpg" alt="vnpay"><label for="vnpay">Thanh toán qua ví VNPay</label>
@@ -103,6 +103,14 @@ $customer = $tkModel->getUserById($customer_id);
                 </div>
             </div>
             <div id="confirm-btn">THANH TOÁN NGAY</div>
+            <div id="qr-section-container">
+                <div id="qr-section">
+                    <div class="qr-exitbtn"><i class="fa-solid fa-xmark"></i></div>
+                    <p class="qr-title">Quét mã QR để thanh toán</p>
+                    <img id="qr-image" src="" alt="QR Code"><br>
+                    <button type="button" id="confirm-payment">Tôi đã thanh toán</button>
+                </div>
+            </div>
         </form>
 </div>
 
@@ -204,6 +212,65 @@ $customer = $tkModel->getUserById($customer_id);
 
     .diachi-user-container {
         margin: 16px 0px;
+    }
+
+    #qr-section-container {
+        display: none;
+        position: fixed;
+        text-align: center;
+        margin: auto;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9999;
+    }
+
+    #qr-section {
+        width: 30%;
+        height: 50%;
+        margin: 12.5% auto;
+        background-color: #fff;
+        position: relative;
+        border-radius: 8px;
+    }
+
+    .qr-exitbtn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        font-size: 24px;
+        color: #333;
+        cursor: pointer;
+        /* margin: 0; */
+        z-index: 10000;
+    }
+
+    #qr-section img {
+        width: 70%;
+        height: 70%;
+        object-fit: cover;
+    }
+
+    .qr-title {
+        margin: 16px 0px;
+        font-size: 1.2em;
+        color: #333;
+    }
+
+    #qr-section button {
+        background-color: #3498DB;
+        color: #fff;
+        padding: 16px 32px;
+        border-radius: 8px;
+        text-align: center;
+        cursor: pointer;
+        border: none;
+        font-size: 1.2em;
+        margin-top: 8px;
     }
 
     .diachi-user-container select {

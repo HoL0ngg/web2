@@ -128,8 +128,17 @@ if (confirmBtn) {
         if (cnt > 0) {
             e.preventDefault();
         } else {
+            if (paymentMethod.value === 'momo' || paymentMethod.value === 'vnpay') {
+                document.getElementById('qr-section-container').style.display = 'block';
 
-            form.submit(); // ✅ Gửi form nếu không có lỗi
+                const qrSection = document.getElementById('qr-section');
+                const qrImage = document.getElementById('qr-image');
+                // Gọi API QR code miễn phí
+                qrImage.src = 'https://api.qrserver.com/v1/create-qr-code/?data=longkute' + '&size=200x200';
+
+            } else if (paymentMethod.value === 'cod') {
+                form.submit();
+            }
         }
     });
 
@@ -185,3 +194,16 @@ function setupSavedAddressSelection() {
         });
     }
 }
+
+document.querySelector('.qr-exitbtn').addEventListener('click', function () {
+    document.getElementById('qr-section-container').style.display = 'none';
+    document.getElementById('qr-image').src = ''; // Xóa ảnh QR để tránh hiển thị lại ảnh cũ
+})
+
+document.getElementById('confirm-payment').addEventListener('click', function () {
+    document.getElementById('qr-section-container').style.display = 'none';
+    showToast('Đang xử lý thanh toán...', true);
+    setTimeout(() => {
+        document.getElementById('checkoutForm').submit();
+    }, 2000);
+})
