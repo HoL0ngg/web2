@@ -32,21 +32,9 @@
             </tr>
             <?php
             // require("database/connect.php");
-            $db = new database();
-            $conn = $db->getConnection();
-            $sql = "SELECT sp.*, ha.image_url, tl.tentheloai, brand.brand_name
-                FROM SanPham sp
-                JOIN SanPhamHinhAnh ha ON sp.product_id = ha.product_id
-                JOIN theloai tl ON sp.matheloai = tl.matheloai
-                JOIN brand ON sp.brand_id = brand.brand_id
-                WHERE ha.is_main = TRUE
-                ORDER BY product_id DESC";
-            $result = $conn->query($sql);
-            $i = 1;
-            while ($row = mysqli_fetch_assoc($result)) {
+            foreach ($products as $row) {
             ?>
                 <tr class="<?php echo ($row['status'] == 0) ? 'hidden-product' : ''; ?>">
-                    <!-- <td><?php echo $i; ?></td> -->
                     <td><?php echo $row['product_id'] ?></td>
                     <td><?php echo $row['product_name']; ?></td>
                     <td><?php echo $row['brand_name'] ?></td>
@@ -66,7 +54,6 @@
                     </td>
                 </tr>
             <?php
-                $i++;
             }
             ?>
         </table>

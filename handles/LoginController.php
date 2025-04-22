@@ -35,6 +35,7 @@
                         exit();
                     }
                     if (password_verify($password, $user['password'])) {
+                        $_SESSION['user'] = $user;
                         $_SESSION['username'] = $username;
                         $response['success'] = true;
                         $response['message'] = "Đăng nhập thành công";

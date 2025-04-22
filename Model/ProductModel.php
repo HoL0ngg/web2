@@ -1,4 +1,5 @@
 <?php
+// session_start();
 require_once __DIR__ . '/../database/connect.php';
 // require_once('database/connect.php');
 class ProductModel
@@ -38,8 +39,9 @@ class ProductModel
         return $name_product['product_name'];
     }
 
-    public function getProductsByPageNum($page = 1, $limit = 8, $keyword = "", $selected_checkboxes_brand = [], $selected_checkboxes_loaisanpham = [], $maTheLoai = 0, $minprice = 0, $maxprice = 9000000, $maChungLoai = 0)
+    public function getProductsByPageNum($page = 1, $limit = 8, $keyword = "", $selected_checkboxes_brand = [], $selected_checkboxes_loaisanpham = [], $maTheLoai = 0, $minprice = 0, $maxprice = 9000000, $maChungLoai = 0, $isLove = false)
     {
+        session_start();
         $offset = ($page - 1) * $limit;
         $keyword = "%$keyword%";
 
@@ -90,6 +92,16 @@ class ProductModel
             $params[] = $maTheLoai;
         }
 
+        if ($isLove == true) {
+            $sql .= " AND sp.product_id IN (SELECT product_id FROM yeuthich WHERE customer_id = ?)";
+            $types .= "i";
+            require_once __DIR__ . '/../Model/TKModel.php';
+            $tkModel = new TKModel();
+            $userId = $tkModel->getIdByUsername($_SESSION['username']);
+            $userId = $tkModel->getCustomerIdByUserId($userId);
+            $params[] = $userId;
+        }
+
         $sql .= " LIMIT ? OFFSET ?";
         $types .= "ii";
         $params[] = $limit;
@@ -137,7 +149,7 @@ class ProductModel
     }
 
 
-    public function getQuantityProducts($keyword = "", $selected_checkboxes_brand = [], $selected_checkboxes_loaisanpham = [], $maTheLoai = 0, $minprice = 0, $maxprice = 9000000,  $maChungLoai = 0)
+    public function getQuantityProducts($keyword = "", $selected_checkboxes_brand = [], $selected_checkboxes_loaisanpham = [], $maTheLoai = 0, $minprice = 0, $maxprice = 9000000,  $maChungLoai = 0, $isLove = false)
     {
         $keyword = "%$keyword%";
         // $sql = "SELECT COUNT(*) AS soluong FROM SanPham WHERE product_name LIKE ?";
@@ -188,6 +200,16 @@ class ProductModel
             $params[] = $maTheLoai;
         }
 
+        if ($isLove) {
+            $sql .= " AND sp.product_id IN (SELECT product_id FROM yeuthich WHERE customer_id = ?)";
+            $types .= "i";
+            require_once __DIR__ . '/../Model/TKModel.php';
+            $tkModel = new TKModel();
+            $userId = $tkModel->getIdByUsername($_SESSION['username']);
+            $userId = $tkModel->getCustomerIdByUserId($userId);
+            $params[] = $userId;
+        }
+
 
         $stmt = $this->conn->prepare($sql);
 
@@ -198,8 +220,6 @@ class ProductModel
             $$bind_name = $value;
             $bind_names[] = &$$bind_name;
         }
-
-
 
         call_user_func_array([$stmt, 'bind_param'], $bind_names);
         $stmt->execute();

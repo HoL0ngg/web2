@@ -202,7 +202,7 @@ header {
 /* Filter form */
 .filter-form {
     display: grid;
-    grid-template-columns: 65% 35%; /* Input section takes 65%, button section takes 35% */
+    grid-template-columns: 80% 20%; /* Input section takes 65%, button section takes 35% */
     align-items: flex-start;
     margin-bottom: 20px;
     background: #fff;
@@ -217,7 +217,7 @@ header {
     display: flex;
     justify-content: space-between; /* Evenly space the inputs */
     flex-wrap: wrap; /* Allow inputs to wrap if necessary */
-
+    padding-bottom: 10px;
     gap: 15px; /* Consistent gap between inputs */
 }
 
@@ -237,7 +237,7 @@ header {
 }
 
 .filter-form input,
-.filter-form select {
+.filter-form select{
     margin-top: 5px;
     padding: 8px 10px;
     font-size: 14px;
@@ -258,7 +258,7 @@ header {
 }
 
 .filter-form button {
-    margin-top: 22px;
+    margin-top:30px;
     height: 35px;
     width: 80px;
     min-width: 70px; /* Prevent buttons from shrinking too much */
@@ -314,6 +314,30 @@ header {
         min-width: 60px; /* Adjust button size */
         width: 70px;
     }
+}
+.search-box {
+    display: flex;
+    align-items: center;
+}
+
+#search-input {
+    padding: 8px 12px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    width: 220px;
+}
+
+.search-btn {
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    background-color: white;
+    transition: all 0.3s;
+}
+
+.search-btn:hover {
+    background-color: #ccc;
 }
 
 @media (max-width: 768px) {

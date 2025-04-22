@@ -143,9 +143,9 @@ CREATE TABLE SanPhamGiamGia (
 -- Bảng YeuThich
 CREATE TABLE YeuThich (
     love_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id int,
+    customer_id int,
     product_id INT,
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (customer_id) REFERENCES KhachHang(customer_id),
     FOREIGN KEY (product_id) REFERENCES SanPham(product_id)
 );
 -- Bảng DonHang
@@ -156,6 +156,9 @@ CREATE TABLE DonHang (
     address_id INT,
     orderDate DATE,
     total INT,
+    customer_recipient_name VARCHAR(50),
+    phone VARCHAR(20) ,
+    email VARCHAR(100) , 
     status ENUM(
         'processing',
         'shipping',
@@ -619,6 +622,9 @@ VALUES (
         1,
         '2025-04-03',
         300000,
+        'Trần Văn BB',
+        '0383159881',
+        'tranvanb123@gmail.com',
         'delivered',
         '2025-04-05',
         'Hài lòng về sản phẩm'
@@ -630,6 +636,9 @@ VALUES (
         2,
         '2025-04-04',
         360000,
+        'Trần Văn CC',
+        '0988938261',
+        'tranvanc53@gmail.com',
         'shipping',
         NULL,
         NULL

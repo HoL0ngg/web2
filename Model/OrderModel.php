@@ -78,15 +78,16 @@ class OrderModel
         return $orders;
     }
 
-    public function getOrdersWithFilters($from = "", $to = "", $customerId = 0, $status = "") {
-        // 👉 Nếu không có bất kỳ điều kiện nào → gọi luôn getAllOrder()
-        if (empty($from) && empty($to) && $customerId == 0 && empty($status)) {
+    public function getOrdersWithFilters($from = "", $to = "", $keyword = "", $status = "", $thanhpho = "", $quan = "", $phuong = "") {
+        if (empty($from) && empty($to) && empty($keyword) && empty($status) && empty($thanhpho) && empty($quan) && empty($phuong)) {
             return $this->getAllOrder();
         }
-    
-        $sql = "SELECT * FROM DonHang WHERE 1=1";
-        $params = [];
-        $types = "";
+
+        $sql = "SELECT dh.* FROM DonHang dh 
+            JOIN DiaChi dc ON dh.address_id = dc.address_id 
+            WHERE 1=1";
+            $params = [];
+            $types = "";
     
         if ($from && $to) {
             $sql .= " AND orderDate BETWEEN ? AND ?";
@@ -103,10 +104,11 @@ class OrderModel
             $params[] = $to;
         }
     
-        if ($customerId != 0) {
-            $sql .= " AND customer_id = ?";
-            $types .= "i";
-            $params[] = $customerId;
+        if ($keyword != 0) {
+            $keyword = "%$keyword%";
+            $sql .= " AND customer_recipient_name LIKE ?";
+            $types .= "s";
+            $params[] = $keyword;
         }
     
         if ($status != "") {
@@ -114,6 +116,26 @@ class OrderModel
             $types .= "s";
             $params[] = $status;
         }
+
+        if ($thanhpho!="") {
+            $sql .= " AND dc.thanhpho = ?";
+            $types .= "s";
+            $params[] = $thanhpho;
+    
+            if ($quan!="") {
+                $sql .= " AND dc.quan = ?";
+                $types .= "s";
+                $params[] = $quan;
+    
+                if ($phuong!="") {
+                    $sql .= " AND dc.phuong = ?";
+                    $types .= "s";
+                    $params[] = $phuong;
+                }
+            }
+        }
+
+        
     
         $stmt = $this->conn->prepare($sql);
     

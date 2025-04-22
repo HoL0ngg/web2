@@ -23,12 +23,12 @@
 
                 <div class="form-group">
                     <label for="quantity">Số lượng</label>
-                    <input type="number" id="quantity" name="quantity" value="<?= $product['quantity'] ?>">
+                    <input type="number" id="quantity" name="quantity" readonly value="<?= $product['quantity'] ?>">
                 </div>
 
                 <div class="form-group">
                     <label for="price">Giá</label>
-                    <input type="text" id="price" name="price" value="<?= $product['price'] ?>">
+                    <input type="text" id="price" name="price" readonly value="<?= $product['price'] ?>">
                 </div>
 
                 <div class="form-group">

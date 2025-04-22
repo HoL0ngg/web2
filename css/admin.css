@@ -411,6 +411,37 @@ select {
     margin-top: 10px;
 }
 
+.table-container {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+}
+
+.table-container th {
+    background: #3498DB;
+    color: white;
+}
+
+.table-container th,
+.table-container td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+}
+
+.table-container tr:hover {
+    background-color: #f9f9f9;
+}
+
+
 .buttons-add-product button {
     padding: 10px 20px;
     font-size: 16px;

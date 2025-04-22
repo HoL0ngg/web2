@@ -1,3 +1,14 @@
+<?php
+session_start();
+if (!isset($_SESSION['admin'])) {
+    header('Location: index.php');
+    exit;
+}
+
+// Nếu đã đăng nhập:
+$admin = $_SESSION['admin'];
+?>
+
 <html lang="en">
 
 <head>
@@ -94,11 +105,11 @@
             <div id="footer">
 
                 <div id="admin-info">
-                    <p>Xin chào: <span>admin</span></p>
+                    <p>Xin chào: <span><?= $_SESSION['admin'] ?></span></p>
                 </div>
 
                 <div id="admin-logout">
-                    <a href="index.php">
+                    <a href="view/admin/logout.php">
                         <i class="fa-solid fa-right-from-bracket"></i>
                         <span class="text">Đăng xuất</span>
                     </a>
@@ -132,7 +143,7 @@
                                 break;
                         }
                     } else {
-                        include('product.php');
+                        $formProductController->getAllProducts();
                     }
                 } elseif ($page == 'category') {
                     include('category.php');
@@ -169,32 +180,9 @@
                     if (isset($_GET['id'])) {
                         $id = $_GET['id'];
                         require_once 'handles/TKController.php';
-                        require_once 'view/OrderView.php';
                         $tkController = new TKController();
                         $orders = $tkController->getOrderById($id);
-                        // var_dump($result);
-                        if (!empty($orders)) {
-                            echo "<table border='1' cellpadding='10'>";
-                            echo "<tr>
-                                    <th>Order ID</th>
-                                    <th>Order Date</th>
-                                    <th>Total</th>
-                                    <th>Customer Name</th>
-                                    <th>Phone</th>
-                                  </tr>";
-                            foreach ($orders as $order) {
-                                echo "<tr>
-                                        <td>{$order['order_id']}</td>
-                                        <td>{$order['OrderDate']}</td>
-                                        <td>{$order['total']}</td>
-                                        <td>{$order['customer_name']}</td>
-                                        <td>{$order['phone']}</td>
-                                      </tr>";
-                            }
-                            echo "</table>";
-                        } else {
-                            echo "Không có đơn hàng nào.";
-                        }
+                        require_once 'view/OrderView.php';
                     } else {
                         include('thongke.php');
                     }

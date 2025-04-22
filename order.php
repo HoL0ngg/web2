@@ -2,8 +2,8 @@
     require_once './handles/CustomerController.php';
     require_once './handles/AddressController.php';
     require_once './handles/DetailOrderController.php';
-    require_once './handles/CustomerController.php';
     ?>
+    <script src="./js/customer-info.js"></script>
 
 <!DOCTYPE html>
     <html lang="en">
@@ -18,8 +18,12 @@
 
     <body>
         <main class="main-content">
-            <header>
+            <header  id="header">
                 <h1>Quản Lý Đơn Hàng</h1>
+                <div class="search-box">
+                        <input type="text" id="search-input" placeholder="Nhập tên khách hàng cần tìm">
+                        <button onclick="filterOrders()" class="search-btn">🔍</button>
+                </div>    
             </header>
             <div class="filter-form">
                 <div class="filter-form_input">
@@ -32,21 +36,6 @@
                         <input type="date" id="toDate">
                     </label>
     
-                    <!-- ------------ -->
-    
-                    <label>Khách hàng:
-                        <select id="customerId">
-                            <option value="">Tất cả</option>
-                            <?php
-                            $CustomerController = new CustomerController();
-                            $khachhangs = $CustomerController->getAllKhachHang();
-                            foreach ($khachhangs as $khachhang):
-                            ?>
-                                <option value="<?= $khachhang['customer_id'] ?>"><?= $khachhang['customer_name'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </label>
-    
                     <label>Trạng thái:
                         <select id="orderStatus">
                             <option value="">Tất cả</option>
@@ -54,6 +43,21 @@
                             <option value="shipping">shipping</option>
                             <option value="delivered">delivered</option>
                             <option value="cancelled">cancelled</option>
+                        </select>
+                    </label>
+                    <label>Thành Phố-Tỉnh:
+                        <select name="thanhpho" id="thanhpho">
+                            <option value="">Chọn thành phố/tỉnh</option>
+                        </select>
+                    </label>
+                    <label>Quận-Huyện:
+                        <select name="quan" id="quan">
+                            <option value="">Chọn quận/huyện</option>
+                        </select>
+                    </label>
+                    <label>Phường-Xã
+                        <select name="phuong" id="phuong">
+                            <option value="">Chọn phường/xã</option>
                         </select>
                     </label>
                 </div>
@@ -83,10 +87,9 @@
                     <tbody id="orderTable">
                         <?php
                         foreach ($orders as $order):
-                            $CustomerController = new CustomerController();
                             $AddressController = new AddressController();
-                            $name = $CustomerController->getNameCustomerByID($order['customer_id']);
-                            $phone = $CustomerController->getPhoneCustomerByID($order['customer_id']);
+                            $name = $order['customer_recipient_name'];
+                            $phone = $order['phone'];
                             $address = $AddressController->getAddressByID($order['address_id']);
                         ?>
                             <tr>
@@ -230,6 +233,7 @@
 
                 confirmOrder();
                 cancelOrder();
+                document.getElementById("search-input").addEventListener("keyup", () => filterOrders());
 
 
             });
@@ -237,14 +241,21 @@
             function filterOrders() {
                 const from = document.getElementById('fromDate').value;
                 const to = document.getElementById('toDate').value;
-                const customerId = document.getElementById('customerId').value;
                 const status = document.getElementById('orderStatus').value;
+                const thanhpho = document.getElementById('thanhpho').value
+                const quan = document.getElementById('quan').value
+                const phuong = document.getElementById('phuong').value
+                const keyword = document.getElementById("search-input").value.trim();
+
 
                 const formData = new URLSearchParams();
                 formData.append('from', from);
                 formData.append('to', to);
-                formData.append('customerId', customerId);
+                formData.append('keyword', keyword);
                 formData.append('status', status);
+                formData.append('thanhpho', thanhpho);
+                formData.append('quan', quan);
+                formData.append('phuong', phuong);
 
                 fetch('get_filter_order.php', {
                         method: 'POST',
@@ -268,8 +279,11 @@
             function refreshOrders() {
                 document.getElementById('fromDate').value = "";
                 document.getElementById('toDate').value = "";
-                document.getElementById('customerId').selectedIndex = 0;
+                document.getElementById('keyword').selectedIndex = 0;
                 document.getElementById('orderStatus').selectedIndex = 0;
+                document.getElementById('thanhpho').value = "";
+                document.getElementById('quan').value = "";
+                document.getElementById('phuong').value = "";
                 filterOrders();
             }
         </script>

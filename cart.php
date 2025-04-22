@@ -8,7 +8,6 @@ if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'addtocart') {
     if (!isset($_SESSION['username'])) {
         // Chưa đăng nhập -> xử lý bằng session
@@ -40,7 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'addtocart') {
         exit;
     } else {
         // Đã đăng nhập -> xử lý bằng database
-
         $user = new TKModel();
         $cartController = new CartController();
         $customer_id = $user->getIdByUsername($_SESSION['username']);
@@ -48,9 +46,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'addtocart') {
         $productId = $_POST['id'];
         $quantity = $_POST['quantity'];
         $cartController->addProductToCart($productId, $quantity, $customer_id);
+        // var_dump($cartController->addProductToCart($productId, $quantity, $customer_id));
         echo json_encode(['status' => 'success', 'message' => 'Đã thêm sản phẩm vào giỏ hàng']);
         exit;
     }
+    exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'remove') {
@@ -116,12 +116,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'getCartCount'
         $customer_id = $user->getCustomerIdByUserId($customer_id);
         $cartController = new CartController();
         $cartProducts = $cartController->getAllProductInCart($customer_id);
-        $cartCount = is_array($cartProducts) ? count($cartProducts) : 0;
+        // $cartCount = is_array($cartProducts) ? count($cartProducts) : 0;
+        if (is_array($cartProducts)) {
+            foreach ($cartProducts as $item) {
+                $cartCount += $item['quantity'];
+            }
+        } else {
+            $cartCount = 0;
+        }
     } else {
         if (isset($_SESSION['cart'])) {
             foreach ($_SESSION['cart'] as $item) {
                 $cartCount += $item['quantity'];
             }
+        } else {
+            $cartCount = 0;
         }
     }
     echo json_encode(['count' => $cartCount]);

@@ -288,6 +288,22 @@ class TKModel
         }
         return false;
     }
+    public function isEmailExists($email)
+    {
+        $tables = ['KhachHang', 'NhanVien'];
+        foreach ($tables as $table) {
+            $stmt = $this->conn->prepare("SELECT 1 FROM $table WHERE email = ? LIMIT 1");
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result->num_rows > 0) {
+                $stmt->close();
+                return true;
+            }
+            $stmt->close();
+        }
+        return false;
+    }
     public function insertUser($username, $password, $role_id = 3)
     {
         $sql = "INSERT INTO users(username, password, role_id) VALUES(?,?,?)";
@@ -298,11 +314,11 @@ class TKModel
         $stmt->close();
         return $user_id;
     }
-    public function insertKhachHang($user_id, $phone)
+    public function insertKhachHang($user_id, $phone, $fullname, $email)
     {
-        $sql = "INSERT INTO KhachHang(user_id,phone) VALUES(?,?)";
+        $sql = "INSERT INTO KhachHang(user_id,phone,customer_name,email) VALUES(?,?,?,?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("is", $user_id, $phone);
+        $stmt->bind_param("isss", $user_id, $phone, $fullname, $email);
         $stmt->execute();
         $customer_id = $this->conn->insert_id;
         $stmt->close();

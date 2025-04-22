@@ -221,7 +221,16 @@ document.getElementById('cart-container').addEventListener('click', (e) => {
 })
 
 document.getElementById('love-container').addEventListener('click', (e) => {
-    window.location.href = "index.php?loveProduct";
+    fetch('/handles/getSession.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                loadProducts(1, true);
+                // window.location.href = "XuLyYeuThich.php?action=yeuthich";
+            } else {
+                showToast("Vui lòng đăng nhập để xem sản phẩm yêu thích!", false);
+            }
+        })
 })
 
 function UpdateCartSessionToDatabase() {
@@ -456,6 +465,8 @@ window.addEventListener("scroll", function () {
 
 function changeColorPagenum(pagenum) {
     const btnArray = document.querySelectorAll("#pagenum div");
+    if (btnArray.length == 0) return;
+
     // console.log(btnArray);
     btnArray[pagenum - 1].classList.add("active");
     btnArray.forEach(btn => {
@@ -521,7 +532,7 @@ function loadLoveProducts() {
         });
 }
 
-async function loadProducts(pagenum = 1) {
+async function loadProducts(pagenum = 1, isLove = false) {
     const urlParams = new URLSearchParams(window.location.search);
     const maChungLoai = parseInt(urlParams.get("maChungloai") || 0);
     const maTheLoai = parseInt(urlParams.get("maTheLoai") || 0);
@@ -551,7 +562,7 @@ async function loadProducts(pagenum = 1) {
 
 
 
-    const response = await fetch(`../api/pagination_api.php?pagenum=${pagenum}&keyword=${encodeURIComponent(keyword)}&selected_checkboxes_brand=${encodeURIComponent(JSON.stringify(selected_checkboxes_brand))}&selected_checkboxes_loaisanpham=${encodeURIComponent(JSON.stringify(selected_checkboxes_loaisanpham))}&minprice=${minPrice}&maxprice=${maxPrice}&maChungLoai=${maChungLoai}&maTheLoai=${maTheLoai}`);
+    const response = await fetch(`../api/pagination_api.php?pagenum=${pagenum}&keyword=${encodeURIComponent(keyword)}&selected_checkboxes_brand=${encodeURIComponent(JSON.stringify(selected_checkboxes_brand))}&selected_checkboxes_loaisanpham=${encodeURIComponent(JSON.stringify(selected_checkboxes_loaisanpham))}&minprice=${minPrice}&maxprice=${maxPrice}&maChungLoai=${maChungLoai}&maTheLoai=${maTheLoai}&isLove=${isLove}`);
 
     const data = await response.json();
     console.log(data);
@@ -565,6 +576,7 @@ async function loadProducts(pagenum = 1) {
     if (!pageNum) return;
     pageNum.innerHTML = "";
     let s = "";
+    proContainer.innerHTML = "";
     data.products.forEach(product => {
         s += `<div class="product" data-id="${product.product_id} ">
         <div class="product-img">
@@ -626,6 +638,7 @@ function toggleLove(element, productId) {
                 icon.classList.remove("fa-regular");
                 icon.classList.add("fa-solid");
             }
+            updateLoveCount();
             showToast(data.message, true);
         });
 }
@@ -651,7 +664,7 @@ document.getElementById("timkiem").addEventListener("keyup", () => loadProducts(
 document.getElementById("filters").addEventListener("click", function () {
     const url = new URL(window.location.href);
     url.searchParams.delete("maChungloai");
-    url.searchParams.delete("maTheLoai");   
+    url.searchParams.delete("maTheLoai");
     window.history.pushState({}, '', url);
     loadProducts(1);
 });
@@ -678,32 +691,32 @@ document.getElementById("filters").addEventListener('click', function () {
 });
 
 
-function loadproductleftmenu(){
+function loadproductleftmenu() {
     const loaiSanPhamItems = document.querySelectorAll(".loaisanpham");
     loaiSanPhamItems.forEach(item => {
-    item.addEventListener("click", function () {
-        // Lấy maTheLoai từ data-matheloai
-        document.getElementById('minprice').value = "";
-        document.getElementById('maxprice').value = "";
-        document.querySelectorAll(".brandname").forEach(cb => cb.checked = false);
-        document.querySelectorAll(".loaisanphamcb").forEach(cb => cb.checked = false);
-        document.getElementById("timkiem").value = "";
+        item.addEventListener("click", function () {
+            // Lấy maTheLoai từ data-matheloai
+            document.getElementById('minprice').value = "";
+            document.getElementById('maxprice').value = "";
+            document.querySelectorAll(".brandname").forEach(cb => cb.checked = false);
+            document.querySelectorAll(".loaisanphamcb").forEach(cb => cb.checked = false);
+            document.getElementById("timkiem").value = "";
 
-        const maTheLoai = parseInt(this.dataset.matheloai);
-        const maChungloai = parseInt(this.dataset.machungloai);
+            const maTheLoai = parseInt(this.dataset.matheloai);
+            const maChungloai = parseInt(this.dataset.machungloai);
 
-        const url = new URL(window.location.href);
-        url.searchParams.delete("maChungloai")
-        url.searchParams.set("maChungloai", maChungloai);
-        url.searchParams.set("maTheLoai", maTheLoai);
-        history.pushState({}, "", url);
+            const url = new URL(window.location.href);
+            url.searchParams.delete("maChungloai")
+            url.searchParams.set("maChungloai", maChungloai);
+            url.searchParams.set("maTheLoai", maTheLoai);
+            history.pushState({}, "", url);
 
-        loaiSanPhamItems.forEach(i => i.classList.remove("active"));
-        this.classList.add("active");
+            loaiSanPhamItems.forEach(i => i.classList.remove("active"));
+            this.classList.add("active");
 
-        loadProducts(1);
+            loadProducts(1);
+        });
     });
-});
 }
 
 function formatNumberInput(input) {
@@ -730,23 +743,14 @@ addToCart = (id, quantity) => {
         },
         body: `action=addtocart&id=${id}&quantity=${quantity}`
     })
-        .then(res => res.text())
+        .then(res => res.json())
         .then(data => {
-            Toastify({
-                text: `🛒 Đã thêm vào giỏ hàng!`,
-                duration: 3000,
-                gravity: "top",
-                position: "center",
-                timerProgressBar: true,
-                style: {
-                    background: "#4CAF50",
-                    color: "#fff",
-                    padding: "10px",
-                    borderRadius: "8px",
-                }
-            }).showToast();
+            showToast("Thêm vào giỏ hàng thành công", true);
+            updateCartCount();
+        })
+        .catch(err => {
+            console.error("Lỗi khi thêm vào giỏ hàng:", err);
         });
-    updateCartCount();
 }
 
 function updateCartCount() {
@@ -763,6 +767,23 @@ function updateCartCount() {
             if (data.count < 10)
                 document.getElementById("cart-count").innerText = data.count;
             else document.getElementById("cart-count").innerText = "9+";
+        })
+}
+
+function updateLoveCount() {
+    // Cập nhật số lượng sản phẩm yêu thích
+    fetch('XuLyYeuThich.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `action=getLoveCount`
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.count < 10)
+                document.getElementById("love-count").innerText = data.count;
+            else document.getElementById("love-count").innerText = "9+";
         })
 }
 //PRODUCT DETAIL
@@ -895,25 +916,24 @@ function filterOrders() {
         },
         body: formData.toString()
     })
-    .then(res => res.text())
-    .then(data => {
-        const tbody = document.getElementById('orderTable');
-        tbody.innerHTML = data;
-        HuyDonHang();
-    })
-    .catch(error => {
-        console.error("Lỗi khi lọc đơn hàng:", error);
-    });
+        .then(res => res.text())
+        .then(data => {
+            const tbody = document.getElementById('orderTable');
+            tbody.innerHTML = data;
+            HuyDonHang();
+        })
+        .catch(error => {
+            console.error("Lỗi khi lọc đơn hàng:", error);
+        });
 }
- function refreshOrders(){
-    document.getElementById('fromDate').value="";
-    document.getElementById('toDate').value="";
+function refreshOrders() {
+    document.getElementById('fromDate').value = "";
+    document.getElementById('toDate').value = "";
     document.getElementById('orderStatus').selectedIndex = 0;
     filterOrders();
- }
+}
 
 window.onload = function () {
-    console.log("Window loaded");
     closeButton();
     loginNotification();
     registerNotification();
@@ -922,17 +942,12 @@ window.onload = function () {
     closeWithoutButton("changepassword-container");
     openChangePasswordForm();
     changePasswordNotification();
-
-    console.log("Window loaded: before openLoginForm");
-
     openLoginForm();
     openLoginForm();
-
-    console.log("Window loaded: after openLoginForm");
-
-
-    loadProducts();
+    loadProducts(1, false);
     HuyDonHang();
     loadproductleftmenu();
+    updateCartCount();
+    updateLoveCount();
 }
 

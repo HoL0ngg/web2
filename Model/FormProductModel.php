@@ -98,4 +98,21 @@ class FormProductModel
             return 'exception';
         }
     }
+
+    public function getAllProducts()
+    {
+        $sql = "SELECT sp.*, ha.image_url, tl.tentheloai, brand.brand_name
+                FROM SanPham sp
+                JOIN SanPhamHinhAnh ha ON sp.product_id = ha.product_id
+                JOIN theloai tl ON sp.matheloai = tl.matheloai
+                JOIN brand ON sp.brand_id = brand.brand_id
+                WHERE ha.is_main = TRUE
+                ORDER BY product_id DESC";
+        $result = $this->conn->query($sql);
+        $products = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $products[] = $row;
+        }
+        return $products;
+    }
 }
