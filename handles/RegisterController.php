@@ -15,6 +15,8 @@
             $response = ["success" => false, "message" => ""];
 
             if ($_SERVER["REQUEST_METHOD"] === "POST") {
+                $fullname = trim($_POST["reg-fullname"] ?? '');
+                $email = trim($_POST["reg-email"] ?? '');
                 $username = trim($_POST["reg-username"] ?? '');
                 $phone = trim($_POST['reg-phone'] ?? '');
                 $password = $_POST['reg-password'] ?? '';
@@ -38,11 +40,15 @@
                     echo json_encode($response);
                     return;
                 }
-
+                if ($this->model->isEmailExists($email)) {
+                    $response["message"] = "Email đã được sử dụng.";
+                    echo json_encode($response);
+                    return;
+                }
 
                 $user_id = $this->model->insertUser($username, $hashedPassword);
 
-                $customer_id = $this->model->insertKhachHang($user_id, $phone);
+                $customer_id = $this->model->insertKhachHang($user_id, $phone, $fullname, $email);
 
                 $address_id = $this->model->insertDiaChi($tinh, $quan, $phuong, $sonha);
 
