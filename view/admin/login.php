@@ -4,6 +4,7 @@ require_once(__DIR__ . '/../../handles/AdminController.php');
 $adminController = new AdminController();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $adminController->submitLogin();
+    // $adminController->changepass();
 } else {
     $adminController->showLoginForm();
 }

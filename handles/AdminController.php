@@ -19,7 +19,8 @@
             $admin = $this->model->checkLogin($username, $password);
             if ($admin) {
                 $_SESSION['admin'] = $admin['username'];
-                header('Location: /admin.php');
+                // header('Location: /admin.php');
+                header('Location: /web2/admin.php');
                 exit;
             } else {
                 header('Location: login.php');
@@ -43,6 +44,7 @@
 
         public function changepass()
         {
+            echo "In changepass";
             return $this->model->changePass();
         }
     }

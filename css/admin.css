@@ -27,7 +27,10 @@ body {
     background-color: var(--light);
     padding-left: 7px;
     position: relative;
-    height: 700px;
+    /* height: 700px; */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 #container-left:hover #hideSideBar {
@@ -92,7 +95,8 @@ body {
 
 #menu {
     width: 100%;
-    height: 55%;
+    flex-grow: 1;
+    /* height: 55%; */
     background: var(--light);
     margin-top: 20px;
 }
@@ -163,6 +167,7 @@ body {
     text-align: center;
     padding: 7px;
     border-top: 1px solid #ccc;
+    margin-top: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -173,7 +178,8 @@ body {
     text-decoration: none;
     color: #333;
     width: 100%;
-    height: 30px;
+    /* height: 30px; */
+    margin-bottom: 1rem;
     display: flex;
     align-items: center;
     /* border-radius: 48px; */
