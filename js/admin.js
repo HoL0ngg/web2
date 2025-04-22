@@ -338,3 +338,59 @@ function hideOrderDetail() {
     const popup = document.getElementById("order-detail-popup");
     popup.classList.remove("show");
 }
+
+//NHOM QUYEN
+function openPopup(id) {
+    document.getElementById('overlay').classList.remove('hidden');
+    document.getElementById(id).classList.remove('hidden');
+}
+
+function closePopup() {
+    document.getElementById('overlay').classList.add('hidden');
+    document.querySelectorAll('.popup-modal').forEach(p => p.classList.add('hidden'));
+}
+
+document.querySelectorAll('.btn_role')[0].addEventListener('click', function(e) {
+    e.preventDefault();
+    openPopup('popup-them-nhomquyen');
+});
+document.querySelectorAll('.btn_role')[1].addEventListener('click', function(e) {
+    e.preventDefault();
+    openPopup('popup-them-chucnang');
+});
+
+function themNhomQuyen() {
+    console.log("hihih");
+    
+    const ten = document.getElementById('ten_nhom_quyen').value;
+    if (!ten){
+        showToast("Vui lòng nhập tên nhóm quyền", false);
+        return;
+    }
+    fetch('admin.php?page=phanquyen&action=addRole', {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ role_name: ten })
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log(data);
+        
+        if(data.success){
+            showToast(data.message,data.success);
+            closePopup();
+            // location.reload();
+        }else{
+            showToast("Loi" + data.message, data.success);
+        }
+    })
+}
+
+function themChucNang() {
+    const ten = document.getElementById('ten_chuc_nang').value;
+    const ma = document.getElementById('ma_chuc_nang').value;
+    if (!ten) return alert("Vui lòng nhập tên chức năng");
+    // Gửi AJAX ở đây...
+    alert("Đã thêm chức năng: " + ten);
+    closePopup();
+}

@@ -30,5 +30,17 @@
             $stmt->close();
             return $result->fetch_all(MYSQLI_ASSOC);
         }
+        public function themChucNang($function_id, $function_name)
+        {
+            $sql = "INSERT INTO danhmucchucnang(function_id, function_name,trangthai) VALUES (?, ?, ?)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("ssi", $function_id, $function_name);
+            $stmt->execute();
+            if ($stmt->affected_rows > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
     ?>

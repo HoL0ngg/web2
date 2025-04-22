@@ -172,9 +172,9 @@ $admin = $_SESSION['admin'];
                     require_once './handles/OrderController.php';
                     $OrderHistoryController = new OrderController();
                     $OrderHistoryController->getAllOrder();
-                } elseif ($page == 'supplier'){
+                } elseif ($page == 'supplier') {
                     include('supplier.php');
-                } elseif ($page == 'import'){
+                } elseif ($page == 'import') {
                     include('import.php');
                 } elseif ($page == 'thongke') {
                     if (isset($_GET['id'])) {
@@ -189,7 +189,9 @@ $admin = $_SESSION['admin'];
                 } elseif ($page == 'phanquyen') {
                     require_once('handles/PhanQuyenController.php');
                     $phanquyenController = new PhanQuyenController();
-                    $phanquyenController->roleList();
+                    if (!isset($_GET['action'])) {
+                        $phanquyenController->roleList();
+                    }
                 } else {
                     include('admin/home.php');
                 }

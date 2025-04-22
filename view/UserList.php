@@ -35,7 +35,7 @@
                                 <a href="admin.php?page=user&act=update&uid=<?= $user['user_id'] ?>">
                                     <button class="edit-btn">✏️ Sửa</button>
                                 </a>
-                                <button class="delete-btn-user" data-id="<?= $user['user_id'] ?>">❌ Xóa</button>
+                                <!-- <button class="delete-btn-user" data-id="<?= $user['user_id'] ?>">❌ Xóa</button> -->
                             </td>
                         </tr>
                     <?php endforeach; ?>
