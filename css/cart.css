@@ -108,7 +108,7 @@
 }
 
 .cart-info {
-    flex: 3;
+    flex: 5;
     margin-left: 10px;
 }
 
@@ -130,7 +130,7 @@
 
 .cart-price {
     text-align: right;
-    flex: 1;
+    flex: 2;
 }
 
 #cart-total {
