@@ -947,5 +947,7 @@ window.onload = function () {
     loadProducts(1, false);
     HuyDonHang();
     loadproductleftmenu();
+    updateCartCount();
+    updateLoveCount();
 }
 

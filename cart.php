@@ -116,7 +116,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'getCartCount'
         $customer_id = $user->getCustomerIdByUserId($customer_id);
         $cartController = new CartController();
         $cartProducts = $cartController->getAllProductInCart($customer_id);
-        $cartCount = is_array($cartProducts) ? count($cartProducts) : 0;
+        // $cartCount = is_array($cartProducts) ? count($cartProducts) : 0;
+        if (is_array($cartProducts)) {
+            foreach ($cartProducts as $item) {
+                $cartCount += $item['quantity'];
+            }
+        } else {
+            $cartCount = 0;
+        }
     } else {
         if (isset($_SESSION['cart'])) {
             foreach ($_SESSION['cart'] as $item) {

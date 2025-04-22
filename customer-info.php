@@ -31,7 +31,7 @@ $customer = $tkModel->getUserById($customer_id);
             <div class="info-container">
                 <div class="input-group"><input type="text" name="hoten" id="txtHoten" placeholder="" value=""><label for="txtHoten">Họ và tên</label></div>
                 <div class="input-group"><input type="text" name="sdt" id="txtSDT" placeholder="" value="<?= $customer['phone'] ?>" readonly><label for="txtSDT">Số điện thoại</label></div>
-                <div class="input-group"><input type="text" name="email" id="txtEmail" placeholder="" value="<?= $customer['email'] ?>" ><label for="txtEmail">Email</label></div>
+                <div class="input-group"><input type="text" name="email" id="txtEmail" placeholder="" value="<?= $customer['email'] ?>"><label for="txtEmail">Email</label></div>
             </div>
             <h3>Địa chỉ giao hàng</h3>
             <div class="diachi-user-container">
@@ -83,7 +83,7 @@ $customer = $tkModel->getUserById($customer_id);
                     <input type="radio" name="payment-method" id="cod" value="cod" checked><img src="https://file.hstatic.net/200000636033/file/pay_2d752907ae604f08ad89868b2a5554da.png" alt="cod"><label for="cod">Thanh toán khi nhận hàng (COD)</label>
                 </div>
                 <div class="payment-method-item">
-                    <input type="radio" name="payment-method" id="bank-transfer" value="bank-transfer"><img src="https://file.hstatic.net/200000636033/file/icon_atm_eb07d9eabaef47e088d7f214e3562b97.svg" alt="bank-transfer"><label for="bank-transfer">Chuyển khoản ngân hàng</label>
+                    <input type="radio" name="payment-method" id="visa" value="visa"><img src="https://file.hstatic.net/200000636033/file/icon_atm_eb07d9eabaef47e088d7f214e3562b97.svg" alt="visa"><label for="visa">Thanh toán bằng VISA</label>
                 </div>
                 <div class="payment-method-item">
                     <input type="radio" name="payment-method" id="momo" value="momo"><img src="https://file.hstatic.net/200000636033/file/momo_50d207f0cbd34562b936001ab362bd8e.png" alt="momo"><label for="mono">Thanh toán qua ví Mono</label>

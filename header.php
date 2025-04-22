@@ -14,7 +14,9 @@ if (isset($_SESSION['username'])) {
     $loveCount = $loveController->getLoveCount($customer_id);
 } else {
     if (isset($_SESSION['cart'])) {
-        $cartCount = count($_SESSION['cart']);
+        foreach ($_SESSION['cart'] as $item) {
+            $cartCount += $item['quantity'];
+        }
     } else {
         $cartCount = 0;
     }
