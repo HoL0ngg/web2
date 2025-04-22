@@ -29,7 +29,7 @@ class ProductModel
 
     public function getNameProductById($id)
     {
-        $sql = "SELECT product_name FROM SanPham WHERE product_id = ?";
+        $sql = "SELECT product_name FROM sanpham WHERE product_id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();
@@ -46,8 +46,8 @@ class ProductModel
         $keyword = "%$keyword%";
 
         $sql = "SELECT sp.*, ha.image_url
-                FROM SanPham sp
-                JOIN SanPhamHinhAnh ha ON sp.product_id = ha.product_id
+                FROM sanpham sp
+                JOIN sanphamhinhanh ha ON sp.product_id = ha.product_id
                 JOIN theloai tl ON sp.matheloai = tl.matheloai
                 WHERE ha.is_main = TRUE AND sp.product_name LIKE ? AND sp.status = 1";
 
@@ -136,7 +136,7 @@ class ProductModel
 
     public function getMainImageByProductId($productId)
     {
-        $stmt = $this->conn->prepare("SELECT image_url FROM SanPhamHinhAnh WHERE product_id = ? AND is_main = 1");
+        $stmt = $this->conn->prepare("SELECT image_url FROM sanphamhinhanh WHERE product_id = ? AND is_main = 1");
         $stmt->bind_param("i", $productId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -154,8 +154,8 @@ class ProductModel
         $keyword = "%$keyword%";
         // $sql = "SELECT COUNT(*) AS soluong FROM SanPham WHERE product_name LIKE ?";
         $sql = "SELECT COUNT(*) AS soluong
-        FROM SanPham sp
-        JOIN TheLoai tl ON sp.matheloai = tl.matheloai
+        FROM sanpham sp
+        JOIN theloai tl ON sp.matheloai = tl.matheloai
         WHERE sp.product_name LIKE ? AND sp.status = 1";
 
 

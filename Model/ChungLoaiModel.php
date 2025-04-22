@@ -12,7 +12,7 @@
         }
         
         public function getAllChungLoai(){
-            $sql = "SELECT * FROM ChungLoai";
+            $sql = "SELECT * FROM chungloai";
             $stmt= $this->conn->prepare($sql);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -22,7 +22,7 @@
         }
 
         public function getChungLoaiByChungLoai($machungloai){
-            $sql = "SELECT machungloai , tenchungloai FROM ChungLoai WHERE machungloai = ?";
+            $sql = "SELECT machungloai , tenchungloai FROM chungloai WHERE machungloai = ?";
             $stmt= $this->conn->prepare($sql);
             $stmt->bind_param("i", $machungloai);
             $stmt->execute();

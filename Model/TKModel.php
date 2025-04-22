@@ -26,15 +26,15 @@ class TKModel
             switch ($role) {
                 case 1: // Admin
                 case 2: // Nhân viên
-                    $sqlCheckEmail = "SELECT employee_id FROM NhanVien WHERE email = ?";
-                    $sqlCheckPhone = "SELECT employee_id FROM NhanVien WHERE phone = ?";
-                    $sqlInsert = "INSERT INTO NhanVien(user_id, name, phone, email) VALUES(?, ?, ?, ?)";
+                    $sqlCheckEmail = "SELECT employee_id FROM nhanvien WHERE email = ?";
+                    $sqlCheckPhone = "SELECT employee_id FROM nhanvien WHERE phone = ?";
+                    $sqlInsert = "INSERT INTO nhanvien(user_id, name, phone, email) VALUES(?, ?, ?, ?)";
                     break;
 
                 default: // Khách hàng
-                    $sqlCheckEmail = "SELECT customer_id FROM KhachHang WHERE email = ?";
-                    $sqlCheckPhone = "SELECT customer_id FROM KhachHang WHERE phone = ?";
-                    $sqlInsert = "INSERT INTO KhachHang(user_id, customer_name, phone, email) VALUES(?, ?, ?, ?)";
+                    $sqlCheckEmail = "SELECT customer_id FROM khachhang WHERE email = ?";
+                    $sqlCheckPhone = "SELECT customer_id FROM khachhang WHERE phone = ?";
+                    $sqlInsert = "INSERT INTO khachhang(user_id, customer_name, phone, email) VALUES(?, ?, ?, ?)";
                     break;
             }
 
@@ -101,14 +101,14 @@ class TKModel
             switch ($role) {
                 case 1:
                 case 2:
-                    $sqlCheckEmail = "SELECT user_id FROM NhanVien WHERE email = ? AND user_id != ?";
-                    $sqlCheckPhone = "SELECT user_id FROM NhanVien WHERE phone = ? AND user_id != ?";
-                    $sqlUpdate = "UPDATE NhanVien SET name = ?, phone = ?, email = ? WHERE user_id = ?";
+                    $sqlCheckEmail = "SELECT user_id FROM nhanvien WHERE email = ? AND user_id != ?";
+                    $sqlCheckPhone = "SELECT user_id FROM nhanvien WHERE phone = ? AND user_id != ?";
+                    $sqlUpdate = "UPDATE nhanvien SET name = ?, phone = ?, email = ? WHERE user_id = ?";
                     break;
                 default:
-                    $sqlCheckEmail = "SELECT user_id FROM KhachHang WHERE email = ? AND user_id != ?";
-                    $sqlCheckPhone = "SELECT user_id FROM KhachHang WHERE phone = ? AND user_id != ?";
-                    $sqlUpdate = "UPDATE KhachHang SET customer_name = ?, phone = ?, email = ? WHERE user_id = ?";
+                    $sqlCheckEmail = "SELECT user_id FROM khachhang WHERE email = ? AND user_id != ?";
+                    $sqlCheckPhone = "SELECT user_id FROM khachhang WHERE phone = ? AND user_id != ?";
+                    $sqlUpdate = "UPDATE khachhang SET customer_name = ?, phone = ?, email = ? WHERE user_id = ?";
                     break;
             }
 
@@ -165,8 +165,8 @@ class TKModel
             COALESCE(nv.email, kh.email) AS email,
             COALESCE(nv.name, kh.customer_name) AS fullname
             FROM users u
-            LEFT JOIN NhanVien nv ON nv.user_id = u.user_id
-            LEFT JOIN KhachHang kh ON kh.user_id = u.user_id
+            LEFT JOIN nhanvien nv ON nv.user_id = u.user_id
+            LEFT JOIN khachhang kh ON kh.user_id = u.user_id
             WHERE u.user_id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $id);
@@ -204,10 +204,10 @@ class TKModel
             u.*,  -- Lấy tất cả các cột từ bảng users (user_id, username, password, role_id, status, ...)
             
             COALESCE(nv.phone, kh.phone) AS phone,  
-            -- Ưu tiên lấy số điện thoại từ bảng NhanVien (nếu tồn tại), nếu không có thì lấy từ bảng KhachHang
+            -- Ưu tiên lấy số điện thoại từ bảng nhanvien (nếu tồn tại), nếu không có thì lấy từ bảng khachhang
 
             COALESCE(nv.email, kh.email) AS email,  
-            -- Tương tự, ưu tiên lấy email từ bảng NhanVien, nếu không có thì lấy từ bảng KhachHang
+            -- Tương tự, ưu tiên lấy email từ bảng nhanvien, nếu không có thì lấy từ bảng khachhang
             COALESCE(nv.name, kh.customer_name) AS fullname,
             r.role_name  
             -- Lấy tên vai trò từ bảng roles dựa trên role_id
@@ -215,11 +215,11 @@ class TKModel
             FROM users u
             -- Bảng chính là bảng users
 
-            LEFT JOIN NhanVien nv ON nv.user_id = u.user_id  
-            -- Nối bảng NhanVien với users thông qua user_id (nếu người dùng là nhân viên thì sẽ có dữ liệu)
+            LEFT JOIN nhanvien nv ON nv.user_id = u.user_id  
+            -- Nối bảng nhanvien với users thông qua user_id (nếu người dùng là nhân viên thì sẽ có dữ liệu)
 
-            LEFT JOIN KhachHang kh ON kh.user_id = u.user_id  
-            -- Nối bảng KhachHang với users thông qua user_id (nếu người dùng là khách hàng thì sẽ có dữ liệu)
+            LEFT JOIN khachhang kh ON kh.user_id = u.user_id  
+            -- Nối bảng khachhang với users thông qua user_id (nếu người dùng là khách hàng thì sẽ có dữ liệu)
 
             LEFT JOIN NhomQuyen r ON u.role_id = r.role_id  
             -- Nối bảng roles với users để lấy tên vai trò của người dùng dựa vào role_id
@@ -252,7 +252,7 @@ class TKModel
 
     public function getCustomerIdByUserId($user_id)
     {
-        $sql = "SELECT customer_id FROM KhachHang WHERE user_id = ?";
+        $sql = "SELECT customer_id FROM khachhang WHERE user_id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
@@ -274,7 +274,7 @@ class TKModel
 
     public function isPhoneExists($phone)
     {
-        $tables = ['KhachHang', 'NhanVien'];
+        $tables = ['khachhang', 'nhanvien'];
         foreach ($tables as $table) {
             $stmt = $this->conn->prepare("SELECT 1 FROM $table WHERE phone = ? LIMIT 1");
             $stmt->bind_param("s", $phone);
@@ -290,7 +290,7 @@ class TKModel
     }
     public function isEmailExists($email)
     {
-        $tables = ['KhachHang', 'NhanVien'];
+        $tables = ['khachhang', 'nhanvien'];
         foreach ($tables as $table) {
             $stmt = $this->conn->prepare("SELECT 1 FROM $table WHERE email = ? LIMIT 1");
             $stmt->bind_param("s", $email);
@@ -316,7 +316,7 @@ class TKModel
     }
     public function insertKhachHang($user_id, $phone, $fullname, $email)
     {
-        $sql = "INSERT INTO KhachHang(user_id,phone,customer_name,email) VALUES(?,?,?,?)";
+        $sql = "INSERT INTO khachhang(user_id,phone,customer_name,email) VALUES(?,?,?,?)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("isss", $user_id, $phone, $fullname, $email);
         $stmt->execute();
@@ -337,7 +337,7 @@ class TKModel
 
     public function insertKhachHangDiaChi($customer_id, $address_id, $isDefault = false)
     {
-        $sql = "INSERT INTO KhachHang_DiaChi(customer_id, address_id,is_default) VALUES(?,?,?)";
+        $sql = "INSERT INTO khachhang_diachi(customer_id, address_id,is_default) VALUES(?,?,?)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("iis", $customer_id, $address_id, $isDefault);
         $stmt->execute();
@@ -347,8 +347,8 @@ class TKModel
     public function getTop5KhachHang()
     {
         $sql = "SELECT kh.customer_id, kh.customer_name, kh.phone, SUM(dh.total) AS order_sum
-                FROM KhachHang kh
-                JOIN DonHang dh ON kh.customer_id = dh.customer_id
+                FROM khachhang kh
+                JOIN donhang dh ON kh.customer_id = dh.customer_id
                 GROUP BY kh.customer_id, kh.customer_name, kh.phone
                 ORDER BY order_sum DESC
                 LIMIT 5";
@@ -362,11 +362,11 @@ class TKModel
 
     public function getOrderById($id)
     {
-        $sql = "SELECT KhachHang.customer_name, KhachHang.phone, KhachHang.customer_id, DonHang.total, DonHang.order_id, DonHang.OrderDate
-                FROM DonHang 
-                JoIN KhachHang 
-                ON DonHang.customer_id = KhachHang.customer_id 
-                WHERE DonHang.customer_id = ?";
+        $sql = "SELECT khachhang.customer_name, khachhang.phone, khachhang.customer_id, donhang.total, donhang.order_id, donhang.OrderDate
+                FROM donhang 
+                JoIN khachhang 
+                ON donhang.customer_id = khachhang.customer_id 
+                WHERE donhang.customer_id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();

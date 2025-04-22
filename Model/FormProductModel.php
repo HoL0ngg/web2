@@ -14,7 +14,7 @@ class FormProductModel
     public function getProductById($id)
     {
         $sql = "SELECT sp.*, ha.image_url
-                FROM SanPham sp
+                FROM sanpham sp
                 JOIN sanphamhinhanh ha ON sp.product_id = ha.product_id  
                 WHERE sp.product_id = ?";
         $stmt = $this->conn->prepare($sql);
@@ -102,8 +102,8 @@ class FormProductModel
     public function getAllProducts()
     {
         $sql = "SELECT sp.*, ha.image_url, tl.tentheloai, brand.brand_name
-                FROM SanPham sp
-                JOIN SanPhamHinhAnh ha ON sp.product_id = ha.product_id
+                FROM sanpham sp
+                JOIN sanphamhinhanh ha ON sp.product_id = ha.product_id
                 JOIN theloai tl ON sp.matheloai = tl.matheloai
                 JOIN brand ON sp.brand_id = brand.brand_id
                 WHERE ha.is_main = TRUE

@@ -16,7 +16,7 @@ class CategoryModel {
     }
 
     function insertChungLoai($tenchungloai) {
-        $stmt = $this->conn->prepare("INSERT INTO ChungLoai (tenchungloai) VALUES (?)");
+        $stmt = $this->conn->prepare("INSERT INTO  chungloai (tenchungloai) VALUES (?)");
         $stmt->bind_param("s", $tenchungloai);
     
         if ($stmt->execute()) {
@@ -29,25 +29,25 @@ class CategoryModel {
         }
     }
     public function deleteChungLoai($machungloai) {
-        $stmt = $this->conn->prepare("DELETE FROM ChungLoai WHERE machungloai = ?");
+        $stmt = $this->conn->prepare("DELETE FROM  chungloai WHERE machungloai = ?");
         $stmt->bind_param("s", $machungloai);
         return $stmt->execute();
     }
     public function updateChungLoai($machungloai, $tenchungloai) {
-        $stmt = $this->conn->prepare("UPDATE ChungLoai SET tenchungloai = ? WHERE machungloai = ?");
+        $stmt = $this->conn->prepare("UPDATE  chungloai SET tenchungloai = ? WHERE machungloai = ?");
         $stmt->bind_param("ss", $tenchungloai, $machungloai);
         $result = $stmt->execute();
         $stmt->close();
         return $result;
     }
     function insertTheLoai($tentheloai, $machungloai) {
-        $stmt = $this->conn->prepare("INSERT INTO TheLoai (tentheloai, machungloai) VALUES (?, ?)");
+        $stmt = $this->conn->prepare("INSERT INTO theloai (tentheloai, machungloai) VALUES (?, ?)");
         $stmt->bind_param("si", $tentheloai, $machungloai);
         return $stmt->execute();
     }
     
     public function updateTheLoai($matheloai, $tentheloai) {
-        $stmt = $this->conn->prepare("UPDATE TheLoai SET tentheloai = ? WHERE matheloai = ?");
+        $stmt = $this->conn->prepare("UPDATE theloai SET tentheloai = ? WHERE matheloai = ?");
         $stmt->bind_param("ss", $tentheloai, $matheloai);
         $result = $stmt->execute();
         $stmt->close();
@@ -55,7 +55,7 @@ class CategoryModel {
     }
     
     public function deleteTheLoai($matheloai) {
-        $stmt = $this->conn->prepare("DELETE FROM TheLoai WHERE matheloai = ?");
+        $stmt = $this->conn->prepare("DELETE FROM theloai WHERE matheloai = ?");
         $stmt->bind_param("s", $matheloai);
         $result = $stmt->execute();
         $stmt->close();
@@ -71,9 +71,9 @@ class CategoryModel {
                 tl.matheloai,
                 tl.tentheloai,
                 COUNT(sp.product_id) AS so_sanpham
-            FROM ChungLoai cl
-            LEFT JOIN TheLoai tl ON cl.machungloai = tl.machungloai
-            LEFT JOIN SanPham sp ON tl.matheloai = sp.matheloai AND sp.status = 1
+            FROM  chungloai cl
+            LEFT JOIN theloai tl ON cl.machungloai = tl.machungloai
+            LEFT JOIN sanpham sp ON tl.matheloai = sp.matheloai AND sp.status = 1
             GROUP BY cl.machungloai, cl.tenchungloai, tl.matheloai, tl.tentheloai
             ORDER BY cl.machungloai, tl.matheloai
         ";

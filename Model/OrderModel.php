@@ -13,7 +13,7 @@ class OrderModel
 
     public function getAllOrder()
     {
-        $sql = "SELECT  * FROM DonHang";
+        $sql = "SELECT  * FROM donhang";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -29,7 +29,7 @@ class OrderModel
 
     public function getAllOrderHistoryByCustomerId($id)
     {
-        $sql = "SELECT  * FROM DonHang WHERE customer_id = ?";
+        $sql = "SELECT  * FROM donhang WHERE customer_id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();
@@ -46,7 +46,7 @@ class OrderModel
 
     public function getOrderHistoryByStatus($status)
     {
-        $sql = "SELECT  * FROM DonHang WHERE status = ?";
+        $sql = "SELECT  * FROM donhang WHERE status = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("s", $status);
         $stmt->execute();
@@ -58,13 +58,13 @@ class OrderModel
 
     public function changeStatusById($orderId, $newStatus)
     {
-        $sql = "UPDATE DonHang SET status = ? WHERE order_id = ?";
+        $sql = "UPDATE donhang SET status = ? WHERE order_id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("si", $newStatus, $orderId);
         $stmt->execute();
     }
     public function getOrdersByDateRange($from, $to) {
-        $sql = "SELECT * FROM DonHang WHERE orderDate BETWEEN ? AND ?";
+        $sql = "SELECT * FROM donhang WHERE orderDate BETWEEN ? AND ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("ss", $from, $to);
         $stmt->execute();
@@ -83,8 +83,8 @@ class OrderModel
             return $this->getAllOrder();
         }
 
-        $sql = "SELECT dh.* FROM DonHang dh 
-            JOIN DiaChi dc ON dh.address_id = dc.address_id 
+        $sql = "SELECT dh.* FROM donhang dh 
+            JOIN diachi dc ON dh.address_id = dc.address_id 
             WHERE 1=1";
             $params = [];
             $types = "";
@@ -159,7 +159,7 @@ class OrderModel
 
     public function addOrder($customer_id, $order_date, $total_price, $status, $address_id, $note, $pttt)
     {
-        $sql = "INSERT INTO DonHang (customer_id, orderDate, total, status, address_id, note, pttt) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO donhang (customer_id, orderDate, total, status, address_id, note, pttt) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("isisiss", $customer_id, $order_date, $total_price, $status, $address_id, $note, $pttt);
         if ($stmt->execute()) {
@@ -171,7 +171,7 @@ class OrderModel
 
     public function addDetailOrder($order_id, $product_id, $quantity, $price)
     {
-        $sql = "INSERT INTO ChiTietDonHang (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO chitietdonhang (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("iiii", $order_id, $product_id, $quantity, $price);
         if ($stmt->execute()) {

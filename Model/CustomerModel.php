@@ -12,7 +12,7 @@
         }
         
         public function getAllKhachHang(){
-            $sql = "SELECT * FROM KhachHang";
+            $sql = "SELECT * FROM  khachhang";
             $stmt= $this->conn->prepare($sql);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -23,7 +23,7 @@
 
         public function getNameCustomerByID($id)
         {
-            $sql = "SELECT customer_name FROM KhachHang WHERE customer_id = ?";
+            $sql = "SELECT customer_name FROM  khachhang WHERE customer_id = ?";
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param("i", $id);
             $stmt->execute();
@@ -33,7 +33,7 @@
             return $name ? $name['customer_name'] : 'Không rõ';
         }
         public function getPhoneCustomerByID($id){
-            $sql = "SELECT phone FROM KhachHang WHERE customer_id = ?";
+            $sql = "SELECT phone FROM  khachhang WHERE customer_id = ?";
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param("i", $id);
             $stmt->execute();

@@ -13,7 +13,7 @@ class AdressModel
 
     public function getAddressByID($id)
     {
-        $sql = "SELECT * FROM DiaChi WHERE address_id = ?";
+        $sql = "SELECT * FROM diachi WHERE address_id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();
