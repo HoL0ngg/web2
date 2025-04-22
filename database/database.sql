@@ -11,25 +11,25 @@ CREATE TABLE `chungloai` (
     `hinhanh` varchar(255) DEFAULT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 -- Bảng TheLoai
-CREATE TABLE TheLoai (
+CREATE TABLE theloai (
     matheloai INT PRIMARY KEY,
     tentheloai VARCHAR(50),
     machungloai INT,
     FOREIGN KEY (machungloai) REFERENCES chungloai(machungloai)
 );
 -- Bảng Brand
-CREATE TABLE Brand (
+CREATE TABLE brand (
     brand_id INT PRIMARY KEY,
     brand_name VARCHAR(100)
 );
 -- Bảng NhomQuyen
-CREATE TABLE `NhomQuyen` (
+CREATE TABLE `nhomquyen` (
     `role_id` INT NOT NULL PRIMARY KEY,
     `role_name` VARCHAR(50) NOT NULL,
     `trangthai` INT NOT NULL -- 1: đang dùng, 0: tắt
 );
 -- Bảng DanhMucChucNang
-CREATE TABLE `DanhMucChucNang` (
+CREATE TABLE `danhmucchucnang` (
     `function_id` VARCHAR(50) NOT NULL PRIMARY KEY,
     `function_name` VARCHAR(50) NOT NULL,
     `trangthai` INT NOT NULL -- 1: đang dùng, 0: tắt
@@ -41,19 +41,19 @@ CREATE TABLE users (
     password VARCHAR(255),
     role_id INT,
     status TINYINT NOT NULL DEFAULT 1,
-    FOREIGN KEY (role_id) REFERENCES NhomQuyen(role_id)
+    FOREIGN KEY (role_id) REFERENCES nhomquyen(role_id)
 );
 -- Bảng ChiTietNhomQuyen
-CREATE TABLE `ChiTietNhomQuyen` (
+CREATE TABLE `chitietnhomquyen` (
     `role_id` INT NOT NULL,
     `function_id` VARCHAR(50) NOT NULL,
     `action` VARCHAR(100) NOT NULL,
     PRIMARY KEY (`role_id`, `function_id`, `action`),
-    FOREIGN KEY (`role_id`) REFERENCES NhomQuyen(`role_id`),
-    FOREIGN KEY (`function_id`) REFERENCES DanhMucChucNang(`function_id`)
+    FOREIGN KEY (`role_id`) REFERENCES nhomquyen(`role_id`),
+    FOREIGN KEY (`function_id`) REFERENCES danhmucchucnang(`function_id`)
 );
 -- Bảng NhanVien
-CREATE TABLE NhanVien (
+CREATE TABLE nhanvien (
     employee_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
     name VARCHAR(50),
@@ -62,7 +62,7 @@ CREATE TABLE NhanVien (
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 -- Bảng KhachHang
-CREATE TABLE KhachHang (
+CREATE TABLE khachhang (
     customer_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
     customer_name VARCHAR(50),
@@ -71,7 +71,7 @@ CREATE TABLE KhachHang (
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 -- Bảng DiaChi
-CREATE TABLE DiaChi (
+CREATE TABLE diachi (
     address_id INT PRIMARY KEY AUTO_INCREMENT,
     ThanhPho VARCHAR(50),
     Quan VARCHAR(50),
@@ -79,22 +79,22 @@ CREATE TABLE DiaChi (
     SoNha VARCHAR(50)
 );
 -- Bảng KhachHang_DiaChi
-CREATE TABLE KhachHang_DiaChi (
+CREATE TABLE khachhang_diachi (
     customer_id INT,
     address_id INT,
     is_default BOOLEAN DEFAULT FALSE,
     PRIMARY KEY (customer_id, address_id),
-    FOREIGN KEY (customer_id) REFERENCES KhachHang(customer_id),
-    FOREIGN KEY (address_id) REFERENCES DiaChi(address_id)
+    FOREIGN KEY (customer_id) REFERENCES khachhang(customer_id),
+    FOREIGN KEY (address_id) REFERENCES diachi(address_id)
 );
 -- Bảng NhaCungCap
-CREATE TABLE NhaCungCap (
+CREATE TABLE nhacungcap (
     supplier_id INT PRIMARY KEY,
     supplier_name VARCHAR(50),
     address VARCHAR(100)
 );
 -- Bảng SanPham
-CREATE TABLE SanPham (
+CREATE TABLE sanpham (
     product_id INT AUTO_INCREMENT PRIMARY KEY,
     product_name VARCHAR(50),
     quantity INT,
@@ -103,16 +103,16 @@ CREATE TABLE SanPham (
     brand_id INT,
     matheloai INT,
     status TINYINT NOT NULL DEFAULT 1,
-    FOREIGN KEY (brand_id) REFERENCES Brand(brand_id),
-    FOREIGN KEY (matheloai) REFERENCES TheLoai(matheloai)
+    FOREIGN KEY (brand_id) REFERENCES brand(brand_id),
+    FOREIGN KEY (matheloai) REFERENCES theloai(matheloai)
 );
 -- Bảng SanPhamHinhAnh
-CREATE TABLE SanPhamHinhAnh (
+CREATE TABLE sanphamhinhanh (
     image_id INT AUTO_INCREMENT PRIMARY KEY,
     image_url VARCHAR(255) NOT NULL,
     is_main TINYINT NOT NULL DEFAULT 1,
     product_id INT NOT NULL,
-    FOREIGN KEY (product_id) REFERENCES SanPham(product_id)
+    FOREIGN KEY (product_id) REFERENCES sanpham(product_id)
 );
 CREATE TABLE giohang (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -120,36 +120,36 @@ CREATE TABLE giohang (
     product_id INT NOT NULL,
     quantity INT NOT NULL DEFAULT 1,
     -- Ràng buộc khóa ngoại
-    FOREIGN KEY (customer_id) REFERENCES KhachHang(customer_id) ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES SanPham(product_id) ON DELETE CASCADE
+    FOREIGN KEY (customer_id) REFERENCES khachhang(customer_id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES sanpham(product_id) ON DELETE CASCADE
 );
 -- Bảng SuKienGiamGia
-CREATE TABLE SuKienGiamGia (
+CREATE TABLE sukiengiamgia (
     flashsale_id INT PRIMARY KEY,
     startDate DATETIME,
     endDate DATETIME,
     tenSuKien VARCHAR(100)
 );
 -- Bảng SanPhamGiamGia
-CREATE TABLE SanPhamGiamGia (
+CREATE TABLE sanphamgiamgia (
     flashsale_id INT,
     product_id INT,
     discount_percent INT,
     quantity INT,
     PRIMARY KEY (flashsale_id, product_id),
-    FOREIGN KEY (flashsale_id) REFERENCES SuKienGiamGia(flashsale_id),
-    FOREIGN KEY (product_id) REFERENCES SanPham(product_id)
+    FOREIGN KEY (flashsale_id) REFERENCES sukiengiamgia(flashsale_id),
+    FOREIGN KEY (product_id) REFERENCES sanpham(product_id)
 );
 -- Bảng YeuThich
-CREATE TABLE YeuThich (
+CREATE TABLE yeuthich (
     love_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_id int,
     product_id INT,
-    FOREIGN KEY (customer_id) REFERENCES KhachHang(customer_id),
-    FOREIGN KEY (product_id) REFERENCES SanPham(product_id)
+    FOREIGN KEY (customer_id) REFERENCES khachhang(customer_id),
+    FOREIGN KEY (product_id) REFERENCES sanpham(product_id)
 );
 -- Bảng DonHang
-CREATE TABLE DonHang (
+CREATE TABLE donhang (
     order_id INT PRIMARY KEY AUTO_INCREMENT,
     employee_id INT,
     customer_id INT,
@@ -167,40 +167,54 @@ CREATE TABLE DonHang (
     ),
     note varchar(255),
     PTTT varchar(50),
-    FOREIGN KEY (employee_id) REFERENCES NhanVien(employee_id),
-    FOREIGN KEY (customer_id) REFERENCES KhachHang(customer_id),
-    FOREIGN KEY (address_id) REFERENCES DiaChi(address_id)
+    FOREIGN KEY (employee_id) REFERENCES nhanvien(employee_id),
+    FOREIGN KEY (customer_id) REFERENCES khachhang(customer_id),
+    FOREIGN KEY (address_id) REFERENCES diachi(address_id)
 );
 -- Bảng ChiTietDonHang
-CREATE TABLE ChiTietDonHang (
+CREATE TABLE chitietdonhang (
     order_id INT,
     product_id INT,
     quantity INT,
     price INT,
     PRIMARY KEY (order_id, product_id),
-    FOREIGN KEY (order_id) REFERENCES DonHang(order_id),
-    FOREIGN KEY (product_id) REFERENCES SanPham(product_id)
+    FOREIGN KEY (order_id) REFERENCES donhang(order_id),
+    FOREIGN KEY (product_id) REFERENCES sanpham(product_id)
 );
 -- Bảng PhieuNhap
-CREATE TABLE PhieuNhap (
+CREATE TABLE phieunhap (
     receipt_id INT PRIMARY KEY,
     employee_id INT,
     supplier_id INT,
     time DATE,
     total INT,
-    FOREIGN KEY (employee_id) REFERENCES NhanVien(employee_id),
-    FOREIGN KEY (supplier_id) REFERENCES NhaCungCap(supplier_id)
+    FOREIGN KEY (employee_id) REFERENCES nhanvien(employee_id),
+    FOREIGN KEY (supplier_id) REFERENCES nhacungcap(supplier_id)
 );
 -- Bảng ChiTietPhieuNhap
-CREATE TABLE ChiTietPhieuNhap (
+CREATE TABLE chitietphieunhap (
     receipt_id INT,
     product_id INT,
     quantity INT,
     price INT,
+    percent INT,
     PRIMARY KEY (receipt_id, product_id),
-    FOREIGN KEY (receipt_id) REFERENCES PhieuNhap(receipt_id),
-    FOREIGN KEY (product_id) REFERENCES SanPham(product_id)
+    FOREIGN KEY (receipt_id) REFERENCES phieunhap(receipt_id),
+    FOREIGN KEY (product_id) REFERENCES sanpham(product_id)
 );
+-- Bảng NhaCungCapSanPham
+CREATE TABLE nhacungcapsanpham (
+    supplier_id INT,
+    product_id INT,
+    PRIMARY KEY (supplier_id, product_id),
+    FOREIGN KEY (supplier_id) REFERENCES nhacungcap(supplier_id),
+    FOREIGN KEY (product_id) REFERENCES sanpham(product_id)
+);
+-- Thêm percent vào bảng chitietphieunhap
+-- ALTER TABLE ChiTietPhieuNhap
+-- ADD percent INT DEFAULT 10;
+
+
 -- THÊM DỮ LIỆU MẪU --
 -- ChungLoai
 INSERT INTO `chungloai` (`machungloai`, `tenchungloai`, `hinhanh`)
@@ -215,7 +229,7 @@ VALUES (1, 'Trang Điểm', 'imgs/trangdiem.webp'),
     (5, 'Chăm Sóc Cá Nhân', 'imgs/chamsoccanhan.webp'),
     (6, 'Nước Hoa', 'imgs/nuochoa.webp');
 -- TheLoai
-INSERT INTO TheLoai
+INSERT INTO theloai
 VALUES (1, 'Kem dưỡng da', 2),
     (2, 'Sữa rửa mặt', 2),
     (3, 'Son môi', 1),
@@ -225,18 +239,18 @@ VALUES (1, 'Kem dưỡng da', 2),
     (7, 'Dầu gội', 4),
     (8, 'Nước hoa', 6);
 -- Brand
-INSERT INTO Brand
+INSERT INTO brand
 VALUES (1, 'Innisfree'),
     (2, 'Laneige'),
     (3, 'Maybelline'),
     (4, 'L\'Oreal');
 -- NhomQuyen
-INSERT INTO `NhomQuyen` (`role_id`, `role_name`, `trangthai`)
+INSERT INTO `nhomquyen` (`role_id`, `role_name`, `trangthai`)
 VALUES (1, 'Admin', 1),
     (2, 'Nhân viên', 1),
     (3, 'Khách hàng', 1);
 -- DanhMucChucNang
-INSERT INTO `DanhMucChucNang` (`function_id`, `function_name`, `trangthai`)
+INSERT INTO `danhmucchucnang` (`function_id`, `function_name`, `trangthai`)
 VALUES ('khachhang', 'Quản lý khách hàng', 1),
     ('nhanvien', 'Quản lý nhân viên', 1),
     ('taikhoan', 'Quản lý tài khoản', 1),
@@ -248,8 +262,9 @@ VALUES ('khachhang', 'Quản lý khách hàng', 1),
     ('nhaphang', 'Nhập hàng', 1),
     ('giamgia', 'Sự kiện giảm giá', 1);
 -- ChiTietNhomQuyen admin
-INSERT INTO `ChiTietNhomQuyen` (`role_id`, `function_id`, `action`)
-VALUES (1, 'khachhang', 'create'),
+INSERT INTO `chitietnhomquyen` (`role_id`, `function_id`, `action`)
+VALUES 
+    (1, 'khachhang', 'create'),
     (1, 'khachhang', 'read'),
     (1, 'khachhang', 'update'),
     (1, 'khachhang', 'delete'),
@@ -289,9 +304,11 @@ VALUES (1, 'khachhang', 'create'),
     (1, 'giamgia', 'read'),
     (1, 'giamgia', 'update'),
     (1, 'giamgia', 'delete');
+
 -- ChiTietNhomQuyen nhanvien
-INSERT INTO `ChiTietNhomQuyen` (`role_id`, `function_id`, `action`)
-VALUES (2, 'khachhang', 'read'),
+INSERT INTO `chitietnhomquyen` (`role_id`, `function_id`, `action`)
+VALUES 
+    (2, 'khachhang', 'read'),
     (2, 'donhang', 'create'),
     (2, 'donhang', 'read'),
     (2, 'donhang', 'update'),
@@ -303,9 +320,11 @@ VALUES (2, 'khachhang', 'read'),
     (2, 'giamgia', 'create'),
     (2, 'giamgia', 'read'),
     (2, 'giamgia', 'update');
+
 -- ChiTietNhomQuyen khachhang
-INSERT INTO `ChiTietNhomQuyen` (`role_id`, `function_id`, `action`)
-VALUES (3, 'khachhang', 'read'),
+INSERT INTO `chitietnhomquyen` (`role_id`, `function_id`, `action`)
+VALUES 
+    (3, 'khachhang', 'read'),
     (3, 'donhang', 'read'),
     (3, 'sanpham', 'read'),
     (3, 'giamgia', 'read');
@@ -338,7 +357,7 @@ VALUES (
     );
 -- khach2: khach2
 -- NhanVien
-INSERT INTO NhanVien
+INSERT INTO nhanvien
 VALUES (
         1,
         1,
@@ -347,7 +366,7 @@ VALUES (
         'admin@email.com'
     );
 -- KhachHang
-INSERT INTO KhachHang
+INSERT INTO khachhang
 VALUES (
         1,
         2,
@@ -363,7 +382,7 @@ VALUES (
         'khach2@email.com'
     );
 -- DiaChi
-INSERT INTO DiaChi
+INSERT INTO diachi
 VALUES (
         1,
         'Thành phố Hồ Chí Minh',
@@ -386,16 +405,16 @@ VALUES (
         '456 Cách Mạng'
     );
 -- KhachHang_DiaChi
-INSERT INTO KhachHang_DiaChi
+INSERT INTO khachhang_diachi
 VALUES (2, 1, FALSE),
     (2, 2, FALSE),
     (2, 3, FALSE);
 -- NhaCungCap
-INSERT INTO NhaCungCap
+INSERT INTO nhacungcap
 VALUES (1, 'Nhà cung cấp A', '789 Hai Bà Trưng'),
     (2, 'Nhà cung cấp B', '321 Nguyễn Trãi');
 -- SanPham
-INSERT INTO SanPham (
+INSERT INTO sanpham (
         product_id,
         product_name,
         quantity,
@@ -580,9 +599,9 @@ VALUES (
         8,
         1
     );
--- SanPhamHinhAnh
-INSERT INTO SanPhamHinhAnh(image_url, is_main, product_id)
-VALUES ('imgs/sp1.jpg', TRUE, 1),
+INSERT INTO sanphamhinhanh (image_url, is_main, product_id)
+VALUES 
+    ('imgs/sp1.jpg', TRUE, 1),
     ('imgs/sp1_1.jpg', FALSE, 1),
     ('imgs/sp2.jpg', TRUE, 2),
     ('imgs/sp3.jpg', TRUE, 3),
@@ -602,7 +621,7 @@ VALUES ('imgs/sp1.jpg', TRUE, 1),
     ('imgs/sp16.jpg', TRUE, 16),
     ('imgs/sp17.jpg', TRUE, 17);
 -- SuKienGiamGia
-INSERT INTO SuKienGiamGia
+INSERT INTO sukiengiamgia
 VALUES (
         1,
         '2025-04-01 00:00:00',
@@ -610,11 +629,11 @@ VALUES (
         'Flash Sale 4/2025'
     );
 -- SanPhamGiamGia
-INSERT INTO SanPhamGiamGia
+INSERT INTO sanphamgiamgia
 VALUES (1, 1, 10, 20),
     (1, 3, 15, 50);
 -- DonHang
-INSERT INTO DonHang
+INSERT INTO donhang
 VALUES (
         1,
         1,
@@ -644,18 +663,28 @@ VALUES (
         NULL
     );
 -- ChiTietDonHang
-INSERT INTO ChiTietDonHang
+INSERT INTO chitietdonhang
 VALUES (1, 1, 2, 120000),
     (1, 3, 1, 180000),
     (2, 2, 1, 250000),
     (2, 3, 1, 180000);
 -- PhieuNhap
-INSERT INTO PhieuNhap
+INSERT INTO phieunhap
 VALUES (1, 1, 1, '2025-03-28', 500000),
     (2, 1, 2, '2025-04-01', 800000);
 -- ChiTietPhieuNhap
-INSERT INTO ChiTietPhieuNhap
-VALUES (1, 1, 10, 100000),
-    (1, 2, 5, 220000),
-    (2, 3, 20, 150000),
-    (2, 4, 5, 280000);
+INSERT INTO chitietphieunhap (receipt_id, product_id, quantity, price, percent)
+VALUES 
+    (1, 1, 10, 100000, 10),
+    (1, 2, 5, 220000, 15),
+    (2, 3, 20, 150000, 10),
+    (2, 4, 5, 280000, 20);
+-- nhacungcapsanpham
+INSERT INTO nhacungcapsanpham (supplier_id, product_id)
+VALUES 
+    (1, 1),  -- Nhà cung cấp A cung cấp Son Môi MAC Ruby Woo
+    (1, 3),  -- Nhà cung cấp A cung cấp Sữa Rửa Mặt Cetaphil
+    (1, 5),  -- Nhà cung cấp A cung cấp Mặt Nạ Dưỡng Da Innisfree
+    (2, 2),  -- Nhà cung cấp B cung cấp Kem Dưỡng Da Nivea
+    (2, 4),  -- Nhà cung cấp B cung cấp Kem Chống Nắng La Roche-Posay
+    (2, 8);  -- Nhà cung cấp B cung cấp Nước Hoa Chanel No.5
