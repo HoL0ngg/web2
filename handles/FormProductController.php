@@ -172,5 +172,11 @@
 
             echo json_encode($response);
         }
+
+        public function getAllProducts()
+        {
+            $products = $this->model->getAllProducts();
+            include('view/product.php');
+        }
     }
     ?>

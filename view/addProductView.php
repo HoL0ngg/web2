@@ -29,12 +29,12 @@
 
                     <div class="form-group">
                         <label for="quantity">Số lượng</label>
-                        <input type="number" id="quantity" name="quantity">
+                        <input type="number" id="quantity" name="quantity" disabled value="0">
                     </div>
 
                     <div class="form-group">
                         <label for="price">Giá</label>
-                        <input type="text" id="price" name="price">
+                        <input type="text" id="price" name="price" disabled value="0">
                     </div>
 
                     <div class="form-group">

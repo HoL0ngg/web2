@@ -118,7 +118,7 @@
                                 break;
                         }
                     } else {
-                        include('product.php');
+                        $formProductController->getAllProducts();
                     }
                 } elseif ($page == 'category') {
                     include('category.php');
