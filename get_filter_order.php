@@ -8,20 +8,23 @@ require_once './handles/CustomerController.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $from = isset($_POST['from']) ? $_POST['from'] : "";
     $to = isset($_POST['to']) ? $_POST['to'] : "";
-    $customerId = isset($_POST['customerId']) ? intval($_POST['customerId']) : 0;
+    $keyword = isset($_POST["keyword"]) ? trim($_POST["keyword"]) : "";
     $status = isset($_POST['status']) ? $_POST['status'] : "";
+    $thanhpho = isset($_POST['thanhpho']) ? $_POST['thanhpho'] : "";
+    $quan = isset($_POST['quan']) ? $_POST['quan'] : "";
+    $phuong = isset($_POST['phuong']) ? $_POST['phuong'] : "";
 
     $OrderController = new OrderController();
     $CustomerController = new CustomerController();
     $AddressController = new AddressController();
 
-    $orders = $OrderController->getOrdersWithFilters($from, $to, $customerId, $status);
+    $orders = $OrderController->getOrdersWithFilters($from, $to, $keyword, $status, $thanhpho, $quan, $phuong);
 
     if (!empty($orders)) {
         foreach ($orders as $order) {
-            $name = $CustomerController->getNameCustomerByID($order['customer_id']);
+            $name = $order['customer_recipient_name'];
             $address = $AddressController->getAddressByID($order['address_id']);
-            $phone = $CustomerController->getPhoneCustomerByID($order['customer_id']);
+            $phone = $order['phone'];
 
             // Định nghĩa màu nền và kiểu dáng cho từng trạng thái
             $statusStyles = [

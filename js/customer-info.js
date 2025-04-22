@@ -128,12 +128,10 @@ if (confirmBtn) {
         if (cnt > 0) {
             e.preventDefault();
         } else {
-            if (paymentMethod.value == 'visa') {
 
-            } else if (paymentMethod.value == 'momo' || paymentMethod.value == 'vnpay') {
-                form.submit(); // ✅ Gửi form nếu không có lỗi
-            }
-        });
+            form.submit(); // ✅ Gửi form nếu không có lỗi
+        }
+    });
 
 }
 function setupSavedAddressSelection() {

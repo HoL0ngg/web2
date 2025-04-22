@@ -45,7 +45,7 @@ class OrderController
         return $this->model->getOrdersByDateRange($from,$to);
     }
 
-    public function getOrdersWithFilters($from = "", $to = "", $customerId = 0, $status = ""){
-        return $this->model->getOrdersWithFilters($from, $to, $customerId, $status);
+    public function getOrdersWithFilters($from = "", $to = "", $keyword = "", $status = "" , $thanhpho = "", $quan = "", $phuong = ""){
+        return $this->model->getOrdersWithFilters($from, $to, $keyword, $status, $thanhpho, $quan, $phuong);
     }
 }
