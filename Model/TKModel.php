@@ -221,7 +221,7 @@ class TKModel
             LEFT JOIN khachhang kh ON kh.user_id = u.user_id  
             -- Nối bảng khachhang với users thông qua user_id (nếu người dùng là khách hàng thì sẽ có dữ liệu)
 
-            LEFT JOIN NhomQuyen r ON u.role_id = r.role_id  
+            LEFT JOIN nhomquyen r ON u.role_id = r.role_id  
             -- Nối bảng roles với users để lấy tên vai trò của người dùng dựa vào role_id
 
             ORDER BY u.user_id DESC
@@ -327,7 +327,7 @@ class TKModel
 
     public function insertDiaChi($thanhpho, $quan, $phuong, $sonha)
     {
-        $stmt = $this->conn->prepare("INSERT INTO DiaChi (ThanhPho, Quan, Phuong, SoNha) VALUES (?, ?, ?, ?)");
+        $stmt = $this->conn->prepare("INSERT INTO diachi (ThanhPho, Quan, Phuong, SoNha) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("ssss", $thanhpho, $quan, $phuong, $sonha);
         $stmt->execute();
         $insertId = $stmt->insert_id;
