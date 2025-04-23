@@ -1,17 +1,7 @@
     <?php
     class PhanQuyenController
     {
-        public function __construct()
-        {
-            if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_GET['action'])) {
-                if ($_GET['action'] == 'addRole') {
-                    $this->addRole();
-                }
-                if ($_GET['action'] == 'addChucNang') {
-                    $this->addChucNang();
-                }
-            }
-        }
+        public function __construct() {}
 
         public function roleList()
         {
@@ -32,9 +22,9 @@
         }
         public function addRole()
         {
-            require_once('Model/NhomQuyenModel.php');
-            $data = json_decode(file_get_contents('php://input'), true);
-            $rolename = $data['role_name'] ?? '';
+            require_once(__DIR__ . '/../Model/NhomQuyenModel.php');
+
+            $rolename = $_POST['role_name'] ?? '';
             if (empty($rolename)) {
                 echo json_encode(['success' => false, 'message' => 'Tên nhóm quyền không được để trống.']);
                 return;
@@ -50,10 +40,9 @@
 
         public function addChucNang()
         {
-            require_once('Model/PhanQuyenModel.php');
-            $data = json_decode(file_get_contents('php://input'), true);
-            $function_id = $data['function_id'];
-            $function_name = $data['function_name'];
+            require_once(__DIR__ . '/../Model/PhanQuyenModel.php');
+            $function_id = $_POST['function_id'];
+            $function_name = $_POST['function_name'];
 
             if (empty($function_id) || empty($function_name)) {
                 echo json_encode(['success' => false, 'message' => 'Vui lòng nhập đầy đủ thông tin!']);
@@ -66,6 +55,29 @@
                 echo json_encode(['success' => true, 'message' => 'Thêm chức năng thành công!']);
             } else {
                 echo json_encode(['success' => false, 'message' => 'Thêm chức năng thất bại']);
+            }
+        }
+
+        public function luu()
+        {
+            if ($_SERVER['REQUEST_METHOD'] === "POST") {
+                $permissions = $_POST['permissions'] ?? [];
+                $role_id = $_POST['role_id'] ?? 1;
+                require_once(__DIR__ . '/../Model/PhanQuyenModel.php');
+                $phanquyenModel = new PhanQuyenModel();
+
+                $xoa = $phanquyenModel->xoaChiTietNhomQuyen($role_id);
+                //Chen quyen moi
+                foreach ($permissions as $function_id => $actions) {
+                    foreach ($actions as $action => $value) {
+                        $them = $phanquyenModel->themChiTietNhomQuyen($role_id, $function_id, $action);
+                    }
+                }
+                if ($them) {
+                    echo json_encode(['success' => true, 'message' => 'Cập nhật quyền thành công.']);
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Cập nhật quyền thất bại.']);
+                }
             }
         }
     }

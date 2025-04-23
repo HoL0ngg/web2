@@ -5,7 +5,7 @@
     </header>
 
     <section class="permission-management">
-        <form>
+        <form id="permission-form">
             <!-- Combobox chọn nhóm quyền -->
             <div class="permission-header">
                 <label for="nhom_quyen">Nhóm quyền:</label>

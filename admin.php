@@ -189,9 +189,7 @@ $admin = $_SESSION['admin'];
                 } elseif ($page == 'phanquyen') {
                     require_once('handles/PhanQuyenController.php');
                     $phanquyenController = new PhanQuyenController();
-                    if (!isset($_GET['action'])) {
-                        $phanquyenController->roleList();
-                    }
+                    $phanquyenController->roleList();
                 } else {
                     include('admin/home.php');
                 }

@@ -367,19 +367,23 @@ function themNhomQuyen() {
         showToast("Vui lòng nhập tên nhóm quyền", false);
         return;
     }
-    fetch('admin.php?page=phanquyen&action=addRole', {
-        method: "POST",
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ role_name: ten })
+    let formData = new FormData();
+    formData.append('action', 'addRole');
+    formData.append('role_name', ten);
+    fetch('api/permission_api.php', {
+        method: "POST",        
+        body: formData
     })
-    .then(response => response.text())
+    .then(response => response.json())
     .then(data => {
         console.log(data);
         
         if(data.success){
             showToast(data.message,data.success);
             closePopup();
-            // location.reload();
+            setTimeout(() => {
+                location.reload();
+            }, 2000);
         }else{
             showToast("Loi" + data.message, data.success);
         }
@@ -389,8 +393,66 @@ function themNhomQuyen() {
 function themChucNang() {
     const ten = document.getElementById('ten_chuc_nang').value;
     const ma = document.getElementById('ma_chuc_nang').value;
-    if (!ten) return alert("Vui lòng nhập tên chức năng");
-    // Gửi AJAX ở đây...
-    alert("Đã thêm chức năng: " + ten);
-    closePopup();
+    if (!ten || !ma){
+        showToast("Vui lòng nhập tên và mã chức năng", false);
+        return;
+    }
+    let formData = new FormData();
+    formData.append('action', 'addChucNang');
+    formData.append('function_name', ten);  
+    formData.append('function_id', ma);
+    fetch('api/permission_api.php', {
+        method: "POST",        
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data =>{
+        if(data.success){
+            showToast(data.message,data.success);
+            closePopup();
+            setTimeout(() => {
+                location.reload();
+            }, 2000);
+        }
+        else{
+            showToast("Loi" + data.message, data.success);
+        }
+    })
+    .catch(error => {
+        console.error("Lỗi hệ thống: ", error);
+        showToast("Lỗi hệ thống", false);
+    });
 }
+
+const permissionForm = document.getElementById("permission-form");
+if(permissionForm){
+    permissionForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const url = new URL(window.location.href);
+        const role_id = url.searchParams.get('role_id');
+        let formData = new FormData(e.target); 
+        formData.append("action", "updatePermission");
+        formData.append("role_id", role_id);
+        try{
+            const response = await fetch('api/permission_api.php',{
+                method: "POST",
+                body: formData
+            })
+            const data = await response.json();
+            if(data.success){
+                showToast(data.message, data.success);
+                setTimeout(() => {
+                    location.reload();
+                }, 2000);
+            }
+            else{
+                showToast("Loi " + data.message, data.success);
+            }
+        }
+        catch(error){
+            console.error("Lỗi hệ thống: ", error);
+            showToast("Lỗi hệ thống", false);
+        }
+
+    }
+)};

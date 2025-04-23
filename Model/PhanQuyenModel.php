@@ -1,5 +1,5 @@
     <?php
-    require_once("database/connect.php");
+    require_once(__DIR__ . '/../database/connect.php');
 
     class PhanQuyenModel
     {
@@ -34,13 +34,36 @@
         {
             $sql = "INSERT INTO danhmucchucnang(function_id, function_name,trangthai) VALUES (?, ?, ?)";
             $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("ssi", $function_id, $function_name);
+            $trangthai = 1;
+            $stmt->bind_param("ssi", $function_id, $function_name, $trangthai);
             $stmt->execute();
             if ($stmt->affected_rows > 0) {
                 return true;
             } else {
                 return false;
             }
+        }
+
+        public function xoaChiTietNhomQuyen($role_id)
+        {
+            $sql = "DELETE FROM chitietnhomquyen WHERE role_id = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("i", $role_id);
+            $stmt->execute();
+        }
+
+        public function themChiTietNhomQuyen($rold_id, $function_id, $action)
+        {
+            $sql = "INSERT INTO chitietnhomquyen(role_id, function_id,action) VALUES(?,?,?)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("iss", $rold_id, $function_id, $action);
+            $stmt->execute();
+            if ($stmt->affected_rows > 0) {
+                return true;
+            } else {
+                return false;
+            }
+            $stmt->close();
         }
     }
     ?>
