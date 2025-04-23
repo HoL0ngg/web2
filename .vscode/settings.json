@@ -10,7 +10,7 @@
             "server": "localhost",
             "port": 3306,
             "driver": "MySQL",
-            "name": "Web2",
+            "name": "web2",
             "database": "webbanhang",
             "username": "root",
             "password": ""
