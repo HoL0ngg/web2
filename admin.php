@@ -1,12 +1,16 @@
 <?php
-// session_start();
-// if (!isset($_SESSION['admin'])) {
-    // header('Location: index.php');
-    // exit;
-// }
 
-// Nếu đã đăng nhập:
-// $admin = $_SESSION['admin'];
+session_start();
+if (!isset($_SESSION['user']) && !isset($_SESSION['user']['role_id'])) {
+    header('Location: index.php');
+    exit;
+}
+if ($_SESSION['user']['role_id'] == 3) {
+    header('Location: index.php');
+    exit;
+}
+$role_id = $_SESSION['user']['role_id'];
+
 ?>
 
 <html lang="en">
@@ -105,7 +109,7 @@
             <div id="footer">
 
                 <div id="admin-info">
-                    <p>Xin chào: <span><?= $_SESSION['admin'] ?></span></p>
+                    <p>Xin chào: <span><?= $_SESSION['user']['username'] ?></span></p>
                 </div>
 
                 <div id="admin-logout">
@@ -172,9 +176,9 @@
                     require_once './handles/OrderController.php';
                     $OrderHistoryController = new OrderController();
                     $OrderHistoryController->getAllOrder();
-                } elseif ($page == 'supplier'){
+                } elseif ($page == 'supplier') {
                     include('supplier.php');
-                } elseif ($page == 'import'){
+                } elseif ($page == 'import') {
                     include('import.php');
                 } elseif ($page == 'thongke') {
                     if (isset($_GET['id'])) {

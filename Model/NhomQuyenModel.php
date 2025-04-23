@@ -1,5 +1,5 @@
     <?php
-    require_once('database/connect.php');
+    require_once(__DIR__ . '/../database/connect.php');
 
     class NhomQuyenModel
     {
@@ -20,6 +20,18 @@
             $role_names = $result->fetch_all(MYSQLI_ASSOC);
             $stmt->close();
             return $role_names;
+        }
+
+        public function themNhomQuyen($role_name)
+        {
+            $sql = "INSERT INTO nhomquyen(role_name) VALUES (?)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("s", $role_name);
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
     ?>
