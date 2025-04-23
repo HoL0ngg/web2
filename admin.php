@@ -1,12 +1,12 @@
 <?php
-session_start();
-if (!isset($_SESSION['admin'])) {
-    header('Location: index.php');
-    exit;
-}
+// session_start();
+// if (!isset($_SESSION['admin'])) {
+    // header('Location: index.php');
+    // exit;
+// }
 
 // Nếu đã đăng nhập:
-$admin = $_SESSION['admin'];
+// $admin = $_SESSION['admin'];
 ?>
 
 <html lang="en">
