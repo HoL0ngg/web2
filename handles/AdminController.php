@@ -18,9 +18,9 @@
 
             $admin = $this->model->checkLogin($username, $password);
             if ($admin) {
-                $_SESSION['admin'] = $admin['username'];
-                // header('Location: /admin.php');
-                header('Location: /web2/admin.php');
+                $_SESSION['user'] = $admin;
+                header('Location: /admin.php');
+                // header('Location: /web2/admin.php');
                 exit;
             } else {
                 header('Location: login.php');
@@ -32,7 +32,7 @@
         public function logout()
         {
             session_start();
-            unset($_SESSION['admin']);
+            unset($_SESSION['user']);
             session_destroy();
             header('Location: login.php');
             exit;

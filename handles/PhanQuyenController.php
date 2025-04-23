@@ -67,7 +67,10 @@
                 $phanquyenModel = new PhanQuyenModel();
 
                 $xoa = $phanquyenModel->xoaChiTietNhomQuyen($role_id);
-                //Chen quyen moi
+                if ($permissions == null) {
+                    echo json_encode(['success' => true, 'message' => 'Cập nhật quyền thành công']);
+                    return;
+                }
                 foreach ($permissions as $function_id => $actions) {
                     foreach ($actions as $action => $value) {
                         $them = $phanquyenModel->themChiTietNhomQuyen($role_id, $function_id, $action);

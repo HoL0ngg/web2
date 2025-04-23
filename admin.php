@@ -1,12 +1,15 @@
 <?php
 session_start();
-if (!isset($_SESSION['admin'])) {
+if (!isset($_SESSION['user']) && !isset($_SESSION['user']['role_id'])) {
     header('Location: index.php');
     exit;
 }
+if ($_SESSION['user']['role_id'] == 3) {
+    header('Location: index.php');
+    exit;
+}
+$role_id = $_SESSION['user']['role_id'];
 
-// Nếu đã đăng nhập:
-$admin = $_SESSION['admin'];
 ?>
 
 <html lang="en">
@@ -105,7 +108,7 @@ $admin = $_SESSION['admin'];
             <div id="footer">
 
                 <div id="admin-info">
-                    <p>Xin chào: <span><?= $_SESSION['admin'] ?></span></p>
+                    <p>Xin chào: <span><?= $_SESSION['user']['username'] ?></span></p>
                 </div>
 
                 <div id="admin-logout">

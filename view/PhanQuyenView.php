@@ -59,10 +59,19 @@
 
             <div class="permission-submit">
                 <button type="submit" class="apply-btn">Áp dụng</button>
+                <button type="button" onclick="resetForm()" class="apply-btn">Đặt lại</button>
             </div>
         </form>
     </section>
 </main>
+<script>
+    function resetForm() {
+        const checkBoxes = document.querySelectorAll('.right-panel input[type="checkbox"]');
+        checkBoxes.forEach(checkbox => {
+            checkbox.checked = false;
+        });
+    }
+</script>
 <!-- Nền mờ -->
 <div id="overlay" class="overlay hidden" onclick="closePopup()"></div>
 
@@ -122,6 +131,17 @@
         border: 1px solid #ccc;
         margin-right: 10px;
         width: 20%;
+    }
+
+    .right-panel input[type="checkbox"] {
+        width: 17px;
+        height: 17px;
+        cursor: pointer;
+    }
+
+    .right-panel input[type="checkbox"]:checked {
+        background-color: #66ccff;
+        border: 2px solid #33bbee;
     }
 
     .btn_role {
@@ -188,7 +208,7 @@
 
     .permission-table td {
         border: 1px solid #ccc;
-        padding: 11px;
+        padding: 9px;
         text-align: center;
         background-color: #fff;
     }
