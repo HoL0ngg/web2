@@ -173,7 +173,7 @@ function showToast(message, isSuccess) {
         toast: true, // Hiển thị dạng toast nhỏ thay vì popup lớn
         position: "top-end",
         showConfirmButton: false,
-        timer: 3500,
+        timer: 2500,
         timerProgressBar: true,
         background: isSuccess ? "#f0fff4" : "#fff0f0",
         color: isSuccess ? "#2d7d46" : "#d33",
