@@ -29,8 +29,8 @@ $customer = $tkModel->getUserById($customer_id);
                 </div>
             </div>
             <div class="info-container">
-                <div class="input-group"><input type="text" name="hoten" id="txtHoten" placeholder="" value=""><label for="txtHoten">Họ và tên</label></div>
-                <div class="input-group"><input type="text" name="sdt" id="txtSDT" placeholder="" value="<?= $customer['phone'] ?>" readonly><label for="txtSDT">Số điện thoại</label></div>
+                <div class="input-group"><input type="text" name="hoten" id="txtHoten" placeholder="" value="<?= $customer['fullname'] ?>"><label for="txtHoten">Họ và tên</label></div>
+                <div class="input-group"><input type="text" name="sdt" id="txtSDT" placeholder="" value="<?= $customer['phone'] ?>"><label for="txtSDT">Số điện thoại</label></div>
                 <div class="input-group"><input type="text" name="email" id="txtEmail" placeholder="" value="<?= $customer['email'] ?>"><label for="txtEmail">Email</label></div>
             </div>
             <h3>Địa chỉ giao hàng</h3>
@@ -103,15 +103,44 @@ $customer = $tkModel->getUserById($customer_id);
                 </div>
             </div>
             <div id="confirm-btn">THANH TOÁN NGAY</div>
-            <div id="qr-section-container">
-                <div id="qr-section">
-                    <div class="qr-exitbtn"><i class="fa-solid fa-xmark"></i></div>
-                    <p class="qr-title">Quét mã QR để thanh toán</p>
-                    <img id="qr-image" src="" alt="QR Code"><br>
-                    <button type="button" id="confirm-payment">Tôi đã thanh toán</button>
+        </form>
+        <div id="qr-section-container">
+            <div id="qr-section">
+                <div class="qr-exitbtn"><i class="fa-solid fa-xmark"></i></div>
+                <p class="qr-title">Quét mã QR để thanh toán</p>
+                <img id="qr-image" src="" alt="QR Code"><br>
+                <button type="button" id="confirm-payment">Tôi đã thanh toán</button>
+            </div>
+        </div>
+        <div id="visa-section-container">
+            <div id="visa-section">
+                <div class="visa-exitbtn"><i class="fa-solid fa-xmark"></i></div>
+                <p class="visa-title">Nhập thông tin thẻ VISA</p>
+                <div class="input-container">
+                    <div class="input-group" style="flex: 3">
+                        <input type="text" name="card-number" id="card-number" maxlength="19" placeholder="" value="" oninput="validateCardNumber(this)">
+                        <label for="card-number">Số thẻ</label>
+                    </div>
+                    <div class="input-group" style="flex: 1">
+                        <input type="text" name="cvv" id="cvv" maxlength="3" placeholder="" value="" oninput="validateNumber(this)">
+                        <label for="cvv">Mã CVV</label>
+                    </div>
+                </div>
+                <div class="input-container">
+                    <div class="input-group">
+                        <input type="text" name="expiry-date" id="expiry-date" maxlength="5" placeholder="" value="" oninput="validateExpiryDate(this)">
+                        <label for="expiry-date">Hạn thẻ (MM/YY)</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" name="ZIP" id="ZIP" placeholder="" value="" maxlength="5" oninput="validateNumber(this)">
+                        <label for="ZIP">Mã ZIP</label>
+                    </div>
+                </div>
+                <div style="width: 80%; margin: 0 auto;" id="visa-confirm">
+                    <button type="submit">HOÀN THÀNH</button>
                 </div>
             </div>
-        </form>
+        </div>
 </div>
 
 <script src="/js/customer-info.js"></script>
@@ -148,6 +177,13 @@ $customer = $tkModel->getUserById($customer_id);
         border: 1px solid red;
         margin: 0;
         margin-top: 20px;
+    }
+
+    .input-container div.error {
+        border: 1px solid red;
+        margin: 0;
+        margin-top: 20px;
+        padding-left: 0;
     }
 
     .info-container div {
@@ -200,6 +236,10 @@ $customer = $tkModel->getUserById($customer_id);
         transition: 0.2s ease;
         pointer-events: none;
         padding: 0 4px;
+    }
+
+    .input-group.valid {
+        border: 1px solid #3498DB;
     }
 
     /* Khi input focus hoặc có nội dung thì label nổi lên trên */
@@ -273,6 +313,92 @@ $customer = $tkModel->getUserById($customer_id);
         margin-top: 8px;
     }
 
+    #qr-section button:hover {
+        background-color: #2980B9;
+    }
+
+    #visa-section-container {
+        display: none;
+        position: fixed;
+        margin: auto;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9999;
+    }
+
+    #visa-section {
+        width: 30%;
+        /* height: 35%; */
+        /* margin: 11.25% auto; */
+        margin: 10% auto;
+        background-color: #fff;
+        position: relative;
+        border-radius: 8px;
+    }
+
+    .visa-title {
+        padding: 8px 0px;
+        font-size: 1.2em;
+        color: #333;
+        text-align: center;
+    }
+
+    .visa-exitbtn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        font-size: 24px;
+        color: #333;
+        cursor: pointer;
+        z-index: 10000;
+    }
+
+    #visa-section input[type="text"] {
+        width: 100%;
+        padding: 8px;
+        border: none;
+        border-radius: 8px;
+        outline: none;
+    }
+
+    /* #visa-section input[type="text"]:focus {
+        border: 1px solid #3498DB;
+    } */
+
+    #visa-section button {
+        background-color: #3498DB;
+        width: 100%;
+        color: #fff;
+        padding: 16px 32px;
+        border-radius: 8px;
+        text-align: center;
+        cursor: pointer;
+        border: none;
+        font-size: 1.2em;
+        margin: 12px 0px;
+    }
+
+    .input-container {
+        display: flex;
+        margin: 0 auto;
+        width: 80%;
+    }
+
+    .input-container div {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 8px;
+    }
+
+    .input-container div:nth-child(2) {
+        margin-left: 12px;
+    }
+
     .diachi-user-container select {
         width: 100%;
         padding: 14px;
@@ -319,14 +445,14 @@ $customer = $tkModel->getUserById($customer_id);
         margin: 0;
         color: black;
         border: 1px solid red;
-        font-size: 1em;
+        /* font-size: 1em; */
     }
 
     .diachi-item input.error {
         border: 1px solid red !important;
         margin: 0;
         color: black;
-        font-size: 1em;
+        /* font-size: 1em; */
     }
 
     .note {

@@ -229,7 +229,7 @@ label {
     font-weight: bold;
 }
 
-.container-addaccount input,
+.container-addaccount input,.container-addaccount
 select {
     width: 100%;
     padding: 8px;

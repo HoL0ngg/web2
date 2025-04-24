@@ -138,6 +138,8 @@ if (confirmBtn) {
 
             } else if (paymentMethod.value === 'cod') {
                 form.submit();
+            } else if (paymentMethod.value === 'visa') {
+                document.getElementById('visa-section-container').style.display = 'block';
             }
         }
     });
@@ -158,8 +160,13 @@ function setupSavedAddressSelection() {
             const district = selectedOption.getAttribute('data-quan');
             const ward = selectedOption.getAttribute('data-phuong');
             const sonha = selectedOption.getAttribute('data-sonha');
-
-            if (diachiSelect.value > 0) {
+            if (diachiSelect.value === '0') {
+                citySelect.disabled = true;
+                districtSelect.disabled = true;
+                wardSelect.disabled = true;
+                addressInput.disabled = true;
+            }
+            else if (diachiSelect.value > 0) {
                 // 1. Gán tỉnh/thành phố
                 citySelect.value = city;
                 loadDistricts(city); // gọi lại để load quận sau khi chọn tỉnh
@@ -195,15 +202,132 @@ function setupSavedAddressSelection() {
     }
 }
 
-document.querySelector('.qr-exitbtn').addEventListener('click', function () {
+if (document.querySelector('.qr-exitbtn')) document.querySelector('.qr-exitbtn').addEventListener('click', function () {
     document.getElementById('qr-section-container').style.display = 'none';
     document.getElementById('qr-image').src = ''; // Xóa ảnh QR để tránh hiển thị lại ảnh cũ
 })
 
-document.getElementById('confirm-payment').addEventListener('click', function () {
+if (document.getElementById('confirm-payment')) document.getElementById('confirm-payment').addEventListener('click', function () {
     document.getElementById('qr-section-container').style.display = 'none';
     showToast('Đang xử lý thanh toán...', true);
     setTimeout(() => {
         document.getElementById('checkoutForm').submit();
     }, 2000);
 })
+
+if (document.querySelector('.visa-exitbtn')) document.querySelector('.visa-exitbtn').addEventListener('click', function () {
+    document.getElementById('visa-section-container').style.display = 'none';
+})
+
+if (document.getElementById('visa-confirm')) document.getElementById('visa-confirm').addEventListener('click', function () {
+    if (validateVisaForm()) {
+        document.getElementById('visa-section-container').style.display = 'none';
+        showToast('Đang xử lý thanh toán...', true);
+        setTimeout(() => {
+            document.getElementById('checkoutForm').submit();
+        }, 2000);
+    } else {
+        showToast('Vui lòng kiểm tra lại thông tin', false);
+    }
+})
+
+function validateVisaForm() {
+    const cardNumber = document.getElementById('card-number');
+    const zip = document.getElementById('ZIP');
+    const expiryDate = document.getElementById('expiry-date');
+    console.log(expiryDate);
+
+    const cvv = document.getElementById('cvv');
+
+    let isValid = true;
+
+    if (!validateCardNumber(cardNumber)) {
+        isValid = false;
+    }
+
+
+    if (zip.value.trim() === '' || zip.value.length < 5) {
+        isValid = false;
+    }
+
+    if (!validateExpiryDate(expiryDate)) {
+        isValid = false;
+    }
+
+    if (cvv.value.trim() === '' || cvv.value.length < 3) {
+        isValid = false;
+    }
+
+
+    return isValid;
+}
+
+function validateCardNumber(inputElement) {
+    // Lấy giá trị hiện tại và loại bỏ các ký tự không phải số
+    let value = inputElement.value.replace(/[^0-9]/g, '');
+
+    // Chia giá trị thành các nhóm 4 số và nối bằng dấu ' - '
+    let formattedValue = value.match(/.{1,4}/g)?.join('-') || '';
+
+    // Gán giá trị định dạng lại vào input
+    inputElement.value = formattedValue;
+
+    if (inputElement.value.trim().length != 19) {
+        inputElement.parentElement.classList.add('error');
+        inputElement.parentElement.classList.remove('valid');
+        inputElement.focus();
+        return false;
+    } else {
+        inputElement.parentElement.classList.remove('error');
+        inputElement.parentElement.classList.add('valid');
+        return true;
+    }
+}
+
+function validateExpiryDate(inp) {
+    let value = inp.value.replace(/[^0-9]/g, ''); // Loại bỏ ký tự không phải số
+    if (value.length > 2) {
+        value = value.slice(0, 2) + '/' + value.slice(2); // Thêm dấu '/' sau 2 số đầu
+    }
+    inp.value = value; // Cập nhật giá trị trong ô input
+
+    // check giá trị ngày
+    const regex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+
+    if (!regex.test(inp.value)) {
+        inp.parentElement.classList.add('error');
+        inp.parentElement.classList.remove('valid');
+        inp.focus();
+        return false; // Sai định dạng
+    }
+
+    const [month, year] = inp.value.split('/');
+    const currentYear = new Date().getFullYear() % 100; // Lấy 2 chữ số cuối của năm hiện tại
+    const currentMonth = new Date().getMonth() + 1; // Tháng hiện tại (0-11)
+
+    // Kiểm tra nếu năm nhỏ hơn năm hiện tại hoặc năm bằng nhưng tháng nhỏ hơn
+    if (year < currentYear || (year == currentYear && month < currentMonth)) {
+        inp.parentElement.classList.add('error');
+        inp.parentElement.classList.remove('valid');
+        inp.focus();
+        return false; // Ngày tháng đã qua
+    }
+    inp.parentElement.classList.remove('error');
+    inp.parentElement.classList.add('valid');
+    return true; // Ngày tháng hợp lệ
+}
+
+function validateNumber(inp) {
+    inp.value = inp.value.replace(/[^0-9]/g, '');
+
+    if (inp.value.trim().length != inp.maxLength) {
+        inp.parentElement.classList.add('error');
+        inp.parentElement.classList.remove('valid');
+        inp.focus();
+        return false;
+    } else {
+        inp.parentElement.classList.remove('error');
+        inp.parentElement.classList.add('valid');
+        return true;
+    }
+}

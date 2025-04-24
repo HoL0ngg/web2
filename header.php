@@ -62,6 +62,9 @@ if (isset($_SESSION['username'])) {
             </div>
         </div>
         <div id="right-header">
+            <?php if (isset($_SESSION['user']['role_id']) && $_SESSION['user']['role_id'] != 3) : ?>
+                <a href="admin.php" style="color: black"><i class="fa-solid fa-gear"></i></a>
+            <?php endif; ?>
             <div style="border: 3px solid #5cb3f1;border-radius: 20px;position: relative">
                 <div id="taikhoan-container" onclick="openLoginForm()">
                     <?php
@@ -146,6 +149,7 @@ if (isset($_SESSION['username'])) {
                     <a href="index.php?orderhistory">Lịch sử mua hàng</a>
                 </div>
             </div>
+
             <div id="right-bot-header">
                 <div>
                     <i class="fa-solid fa-bolt-lightning"></i>
