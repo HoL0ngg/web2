@@ -186,8 +186,14 @@ CREATE TABLE phieunhap (
     receipt_id INT PRIMARY KEY AUTO_INCREMENT,
     employee_id INT,
     supplier_id INT,
-    time DATE,
+    create_time DATE,
+    confirm_time DATE,
     total INT,
+    status ENUM(
+        'processing',
+        'confirmed',
+        'cancelled'
+    ),
     FOREIGN KEY (employee_id) REFERENCES nhanvien(employee_id),
     FOREIGN KEY (supplier_id) REFERENCES nhacungcap(supplier_id)
 );
@@ -213,6 +219,18 @@ CREATE TABLE nhacungcapsanpham (
 -- Thêm percent vào bảng chitietphieunhap
 -- ALTER TABLE ChiTietPhieuNhap
 -- ADD percent INT DEFAULT 10;
+
+-- THÊM NGÀY NHẬN/HỦY VÀ ENUM CHO PHIẾU NHẬP
+-- Đổi tên cột 'time' thành 'create_time'
+ALTER TABLE phieunhap CHANGE time create_time DATE;
+-- Thêm cột 'confirm_time'
+ALTER TABLE phieunhap ADD confirm_time DATE;
+-- Thêm cột 'status' với kiểu ENUM
+ALTER TABLE phieunhap ADD status ENUM('processing', 'confirmed', 'cancelled') NOT NULL;
+
+
+
+
 -- THÊM DỮ LIỆU MẪU --
 -- ChungLoai
 INSERT INTO `chungloai` (`machungloai`, `tenchungloai`, `hinhanh`)
