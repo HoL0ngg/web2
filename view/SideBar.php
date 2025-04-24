@@ -9,9 +9,7 @@
         'thongke' => ['page' => 'thongke', 'icon' => 'fa-chart-simple'],
         'sanpham' => ['page' => 'product', 'icon' => 'fa-cart-plus'],
     ];
-    require_once('handles/PhanQuyenController.php');
-    $phanQuyenController = new PhanQuyenController();
-    $allowedFunctions = $phanQuyenController->getAllowedFunctions($_SESSION['user']['role_id']);
+
     ?>
     <div id="logo">
         <img src="imgs/logo3.svg" alt="logo">

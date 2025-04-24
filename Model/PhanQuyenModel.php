@@ -68,7 +68,7 @@
 
         public function getAllowedFunctions($roleId)
         {
-            $sql = "SELECT dm.function_id, dm.function_name
+            $sql = "SELECT dm.function_id, dm.function_name, ct.action
                     FROM chitietnhomquyen ct
                     JOIN danhmucchucnang dm ON ct.function_id = dm.function_id
                     WHERE ct.role_id = ? AND ct.action = 'read'";

@@ -91,5 +91,22 @@
             $allowedFunctions = $phanquyenModel->getAllowedFunctions($roleId);
             return $allowedFunctions;
         }
+
+        public function hasPermission($function_id, $action, $allowedFunctions)
+        {
+            foreach ($allowedFunctions as $func) {
+                if ($func['function_id'] == $function_id && in_array($action, explode(',', $func['action']))) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public function getChiTietNhomQuyen($role_id)
+        {
+            require_once('Model/PhanQuyenModel.php');
+            $phanquyenModel = new PhanQuyenModel();
+            $allFunctions = $phanquyenModel->getChiTietNhomQuyen($role_id);
+            return $allFunctions;
+        }
     }
     ?>

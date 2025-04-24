@@ -11,6 +11,10 @@ if ($_SESSION['user']['role_id'] == 3) {
 }
 $role_id = $_SESSION['user']['role_id'];
 
+require_once('handles/PhanQuyenController.php');
+$phanQuyenController = new PhanQuyenController();
+$allowedFunctions = $phanQuyenController->getAllowedFunctions($role_id);
+$_SESSION['permissions'] = $phanQuyenController->getChiTietNhomQuyen($role_id);
 ?>
 
 <html lang="en">
@@ -32,92 +36,6 @@ $role_id = $_SESSION['user']['role_id'];
 
     <div id="container">
         <div id="container-left">
-            <!-- <div id="logo">
-                <img src="imgs/logo3.svg" alt="logo">
-            </div>
-
-            <div id="hideSideBar"><i class="fa-solid fa-less-than"></i></div>
-            <div id="menu">
-                <ul>
-                    <li class="active">
-                        <a href="admin.php?page=admin_home">
-                            <i class="fa-solid fa-house"></i>
-                            <span class="text">Trang tổng quan</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="admin.php?page=product">
-                            <i class="fa-solid fa-cart-plus"></i>
-                            <span class="text">Sản phẩm</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="admin.php?page=category">
-                            <i class="fa-solid fa-list"></i>
-                            <span class="text">Danh mục</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="admin.php?page=user">
-                            <i class="fa-solid fa-user"></i>
-                            <span class="text">Người dùng</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="admin.php?page=order">
-                            <i class="fa-solid fa-box-open"></i>
-                            <span class="text">Đơn hàng</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="admin.php?page=supplier">
-                            <i class="fa-solid fa-truck-field"></i>
-                            <span class="text">Nhà cung cấp</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="admin.php?page=import">
-                            <i class="fa-solid fa-file-invoice"></i>
-                            <span class="text">Nhập hàng</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="admin.php?page=thongke">
-                            <i class="fa-solid fa-chart-simple"></i>
-                            <span class="text">Thống kê</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="admin.php?page=phanquyen&role_id=1">
-                            <i class="fa-solid fa-users-gear"></i>
-                            <span class="text">Phân quyền</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <div id="footer">
-
-                <div id="admin-info">
-                    <p>Xin chào: <span><?= $_SESSION['user']['username'] ?></span></p>
-                </div>
-
-                <div id="admin-logout">
-                    <a href="view/admin/logout.php">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                        <span class="text">Đăng xuất</span>
-                    </a>
-                </div>
-
-            </div> -->
             <?php include('view/SideBar.php'); ?>
         </div>
         <div id="container-right">
