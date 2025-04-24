@@ -26,6 +26,10 @@
             }
             exit;
         } else {
+            if ($_SESSION['user']['role_id'] !== 3) {
+                echo json_encode(['status' => 'error', 'message' => 'Tài khoản bạn không có quyền này.']);
+                exit;
+            }
             // Đã đăng nhập 
             $userId = $user->getIdByUsername($_SESSION['username']);
             $userId = $user->getCustomerIdByUserId($userId);
