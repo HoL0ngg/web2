@@ -18,7 +18,7 @@ $supplier_data = getSuppliersAndProducts();
     <main class="main-content">
         <header>
             <h1>Quản Lý Nhà Cung Cấp</h1>
-            <button class="add-chungloai-btn" id="add-supplier-btn">➕ Thêm nhà cung cấp</button>
+            <button class="add-supplier-btn_style" id="add-supplier-btn">➕ Thêm nhà cung cấp</button>
         </header>
 
         <!-- Popup thêm nhà cung cấp -->

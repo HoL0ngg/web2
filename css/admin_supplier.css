@@ -25,29 +25,6 @@ header {
     margin-bottom: 20px;
 }
 
-.add-chungloai-btn,
-.add-theloai-btn {
-    background: #27AE60;
-    color: white;
-    border: none;
-    width: 160px;
-    height: 30px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: 600;
-}
-
-.add-theloai-btn {
-    width: 120px;
-    height: 30px;
-}
-.add-chungloai-btn:hover,
-.add-theloai-btn:hover {
-    background: #219150;
-}
-
-
-
 
 /* Bảng danh sách */
 .chungloai-list {
@@ -103,6 +80,20 @@ th {
     border: none;
     cursor: pointer;
 }
+.add-supplier-btn_style {
+    background: #27AE60;
+    color: white;
+    border: none;
+    width: 160px;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+}
+.add-supplier-btn_style:hover {
+    background: #219150;
+}
+
 
 
 /* Popup */
@@ -135,10 +126,11 @@ th {
 
 .popup-header {
     display: flex;
-    justify-content: center; /* Center the title */
+    justify-content: space-between;
     align-items: center;
     position: relative; /* For absolute positioning of close button */
     padding: 10px 0;
+    min-width: 400px;
 } 
 
 .popup-header h2 {
@@ -147,11 +139,11 @@ th {
 }
 
 .close-btn {
-    position: absolute;
+    /* position: absolute;
     right: 10px;
-    top: 10px;
+    top: 10px; */
     cursor: pointer;
-    font-size: 30px;
+    font-size: 25px;
     color: red;
 }
 .popup-body {
@@ -172,7 +164,7 @@ th {
 
 .popup-body label {
     margin-right: 10px;
-    width: 120px;
+    width: 140px;
     text-align: left;
     font-weight: bold;
 }
@@ -285,35 +277,12 @@ th {
     min-width: 300px;
 }
 
-#popup-add-supplier label {
-    margin-right: 10px;
-    width: 120px;
-    text-align: left;
-    font-weight: bold;
-}
-
-#popup-add-supplier input {
-    flex: 1;
-    padding: 8px;
-    width: 100%;
-    border: 1px solid #BDC3C7;
-    border-radius: 4px;
-}
-
 #popup-add-supplier .popup-footer {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
     margin-top: 20px;
     padding: 10px 0;
-}
-
-#popup-add-supplier button {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
 }
 
 #add-supplier-btn_popup {
@@ -325,26 +294,16 @@ th {
     background-color: #219150;
 }
 
-#btn-sua-theloai {
-    background-color: #4CAF50;
-    color: white;
-}
-
-#btn-xoa-theloai,
-#btn-xoa-chungloai {
-    background-color: #f44336;
-    color: white;
-}
-
 .input-row {
     display: flex;
     align-items: center;
+    justify-content: space-evenly;
     margin-bottom: 10px;
 }
 
 .input-row label {
-    width: 130px;
     font-weight: bold;
+    white-space: nowrap;
 }
 
 .input-row input,
