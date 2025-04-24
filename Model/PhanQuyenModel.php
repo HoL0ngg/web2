@@ -65,5 +65,19 @@
             }
             $stmt->close();
         }
+
+        public function getAllowedFunctions($roleId)
+        {
+            $sql = "SELECT dm.function_id, dm.function_name
+                    FROM chitietnhomquyen ct
+                    JOIN danhmucchucnang dm ON ct.function_id = dm.function_id
+                    WHERE ct.role_id = ? AND ct.action = 'read'";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("i", $roleId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $stmt->close();
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }
     }
     ?>

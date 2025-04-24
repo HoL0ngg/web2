@@ -83,5 +83,13 @@
                 }
             }
         }
+
+        public function getAllowedFunctions($roleId)
+        {
+            require_once('Model/PhanQuyenModel.php');
+            $phanquyenModel = new PhanQuyenModel();
+            $allowedFunctions = $phanquyenModel->getAllowedFunctions($roleId);
+            return $allowedFunctions;
+        }
     }
     ?>

@@ -29,12 +29,10 @@ $role_id = $_SESSION['user']['role_id'];
 </head>
 
 <body>
-    <!-- Toast -->
-    <div id="toast"></div>
 
     <div id="container">
         <div id="container-left">
-            <div id="logo">
+            <!-- <div id="logo">
                 <img src="imgs/logo3.svg" alt="logo">
             </div>
 
@@ -119,7 +117,8 @@ $role_id = $_SESSION['user']['role_id'];
                     </a>
                 </div>
 
-            </div>
+            </div> -->
+            <?php include('view/SideBar.php'); ?>
         </div>
         <div id="container-right">
             <?php
