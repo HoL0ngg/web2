@@ -26,9 +26,9 @@ class OrderController
         return $this->model->changeStatusById($orderId, $newStatus);
     }
 
-    public function addOrder($customer_id, $order_date, $total_price, $status, $address_id, $note, $pttt)
+    public function addOrder($customer_recipient_name, $phone, $email, $customer_id, $order_date, $total_price, $status, $address_id, $note, $pttt)
     {
-        return $this->model->addOrder($customer_id, $order_date, $total_price, $status, $address_id, $note, $pttt);
+        return $this->model->addOrder($customer_recipient_name, $phone, $email, $customer_id, $order_date, $total_price, $status, $address_id, $note, $pttt);
     }
 
     public function addDetailOrder($order_id, $product_id, $quantity, $price)
@@ -41,11 +41,13 @@ class OrderController
         return $this->model->getAutoIncrementId();
     }
 
-    public function getOrdersByDateRange($from, $to){
-        return $this->model->getOrdersByDateRange($from,$to);
+    public function getOrdersByDateRange($from, $to)
+    {
+        return $this->model->getOrdersByDateRange($from, $to);
     }
 
-    public function getOrdersWithFilters($from = "", $to = "", $keyword = "", $status = "" , $thanhpho = "", $quan = "", $phuong = ""){
+    public function getOrdersWithFilters($from = "", $to = "", $keyword = "", $status = "", $thanhpho = "", $quan = "", $phuong = "")
+    {
         return $this->model->getOrdersWithFilters($from, $to, $keyword, $status, $thanhpho, $quan, $phuong);
     }
 }

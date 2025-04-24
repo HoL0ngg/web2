@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // Thêm đơn hàng vào cơ sở dữ liệu
-    $order_id = $orderController->addOrder($customer_id, date("Y-m-d H:i:s"), $total_price, 'processing', $finalAddressId, $note, $pttt);
+    $order_id = $orderController->addOrder($hoten, $sdt, $email, $customer_id, date("Y-m-d H:i:s"), $total_price, 'processing', $finalAddressId, $note, $pttt);
     // Thêm chi tiết đơn hàng vào cơ sở dữ liệu
     foreach ($cart as $item) {
         $product_id = $item['product_id'];

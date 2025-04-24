@@ -63,13 +63,14 @@ class OrderModel
         $stmt->bind_param("si", $newStatus, $orderId);
         $stmt->execute();
     }
-    public function getOrdersByDateRange($from, $to) {
+    public function getOrdersByDateRange($from, $to)
+    {
         $sql = "SELECT * FROM donhang WHERE orderDate BETWEEN ? AND ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("ss", $from, $to);
         $stmt->execute();
         $result = $stmt->get_result();
-    
+
         $orders = [];
         while ($row = $result->fetch_assoc()) {
             $orders[] = $row;
@@ -78,7 +79,8 @@ class OrderModel
         return $orders;
     }
 
-    public function getOrdersWithFilters($from = "", $to = "", $keyword = "", $status = "", $thanhpho = "", $quan = "", $phuong = "") {
+    public function getOrdersWithFilters($from = "", $to = "", $keyword = "", $status = "", $thanhpho = "", $quan = "", $phuong = "")
+    {
         if (empty($from) && empty($to) && empty($keyword) && empty($status) && empty($thanhpho) && empty($quan) && empty($phuong)) {
             return $this->getAllOrder();
         }
@@ -86,9 +88,9 @@ class OrderModel
         $sql = "SELECT dh.* FROM donhang dh 
             JOIN diachi dc ON dh.address_id = dc.address_id 
             WHERE 1=1";
-            $params = [];
-            $types = "";
-    
+        $params = [];
+        $types = "";
+
         if ($from && $to) {
             $sql .= " AND orderDate BETWEEN ? AND ?";
             $types .= "ss";
@@ -103,31 +105,31 @@ class OrderModel
             $types .= "s";
             $params[] = $to;
         }
-    
+
         if ($keyword != 0) {
             $keyword = "%$keyword%";
             $sql .= " AND customer_recipient_name LIKE ?";
             $types .= "s";
             $params[] = $keyword;
         }
-    
+
         if ($status != "") {
             $sql .= " AND status = ?";
             $types .= "s";
             $params[] = $status;
         }
 
-        if ($thanhpho!="") {
+        if ($thanhpho != "") {
             $sql .= " AND dc.thanhpho = ?";
             $types .= "s";
             $params[] = $thanhpho;
-    
-            if ($quan!="") {
+
+            if ($quan != "") {
                 $sql .= " AND dc.quan = ?";
                 $types .= "s";
                 $params[] = $quan;
-    
-                if ($phuong!="") {
+
+                if ($phuong != "") {
                     $sql .= " AND dc.phuong = ?";
                     $types .= "s";
                     $params[] = $phuong;
@@ -135,33 +137,33 @@ class OrderModel
             }
         }
 
-        
-    
+
+
         $stmt = $this->conn->prepare($sql);
-    
+
         if (!empty($types)) {
             $stmt->bind_param($types, ...$params);
         }
-    
+
         $stmt->execute();
         $result = $stmt->get_result();
-    
+
         $orders = [];
         while ($row = $result->fetch_assoc()) {
             $orders[] = $row;
         }
-    
+
         $stmt->close();
         return $orders;
     }
-    
-    
 
-    public function addOrder($customer_id, $order_date, $total_price, $status, $address_id, $note, $pttt)
+
+
+    public function addOrder($customer_recipient_name, $phone, $email, $customer_id, $order_date, $total_price, $status, $address_id, $note, $pttt)
     {
-        $sql = "INSERT INTO donhang (customer_id, orderDate, total, status, address_id, note, pttt) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO donhang (customer_id, orderDate, total, status, address_id, note, pttt, customer_recipient_name, phone, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("isisiss", $customer_id, $order_date, $total_price, $status, $address_id, $note, $pttt);
+        $stmt->bind_param("isisisssss", $customer_id, $order_date, $total_price, $status, $address_id, $note, $pttt, $customer_recipient_name, $phone, $email);
         if ($stmt->execute()) {
             return $this->conn->insert_id; // Trả về ID của đơn hàng vừa thêm
         } else {
