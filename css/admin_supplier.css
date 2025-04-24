@@ -1,0 +1,354 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+a {
+    text-decoration: none;
+}
+
+
+/* Main Content */
+.main-content {
+    padding: 20px;
+    background: #ECF0F1;
+    min-height: 100vh;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.add-chungloai-btn,
+.add-theloai-btn {
+    background: #27AE60;
+    color: white;
+    border: none;
+    width: 160px;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.add-theloai-btn {
+    width: 120px;
+    height: 30px;
+}
+.add-chungloai-btn:hover,
+.add-theloai-btn:hover {
+    background: #219150;
+}
+
+
+
+
+/* Bảng danh sách */
+.chungloai-list {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th,
+td {
+    border: 1px solid #BDC3C7;
+    padding: 10px;
+    text-align: center;
+}
+td[rowspan] > a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+th {
+    background: #3498DB;
+    color: white;
+}
+
+/* Nút chỉnh sửa */
+.edit-supplier-btn{
+    border: none;
+    width: 70px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #BDC3C7;
+    margin: 2px;
+    background: white;
+}
+
+.edit-supplier-btn:hover {
+    background: #D4AC0D;
+    color: white;
+}
+.delete-product-btn{
+    /* None decoration */
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+
+/* Popup */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none; /* Đừng hiển thị mặc định */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-overlay.active { /* Class khi muốn hiện */
+    display: flex;
+}
+
+.popup-content {
+    background: white;
+    padding: 5px 20px;
+    border-radius: 8px;
+    width: auto;
+    position: relative;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.popup-header {
+    display: flex;
+    justify-content: center; /* Center the title */
+    align-items: center;
+    position: relative; /* For absolute positioning of close button */
+    padding: 10px 0;
+} 
+
+.popup-header h2 {
+    margin: 0;
+    font-size: 30px;
+}
+
+.close-btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    font-size: 30px;
+    color: red;
+}
+.popup-body {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start; /* Align items to the top */
+    padding: 20px 0;
+}
+
+.popup-body .left_info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align labels and inputs to the left */
+    justify-content: flex-start;
+    margin: 0 40px 0 0;
+    min-width: 250px; /* Ensure enough space for inputs */
+}
+
+.popup-body label {
+    margin-right: 10px;
+    width: 120px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.popup-body input {
+    flex: 1;
+    padding: 8px;
+    width: 100%; /* Ensure inputs take full width */
+    border: 1px solid #BDC3C7;
+    border-radius: 4px;
+}
+
+.popup-body .right_table {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1; /* Take remaining space */
+}
+
+.popup-body .right_table .right_table--header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* margin-bottom: 10px; */
+}
+.popup-body .right_table .right_table--header h3 {
+    margin-right: 16px;
+    /* font-style: italic; */
+    font-weight: normal;
+}
+
+.popup-body .right_table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.popup-body .right_table th,
+.popup-body .right_table td {
+    border: 1px solid #BDC3C7;
+    padding: 8px;
+    text-align: center;
+}
+
+.popup-body .right_table th {
+    background: #3498DB;
+    color: white;
+}
+
+#add-product-btn_supplier {
+    background: #27AE60;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#add-product-btn_supplier:hover {
+    background: #219150;
+}
+.popup-footer {
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the right */
+    gap: 10px; /* Space between buttons */
+    margin-top: 20px;
+    padding: 10px 0;
+}
+
+.popup-footer button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#edit-supplier-btn_popup {
+    background-color: #27AE60; /* Green for "Sửa" */
+    color: white;
+}
+
+#edit-supplier-btn_popup:hover {
+    background-color: #219150;
+}
+
+#delete-supplier-btn_popup {
+    background-color: #C0392B; /* Red for "Xóa" */
+    color: white;
+}
+
+#delete-supplier-btn_popup:hover {
+    background-color: #A93226;
+}
+
+/* Styling for the "Thêm nhà cung cấp" popup */
+#popup-add-supplier .popup-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+}
+
+#popup-add-supplier .left_info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 0;
+    min-width: 300px;
+}
+
+#popup-add-supplier label {
+    margin-right: 10px;
+    width: 120px;
+    text-align: left;
+    font-weight: bold;
+}
+
+#popup-add-supplier input {
+    flex: 1;
+    padding: 8px;
+    width: 100%;
+    border: 1px solid #BDC3C7;
+    border-radius: 4px;
+}
+
+#popup-add-supplier .popup-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 10px 0;
+}
+
+#popup-add-supplier button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#add-supplier-btn_popup {
+    background-color: #27AE60;
+    color: white;
+}
+
+#add-supplier-btn_popup:hover {
+    background-color: #219150;
+}
+
+#btn-sua-theloai {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#btn-xoa-theloai,
+#btn-xoa-chungloai {
+    background-color: #f44336;
+    color: white;
+}
+
+.input-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.input-row label {
+    width: 130px;
+    font-weight: bold;
+}
+
+.input-row input,
+.input-row span {
+    flex: 1;
+}
+

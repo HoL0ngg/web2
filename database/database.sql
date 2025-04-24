@@ -89,7 +89,7 @@ CREATE TABLE khachhang_diachi (
 );
 -- Bảng NhaCungCap
 CREATE TABLE nhacungcap (
-    supplier_id INT PRIMARY KEY,
+    supplier_id INT PRIMARY KEY AUTO_INCREMENT,
     supplier_name VARCHAR(50),
     address VARCHAR(100)
 );
@@ -183,7 +183,7 @@ CREATE TABLE chitietdonhang (
 );
 -- Bảng PhieuNhap
 CREATE TABLE phieunhap (
-    receipt_id INT PRIMARY KEY,
+    receipt_id INT PRIMARY KEY AUTO_INCREMENT,
     employee_id INT,
     supplier_id INT,
     time DATE,

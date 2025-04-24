@@ -1,15 +1,15 @@
 <?php
 
-session_start();
-if (!isset($_SESSION['user']) && !isset($_SESSION['user']['role_id'])) {
-    header('Location: index.php');
-    exit;
-}
-if ($_SESSION['user']['role_id'] == 3) {
-    header('Location: index.php');
-    exit;
-}
-$role_id = $_SESSION['user']['role_id'];
+// session_start();
+// if (!isset($_SESSION['user']) && !isset($_SESSION['user']['role_id'])) {
+//     header('Location: index.php');
+//     exit;
+// }
+// if ($_SESSION['user']['role_id'] == 3) {
+//     header('Location: index.php');
+//     exit;
+// }
+// $role_id = $_SESSION['user']['role_id'];
 
 ?>
 
