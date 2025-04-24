@@ -1,8 +1,17 @@
-<!-- Main Content -->
+<?php
+$funcId = 'nguoidung';
+$phanquyenController = new PhanQuyenController();
+$canUpdate = $phanquyenController->hasPermission($funcId, 'update', $_SESSION['permissions']);
+$canDelete = $phanquyenController->hasPermission($funcId, 'delete', $_SESSION['permissions']);
+$canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['permissions']);
+?>
+
 <main class="main-content">
     <header>
         <h1>Quản Lý Người Dùng</h1>
-        <a href="admin.php?page=user&act=add" class="add-user-btn">➕Thêm người dùng</a>
+        <?php if ($canAdd) : ?>
+            <a href="admin.php?page=user&act=add" class="add-user-btn">➕Thêm người dùng</a>
+        <?php endif; ?>
     </header>
 
     <!-- Danh sách người dùng -->
@@ -17,7 +26,9 @@
                     <th>Email</th>
                     <th>Trạng thái</th>
                     <th>Vai trò</th>
-                    <th>Hành động</th>
+                    <?php if ($canUpdate || $canDelete) : ?>
+                        <th>Thao tác</th>
+                    <?php endif; ?>
                 </tr>
             </thead>
             <tbody id="userTable">
@@ -31,12 +42,16 @@
                             <td><?= htmlspecialchars($user['email']) ?></td>
                             <td><?= $user['status'] == 0 ? '<span class="status-no-complete">Bị khóa</span>' : '<span class="status-complete">Hoạt động</span>' ?></td>
                             <td><?= htmlspecialchars($user['role_name']) ?></td>
-                            <td>
-                                <a href="admin.php?page=user&act=update&uid=<?= $user['user_id'] ?>">
-                                    <button class="edit-btn">✏️ Sửa</button>
-                                </a>
-                                <!-- <button class="delete-btn-user" data-id="<?= $user['user_id'] ?>">❌ Xóa</button> -->
-                            </td>
+                            <?php if ($canUpdate || $canDelete) : ?>
+                                <td>
+                                    <?php if ($canUpdate) : ?>
+                                        <a href="admin.php?page=user&act=update&uid=<?= $user['user_id'] ?>">
+                                            <button class="edit-btn">✏️ Sửa</button>
+                                        </a>
+                                    <?php endif; ?>
+                                    <!-- <button class="delete-btn-user" data-id="<?= $user['user_id'] ?>">❌ Xóa</button> -->
+                                </td>
+                            <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>
                 <?php else : ?>

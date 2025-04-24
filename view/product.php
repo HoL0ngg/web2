@@ -1,3 +1,11 @@
+<?php
+// require('handles/PhanQuyenController.php');
+$funcId = 'sanpham';
+$phanquyenController = new PhanQuyenController();
+$canUpdate = $phanquyenController->hasPermission($funcId, 'update', $_SESSION['permissions']);
+$canDelete = $phanquyenController->hasPermission($funcId, 'delete', $_SESSION['permissions']);
+$canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['permissions']);
+?>
 <div id="product-container">
     <div id="product-header">
         <div class="header-left">
@@ -10,10 +18,11 @@
                 <input type="text" placeholder="Tìm kiếm sản phẩm..." id="search-input">
                 <button type="submit" class="search-btn">🔍</button>
             </div>
-
-            <div id="product-header-btn">
-                <a href="admin.php?page=product&action=add" class="btn">+ Thêm sản phẩm</a>
-            </div>
+            <?php if ($canAdd): ?>
+                <div id="product-header-btn">
+                    <a href="admin.php?page=product&action=add" class="btn">➕ Thêm sản phẩm</a>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
     <div id="product-list">
@@ -28,7 +37,9 @@
                 <th>Giá</th>
                 <th>Ảnh</th>
                 <th>Trạng thái</th>
-                <th>Thao tác</th>
+                <?php if ($canUpdate || $canDelete): ?>
+                    <th>Thao tác</th>
+                <?php endif; ?>
             </tr>
             <?php
             // require("database/connect.php");
@@ -44,14 +55,21 @@
                     <!-- <td><img src="imgs/sp1.jpg" alt="product-image"></td> -->
                     <td><img src="<?php echo $row['image_url']; ?>" alt="product-image"></td>
                     <td><?php echo $row['status'] == 0 ? '<span class="status-no-complete">Ẩn sản phẩm</span>' : '<span class="status-complete">Hiển thị</span>' ?></td>
-                    <td>
-                        <div>
-                            <a href="admin.php?page=product&action=edit&id=<?php echo $row['product_id']; ?>" class="btn">✏️ Sửa</a>
-                        </div>
-                        <div style="margin-top: 5px;">
-                            <a href="admin.php?page=product&action=delete&id=<?php echo $row['product_id']; ?>" class="btn">❌ Xóa</a>
-                        </div>
-                    </td>
+                    <?php if ($canUpdate || $canDelete): ?>
+                        <td>
+                            <?php if ($canUpdate): ?>
+                                <div>
+                                    <a href="admin.php?page=product&action=edit&id=<?php echo $row['product_id']; ?>" class="btn">✏️ Sửa</a>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($canDelete): ?>
+                                <div style="margin-top: 5px;">
+                                    <a href="admin.php?page=product&action=delete&id=<?php echo $row['product_id']; ?>" class="btn">❌ Xóa</a>
+                                </div>
+                            <?php endif; ?>
+                        </td>
+                    <?php endif; ?>
                 </tr>
             <?php
             }
