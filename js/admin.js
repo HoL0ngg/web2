@@ -293,7 +293,58 @@ function validateProductForm() {
     }
     return isValid;
 }
+// DELETE PRODUCT
+function fetchData(url, data) {
+    let formData = new FormData();
+    for (let key in data) {
+        formData.append(key, data[key]);
+    }
 
+    return fetch(url, {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json());
+}
+document.addEventListener("click", function(event){
+    if(event.target.classList.contains("delete-btn-product")){
+        let productId = event.target.getAttribute("data-id");
+        fetchData('api/product_api.php', {action: "deleteProduct", product_id: productId})
+        .then(data =>{
+            let notification = {success: false, message: ""};
+            if(data.success){
+                
+            }else{
+                Swal.fire({
+                    title: "Thông báo",
+                    text: "Sản phẩm đã được bán ra, bạn có muốn ẩn sản phẩm không?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Có",
+                    cancelButtonText: "Không"
+                }).then((result) =>{
+                    if(result.isConfirmed){
+                        fetchData('api/product_api.php', {action: 'hideProduct', product_id: productId})
+                        .then(data => {
+                            if(data.success){
+                                notification.success = true;
+                                notification.message = "Ẩn sản phẩm thành công";
+                                handleSuccessResponse(notification);
+                            }
+                            else{
+                                notification.message = "Ẩn sản phẩm không thành công";
+                                handleErrorResponse(notification);
+                            }
+                        })
+                    }
+                })
+            }
+        })
+
+    }
+})
 window.onload = function () {
     effectSideBar();
     hiddenSideBar(); 
@@ -379,11 +430,9 @@ function themNhomQuyen() {
         console.log(data);
         
         if(data.success){
-            showToast(data.message,data.success);
+            handleSuccessResponse(data);
             closePopup();
-            setTimeout(() => {
-                location.reload();
-            }, 2000);
+            location.reload();
         }else{
             showToast("Loi" + data.message, data.success);
         }
@@ -408,11 +457,8 @@ function themChucNang() {
     .then(response => response.json())
     .then(data =>{
         if(data.success){
-            showToast(data.message,data.success);
-            closePopup();
-            setTimeout(() => {
-                location.reload();
-            }, 2000);
+            handleErrorResponse(data);
+            closePopup();            
         }
         else{
             showToast("Loi" + data.message, data.success);
@@ -440,10 +486,8 @@ if(permissionForm){
             })
             const data = await response.json();
             if(data.success){
-                showToast(data.message, data.success);
-                setTimeout(() => {
-                    location.reload();
-                }, 2000);
+                handleSuccessResponse(data);                
+                location.reload();
             }
             else{
                 showToast("Loi " + data.message, data.success);
