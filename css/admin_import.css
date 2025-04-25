@@ -117,7 +117,6 @@ th {
     background: white;
     padding: 5px 20px;
     border-radius: 8px;
-    width: 700px; /* Set a fixed width for consistency */
     position: relative;
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
     text-align: center;
@@ -206,7 +205,9 @@ th {
     text-align: left;
 }
 
-#info_right-status-combobox {
+#info_right-status-combobox,
+#add_import_supplier_combobox,
+#add_import_nhanvien_combobox {
     padding: 8px;
     border: 1px solid #BDC3C7;
     border-radius: 4px;
@@ -272,8 +273,6 @@ th {
     padding: 8px;
     text-align: center;
 }
-
-
 
 .popup-body .popup-body_table th {
     background: #3498DB;
@@ -372,7 +371,6 @@ th {
 .input-row {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
     margin-bottom: 10px;
 }
 
