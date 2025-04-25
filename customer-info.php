@@ -1,8 +1,16 @@
 <?php
 require_once 'Model/TKModel.php';
+require_once 'handles/CartController.php';
 $tkModel = new TKModel();
+$cartController = new CartController();
 $customer_id = $tkModel->getIdByUsername($_SESSION['username']);
 $customer = $tkModel->getUserById($customer_id);
+$customer_id = $tkModel->getCustomerIdByUserId($customer_id);
+$cart = $cartController->getAllProductInCart($customer_id);
+if (empty($cart)) {
+    echo '<script>alert("Bạn đã thanh toán rồi!"); window.location.href = "index.php";</script>';
+    exit;
+}
 ?>
 
 <div style="width: 38%; margin: 32px auto 0px; padding: 24px 48px; background-color:rgba(52, 152, 219, 0.5); border-radius: 10px">
@@ -39,11 +47,7 @@ $customer = $tkModel->getUserById($customer_id);
                     <option value="0">Chọn địa chỉ đã lưu</option>
                     <?php
                     require_once 'Model/DiaChiModel.php';
-                    require_once 'Model/TKModel.php';
                     $diachiModel = new DiaChiModel();
-                    $userModel = new TKModel();
-                    $customer_id = $userModel->getIdByUsername($_SESSION['username']);
-                    $customer_id = $userModel->getCustomerIdByUserId($customer_id);
                     $addresses = $diachiModel->getAllDiaChiByCustomerId($customer_id);
                     // var_dump($addresses);
                     foreach ($addresses as $address) {
