@@ -132,7 +132,7 @@
 
             <div id="order-detail-popup">
                 <div id="order-detail-content">
-                    <h2>Chi tiết đơn hàng</h2>
+                    <h2>Chi tiết đơn hàng</h2>  
                     <table id="detail-table">
                         <thead>
                             <tr>
@@ -279,7 +279,7 @@
             function refreshOrders() {
                 document.getElementById('fromDate').value = "";
                 document.getElementById('toDate').value = "";
-                document.getElementById('keyword').selectedIndex = 0;
+                document.getElementById('search-input').value = "";
                 document.getElementById('orderStatus').selectedIndex = 0;
                 document.getElementById('thanhpho').value = "";
                 document.getElementById('quan').value = "";
