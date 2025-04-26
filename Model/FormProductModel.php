@@ -101,9 +101,8 @@ class FormProductModel
     public function checkProductIsSold($product_id)
     {
         $sql = "SELECT 1 
-                FROM chitietdonhang ct 
-                JOIN donhang dh ON  ct.order_id = dh.order_id
-                WHERE product_id = ? AND status != 'cancelled' 
+                FROM chitietdonhang ct                
+                WHERE product_id = ?
                 LIMIT 1";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $product_id);
@@ -159,6 +158,57 @@ class FormProductModel
         $result = $this->conn->query($sql);
         $products = [];
         while ($row = mysqli_fetch_assoc($result)) {
+            $products[] = $row;
+        }
+        return $products;
+    }
+
+    public function searchProducts($keyword, $type)
+    {
+        $keyword = mysqli_real_escape_string($this->conn, $keyword);
+        $type = mysqli_real_escape_string($this->conn, $type);
+
+        $baseSelect = "SELECT sp.*, ha.image_url, tl.tentheloai, brand.brand_name
+                   FROM sanpham sp
+                   JOIN sanphamhinhanh ha ON sp.product_id = ha.product_id
+                   JOIN theloai tl ON sp.matheloai = tl.matheloai
+                   JOIN brand ON sp.brand_id = brand.brand_id
+                   WHERE ha.is_main = TRUE";
+
+        if ($type == 'all') {
+            $sql = $baseSelect . " AND (
+            sp.product_id LIKE '%$keyword%' 
+            OR sp.product_name LIKE '%$keyword%' 
+            OR brand.brand_name LIKE '%$keyword%'
+            OR sp.price LIKE '%$keyword%'
+            OR tl.tentheloai LIKE '%$keyword%'
+            OR sp.quantity LIKE '%$keyword%'
+        ) ORDER BY sp.product_id DESC";
+        } else {
+            // Khi tìm theo 1 trường cụ thể
+            if ($type == 'product_name') {
+                $field = "sp.product_name";
+            } elseif ($type == 'product_id') {
+                $field = "sp.product_id";
+            } elseif ($type == 'brand_name') {
+                $field = "brand.brand_name";
+            } elseif ($type == 'tentheloai') {
+                $field = "tl.tentheloai";
+            } elseif ($type == 'quantity') {
+                $field = "sp.quantity";
+            } else {
+                $field = "sp.product_name"; // fallback nếu type lạ
+            }
+
+            $sql = $baseSelect . " AND $field LIKE '%$keyword%' ORDER BY sp.product_id DESC";
+        }
+
+        $result = $this->conn->query($sql);
+        if (!$result) {
+            return [];
+        }
+        $products = [];
+        while ($row = $result->fetch_assoc()) {
             $products[] = $row;
         }
         return $products;

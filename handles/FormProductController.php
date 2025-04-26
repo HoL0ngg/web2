@@ -1,7 +1,7 @@
     <?php
     // require_once './Model/FormProductModel.php';
     require_once __DIR__ . '/../Model/FormProductModel.php';
-
+    // session_start();
     class FormProductController
     {
         private $model;
@@ -234,6 +234,21 @@
                     echo json_encode(["success" => false, "message" => "Có lỗi xảy ra trong quá trình ẩn sản phẩm."]);
                     break;
             }
+            exit;
+        }
+        public function search($keyword, $type)
+        {
+            header('Content-Type: application/json');
+            $response = ["products" => [], "actions" => []];
+            require_once __DIR__ . '/../handles/PhanQuyenController.php';
+            $phanquyenController = new PhanQuyenController();
+            $canUpdate = $phanquyenController->hasPermission('sanpham', 'update', $_SESSION['permissions']);
+            $canDelete = $phanquyenController->hasPermission('sanpham', 'delete', $_SESSION['permissions']);
+            $products = $this->model->searchProducts($keyword, $type);
+            $response["products"] = $products;
+            $response["actions"]["canUpdate"] = $canUpdate;
+            $response["actions"]["canDelete"] = $canDelete;
+            echo json_encode($response);
             exit;
         }
     }

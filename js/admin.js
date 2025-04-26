@@ -426,15 +426,20 @@ function closePopup() {
     document.getElementById('overlay').classList.add('hidden');
     document.querySelectorAll('.popup-modal').forEach(p => p.classList.add('hidden'));
 }
-
-document.querySelectorAll('.btn_role')[0].addEventListener('click', function(e) {
-    e.preventDefault();
-    openPopup('popup-them-nhomquyen');
-});
-document.querySelectorAll('.btn_role')[1].addEventListener('click', function(e) {
-    e.preventDefault();
-    openPopup('popup-them-chucnang');
-});
+const btnRole = document.querySelectorAll('.btn_role')[0];
+if(btnRole){
+    btnRole.addEventListener('click', function(e) {
+        e.preventDefault();
+        openPopup('popup-them-nhomquyen');
+    });
+}
+const btnFunc = document.querySelectorAll('.btn_role')[1];
+if(btnFunc){
+    btnFunc.addEventListener('click', function(e) {
+        e.preventDefault();
+        openPopup('popup-them-chucnang');
+    });
+}
 
 function themNhomQuyen() {
     console.log("hihih");
@@ -526,3 +531,94 @@ if(permissionForm){
 
     }
 )};
+// SEARCH PRODUCTS
+const searchInput = document.getElementById("search-input-product");
+const searchCombobox = document.getElementById("search-combobox");
+
+// Khai báo biến để lưu id của timeout
+let typingTimer;
+
+// Thời gian chờ sau khi ngừng gõ (300ms)
+const typingInterval = 300; // milliseconds
+function performSearch(){
+    const keyword = searchInput.value;
+    const type = searchCombobox.value;
+
+    fetchData('api/product_api.php', {action: 'searchProduct',keyword: keyword, type: type})
+    .then(data => {
+        // console.log(data);    
+        renderProducts(data.products, data.actions.canUpdate, data.actions.canDelete,keyword);
+    })
+    .catch(error => console.error('Error:', error));
+}
+if(searchInput){
+    searchInput.addEventListener('input', function(){        
+        
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(performSearch, typingInterval);
+    })
+}
+searchCombobox.addEventListener('change', performSearch);
+
+function highlightKeyword(text, keyword) {
+    if (!keyword) return text; // Không có từ khóa thì trả nguyên
+
+    const escapedKeyword = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // Escape keyword
+    const regex = new RegExp(`(${escapedKeyword})`, 'gi'); // Tạo regex không phân biệt hoa thường
+
+    return text.replace(regex, `<span class="highlight">$1</span>`);
+}
+
+function renderProducts(products, canUpdate, canDelete, keyword) {
+    const tableBody = document.querySelector("#product-list table"); // chọn bảng
+    let html = `
+        <tr>
+            <th>Mã sản phẩm</th>
+            <th>Tên sản phẩm</th>
+            <th>Tên thương hiệu</th>
+            <th>Thể loại</th>
+            <th>Số lượng</th>
+            <th>Giá</th>
+            <th>Ảnh</th>
+            <th>Trạng thái</th>
+            ${(canUpdate || canDelete) ? "<th>Thao tác</th>" : ""}
+        </tr>
+    `;
+
+    if(products.length > 0){
+        products.forEach(product => {
+            html += `
+            <tr class="${product.status == 0 ? 'hidden-product' : ''}">
+                <td>${highlightKeyword(product.product_id, keyword)}</td>
+                <td>${highlightKeyword(product.product_name, keyword)}</td>
+                <td>${highlightKeyword(product.brand_name, keyword)}</td>
+                <td>${highlightKeyword(product.tentheloai, keyword)}</td>
+                <td>${highlightKeyword(product.quantity, keyword)}</td>
+                <td>${highlightKeyword(product.price, keyword)}</td>
+                <td><img src="${product.image_url}" alt="product-image" /></td>
+                <td>${product.status == 0 ? '<span class="status-no-complete">Ẩn sản phẩm</span>' : '<span class="status-complete">Hiển thị</span>'}</td>
+                ${
+                    (canUpdate || canDelete) ? `
+                    <td>
+                        ${canUpdate ? `<div><a href="admin.php?page=product&action=edit&id=${product.product_id}" class="btn">✏️ Sửa</a></div>` : ''}
+                        ${canDelete ? `<div style="margin-top: 5px;"><button class="delete-btn-product btn" data-id="${product.product_id}">❌ Xóa</button></div>` : ''}
+                    </td>
+                    ` : ''
+                }
+            </tr>
+            `;
+        });
+    }
+    else{
+        const colspan = (canUpdate || canDelete) ? 9 : 8;
+        html += `
+            <tr>
+                <td colspan="${colspan}" style="text-align: center; font-weight: bold; padding: 17px;">Không tìm thấy sản phẩm</td>
+            </tr>
+        `;
+    }
+
+    tableBody.innerHTML = html;
+}
+
+
