@@ -149,14 +149,10 @@ $import_data = getImportData();
                 <tbody>
                     <?php
                         $temp_rows = [];
-
-                        // Nhóm dữ liệu theo receipt_id
                         foreach ($import_data as $row) {
                             $curr_receipt = $row["receipt_id"];
                             $temp_rows[$curr_receipt][] = $row;
                         }
-
-                        // Lặp qua từng phiếu nhập
                         foreach ($temp_rows as $receipt_id => $rows) {
                             $rowspan = count($rows);
                             foreach ($rows as $r) {
@@ -166,15 +162,37 @@ $import_data = getImportData();
                                     echo "<td>{$r['name']}</td>";
                                     echo "<td>{$r['create_time']}</td>";
                                     echo "<td>{$r['confirm_time']}</td>";
-                                    // Tính tổng tiền
                                     echo "<td>{$r['total']}</td>";
-                                    echo "<td>{$r['status']}</td>";
-                                    echo "<td>
-                                            <a href='admin.php?page=import&act=edit&receipt_id={$r['receipt_id']}' 
-                                            data-receipt_id='{$r['receipt_id']}'
-                                            data-supplier_id='{$r['supplier_id']}' >
-                                            <button class='edit-receipt-btn'>✏️ Sửa</button></a>
-                                        </td>";
+                                    // Thêm lớp CSS cho trạng thái
+                                    echo "<td><span class='status status-{$r['status']}'>";
+                                    // Hiển thị văn bản trạng thái bằng tiếng Việt
+                                    switch ($r['status']) {
+                                        case 'processing':
+                                            echo "Đang xử lý";
+                                            break;
+                                        case 'confirmed':
+                                            echo "Đã xác nhận";
+                                            break;
+                                        case 'cancelled':
+                                            echo "Đã hủy";
+                                            break;
+                                        default:
+                                            echo $r['status'];
+                                    }
+                                    echo "</span></td>";
+                                    echo "<td>";
+                                        if ($r['status'] === 'processing') {
+                                            echo "<a href='admin.php?page=import&act=edit&receipt_id={$r['receipt_id']}' 
+                                                    data-receipt_id='{$r['receipt_id']}' 
+                                                    data-supplier_id='{$r['supplier_id']}' >
+                                                    <button class='edit-receipt-btn'>✏️ Sửa</button></a>";
+                                        } else {
+                                            echo "<a href='admin.php?page=import&act=detail&receipt_id={$r['receipt_id']}' 
+                                                    data-receipt_id='{$r['receipt_id']}' 
+                                                    data-supplier_id='{$r['supplier_id']}' >
+                                                    <button class='detail-receipt-btn'>📄 Chi tiết</button></a>";
+                                        }
+                                    echo "</td>";
                                 echo "</tr>";
                             }
                         }
@@ -221,13 +239,14 @@ $import_data = getImportData();
         });
 
         // Mở popup chi tiết phiếu nhập và lấy dữ liệu qua AJAX
-        $(document).on("click", ".edit-receipt-btn", function (e) {
+        $(document).on("click", ".edit-receipt-btn, .detail-receipt-btn", function (e) {
             e.preventDefault();
             
             const $link = $(this).closest("a");
             const receipt_id = $link.data("receipt_id");
+            const isDetailView = $(this).hasClass("detail-receipt-btn");
 
-            console.log("When click Sửa in table, receipt_id: " + receipt_id);
+            console.log("Receipt_id: " + receipt_id + ", isDetailView: " + isDetailView);
 
             // Lưu receipt_id vào popup header
             $("#popup-edit-supplier .popup-header h2").data("receipt_id", receipt_id);
@@ -246,6 +265,9 @@ $import_data = getImportData();
                     if (response.success) {
                         const { info, products } = response.data;
 
+                        // Cập nhật tiêu đề popup
+                        $("#popup-edit-supplier .popup-header h2").text(isDetailView ? "Chi tiết phiếu nhập" : "Chỉnh sửa phiếu nhập");
+
                         // Cập nhật thông tin nhà cung cấp và nhân viên
                         $("#nhacungcap-supplier_id").text(info.supplier_id);
                         $("#nhacungcap-supplier_name").text(info.supplier_name);
@@ -261,9 +283,13 @@ $import_data = getImportData();
                         ];
                         $("#info_right-status-combobox").empty().append(
                             statusOptions.map(opt => 
-                                `<option value="${opt.value}" ${opt.value === info.status ? 'selected' : ''}>${opt.text}</option>`
+                                `<option value="${opt.value}" ${opt.value === info.status ? 'selected' : ''} 
+                                ${isDetailView ? 'disabled' : ''}>${opt.text}</option>`
                             ).join('')
                         );
+                        if (isDetailView) {
+                            $("#info_right-status-combobox").prop("disabled", true);
+                        }
 
                         // Cập nhật tổng tiền
                         $("#info_right-status-calcTotal").text(info.total || 0);
@@ -276,16 +302,32 @@ $import_data = getImportData();
                                     <tr data-product-id="${product.product_id}">
                                         <td>${product.product_id}</td>
                                         <td>${product.product_name}</td>
-                                        <td><input type="number" class="price-input" value="${product.price}" min="0"></td>
-                                        <td><input type="number" class="percent-input" value="${product.percent}" min="0" max="100"></td>
+                                        <td><input type="number" class="price-input" value="${product.price}" min="0" ${isDetailView ? 'readonly' : ''}></td>
+                                        <td><input type="number" class="percent-input" value="${product.percent}" min="0" max="100" ${isDetailView ? 'readonly' : ''}></td>
                                         <td class="sell-price">${Number(product.sell_price).toFixed(0)}</td>
-                                        <td><input type="number" class="quantity-input" value="${product.quantity}" min="1"></td>
-                                        <td><button class="delete-product-btn" data-product-id="${product.product_id}">❌</button></td>
+                                        <td><input type="number" class="quantity-input" value="${product.quantity}" min="1" ${isDetailView ? 'readonly' : ''}></td>
+                                        <td>${isDetailView ? '' : `<button class="delete-product-btn" data-product-id="${product.product_id}">❌</button>`}</td>
                                     </tr>
                                 `);
                             });
+                        } else {
+                            $("#product-list_supplier").append(`
+                                    <tr>
+                                        <td colspan="7">Không có sản phẩm nào.</td>
+                                    </tr>
+                                `);
                         }
-                        toggleDeleteButton(); // Cập nhật trạng thái nút Xóa
+
+                        // Ẩn/hiện nút Sửa và Thêm sản phẩm
+                        if (isDetailView) {
+                            $("#edit-receipt-btn_popup").hide();
+                            $("#add-product-btn_receipt").hide();
+                            $("#delete-supplier-btn_popup").hide();
+                        } else {
+                            $("#edit-receipt-btn_popup").show();
+                            $("#add-product-btn_receipt").show();
+                            toggleDeleteButton();
+                        }
                     } else {
                         alert("Lỗi khi lấy chi tiết phiếu nhập: " + response.error);
                     }
@@ -295,6 +337,7 @@ $import_data = getImportData();
                 }
             });
         });
+
 
         // Format tiền
         $(document).on("input", ".price-input, .percent-input", function () {
@@ -320,6 +363,8 @@ $import_data = getImportData();
         $("#close-popup-edit-import").on("click", function () {
             $("#popup-edit-supplier").removeClass("active");
             $("#product-list_supplier").empty(); // Xóa bảng khi đóng popup
+            $("#info_right-status-combobox").prop("disabled", false); // Đặt lại combobox trạng thái
+            // location.reload();
         });
 
         $("#edit-receipt-btn_popup").on("click", function () {
