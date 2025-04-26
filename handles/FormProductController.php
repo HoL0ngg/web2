@@ -107,6 +107,7 @@
             }
 
             echo json_encode($response);
+            exit;
         }
 
         public function editProduct($product_id)
@@ -171,12 +172,69 @@
             }
 
             echo json_encode($response);
+            exit;
         }
 
         public function getAllProducts()
         {
             $products = $this->model->getAllProducts();
             include('view/product.php');
+        }
+
+        public function checkProductIsSold($product_id)
+        {
+            header('Content-Type: application/json');
+            $result = $this->model->checkProductIsSold($product_id);
+            echo json_encode(['success' => $result]);
+            exit;
+        }
+
+        public function deleteProduct($product_id)
+        {
+            header('Content-Type: application/json');
+            $response = ["success" => false, "message" => ""];
+
+            if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+                $response["message"] = "Phương thức không hợp lệ";
+                echo json_encode($response);
+                return;
+            }
+            $result = $this->model->xoa($product_id);
+            switch ($result) {
+                case 'delete_failed':
+                    $response["message"] = "Không thể xóa sản phẩm.";
+                    break;
+                case 'product_sold':
+                    $response["message"] = "Sản phẩm đã được bán, không thể xóa.";
+                    break;
+                case 'exception':
+                    $response["message"] = "Có lỗi xảy ra trong quá trình xóa.";
+                    break;
+                case 'success':
+                    $response["success"] = true;
+                    $response["message"] = "Xóa sản phẩm thành công!";
+                    break;
+                default:
+                    $response["message"] = "Không xác định.";
+            }
+            echo json_encode($response);
+            exit;
+        }
+
+        public function hideProduct($product_id)
+        {
+            header('Content-Type: application/json');
+            $response = ["success" => false, "message" => ""];
+            $result = $this->model->hideProduct($product_id);
+            switch ($result) {
+                case 'success':
+                    echo json_encode(["success" => true, "message" => "Ẩn sản phẩm thành công!"]);
+                    break;
+                default:
+                    echo json_encode(["success" => false, "message" => "Có lỗi xảy ra trong quá trình ẩn sản phẩm."]);
+                    break;
+            }
+            exit;
         }
     }
     ?>

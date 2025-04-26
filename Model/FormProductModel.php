@@ -98,7 +98,55 @@ class FormProductModel
             return 'exception';
         }
     }
+    public function checkProductIsSold($product_id)
+    {
+        $sql = "SELECT 1 
+                FROM chitietdonhang ct 
+                JOIN donhang dh ON  ct.order_id = dh.order_id
+                WHERE product_id = ? AND status != 'cancelled' 
+                LIMIT 1";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $product_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+        if ($result->num_rows > 0) {
+            return true; // Sản phẩm đã được bán
+        } else {
+            return false; // Sản phẩm chưa được bán
+        }
+    }
 
+    public function xoa($product_id)
+    {
+        try {
+            $sql = "DELETE FROM sanpham WHERE product_id = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("i", $product_id);
+            if (!$stmt->execute()) {
+                return 'delete_failed';
+            }
+            $stmt->close();
+            return 'success';
+        } catch (Exception $e) {
+            error_log("Error updating user: " . $e->getMessage());
+            return 'exception';
+        }
+    }
+    public function hideProduct($product_id)
+    {
+        try {
+            $sql = "UPDATE sanpham SET status = 0 WHERE product_id = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("i", $product_id);
+            $stmt->execute();
+            $stmt->close();
+            return 'success';
+        } catch (Exception $e) {
+            error_log("Error updating user: " . $e->getMessage());
+            return 'exception';
+        }
+    }
     public function getAllProducts()
     {
         $sql = "SELECT sp.*, ha.image_url, tl.tentheloai, brand.brand_name
