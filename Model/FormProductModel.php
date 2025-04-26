@@ -162,4 +162,31 @@ class FormProductModel
         }
         return $products;
     }
+
+    public function searchProducts($keyword, $type)
+    {
+        $keyword = mysqli_real_escape_string($this->conn, $keyword);
+        $type = mysqli_real_escape_string($this->conn, $type);
+        if ($type == 'all') {
+            $sql = "SELECT * FROM sanpham 
+            WHERE product_id LIKE '%$keyword%' 
+            OR product_name LIKE '%$keyword%' 
+            OR brand_id LIKE '%$keyword%'
+            OR price LIKE '%$keyword%'
+            OR matheloai LIKE '%$keyword%'
+            OR quantity LIKE '%$keyword%'";
+        } else {
+            $sql = "SELECT * FROM sanpham 
+            WHERE $type LIKE '%$keyword%'";
+        }
+        $result = $this->conn->query($sql);
+        if (!$result) {
+            return [];
+        }
+        $products = [];
+        while ($row = $result->fetch_assoc()) {
+            $products[] = $row;
+        }
+        return $products;
+    }
 }

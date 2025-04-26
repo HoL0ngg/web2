@@ -236,5 +236,15 @@
             }
             exit;
         }
+        public function search($keyword, $type)
+        {
+            $products = $this->model->searchProducts($keyword, $type);
+            header('Content-Type: application/json');
+            echo json_encode($products);
+            exit;
+            // require_once(__DIR__ . '/../handles/PhanQuyenController.php');
+            // include(__DIR__ . '/../view/product.php');
+            // exit;
+        }
     }
     ?>

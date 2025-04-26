@@ -426,15 +426,20 @@ function closePopup() {
     document.getElementById('overlay').classList.add('hidden');
     document.querySelectorAll('.popup-modal').forEach(p => p.classList.add('hidden'));
 }
-
-document.querySelectorAll('.btn_role')[0].addEventListener('click', function(e) {
-    e.preventDefault();
-    openPopup('popup-them-nhomquyen');
-});
-document.querySelectorAll('.btn_role')[1].addEventListener('click', function(e) {
-    e.preventDefault();
-    openPopup('popup-them-chucnang');
-});
+const btnRole = document.querySelectorAll('.btn_role')[0];
+if(btnRole){
+    btnRole.addEventListener('click', function(e) {
+        e.preventDefault();
+        openPopup('popup-them-nhomquyen');
+    });
+}
+const btnFunc = document.querySelectorAll('.btn_role')[1];
+if(btnFunc){
+    btnFunc.addEventListener('click', function(e) {
+        e.preventDefault();
+        openPopup('popup-them-chucnang');
+    });
+}
 
 function themNhomQuyen() {
     console.log("hihih");
@@ -526,3 +531,30 @@ if(permissionForm){
 
     }
 )};
+// SEARCH PRODUCTS
+const searchInput = document.getElementById("search-input");
+const searchCombobox = document.getElementById("search-combobox");
+
+// Khai báo biến để lưu id của timeout
+let typingTimer;
+
+// Thời gian chờ sau khi ngừng gõ (300ms)
+const typingInterval = 300; // milliseconds
+function performSearch(){
+    const keyword = searchInput.value;
+    const type = searchCombobox.value;
+
+    fetchData('api/product_api.php', {action: 'searchProduct',keyword: keyword, type: type})
+    // .then(data => {
+    //     document.getElementById('product-list').innerHTML = data;
+    // })
+    // .catch(error => console.error('Error:', error));
+}
+if(searchInput){
+    searchInput.addEventListener('input', function(){        
+        
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(performSearch, typingInterval);
+    })
+}
+searchCombobox.addEventListener('change', performSearch);
