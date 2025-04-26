@@ -112,7 +112,7 @@ CREATE TABLE sanphamhinhanh (
     image_url VARCHAR(255) NOT NULL,
     is_main TINYINT NOT NULL DEFAULT 1,
     product_id INT NOT NULL,
-    FOREIGN KEY (product_id) REFERENCES sanpham(product_id)
+    FOREIGN KEY (product_id) REFERENCES sanpham(product_id) ON DELETE CASCADE
 );
 CREATE TABLE giohang (
     id INT AUTO_INCREMENT PRIMARY KEY,
