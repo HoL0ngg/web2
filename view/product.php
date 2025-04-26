@@ -65,8 +65,8 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
 
                             <?php if ($canDelete): ?>
                                 <div style="margin-top: 5px;">
-                                    <!-- <button class="delete-btn-product btn" data-id="<?= $row['product_id'] ?>">❌ Xóa</button> -->
-                                    <a href="admin.php?page=product&action=delete&id=<?php echo $row['product_id']; ?>" data-id="<?= $row['product_id'] ?>" class="delete-btn-product btn">❌ Xóa</a>
+                                    <button class="delete-btn-product btn" data-id="<?= $row['product_id'] ?>">❌ Xóa</button>
+                                    <!-- <a href="admin.php?page=product&action=delete&id=<?php echo $row['product_id']; ?>" data-id="<?= $row['product_id'] ?>" class="delete-btn-product btn">❌ Xóa</a> -->
                                 </div>
                             <?php endif; ?>
                         </td>

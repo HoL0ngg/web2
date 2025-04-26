@@ -309,12 +309,10 @@ function fetchData(url, data) {
 document.addEventListener("click", function(event){
     if(event.target.classList.contains("delete-btn-product")){
         let productId = event.target.getAttribute("data-id");
-        fetchData('api/product_api.php', {action: "deleteProduct", product_id: productId})
-        .then(data =>{
-            let notification = {success: false, message: ""};
+        fetchData('api/product_api.php', {action: "checkProduct", product_id: productId})
+        .then(data => {
+            // let notification = {success: false, message: ""};
             if(data.success){
-                
-            }else{
                 Swal.fire({
                     title: "Thông báo",
                     text: "Sản phẩm đã được bán ra, bạn có muốn ẩn sản phẩm không?",
@@ -328,21 +326,49 @@ document.addEventListener("click", function(event){
                     if(result.isConfirmed){
                         fetchData('api/product_api.php', {action: 'hideProduct', product_id: productId})
                         .then(data => {
-                            if(data.success){
-                                notification.success = true;
-                                notification.message = "Ẩn sản phẩm thành công";
-                                handleSuccessResponse(notification);
+                            if(data.success){                                                                
+                                handleSuccessResponse(data);
+                                location.reload();
                             }
-                            else{
-                                notification.message = "Ẩn sản phẩm không thành công";
-                                handleErrorResponse(notification);
+                            else{                                
+                                handleErrorResponse(data);
+                                location.reload();
                             }
                         })
                     }
                 })
             }
+            else{
+                Swal.fire({
+                    title: "Xác nhận xóa",
+                    text: "Bạn có chắc chắn muốn xóa sản phẩm này không?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Xóa",
+                    cancelButtonText: "Hủy"
+                }).then((result) =>{
+                    if(result.isConfirmed){
+                        fetchData('api/product_api.php', {action: "deleteProduct", product_id: productId})
+                        .then(data =>{
+                            if(data.success){
+                                // notification.success = true;
+                                // notification.message = "Xóa sản phẩm thành công!";
+                                handleSuccessResponse(data);
+                                location.reload();
+                            }
+                            else{
+                                // notification.message = "Ẩn sản phẩm không thành công";
+                                handleErrorResponse(data);
+                                // this.location.reload();
+                            }
+                        })
+                    }
+                })               
+            }
         })
-
+        
     }
 })
 window.onload = function () {

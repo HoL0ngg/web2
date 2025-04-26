@@ -107,6 +107,7 @@
             }
 
             echo json_encode($response);
+            exit;
         }
 
         public function editProduct($product_id)
@@ -171,6 +172,7 @@
             }
 
             echo json_encode($response);
+            exit;
         }
 
         public function getAllProducts()
@@ -178,11 +180,15 @@
             $products = $this->model->getAllProducts();
             include('view/product.php');
         }
+
         public function checkProductIsSold($product_id)
         {
+            header('Content-Type: application/json');
             $result = $this->model->checkProductIsSold($product_id);
-            return $result;
+            echo json_encode(['success' => $result]);
+            exit;
         }
+
         public function deleteProduct($product_id)
         {
             header('Content-Type: application/json');
@@ -228,6 +234,7 @@
                     echo json_encode(["success" => false, "message" => "Có lỗi xảy ra trong quá trình ẩn sản phẩm."]);
                     break;
             }
+            exit;
         }
     }
     ?>
