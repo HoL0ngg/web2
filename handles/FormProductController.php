@@ -1,7 +1,7 @@
     <?php
     // require_once './Model/FormProductModel.php';
     require_once __DIR__ . '/../Model/FormProductModel.php';
-
+    // session_start();
     class FormProductController
     {
         private $model;
@@ -238,13 +238,18 @@
         }
         public function search($keyword, $type)
         {
-            $products = $this->model->searchProducts($keyword, $type);
             header('Content-Type: application/json');
-            echo json_encode($products);
+            $response = ["products" => [], "actions" => []];
+            require_once __DIR__ . '/../handles/PhanQuyenController.php';
+            $phanquyenController = new PhanQuyenController();
+            $canUpdate = $phanquyenController->hasPermission('sanpham', 'update', $_SESSION['permissions']);
+            $canDelete = $phanquyenController->hasPermission('sanpham', 'delete', $_SESSION['permissions']);
+            $products = $this->model->searchProducts($keyword, $type);
+            $response["products"] = $products;
+            $response["actions"]["canUpdate"] = $canUpdate;
+            $response["actions"]["canDelete"] = $canDelete;
+            echo json_encode($response);
             exit;
-            // require_once(__DIR__ . '/../handles/PhanQuyenController.php');
-            // include(__DIR__ . '/../view/product.php');
-            // exit;
         }
     }
     ?>

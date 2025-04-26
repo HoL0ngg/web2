@@ -24,7 +24,7 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                     <option value="quantity">Số lượng</option>
                 </select>
 
-                <input type="text" placeholder="Tìm kiếm sản phẩm..." id="search-input">
+                <input type="text" placeholder="Tìm kiếm sản phẩm..." id="search-input-product">
             </div>
             <?php if ($canAdd): ?>
                 <div id="product-header-btn">
@@ -140,14 +140,14 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
         /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); */
     }
 
-    #search-input {
+    #search-input-product {
         padding: 8px 12px;
         border: none;
         outline: none;
         min-width: 250px;
         font-size: 1rem;
         border: 2px solid #ccc;
-        margin: 0 7px;
+        margin: 0 0 0 7px;
     }
 
     #search-combobox {
@@ -255,6 +255,11 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
         opacity: 0.9;
         transform: translateY(-1px);
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .highlight {
+        background-color: yellow;
+        font-weight: bold;
     }
 
     /* 
