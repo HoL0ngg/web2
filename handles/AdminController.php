@@ -20,8 +20,8 @@
             if ($admin) {
 
                 $_SESSION['user'] = $admin;
-                header('Location: /admin.php');
-                // header('Location: /web2/admin.php');
+                // header('Location: /admin.php');
+                header('Location: /web2/admin.php');
 
                 exit;
             } else {

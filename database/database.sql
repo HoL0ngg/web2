@@ -664,15 +664,18 @@ VALUES (1, 1, 2, 120000),
     (1, 3, 1, 180000),
     (2, 2, 1, 250000),
     (2, 3, 1, 180000);
--- PhieuNhap
-INSERT INTO phieunhap
-VALUES (1, 1, 1, '2025-03-28', 500000),
-    (2, 1, 2, '2025-04-01', 800000);
--- ChiTietPhieuNhap
+-- Thêm dữ liệu mới vào bảng phieunhap
+INSERT INTO phieunhap (employee_id, supplier_id, create_time, confirm_time, total, status)
+VALUES 
+    (1, 1, '2025-03-28', '2025-03-29', 1300000, 'confirmed'),
+    (1, 2, '2025-04-01', NULL, 2900000, 'processing');
+
+-- Thêm dữ liệu mới vào bảng chitietphieunhap
 INSERT INTO chitietphieunhap (receipt_id, product_id, quantity, price, percent)
-VALUES (1, 1, 10, 100000, 10),
-    (1, 2, 5, 220000, 15),
-    (2, 3, 20, 150000, 10),
+VALUES 
+    (1, 1, 10, 100000, 10),
+    (1, 2, 2, 150000, 15),
+    (2, 3, 15, 100000, 10),
     (2, 4, 5, 280000, 20);
 -- nhacungcapsanpham
 INSERT INTO nhacungcapsanpham (supplier_id, product_id)
