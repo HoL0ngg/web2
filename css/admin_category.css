@@ -9,7 +9,6 @@ a {
     text-decoration: none;
 }
 
-
 /* Main Content */
 .main-content {
     padding: 20px;
@@ -25,9 +24,8 @@ header {
     margin-bottom: 20px;
 }
 
-.add-chungloai-btn,
-.add-theloai-btn {
-    background: #27AE60;
+.add-chungloai-btn {
+    background: #3498db;
     color: white;
     border: none;
     width: 160px;
@@ -37,17 +35,9 @@ header {
     font-weight: 600;
 }
 
-.add-theloai-btn {
-    width: 120px;
-    height: 30px;
+.add-chungloai-btn:hover {
+    background: #2980b9;
 }
-.add-chungloai-btn:hover,
-.add-theloai-btn:hover {
-    background: #219150;
-}
-
-
-
 
 /* Bảng danh sách */
 .chungloai-list {
@@ -55,9 +45,8 @@ header {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    max-height: 550px; /* Giới hạn chiều cao bảng */
-    overflow-y: auto; /* Bật thanh cuộn dọc khi nội dung vượt quá chiều cao */
-
+    max-height: 550px;
+    overflow-y: auto;
 }
 
 table {
@@ -72,6 +61,7 @@ td {
     padding: 10px;
     text-align: center;
 }
+
 td[rowspan] > a {
     display: flex;
     justify-content: center;
@@ -85,10 +75,7 @@ th {
 }
 
 /* Nút chỉnh sửa */
-.edit-theloai-btn,
-.edit-chungloai-btn,
-.delete-theloai-btn,
-.delete-chungloai-btn{
+.edit-chungloai-btn {
     border: none;
     width: 70px;
     height: 30px;
@@ -98,21 +85,17 @@ th {
     margin: 2px;
     background: white;
 }
-/* .delete-chungloai-btn{ */
-    /* width: auto; */
-/* } */
 
-.delete-theloai-btn:hover,
-.delete-chungloai-btn:hover {
-    background: #C0392B;
-    color: white;
-}
-.edit-theloai-btn:hover,
 .edit-chungloai-btn:hover {
     background: #D4AC0D;
     color: white;
 }
 
+.delete-theloai-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
 
 /* Popup */
 .popup-overlay {
@@ -122,98 +105,142 @@ th {
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.5);
-    display: none; /* Đừng hiển thị mặc định */
+    display: none;
     justify-content: center;
     align-items: center;
     z-index: 1000;
 }
 
-.popup-overlay.active { /* Class khi muốn hiện */
+.popup-overlay.active {
     display: flex;
 }
 
 .popup-content {
     background: white;
-    padding: 20px 30px;
+    padding: 5px 20px;
     border-radius: 8px;
-    width: 450px;
-    /* height: 400px; */
+    width: auto;
     position: relative;
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
     text-align: center;
 }
 
 .popup-header {
-    font-size: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-} 
+    padding: 10px 0;
+    min-width: 400px;
+}
 
 .popup-header h2 {
-    margin: 16px;
-    width: 100%;
-    text-align: center;
+    margin: 0;
+    font-size: 30px;
 }
 
 .close-btn {
-    margin-left: 10px;
     cursor: pointer;
     font-size: 25px;
     color: red;
 }
 
 .popup-body {
-    margin-top: 15px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 20px 0;
 }
 
-.popup-body .input-row {
+.popup-body .left_info {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 0 40px 0 0;
+    min-width: 250px;
 }
 
 .popup-body label {
     margin-right: 10px;
-    width: 120px;
-    text-align: right;
+    width: 140px;
+    text-align: left;
+    font-weight: bold;
 }
 
 .popup-body input {
     flex: 1;
     padding: 8px;
+    width: 100%;
+    border: 1px solid #BDC3C7;
+    border-radius: 4px;
 }
 
-.popup-body button {
-    font-size: 18px;
-    width: 100px;
-    height: 40px;
-    margin: 20px;
-    padding: 8px 16px;
-    background: #3498db; /* xanh lá */
-    border: none;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
+.popup-body input[readonly] {
+    background: #f0f0f0;
 }
-.popup-body button:hover {
-    background: #2980b9;
-}
-.popup-buttons {
+
+.popup-body .right_table {
     display: flex;
-    justify-content: flex-start;
-    gap: 10px;
-    margin-top: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
 }
-.popup-footer {
+
+.popup-body .right_table .right_table--header {
+    width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+}
+
+.popup-body .right_table .right_table--header h3 {
+    margin-right: 16px;
+    font-weight: normal;
+}
+
+.popup-body .right_table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.popup-body .right_table th,
+.popup-body .right_table td {
+    border: 1px solid #BDC3C7;
+    padding: 8px;
+    text-align: center;
+}
+
+.popup-body .right_table th {
+    background: #3498DB;
+    color: white;
+}
+
+.popup-body .new-theloai-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #BDC3C7;
+    border-radius: 4px;
+}
+
+#add-theloai-btn_popup {
+    background: #27AE60;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#add-theloai-btn_popup:hover {
+    background: #219150;
+}
+
+.popup-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
     margin-top: 20px;
+    padding: 10px 0;
 }
 
 .popup-footer button {
@@ -221,34 +248,74 @@ th {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-weight: bold;
 }
 
-#btn-sua-theloai {
+#edit-chungloai-btn_popup {
     background-color: #3498db;
     color: white;
-} 
-#btn-sua-theloai:hover {
+}
+
+#edit-chungloai-btn_popup:hover {
     background-color: #2980b9;
 }
-#btn-xoa-theloai,
+
 #btn-xoa-chungloai {
-    background-color: #f44336;
+    background-color: #C0392B;
     color: white;
+}
+
+#btn-xoa-chungloai:hover {
+    background-color: #A93226;
+}
+
+/* Styling for the "Thêm chủng loại" popup */
+#popup-add-chungloai .popup-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+}
+
+#popup-add-chungloai .left_info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 0;
+    min-width: 300px;
+}
+
+#popup-add-chungloai .popup-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 10px 0;
+}
+
+#btn-them-chungloai {
+    background-color: #3498db;
+    color: white;
+}
+
+#btn-them-chungloai:hover {
+    background-color: #2980b9;
 }
 
 .input-row {
     display: flex;
     align-items: center;
+    justify-content: space-evenly;
     margin-bottom: 10px;
 }
 
 .input-row label {
-    width: 130px;
     font-weight: bold;
+    white-space: nowrap;
 }
 
 .input-row input,
 .input-row span {
     flex: 1;
 }
-

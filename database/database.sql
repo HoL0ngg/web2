@@ -6,20 +6,20 @@ create database webbanhang;
 use webbanhang;
 -- Bảng ChungLoai
 CREATE TABLE `chungloai` (
-    `machungloai` int PRIMARY key,
+    `machungloai` int AUTO_INCREMENT PRIMARY KEY,
     `tenchungloai` varchar(50) DEFAULT NULL,
     `hinhanh` varchar(255) DEFAULT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 -- Bảng TheLoai
 CREATE TABLE theloai (
-    matheloai INT PRIMARY KEY,
+    matheloai INT AUTO_INCREMENT PRIMARY KEY,
     tentheloai VARCHAR(50),
     machungloai INT,
     FOREIGN KEY (machungloai) REFERENCES chungloai(machungloai)
 );
 -- Bảng Brand
 CREATE TABLE brand (
-    brand_id INT PRIMARY KEY,
+    brand_id INT AUTO_INCREMENT PRIMARY KEY,
     brand_name VARCHAR(100)
 );
 -- Bảng NhomQuyen
