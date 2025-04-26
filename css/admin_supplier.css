@@ -84,7 +84,7 @@ th {
     cursor: pointer;
 }
 .add-supplier-btn_style {
-    background: #27AE60;
+    background: #3498db;
     color: white;
     border: none;
     width: 160px;
@@ -94,7 +94,7 @@ th {
     font-weight: 600;
 }
 .add-supplier-btn_style:hover {
-    background: #219150;
+    background: #2980b9;
 }
 
 
@@ -246,12 +246,12 @@ th {
 }
 
 #edit-supplier-btn_popup {
-    background-color: #27AE60; /* Green for "Sửa" */
+    background-color: #3498db; /* Green for "Sửa" */
     color: white;
 }
 
 #edit-supplier-btn_popup:hover {
-    background-color: #219150;
+    background-color: #2980b9;
 }
 
 #delete-supplier-btn_popup {
@@ -289,12 +289,12 @@ th {
 }
 
 #add-supplier-btn_popup {
-    background-color: #27AE60;
+    background-color: #3498db;
     color: white;
 }
 
 #add-supplier-btn_popup:hover {
-    background-color: #219150;
+    background-color: #2980b9;
 }
 
 .input-row {

@@ -33,23 +33,6 @@ header {
     max-height: 550px; /* Giới hạn chiều cao bảng */
     overflow-y: auto; /* Bật thanh cuộn dọc khi nội dung vượt quá chiều cao */
 }
-.import-list::-webkit-scrollbar {
-    width: 8px;
-}
-
-.import-list::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
-}
-
-.import-list::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 10px;
-}
-
-.import-list::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
 
 table {
     width: 100%;
@@ -105,7 +88,7 @@ th {
 }
 
 .add-import-btn_style {
-    background: #27AE60;
+    background: #3498db;
     color: white;
     border: none;
     width: 160px;
@@ -116,7 +99,7 @@ th {
 }
 
 .add-import-btn_style:hover {
-    background: #219150;
+    background: #2980b9;
 }
 
 /* Định dạng chung cho trạng thái */
@@ -365,12 +348,12 @@ th {
 }
 
 #edit-receipt-btn_popup {
-    background-color: #27AE60;
+    background-color: #3498db;
     color: white;
 }
 
 #edit-receipt-btn_popup:hover {
-    background-color: #219150;
+    background-color: #2980b9;
 }
 
 #delete-supplier-btn_popup {
@@ -408,12 +391,12 @@ th {
 }
 
 #add-import-btn_popup {
-    background-color: #27AE60;
+    background-color: #3498db;
     color: white;
 }
 
 #add-import-btn_popup:hover {
-    background-color: #219150;
+    background-color: #2980b9;
 }
 
 .input-row {

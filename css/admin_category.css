@@ -195,11 +195,14 @@ th {
     height: 40px;
     margin: 20px;
     padding: 8px 16px;
-    background: #28a745; /* xanh lá */
+    background: #3498db; /* xanh lá */
     border: none;
     color: white;
     border-radius: 4px;
     cursor: pointer;
+}
+.popup-body button:hover {
+    background: #2980b9;
 }
 .popup-buttons {
     display: flex;
@@ -221,10 +224,12 @@ th {
 }
 
 #btn-sua-theloai {
-    background-color: #4CAF50;
+    background-color: #3498db;
     color: white;
+} 
+#btn-sua-theloai:hover {
+    background-color: #2980b9;
 }
-
 #btn-xoa-theloai,
 #btn-xoa-chungloai {
     background-color: #f44336;
