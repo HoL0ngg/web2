@@ -101,9 +101,8 @@ class FormProductModel
     public function checkProductIsSold($product_id)
     {
         $sql = "SELECT 1 
-                FROM chitietdonhang ct 
-                JOIN donhang dh ON  ct.order_id = dh.order_id
-                WHERE product_id = ? AND status != 'cancelled' 
+                FROM chitietdonhang ct                
+                WHERE product_id = ?
                 LIMIT 1";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $product_id);

@@ -1,0 +1,26 @@
+Fetched data from DB: Array
+(
+    [0] => Array
+        (
+            [receipt_id] => 1
+            [employee_id] => 1
+            [supplier_id] => 1
+            [time] => 2025-03-28
+            [total] => 500000
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [1] => Array
+        (
+            [receipt_id] => 2
+            [employee_id] => 1
+            [supplier_id] => 2
+            [time] => 2025-04-01
+            [total] => 800000
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+)
+

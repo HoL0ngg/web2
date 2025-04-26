@@ -9,7 +9,7 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
 <div id="product-container">
     <div id="product-header">
         <div class="header-left">
-            <h2>Quản lý sản phẩm</h2>
+            <h1>Quản lý sản phẩm</h1>
         </div>
 
         <div class="header-right">
@@ -103,6 +103,7 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
     .header-left {
         flex: 1;
         min-width: 200px;
+        font-size: 24px;
     }
 
     .header-right {
