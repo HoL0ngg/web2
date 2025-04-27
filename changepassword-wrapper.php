@@ -6,7 +6,7 @@
                 <div class="btn-close">x</div>
             </div>
 
-            <div class="input-field-wrapper">
+            <div class="input-field-wrapper-reg">
                 <div class="input-field">
                     <input type="password" name="currentpass" id="currentpass" required>
                     <label for="currentpass"><span><i class="fa-solid fa-lock"></i>Nhập mật khẩu hiện tại</label>

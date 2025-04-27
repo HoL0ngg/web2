@@ -558,11 +558,12 @@ if(searchInput){
         typingTimer = setTimeout(performSearch, typingInterval);
     })
 }
-searchCombobox.addEventListener('change', performSearch);
+if(searchCombobox){
+    searchCombobox.addEventListener('change', performSearch);
+}
 
 function highlightKeyword(text, keyword) {
     if (!keyword) return text; // Không có từ khóa thì trả nguyên
-
     const escapedKeyword = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // Escape keyword
     const regex = new RegExp(`(${escapedKeyword})`, 'gi'); // Tạo regex không phân biệt hoa thường
 
@@ -619,6 +620,79 @@ function renderProducts(products, canUpdate, canDelete, keyword) {
     }
 
     tableBody.innerHTML = html;
+}
+
+//SEARCH USER
+const searchInputUser = document.getElementById("search-input-user");
+const cboUser = document.getElementById("search-combobox-user");
+
+if(searchInputUser){
+    searchInputUser.addEventListener('input', function(){                        
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(performSearchUser, typingInterval);
+    })
+}
+if(cboUser){
+    cboUser.addEventListener('change', performSearchUser);
+}
+
+function performSearchUser(){
+    const keyword = searchInputUser.value;
+    const type = cboUser.value;
+
+    fetchData('api/user_api.php', {action: 'searchUser',keyword: keyword, type: type})
+    .then(data => {
+        // console.log(data);    
+        renderUsers(data.users, data.actions.canUpdate, data.actions.canDelete,keyword);
+    })
+    .catch(error => console.error('Error:', error));
+}
+function renderUsers(users, canUpdate, canDelete, keyword){
+    const tableBody = document.querySelector(".user-list table");
+    let html = `<thead>
+        <th>ID</th>
+        <th>Tên đăng nhập</th>
+        <th>Họ tên</th>
+        <th>Số điện thoại</th>
+        <th>Email</th>
+        <th>Trạng thái</th>
+        <th>Vai trò</th>    
+        ${(canUpdate || canDelete) ? "<th>Thao tác</th>" : ""}
+        </thead>
+    `;    
+    if(users.length == 0){
+        const colspan = (canUpdate || canDelete) ? 8 : 7;
+        html += `
+            <tr>
+                <td colspan="${colspan}" style="text-align: center; font-weight: bold; padding: 17px;">Không tìm thấy người dùng</td>
+            </tr>
+        `;
+    }else{
+        users.forEach(user => {
+            html += `
+            <tr class="${user.status == 0 ? 'hidden-product' : ''}">
+                <td>${user.user_id}</td>
+                <td>${user.username}</td>
+                <td>${user.fullname}</td>
+                <td>${user.phone}</td>
+                <td>${user.email}</td>
+                <td>${user.status == 0 ? '<span class="status-no-complete">Bị khóa</span>' : '<span class="status-complete">Hoạt động</span>'}</td>
+                <td>${user.role_name}</td>                
+                ${
+                    (canUpdate || canDelete) ? `
+                    <td>
+                        ${canUpdate ? `<a href="admin.php?page=user&act=update&uid=${user.user_id}}">
+                                            <button class="edit-btn">✏️ Sửa</button>
+                                        </a>` : ''}
+                    </td>
+                    ` : ''
+                }
+            </tr>
+            `;
+        });
+    }
+    tableBody.innerHTML = html;
+    // ${canDelete ? `<div style="margin-top: 5px;"><button class="delete-btn-product btn" data-id="${user.user_id}">❌ Xóa</button></div>` : ''}
 }
 
 

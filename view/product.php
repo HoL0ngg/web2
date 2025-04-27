@@ -135,9 +135,7 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
         display: flex;
         align-items: center;
         background: white;
-        /* border-radius: 4px; */
         overflow: hidden;
-        /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); */
     }
 
     #search-input-product {

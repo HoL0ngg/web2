@@ -183,8 +183,9 @@ function loginNotification() {
     let frmLogin = document.frmLogin;
     frmLogin.addEventListener("submit", function (event) {
         event.preventDefault(); // Ngừng hành động submit mặc định
-
-        let formData = new FormData(this); // Lấy dữ liệu từ form
+        
+        if(checkLogin()){
+            let formData = new FormData(this); // Lấy dữ liệu từ form
 
         // Gửi dữ liệu bằng AJAX với fetch
         fetch("handles/LoginController.php", {
@@ -213,6 +214,8 @@ function loginNotification() {
                 console.error("Lỗi:", error);
                 showToast("Có lỗi xảy ra, vui lòng thử lại!", false); // Thông báo lỗi nếu có sự cố
             });
+        }
+        
     });
 }
 
