@@ -56,13 +56,14 @@ class OrderModel
         return $order;
     }
 
-    public function changeStatusById($orderId, $newStatus)
+    public function changeStatusById($orderId, $newStatus, $employee_id)
     {
-        $sql = "UPDATE donhang SET status = ? WHERE order_id = ?";
+        $sql = "UPDATE donhang SET status = ?, employee_id = ? WHERE order_id = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("si", $newStatus, $orderId);
+        $stmt->bind_param("sii", $newStatus,$employee_id, $orderId);
         $stmt->execute();
     }
+    
     public function getOrdersByDateRange($from, $to)
     {
         $sql = "SELECT * FROM donhang WHERE orderDate BETWEEN ? AND ?";

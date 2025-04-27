@@ -21,9 +21,9 @@ class OrderController
         include './order.php';
     }
 
-    public function changeStatusById($orderId, $newStatus)
+    public function changeStatusById($orderId, $newStatus, $employee_id)
     {
-        return $this->model->changeStatusById($orderId, $newStatus);
+        return $this->model->changeStatusById($orderId, $newStatus, $employee_id);
     }
 
     public function addOrder($customer_recipient_name, $phone, $email, $customer_id, $order_date, $total_price, $status, $address_id, $note, $pttt)
