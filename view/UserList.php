@@ -12,7 +12,7 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
         <div class="search-box">
             <select id="search-combobox-user">
                 <option value="all">Tất cả</option>
-                <option value="user_id">ID</option>
+                <option value="userId">ID</option>
                 <option value="username">Tên đăng nhập</option>
                 <option value="fullname">Họ tên</option>
                 <option value="phone">Số điện thoại</option>
@@ -125,7 +125,7 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
     .search-box {
         display: flex;
         align-items: center;
-        background: white;
+        background: #ECF0F1;
         overflow: hidden;
     }
 

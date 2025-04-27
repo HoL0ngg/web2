@@ -157,23 +157,16 @@
         {
 
             header('Content-Type: application/json');
-            $response = ["success" => false, "message" => "", "data" => []];
-
-            if (empty($keyword) || empty($type)) {
-                $response["message"] = "Vui lòng nhập từ khóa và loại tìm kiếm";
-                echo json_encode($response);
-                return;
-            }
+            $response = ["users" => [], "actions" => []];
 
             $users = $this->tkmodel->searchUser($keyword, $type);
-
-            if ($users) {
-                $response["success"] = true;
-                $response["data"] = $users;
-            } else {
-                $response["message"] = "Không tìm thấy người dùng nào";
-            }
-
+            require_once(__DIR__ . '/../handles/PhanQuyenController.php');
+            $phanquyenController = new PhanQuyenController();
+            $canUpdate = $phanquyenController->hasPermission('nguoidung', 'update', $_SESSION['permissions']);
+            $canDelete = $phanquyenController->hasPermission('nguoidung', 'delete', $_SESSION['permissions']);
+            $response['actions']['canUpdate'] = $canUpdate;
+            $response['actions']['canDelete'] = $canDelete;
+            $response['users'] = $users;
             echo json_encode($response);
             exit();
         }

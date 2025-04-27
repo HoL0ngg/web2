@@ -1,9 +1,8 @@
     <?php
+    session_start();
     header('Content-Type: application/json');
     require_once __DIR__ . '/../handles/TKController.php';
-    // require_once("../handles/TKController.php");
     $action = $_POST['action'] ?? '';
-    // $userId = isset($_POST['uid']) ? (int)$_POST['uid'] : 0;
     $tkController = new TKController();
     switch ($action) {
         case 'add':
@@ -14,7 +13,7 @@
             break;
         case 'searchUser':
             $keyword = $_POST['keyword'] ?? '';
-            $type = $_POST['type'] ?? '';
+            $type = $_POST['type'] ?? 'all';
             $tkController->searchUser($keyword, $type);
             break;
         default:

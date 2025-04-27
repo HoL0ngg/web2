@@ -370,24 +370,65 @@ class TKModel
 
     public function searchUser($keyword, $type)
     {
-        $keyword = "%" . $keyword . "%";
-        $sql = "SELECT 
-            u.*,  
-            COALESCE(nv.phone, kh.phone) AS phone,  
-            COALESCE(nv.email, kh.email) AS email,  
-            COALESCE(nv.name, kh.customer_name) AS fullname,
-            r.role_name  
-            FROM users u
-            LEFT JOIN nhanvien nv ON nv.user_id = u.user_id  
-            LEFT JOIN khachhang kh ON kh.user_id = u.user_id
-            LEFT JOIN nhomquyen r ON u.role_id = r.role_id
-            WHERE $type LIKE ?
+        $keyword = mysqli_real_escape_string($this->conn, $keyword);
+        $type = mysqli_real_escape_string($this->conn, $type);
+        $keywordLike = "%" . $keyword . "%";
+
+        $basicSelect = "SELECT 
+        u.*,  
+        COALESCE(nv.phone, kh.phone) AS phone,  
+        COALESCE(nv.email, kh.email) AS email,  
+        COALESCE(nv.name, kh.customer_name) AS fullname,
+        r.role_name  
+        FROM users u
+        LEFT JOIN nhanvien nv ON nv.user_id = u.user_id  
+        LEFT JOIN khachhang kh ON kh.user_id = u.user_id
+        LEFT JOIN nhomquyen r ON u.role_id = r.role_id";
+
+        $allowedTypes = ['userId', 'username', 'fullname', 'phone', 'email', 'all'];
+
+        if (!in_array($type, $allowedTypes)) {
+            return []; // Nếu loại tìm kiếm không hợp lệ thì trả về mảng rỗng
+        }
+
+        if ($type !== 'all') {
+            switch ($type) {
+                case 'userId':
+                    $field = 'u.user_id';
+                    break;
+                case 'username':
+                    $field = 'u.username';
+                    break;
+                case 'fullname':
+                    $field = 'COALESCE(nv.name, kh.customer_name)';
+                    break;
+                case 'phone':
+                    $field = 'COALESCE(nv.phone, kh.phone)';
+                    break;
+                case 'email':
+                    $field = 'COALESCE(nv.email, kh.email)';
+                    break;
+            }
+
+            $sql = $basicSelect . " WHERE $field LIKE ? ORDER BY u.user_id DESC";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("s", $keywordLike);
+        } else {
+            $sql = $basicSelect . " 
+            WHERE u.username LIKE ? 
+            OR COALESCE(nv.name, kh.customer_name) LIKE ? 
+            OR COALESCE(nv.phone, kh.phone) LIKE ? 
+            OR COALESCE(nv.email, kh.email) LIKE ?
             ORDER BY u.user_id DESC";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("s", $keyword);
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("ssss", $keywordLike, $keywordLike, $keywordLike, $keywordLike);
+        }
+
         $stmt->execute();
         $result = $stmt->get_result();
         $users = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+
         return $users;
     }
 }
