@@ -9,14 +9,22 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
 <div id="product-container">
     <div id="product-header">
         <div class="header-left">
-            <h2>Quản lý sản phẩm</h2>
+            <h1>Quản lý sản phẩm</h1>
         </div>
 
         <div class="header-right">
 
             <div class="search-box">
-                <input type="text" placeholder="Tìm kiếm sản phẩm..." id="search-input">
-                <button type="submit" class="search-btn">🔍</button>
+                <select id="search-combobox">
+                    <option value="all">Tất cả</option>
+                    <option value="product_id">Mã sản phẩm</option>
+                    <option value="product_name">Tên sản phẩm</option>
+                    <option value="brand_name">Tên thương hiệu</option>
+                    <option value="tentheloai">Thể loại</option>
+                    <option value="quantity">Số lượng</option>
+                </select>
+
+                <input type="text" placeholder="Tìm kiếm sản phẩm..." id="search-input-product">
             </div>
             <?php if ($canAdd): ?>
                 <div id="product-header-btn">
@@ -29,6 +37,9 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
         <table>
             <tr>
                 <!-- <th>STT</th> -->
+                <!-- <th id="sort-product-id" style="cursor: pointer;">
+                    Mã sản phẩm <span id="sort-icon">⬍</span>
+                </th> -->
                 <th>Mã sản phẩm</th>
                 <th>Tên sản phẩm</th>
                 <th>Tên thương hiệu</th>
@@ -65,7 +76,8 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
 
                             <?php if ($canDelete): ?>
                                 <div style="margin-top: 5px;">
-                                    <a href="admin.php?page=product&action=delete&id=<?php echo $row['product_id']; ?>" class="btn">❌ Xóa</a>
+                                    <button class="delete-btn-product btn" data-id="<?= $row['product_id'] ?>">❌ Xóa</button>
+                                    <!-- <a href="admin.php?page=product&action=delete&id=<?php echo $row['product_id']; ?>" data-id="<?= $row['product_id'] ?>" class="delete-btn-product btn">❌ Xóa</a> -->
                                 </div>
                             <?php endif; ?>
                         </td>
@@ -102,6 +114,7 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
     .header-left {
         flex: 1;
         min-width: 200px;
+        font-size: 24px;
     }
 
     .header-right {
@@ -122,18 +135,24 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
         display: flex;
         align-items: center;
         background: white;
-        border-radius: 4px;
         overflow: hidden;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        border: 1px solid #ddd;
     }
 
-    #search-input {
+    #search-input-product {
         padding: 8px 12px;
         border: none;
         outline: none;
         min-width: 250px;
-        font-size: 14px;
+        font-size: 1rem;
+        border: 2px solid #ccc;
+        margin: 0 0 0 7px;
+    }
+
+    #search-combobox {
+        padding: 8px 12px;
+        border: 2px solid #ccc;
+        min-width: 150px;
+        font-size: 1rem;
     }
 
     .search-btn {
@@ -160,6 +179,7 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
         display: inline-flex;
         align-items: center;
         white-space: nowrap;
+
     }
 
     #product-header-btn .btn:hover {
@@ -225,6 +245,7 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
         transition: all 0.2s;
         color: black;
         border: 1px solid black;
+        background-color: white;
     }
 
 
@@ -233,6 +254,17 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
         transform: translateY(-1px);
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
+
+    .highlight {
+        background-color: yellow;
+        font-weight: bold;
+    }
+
+    /* 
+    #sort-icon {
+        font-size: 11px;
+        margin-left: 2px;
+    } */
 
     /* Responsive adjustments */
     @media (max-width: 768px) {
@@ -250,3 +282,32 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
         margin-bottom: 6px;
     } */
 </style>
+<!-- <script>
+    let ascending = true; // Mặc định: sắp xếp tăng dần
+
+    document.getElementById('sort-product-id').addEventListener('click', function() {
+        const table = document.querySelector('#product-list table');
+        const rowsArray = Array.from(table.querySelectorAll('tr')).slice(1); // Bỏ dòng tiêu đề
+        const sortIcon = document.getElementById('sort-icon');
+
+        rowsArray.sort((a, b) => {
+            const idA = a.children[0].textContent.trim();
+            const idB = b.children[0].textContent.trim();
+            // Nếu Mã sản phẩm là số:
+            return ascending ? parseInt(idA) - parseInt(idB) : parseInt(idB) - parseInt(idA);
+            // Nếu Mã sản phẩm là chuỗi (ví dụ SP001):
+            // return ascending ? idA.localeCompare(idB) : idB.localeCompare(idA);
+        });
+
+        rowsArray.forEach(row => table.appendChild(row));
+
+        // Đổi icon
+        if (ascending) {
+            sortIcon.textContent = '⬇️'; // Tăng dần
+        } else {
+            sortIcon.textContent = '⬆️'; // Giảm dần
+        }
+
+        ascending = !ascending; // Đảo chiều
+    });
+</script> -->

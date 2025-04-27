@@ -13,7 +13,7 @@
 
         public function getUserByUsername($username)
         {
-            $sql = "SELECT * FROM users WHERE username = ?";
+            $sql = "SELECT * FROM users WHERE username = ? AND role_id != 1";
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param("s", $username);
             $stmt->execute();

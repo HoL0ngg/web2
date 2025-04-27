@@ -24,29 +24,14 @@ header {
     margin-bottom: 20px;
 }
 
-.add-chungloai-btn {
-    background: #3498db;
-    color: white;
-    border: none;
-    width: 160px;
-    height: 30px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: 600;
-}
-
-.add-chungloai-btn:hover {
-    background: #2980b9;
-}
-
 /* Bảng danh sách */
-.chungloai-list {
+.import-list {
     background: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    max-height: 550px;
-    overflow-y: auto;
+    max-height: 550px; /* Giới hạn chiều cao bảng */
+    overflow-y: auto; /* Bật thanh cuộn dọc khi nội dung vượt quá chiều cao */
 }
 
 table {
@@ -75,7 +60,8 @@ th {
 }
 
 /* Nút chỉnh sửa */
-.edit-chungloai-btn {
+.edit-receipt-btn,
+.detail-receipt-btn {
     border: none;
     width: 70px;
     height: 30px;
@@ -86,15 +72,58 @@ th {
     background: white;
 }
 
-.edit-chungloai-btn:hover {
+.edit-receipt-btn:hover {
     background: #D4AC0D;
     color: white;
 }
+.detail-receipt-btn:hover {
+    background-color: #3498DB;
+    color: white;
+}
 
-.delete-theloai-btn {
+.delete-product-btn {
     background: transparent;
     border: none;
     cursor: pointer;
+}
+
+.add-import-btn_style {
+    background: #3498db;
+    color: white;
+    border: none;
+    width: 160px;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.add-import-btn_style:hover {
+    background: #2980b9;
+}
+
+/* Định dạng chung cho trạng thái */
+.status {
+    padding: 4px 8px; /* Padding nhỏ để tạo không gian quanh text */
+    font-size: 14px; /* Kích thước chữ đồng bộ với các nút */
+    border-radius: 8px; /* Bo góc nhẹ để tạo cảm giác giống nút */
+    color: white
+
+}
+
+/* Trạng thái processing */
+.status-processing {
+    background-color: rgba(218, 174, 0, 0.9);
+}
+
+/* Trạng thái confirmed */
+.status-confirmed {
+    background-color: rgba(39, 174, 96, 0.9);
+}
+
+/* Trạng thái cancelled */
+.status-cancelled {
+    background-color: rgba(192, 57, 43, 0.9);
 }
 
 /* Popup */
@@ -119,7 +148,6 @@ th {
     background: white;
     padding: 5px 20px;
     border-radius: 8px;
-    width: auto;
     position: relative;
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
     text-align: center;
@@ -129,9 +157,10 @@ th {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
     padding: 10px 0;
     min-width: 400px;
-}
+} 
 
 .popup-header h2 {
     margin: 0;
@@ -146,25 +175,17 @@ th {
 
 .popup-body {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: flex-start;
     padding: 20px 0;
 }
 
-.popup-body .left_info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin: 0 40px 0 0;
-    min-width: 250px;
-}
-
 .popup-body label {
     margin-right: 10px;
+    margin-top: 0px !important;
+    display: inline !important;
     width: 140px;
     text-align: left;
-    font-weight: bold;
 }
 
 .popup-body input {
@@ -175,54 +196,129 @@ th {
     border-radius: 4px;
 }
 
-.popup-body input[readonly] {
-    background: #f0f0f0;
+.popup-body_info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
 }
 
-.popup-body .right_table {
+.popup-body_info .info_left {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 350px;
+}
+
+.info_left-nhacungcap,
+.info_left-nhanvien {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.info_left-nhacungcap label,
+.info_left-nhanvien label {
+    width: 130px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.info_right-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.info_right-status label {
+    font-weight: bold;
+    width: 100px;
+    text-align: left;
+}
+
+#info_right-status-combobox,
+#add_import_supplier_combobox,
+#add_import_nhanvien_combobox {
+    padding: 8px;
+    border: 1px solid #BDC3C7;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.info_right-total {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.info_right-total label {
+    font-weight: bold;
+    width: 100px;
+    text-align: left;
+}
+
+#info_right-status-calcTotal {
+    color: #3498DB;
+    font-weight: bold;
+    padding: 8px;
+    border: 1px solid #BDC3C7;
+    border-radius: 4px;
+    min-width: 100px;
+    display: inline-block;
+    text-align: center;
+    border: none;   
+}
+
+.popup-body .popup-body_table {
+    margin-top: 16px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     flex: 1;
+    width: 100%; /* Ensure the container takes full width */
 }
 
-.popup-body .right_table .right_table--header {
+.popup-body .popup-body_table .table--header {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.popup-body .right_table .right_table--header h3 {
+.popup-body .popup-body_table .table--header h3 {
     margin-right: 16px;
     font-weight: normal;
 }
 
-.popup-body .right_table table {
+.popup-body .popup-body_table table {
     width: 100%;
     border-collapse: collapse;
+    min-width: 660px; /* Ensure the table doesn't shrink when empty */
 }
 
-.popup-body .right_table th,
-.popup-body .right_table td {
+/* Define specific widths for table columns */
+.popup-body .popup-body_table th,
+.popup-body .popup-body_table td {
     border: 1px solid #BDC3C7;
     padding: 8px;
     text-align: center;
 }
 
-.popup-body .right_table th {
+.popup-body .popup-body_table th {
     background: #3498DB;
     color: white;
 }
 
-.popup-body .new-theloai-input {
-    width: 100%;
+.popup-body .popup-body_table input {
+    width: 100px;
     padding: 8px;
     border: 1px solid #BDC3C7;
     border-radius: 4px;
+    text-align: center;
 }
 
-#add-theloai-btn_popup {
+#add-product-btn_receipt {
     background: #27AE60;
     color: white;
     border: none;
@@ -231,7 +327,7 @@ th {
     cursor: pointer;
 }
 
-#add-theloai-btn_popup:hover {
+#add-product-btn_receipt:hover {
     background: #219150;
 }
 
@@ -251,33 +347,33 @@ th {
     font-weight: bold;
 }
 
-#edit-chungloai-btn_popup {
+#edit-receipt-btn_popup {
     background-color: #3498db;
     color: white;
 }
 
-#edit-chungloai-btn_popup:hover {
+#edit-receipt-btn_popup:hover {
     background-color: #2980b9;
 }
 
-#btn-xoa-chungloai {
+#delete-supplier-btn_popup {
     background-color: #C0392B;
     color: white;
 }
 
-#btn-xoa-chungloai:hover {
+#delete-supplier-btn_popup:hover {
     background-color: #A93226;
 }
 
-/* Styling for the "Thêm chủng loại" popup */
-#popup-add-chungloai .popup-body {
+/* Styling for the "Thêm nhà cung cấp" popup */
+#popup-add-supplier .popup-body {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px 0;
 }
 
-#popup-add-chungloai .left_info {
+#popup-add-supplier .left_info {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -286,7 +382,7 @@ th {
     min-width: 300px;
 }
 
-#popup-add-chungloai .popup-footer {
+#popup-add-supplier .popup-footer {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
@@ -294,19 +390,18 @@ th {
     padding: 10px 0;
 }
 
-#btn-them-chungloai {
+#add-import-btn_popup {
     background-color: #3498db;
     color: white;
 }
 
-#btn-them-chungloai:hover {
+#add-import-btn_popup:hover {
     background-color: #2980b9;
 }
 
 .input-row {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
     margin-bottom: 10px;
 }
 

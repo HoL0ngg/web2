@@ -6,20 +6,20 @@ create database webbanhang;
 use webbanhang;
 -- Bảng ChungLoai
 CREATE TABLE `chungloai` (
-    `machungloai` int PRIMARY key,
+    `machungloai` int AUTO_INCREMENT PRIMARY KEY,
     `tenchungloai` varchar(50) DEFAULT NULL,
     `hinhanh` varchar(255) DEFAULT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 -- Bảng TheLoai
 CREATE TABLE theloai (
-    matheloai INT PRIMARY KEY,
+    matheloai INT AUTO_INCREMENT PRIMARY KEY,
     tentheloai VARCHAR(50),
     machungloai INT,
     FOREIGN KEY (machungloai) REFERENCES chungloai(machungloai)
 );
 -- Bảng Brand
 CREATE TABLE brand (
-    brand_id INT PRIMARY KEY,
+    brand_id INT AUTO_INCREMENT PRIMARY KEY,
     brand_name VARCHAR(100)
 );
 -- Bảng NhomQuyen
@@ -112,7 +112,7 @@ CREATE TABLE sanphamhinhanh (
     image_url VARCHAR(255) NOT NULL,
     is_main TINYINT NOT NULL DEFAULT 1,
     product_id INT NOT NULL,
-    FOREIGN KEY (product_id) REFERENCES sanpham(product_id)
+    FOREIGN KEY (product_id) REFERENCES sanpham(product_id) ON DELETE CASCADE
 );
 CREATE TABLE giohang (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -664,15 +664,18 @@ VALUES (1, 1, 2, 120000),
     (1, 3, 1, 180000),
     (2, 2, 1, 250000),
     (2, 3, 1, 180000);
--- PhieuNhap
-INSERT INTO phieunhap
-VALUES (1, 1, 1, '2025-03-28', 500000),
-    (2, 1, 2, '2025-04-01', 800000);
--- ChiTietPhieuNhap
+-- Thêm dữ liệu mới vào bảng phieunhap
+INSERT INTO phieunhap (employee_id, supplier_id, create_time, confirm_time, total, status)
+VALUES 
+    (1, 1, '2025-03-28', '2025-03-29', 1300000, 'confirmed'),
+    (1, 2, '2025-04-01', NULL, 2900000, 'processing');
+
+-- Thêm dữ liệu mới vào bảng chitietphieunhap
 INSERT INTO chitietphieunhap (receipt_id, product_id, quantity, price, percent)
-VALUES (1, 1, 10, 100000, 10),
-    (1, 2, 5, 220000, 15),
-    (2, 3, 20, 150000, 10),
+VALUES 
+    (1, 1, 10, 100000, 10),
+    (1, 2, 2, 150000, 15),
+    (2, 3, 15, 100000, 10),
     (2, 4, 5, 280000, 20);
 -- nhacungcapsanpham
 INSERT INTO nhacungcapsanpham (supplier_id, product_id)

@@ -293,7 +293,84 @@ function validateProductForm() {
     }
     return isValid;
 }
+// DELETE PRODUCT
+function fetchData(url, data) {
+    let formData = new FormData();
+    for (let key in data) {
+        formData.append(key, data[key]);
+    }
 
+    return fetch(url, {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json());
+}
+document.addEventListener("click", function(event){
+    if(event.target.classList.contains("delete-btn-product")){
+        let productId = event.target.getAttribute("data-id");
+        fetchData('api/product_api.php', {action: "checkProduct", product_id: productId})
+        .then(data => {
+            // let notification = {success: false, message: ""};
+            if(data.success){
+                Swal.fire({
+                    title: "Thông báo",
+                    text: "Sản phẩm đã được bán ra, bạn có muốn ẩn sản phẩm không?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Có",
+                    cancelButtonText: "Không"
+                }).then((result) =>{
+                    if(result.isConfirmed){
+                        fetchData('api/product_api.php', {action: 'hideProduct', product_id: productId})
+                        .then(data => {
+                            if(data.success){                                                                
+                                handleSuccessResponse(data);
+                                location.reload();
+                            }
+                            else{                                
+                                handleErrorResponse(data);
+                                location.reload();
+                            }
+                        })
+                    }
+                })
+            }
+            else{
+                Swal.fire({
+                    title: "Xác nhận xóa",
+                    text: "Bạn có chắc chắn muốn xóa sản phẩm này không?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Xóa",
+                    cancelButtonText: "Hủy"
+                }).then((result) =>{
+                    if(result.isConfirmed){
+                        fetchData('api/product_api.php', {action: "deleteProduct", product_id: productId})
+                        .then(data =>{
+                            if(data.success){
+                                // notification.success = true;
+                                // notification.message = "Xóa sản phẩm thành công!";
+                                handleSuccessResponse(data);
+                                location.reload();
+                            }
+                            else{
+                                // notification.message = "Ẩn sản phẩm không thành công";
+                                handleErrorResponse(data);
+                                // this.location.reload();
+                            }
+                        })
+                    }
+                })               
+            }
+        })
+        
+    }
+})
 window.onload = function () {
     effectSideBar();
     hiddenSideBar(); 
@@ -349,15 +426,20 @@ function closePopup() {
     document.getElementById('overlay').classList.add('hidden');
     document.querySelectorAll('.popup-modal').forEach(p => p.classList.add('hidden'));
 }
-
-document.querySelectorAll('.btn_role')[0].addEventListener('click', function(e) {
-    e.preventDefault();
-    openPopup('popup-them-nhomquyen');
-});
-document.querySelectorAll('.btn_role')[1].addEventListener('click', function(e) {
-    e.preventDefault();
-    openPopup('popup-them-chucnang');
-});
+const btnRole = document.querySelectorAll('.btn_role')[0];
+if(btnRole){
+    btnRole.addEventListener('click', function(e) {
+        e.preventDefault();
+        openPopup('popup-them-nhomquyen');
+    });
+}
+const btnFunc = document.querySelectorAll('.btn_role')[1];
+if(btnFunc){
+    btnFunc.addEventListener('click', function(e) {
+        e.preventDefault();
+        openPopup('popup-them-chucnang');
+    });
+}
 
 function themNhomQuyen() {
     console.log("hihih");
@@ -379,11 +461,9 @@ function themNhomQuyen() {
         console.log(data);
         
         if(data.success){
-            showToast(data.message,data.success);
+            handleSuccessResponse(data);
             closePopup();
-            setTimeout(() => {
-                location.reload();
-            }, 2000);
+            location.reload();
         }else{
             showToast("Loi" + data.message, data.success);
         }
@@ -408,11 +488,8 @@ function themChucNang() {
     .then(response => response.json())
     .then(data =>{
         if(data.success){
-            showToast(data.message,data.success);
-            closePopup();
-            setTimeout(() => {
-                location.reload();
-            }, 2000);
+            handleErrorResponse(data);
+            closePopup();            
         }
         else{
             showToast("Loi" + data.message, data.success);
@@ -440,10 +517,8 @@ if(permissionForm){
             })
             const data = await response.json();
             if(data.success){
-                showToast(data.message, data.success);
-                setTimeout(() => {
-                    location.reload();
-                }, 2000);
+                handleSuccessResponse(data);                
+                location.reload();
             }
             else{
                 showToast("Loi " + data.message, data.success);
@@ -456,3 +531,168 @@ if(permissionForm){
 
     }
 )};
+// SEARCH PRODUCTS
+const searchInput = document.getElementById("search-input-product");
+const searchCombobox = document.getElementById("search-combobox");
+
+// Khai báo biến để lưu id của timeout
+let typingTimer;
+
+// Thời gian chờ sau khi ngừng gõ (300ms)
+const typingInterval = 300; // milliseconds
+function performSearch(){
+    const keyword = searchInput.value;
+    const type = searchCombobox.value;
+
+    fetchData('api/product_api.php', {action: 'searchProduct',keyword: keyword, type: type})
+    .then(data => {
+        // console.log(data);    
+        renderProducts(data.products, data.actions.canUpdate, data.actions.canDelete,keyword);
+    })
+    .catch(error => console.error('Error:', error));
+}
+if(searchInput){
+    searchInput.addEventListener('input', function(){        
+        
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(performSearch, typingInterval);
+    })
+}
+if(searchCombobox){
+    searchCombobox.addEventListener('change', performSearch);
+}
+
+function highlightKeyword(text, keyword) {
+    if (!keyword) return text; // Không có từ khóa thì trả nguyên
+    const escapedKeyword = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // Escape keyword
+    const regex = new RegExp(`(${escapedKeyword})`, 'gi'); // Tạo regex không phân biệt hoa thường
+
+    return text.replace(regex, `<span class="highlight">$1</span>`);
+}
+
+function renderProducts(products, canUpdate, canDelete, keyword) {
+    const tableBody = document.querySelector("#product-list table"); // chọn bảng
+    let html = `
+        <tr>
+            <th>Mã sản phẩm</th>
+            <th>Tên sản phẩm</th>
+            <th>Tên thương hiệu</th>
+            <th>Thể loại</th>
+            <th>Số lượng</th>
+            <th>Giá</th>
+            <th>Ảnh</th>
+            <th>Trạng thái</th>
+            ${(canUpdate || canDelete) ? "<th>Thao tác</th>" : ""}
+        </tr>
+    `;
+
+    if(products.length > 0){
+        products.forEach(product => {
+            html += `
+            <tr class="${product.status == 0 ? 'hidden-product' : ''}">
+                <td>${highlightKeyword(product.product_id, keyword)}</td>
+                <td>${highlightKeyword(product.product_name, keyword)}</td>
+                <td>${highlightKeyword(product.brand_name, keyword)}</td>
+                <td>${highlightKeyword(product.tentheloai, keyword)}</td>
+                <td>${highlightKeyword(product.quantity, keyword)}</td>
+                <td>${highlightKeyword(product.price, keyword)}</td>
+                <td><img src="${product.image_url}" alt="product-image" /></td>
+                <td>${product.status == 0 ? '<span class="status-no-complete">Ẩn sản phẩm</span>' : '<span class="status-complete">Hiển thị</span>'}</td>
+                ${
+                    (canUpdate || canDelete) ? `
+                    <td>
+                        ${canUpdate ? `<div><a href="admin.php?page=product&action=edit&id=${product.product_id}" class="btn">✏️ Sửa</a></div>` : ''}
+                        ${canDelete ? `<div style="margin-top: 5px;"><button class="delete-btn-product btn" data-id="${product.product_id}">❌ Xóa</button></div>` : ''}
+                    </td>
+                    ` : ''
+                }
+            </tr>
+            `;
+        });
+    }
+    else{
+        const colspan = (canUpdate || canDelete) ? 9 : 8;
+        html += `
+            <tr>
+                <td colspan="${colspan}" style="text-align: center; font-weight: bold; padding: 17px;">Không tìm thấy sản phẩm</td>
+            </tr>
+        `;
+    }
+
+    tableBody.innerHTML = html;
+}
+
+//SEARCH USER
+const searchInputUser = document.getElementById("search-input-user");
+const cboUser = document.getElementById("search-combobox-user");
+
+if(searchInputUser){
+    searchInputUser.addEventListener('input', function(){                        
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(performSearchUser, typingInterval);
+    })
+}
+if(cboUser){
+    cboUser.addEventListener('change', performSearchUser);
+}
+
+function performSearchUser(){
+    const keyword = searchInputUser.value;
+    const type = cboUser.value;
+
+    fetchData('api/user_api.php', {action: 'searchUser',keyword: keyword, type: type})
+    .then(data => {
+        // console.log(data);    
+        renderUsers(data.users, data.actions.canUpdate, data.actions.canDelete,keyword);
+    })
+    .catch(error => console.error('Error:', error));
+}
+function renderUsers(users, canUpdate, canDelete, keyword){
+    const tableBody = document.querySelector(".user-list table");
+    let html = `<thead>
+        <th>ID</th>
+        <th>Tên đăng nhập</th>
+        <th>Họ tên</th>
+        <th>Số điện thoại</th>
+        <th>Email</th>
+        <th>Trạng thái</th>
+        <th>Vai trò</th>    
+        ${(canUpdate || canDelete) ? "<th>Thao tác</th>" : ""}
+        </thead>
+    `;    
+    if(users.length == 0){
+        const colspan = (canUpdate || canDelete) ? 8 : 7;
+        html += `
+            <tr>
+                <td colspan="${colspan}" style="text-align: center; font-weight: bold; padding: 17px;">Không tìm thấy người dùng</td>
+            </tr>
+        `;
+    }else{
+        users.forEach(user => {
+            html += `
+            <tr class="${user.status == 0 ? 'hidden-product' : ''}">
+                <td>${user.user_id}</td>
+                <td>${user.username}</td>
+                <td>${user.fullname}</td>
+                <td>${user.phone}</td>
+                <td>${user.email}</td>
+                <td>${user.status == 0 ? '<span class="status-no-complete">Bị khóa</span>' : '<span class="status-complete">Hoạt động</span>'}</td>
+                <td>${user.role_name}</td>                
+                ${
+                    (canUpdate || canDelete) ? `
+                    <td>
+                        ${canUpdate ? `<a href="admin.php?page=user&act=update&uid=${user.user_id}}">
+                                            <button class="edit-btn">✏️ Sửa</button>
+                                        </a>` : ''}
+                    </td>
+                    ` : ''
+                }
+            </tr>
+            `;
+        });
+    }
+    tableBody.innerHTML = html;
+    // ${canDelete ? `<div style="margin-top: 5px;"><button class="delete-btn-product btn" data-id="${user.user_id}">❌ Xóa</button></div>` : ''}
+}
+
+

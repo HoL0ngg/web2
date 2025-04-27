@@ -152,6 +152,24 @@
             $order = $this->tkmodel->getOrderById($id);
             return $order;
         }
+
+        public function searchUser($keyword, $type)
+        {
+
+            header('Content-Type: application/json');
+            $response = ["users" => [], "actions" => []];
+
+            $users = $this->tkmodel->searchUser($keyword, $type);
+            require_once(__DIR__ . '/../handles/PhanQuyenController.php');
+            $phanquyenController = new PhanQuyenController();
+            $canUpdate = $phanquyenController->hasPermission('nguoidung', 'update', $_SESSION['permissions']);
+            $canDelete = $phanquyenController->hasPermission('nguoidung', 'delete', $_SESSION['permissions']);
+            $response['actions']['canUpdate'] = $canUpdate;
+            $response['actions']['canDelete'] = $canDelete;
+            $response['users'] = $users;
+            echo json_encode($response);
+            exit();
+        }
     }
 
     ?>

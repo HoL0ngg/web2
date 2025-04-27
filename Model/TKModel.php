@@ -13,55 +13,33 @@ class TKModel
     {
         try {
             // 1. Kiểm tra username đã tồn tại chưa
-            $checkUsername = $this->conn->prepare("SELECT user_id FROM users WHERE username = ?");
-            $checkUsername->bind_param("s", $username);
-            $checkUsername->execute();
-            if ($checkUsername->get_result()->num_rows > 0) {
-                $checkUsername->close();
+            $checkUsername = $this->isUsernameExists($username);
+            if ($checkUsername) {
                 return 'username_exists';
             }
-            $checkUsername->close();
 
-            // 2. Tùy theo role để xác định bảng kiểm tra email và phone
+            $checkPhone = $this->isPhoneExists($phone);
+            if ($checkPhone) {
+                return 'phone_exists';
+            }
+
+            $checkEmail = $this->isEmailExists($email);
+            if ($checkEmail) {
+                return 'email_exists';
+            }
             switch ($role) {
                 case 1: // Admin
                 case 2: // Nhân viên
-                    $sqlCheckEmail = "SELECT employee_id FROM nhanvien WHERE email = ?";
-                    $sqlCheckPhone = "SELECT employee_id FROM nhanvien WHERE phone = ?";
                     $sqlInsert = "INSERT INTO nhanvien(user_id, name, phone, email) VALUES(?, ?, ?, ?)";
                     break;
 
-                default: // Khách hàng
-                    $sqlCheckEmail = "SELECT customer_id FROM khachhang WHERE email = ?";
-                    $sqlCheckPhone = "SELECT customer_id FROM khachhang WHERE phone = ?";
+                default: // Khách hàng                    
                     $sqlInsert = "INSERT INTO khachhang(user_id, customer_name, phone, email) VALUES(?, ?, ?, ?)";
                     break;
             }
 
-            // 3. Kiểm tra số điện thoại trùng
-            $checkPhone = $this->conn->prepare($sqlCheckPhone);
-            $checkPhone->bind_param("s", $phone);
-            $checkPhone->execute();
-            if ($checkPhone->get_result()->num_rows > 0) {
-                $checkPhone->close();
-                return 'phone_exists';
-            }
-            $checkPhone->close();
-
-            // 4. Kiểm tra email trùng
-            $checkEmail = $this->conn->prepare($sqlCheckEmail);
-            $checkEmail->bind_param("s", $email);
-            $checkEmail->execute();
-            if ($checkEmail->get_result()->num_rows > 0) {
-                $checkEmail->close();
-                return 'email_exists';
-            }
-            $checkEmail->close();
-
-            // 5. Hash mật khẩu
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-            // 6. Insert vào bảng users
             $stmtUser = $this->conn->prepare("INSERT INTO users (username, password, status, role_id) VALUES (?, ?, ?, ?)");
             $stmtUser->bind_param("ssii", $username, $hashedPassword, $status, $role);
             if (!$stmtUser->execute()) {
@@ -70,7 +48,6 @@ class TKModel
             $user_id = $this->conn->insert_id;
             $stmtUser->close();
 
-            // 7. Insert vào bảng nhân viên hoặc khách hàng
             $stmtDetail = $this->conn->prepare($sqlInsert);
             $stmtDetail->bind_param("isss", $user_id, $fullname, $phone, $email);
             $stmtDetail->execute();
@@ -87,75 +64,86 @@ class TKModel
     public function sua($id, $username, $fullname, $phone, $email, $password, $status, $role)
     {
         try {
-            // 1. Kiểm tra username đã tồn tại chưa
-            $checkUsername = $this->conn->prepare("SELECT user_id FROM users WHERE username = ? AND user_id != ?");
-            $checkUsername->bind_param("si", $username, $id);
-            $checkUsername->execute();
-            if ($checkUsername->get_result()->num_rows > 0) {
-                $checkUsername->close();
+            // Bắt đầu transaction
+            $this->conn->begin_transaction();
+
+            // 1. Kiểm tra username
+            $stmtCheckUsername = $this->conn->prepare("SELECT user_id FROM users WHERE username = ? AND user_id != ?");
+            $stmtCheckUsername->bind_param("si", $username, $id);
+            $stmtCheckUsername->execute();
+            if ($stmtCheckUsername->get_result()->num_rows > 0) {
+                $stmtCheckUsername->close();
                 return 'username_exists';
             }
-            $checkUsername->close();
+            $stmtCheckUsername->close();
 
-            // 2. Tùy theo role để xác định bảng kiểm tra email và phone
+            // 2. Tùy theo role
             switch ($role) {
                 case 1:
                 case 2:
-                    $sqlCheckEmail = "SELECT user_id FROM nhanvien WHERE email = ? AND user_id != ?";
-                    $sqlCheckPhone = "SELECT user_id FROM nhanvien WHERE phone = ? AND user_id != ?";
                     $sqlUpdate = "UPDATE nhanvien SET name = ?, phone = ?, email = ? WHERE user_id = ?";
                     break;
                 default:
-                    $sqlCheckEmail = "SELECT user_id FROM khachhang WHERE email = ? AND user_id != ?";
-                    $sqlCheckPhone = "SELECT user_id FROM khachhang WHERE phone = ? AND user_id != ?";
                     $sqlUpdate = "UPDATE khachhang SET customer_name = ?, phone = ?, email = ? WHERE user_id = ?";
                     break;
             }
 
-            // 3. Kiểm tra số điện thoại trùng
-            $checkPhone = $this->conn->prepare($sqlCheckPhone);
-            $checkPhone->bind_param("si", $phone, $id);
-            $checkPhone->execute();
-            if ($checkPhone->get_result()->num_rows > 0) {
-                $checkPhone->close();
-                return 'phone_exists';
+            // 3. Kiểm tra phone
+            $tables = ['khachhang', 'nhanvien'];
+            foreach ($tables as $table) {
+                $sqlCheckPhone = "SELECT 1 FROM $table WHERE phone = ? AND user_id != ? LIMIT 1";
+                $stmtCheckPhone = $this->conn->prepare($sqlCheckPhone);
+                $stmtCheckPhone->bind_param("si", $phone, $id);
+                $stmtCheckPhone->execute();
+                if ($stmtCheckPhone->get_result()->num_rows > 0) {
+                    $stmtCheckPhone->close();
+                    return 'phone_exists';
+                }
+                $stmtCheckPhone->close();
             }
-            $checkPhone->close();
 
-            // 4. Kiểm tra email trùng
-            $checkEmail = $this->conn->prepare($sqlCheckEmail);
-            $checkEmail->bind_param("si", $email, $id);
-            $checkEmail->execute();
-            if ($checkEmail->get_result()->num_rows > 0) {
-                $checkEmail->close();
-                return 'email_exists';
+            // 4. Kiểm tra email
+            foreach ($tables as $table) {
+                $sqlCheckEmail = "SELECT 1 FROM $table WHERE email = ? AND user_id != ? LIMIT 1";
+                $stmtCheckEmail = $this->conn->prepare($sqlCheckEmail);
+                $stmtCheckEmail->bind_param("si", $email, $id);
+                $stmtCheckEmail->execute();
+                if ($stmtCheckEmail->get_result()->num_rows > 0) {
+                    $stmtCheckEmail->close();
+                    return 'email_exists';
+                }
+                $stmtCheckEmail->close();
             }
-            $checkEmail->close();
 
-            // 5. Cập nhật bảng users
+            // 5. Cập nhật users
             if (!empty($password)) {
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                $stmt = $this->conn->prepare("UPDATE users SET username = ?, password = ?, status = ?, role_id = ? WHERE user_id = ?");
-                $stmt->bind_param("ssiii", $username, $hashedPassword, $status, $role, $id);
+                $stmtUpdateUser = $this->conn->prepare("UPDATE users SET username = ?, password = ?, status = ?, role_id = ? WHERE user_id = ?");
+                $stmtUpdateUser->bind_param("ssiii", $username, $hashedPassword, $status, $role, $id);
             } else {
-                $stmt = $this->conn->prepare("UPDATE users SET username = ?, status = ?, role_id = ? WHERE user_id = ?");
-                $stmt->bind_param("siii", $username, $status, $role, $id);
+                $stmtUpdateUser = $this->conn->prepare("UPDATE users SET username = ?, status = ?, role_id = ? WHERE user_id = ?");
+                $stmtUpdateUser->bind_param("siii", $username, $status, $role, $id);
             }
-            $stmt->execute();
-            $stmt->close();
+            $stmtUpdateUser->execute();
+            $stmtUpdateUser->close();
 
-            // 6. Cập nhật bảng nhân viên hoặc khách hàng
-            $stmtUpdate = $this->conn->prepare($sqlUpdate);
-            $stmtUpdate->bind_param("sssi", $fullname, $phone, $email, $id);
-            $stmtUpdate->execute();
-            $stmtUpdate->close();
+            // 6. Cập nhật nhân viên hoặc khách hàng
+            $stmtUpdateDetail = $this->conn->prepare($sqlUpdate);
+            $stmtUpdateDetail->bind_param("sssi", $fullname, $phone, $email, $id);
+            $stmtUpdateDetail->execute();
+            $stmtUpdateDetail->close();
+
+            // Nếu tới đây thì commit
+            $this->conn->commit();
 
             return 'success';
         } catch (Exception $e) {
+            $this->conn->rollback();
             error_log("Error updating user: " . $e->getMessage());
             return 'exception';
         }
     }
+
 
     public function getUserById($id)
     {
@@ -266,7 +254,7 @@ class TKModel
     }
     public function isUsernameExists($username)
     {
-        $stmt = $this->conn->prepare("SELECT * FROM users WHERE username = ?");
+        $stmt = $this->conn->prepare("SELECT 1 FROM users WHERE username = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
         return $stmt->get_result()->num_rows > 0;
@@ -378,5 +366,69 @@ class TKModel
         }
         $stmt->close();
         return $orders;
+    }
+
+    public function searchUser($keyword, $type)
+    {
+        $keyword = mysqli_real_escape_string($this->conn, $keyword);
+        $type = mysqli_real_escape_string($this->conn, $type);
+        $keywordLike = "%" . $keyword . "%";
+
+        $basicSelect = "SELECT 
+        u.*,  
+        COALESCE(nv.phone, kh.phone) AS phone,  
+        COALESCE(nv.email, kh.email) AS email,  
+        COALESCE(nv.name, kh.customer_name) AS fullname,
+        r.role_name  
+        FROM users u
+        LEFT JOIN nhanvien nv ON nv.user_id = u.user_id  
+        LEFT JOIN khachhang kh ON kh.user_id = u.user_id
+        LEFT JOIN nhomquyen r ON u.role_id = r.role_id";
+
+        $allowedTypes = ['userId', 'username', 'fullname', 'phone', 'email', 'all'];
+
+        if (!in_array($type, $allowedTypes)) {
+            return []; // Nếu loại tìm kiếm không hợp lệ thì trả về mảng rỗng
+        }
+
+        if ($type !== 'all') {
+            switch ($type) {
+                case 'userId':
+                    $field = 'u.user_id';
+                    break;
+                case 'username':
+                    $field = 'u.username';
+                    break;
+                case 'fullname':
+                    $field = 'COALESCE(nv.name, kh.customer_name)';
+                    break;
+                case 'phone':
+                    $field = 'COALESCE(nv.phone, kh.phone)';
+                    break;
+                case 'email':
+                    $field = 'COALESCE(nv.email, kh.email)';
+                    break;
+            }
+
+            $sql = $basicSelect . " WHERE $field LIKE ? ORDER BY u.user_id DESC";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("s", $keywordLike);
+        } else {
+            $sql = $basicSelect . " 
+            WHERE u.username LIKE ? 
+            OR COALESCE(nv.name, kh.customer_name) LIKE ? 
+            OR COALESCE(nv.phone, kh.phone) LIKE ? 
+            OR COALESCE(nv.email, kh.email) LIKE ?
+            ORDER BY u.user_id DESC";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("ssss", $keywordLike, $keywordLike, $keywordLike, $keywordLike);
+        }
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $users = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+
+        return $users;
     }
 }

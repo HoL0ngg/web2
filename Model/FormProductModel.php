@@ -98,7 +98,54 @@ class FormProductModel
             return 'exception';
         }
     }
+    public function checkProductIsSold($product_id)
+    {
+        $sql = "SELECT 1 
+                FROM chitietdonhang ct                
+                WHERE product_id = ?
+                LIMIT 1";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $product_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+        if ($result->num_rows > 0) {
+            return true; // Sản phẩm đã được bán
+        } else {
+            return false; // Sản phẩm chưa được bán
+        }
+    }
 
+    public function xoa($product_id)
+    {
+        try {
+            $sql = "DELETE FROM sanpham WHERE product_id = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("i", $product_id);
+            if (!$stmt->execute()) {
+                return 'delete_failed';
+            }
+            $stmt->close();
+            return 'success';
+        } catch (Exception $e) {
+            error_log("Error updating user: " . $e->getMessage());
+            return 'exception';
+        }
+    }
+    public function hideProduct($product_id)
+    {
+        try {
+            $sql = "UPDATE sanpham SET status = 0 WHERE product_id = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("i", $product_id);
+            $stmt->execute();
+            $stmt->close();
+            return 'success';
+        } catch (Exception $e) {
+            error_log("Error updating user: " . $e->getMessage());
+            return 'exception';
+        }
+    }
     public function getAllProducts()
     {
         $sql = "SELECT sp.*, ha.image_url, tl.tentheloai, brand.brand_name
@@ -111,6 +158,57 @@ class FormProductModel
         $result = $this->conn->query($sql);
         $products = [];
         while ($row = mysqli_fetch_assoc($result)) {
+            $products[] = $row;
+        }
+        return $products;
+    }
+
+    public function searchProducts($keyword, $type)
+    {
+        $keyword = mysqli_real_escape_string($this->conn, $keyword);
+        $type = mysqli_real_escape_string($this->conn, $type);
+
+        $baseSelect = "SELECT sp.*, ha.image_url, tl.tentheloai, brand.brand_name
+                   FROM sanpham sp
+                   JOIN sanphamhinhanh ha ON sp.product_id = ha.product_id
+                   JOIN theloai tl ON sp.matheloai = tl.matheloai
+                   JOIN brand ON sp.brand_id = brand.brand_id
+                   WHERE ha.is_main = TRUE";
+
+        if ($type == 'all') {
+            $sql = $baseSelect . " AND (
+            sp.product_id LIKE '%$keyword%' 
+            OR sp.product_name LIKE '%$keyword%' 
+            OR brand.brand_name LIKE '%$keyword%'
+            OR sp.price LIKE '%$keyword%'
+            OR tl.tentheloai LIKE '%$keyword%'
+            OR sp.quantity LIKE '%$keyword%'
+        ) ORDER BY sp.product_id DESC";
+        } else {
+            // Khi tìm theo 1 trường cụ thể
+            if ($type == 'product_name') {
+                $field = "sp.product_name";
+            } elseif ($type == 'product_id') {
+                $field = "sp.product_id";
+            } elseif ($type == 'brand_name') {
+                $field = "brand.brand_name";
+            } elseif ($type == 'tentheloai') {
+                $field = "tl.tentheloai";
+            } elseif ($type == 'quantity') {
+                $field = "sp.quantity";
+            } else {
+                $field = "sp.product_name"; // fallback nếu type lạ
+            }
+
+            $sql = $baseSelect . " AND $field LIKE '%$keyword%' ORDER BY sp.product_id DESC";
+        }
+
+        $result = $this->conn->query($sql);
+        if (!$result) {
+            return [];
+        }
+        $products = [];
+        while ($row = $result->fetch_assoc()) {
             $products[] = $row;
         }
         return $products;
