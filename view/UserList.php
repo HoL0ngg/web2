@@ -9,6 +9,18 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
 <main class="main-content">
     <header>
         <h1>Quản Lý Người Dùng</h1>
+        <div class="search-box">
+            <select id="search-combobox-user">
+                <option value="all">Tất cả</option>
+                <option value="user_id">ID</option>
+                <option value="username">Tên đăng nhập</option>
+                <option value="fullname">Họ tên</option>
+                <option value="phone">Số điện thoại</option>
+                <option value="email">Email</option>
+            </select>
+
+            <input type="text" placeholder="Tìm kiếm người dùng...." id="search-input-user">
+        </div>
         <?php if ($canAdd) : ?>
             <a href="admin.php?page=user&act=add" class="add-user-btn">➕Thêm người dùng</a>
         <?php endif; ?>
@@ -110,6 +122,29 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
     /* .add-user-btn:hover {
         background: #219150;
     } */
+    .search-box {
+        display: flex;
+        align-items: center;
+        background: white;
+        overflow: hidden;
+    }
+
+    #search-input-user {
+        padding: 8px 12px;
+        border: none;
+        outline: none;
+        min-width: 250px;
+        font-size: 1rem;
+        border: 2px solid #ccc;
+        margin: 0 0 0 7px;
+    }
+
+    #search-combobox-user {
+        padding: 8px 12px;
+        border: 2px solid #ccc;
+        min-width: 150px;
+        font-size: 1rem;
+    }
 
     .add-user-btn {
         background-color: #3498db;

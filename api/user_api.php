@@ -12,6 +12,11 @@
         case 'update';
             $tkController->updateUser();
             break;
+        case 'searchUser':
+            $keyword = $_POST['keyword'] ?? '';
+            $type = $_POST['type'] ?? '';
+            $tkController->searchUser($keyword, $type);
+            break;
         default:
             # code...
             break;

@@ -367,4 +367,27 @@ class TKModel
         $stmt->close();
         return $orders;
     }
+
+    public function searchUser($keyword, $type)
+    {
+        $keyword = "%" . $keyword . "%";
+        $sql = "SELECT 
+            u.*,  
+            COALESCE(nv.phone, kh.phone) AS phone,  
+            COALESCE(nv.email, kh.email) AS email,  
+            COALESCE(nv.name, kh.customer_name) AS fullname,
+            r.role_name  
+            FROM users u
+            LEFT JOIN nhanvien nv ON nv.user_id = u.user_id  
+            LEFT JOIN khachhang kh ON kh.user_id = u.user_id
+            LEFT JOIN nhomquyen r ON u.role_id = r.role_id
+            WHERE $type LIKE ?
+            ORDER BY u.user_id DESC";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $keyword);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $users = $result->fetch_all(MYSQLI_ASSOC);
+        return $users;
+    }
 }

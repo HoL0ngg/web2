@@ -558,7 +558,9 @@ if(searchInput){
         typingTimer = setTimeout(performSearch, typingInterval);
     })
 }
-searchCombobox.addEventListener('change', performSearch);
+if(searchCombobox){
+    searchCombobox.addEventListener('change', performSearch);
+}
 
 function highlightKeyword(text, keyword) {
     if (!keyword) return text; // Không có từ khóa thì trả nguyên
@@ -619,6 +621,32 @@ function renderProducts(products, canUpdate, canDelete, keyword) {
     }
 
     tableBody.innerHTML = html;
+}
+
+//SEARCH USER
+const searchInputUser = document.getElementById("search-input-user");
+const cboUser = document.getElementById("search-combobox-user");
+
+if(searchInputUser){
+    searchInputUser.addEventListener('input', function(){                        
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(performSearchUser, typingInterval);
+    })
+}
+if(cboUser){
+    cboUser.addEventListener('change', performSearchUser);
+}
+
+function performSearchUser(){
+    const keyword = searchInputUser.value;
+    const type = cboUser.value;
+
+    fetchData('api/useer_api.php', {action: 'searchUser',keyword: keyword, type: type})
+    .then(data => {
+        // console.log(data);    
+        renderProducts(data.products, data.actions.canUpdate, data.actions.canDelete,keyword);
+    })
+    .catch(error => console.error('Error:', error));
 }
 
 

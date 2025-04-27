@@ -152,6 +152,31 @@
             $order = $this->tkmodel->getOrderById($id);
             return $order;
         }
+
+        public function searchUser($keyword, $type)
+        {
+
+            header('Content-Type: application/json');
+            $response = ["success" => false, "message" => "", "data" => []];
+
+            if (empty($keyword) || empty($type)) {
+                $response["message"] = "Vui lòng nhập từ khóa và loại tìm kiếm";
+                echo json_encode($response);
+                return;
+            }
+
+            $users = $this->tkmodel->searchUser($keyword, $type);
+
+            if ($users) {
+                $response["success"] = true;
+                $response["data"] = $users;
+            } else {
+                $response["message"] = "Không tìm thấy người dùng nào";
+            }
+
+            echo json_encode($response);
+            exit();
+        }
     }
 
     ?>
