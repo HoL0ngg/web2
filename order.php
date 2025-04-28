@@ -126,7 +126,9 @@
                                     <button class="detail-btn" onclick="showOrderDetail(this)" value="<?= $order['order_id'] ?> | <?= $customer['customer_name'] ?> | <?= $order['status'] ?>">📄 Chi tiết</button>
                                 </td>
                                 <td>
-                                    <button class="cancel-btn">❌ Hủy đơn </button>
+                                    <?php if ($canUpdate): ?>
+                                        <button class="cancel-btn">❌ Hủy đơn </button>
+                                    <?php endif; ?> 
                                 </td>
                             </tr>
                         <?php endforeach;
