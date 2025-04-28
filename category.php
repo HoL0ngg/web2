@@ -1,6 +1,12 @@
 <?php
 require_once "handles/CategoryController.php";
 $category_data = getCategoryData();
+
+$funcId = 'danhmuc';
+$phanquyenController = new PhanQuyenController();
+$canUpdate = $phanquyenController->hasPermission($funcId, 'update', $_SESSION['permissions']);
+$canDelete = $phanquyenController->hasPermission($funcId, 'delete', $_SESSION['permissions']);
+$canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['permissions']);
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +21,9 @@ $category_data = getCategoryData();
     <main class="main-content">
         <header>
             <h1>Quản Lý Chủng Loại</h1>
-            <button class="add-chungloai-btn">➕ Thêm chủng loại</button>
+            <?php if ($canAdd) : ?>
+                <button class="add-chungloai-btn">➕ Thêm chủng loại</button>
+            <?php endif; ?>
         </header>
 
         <!-- Popup thêm chủng loại -->
@@ -79,7 +87,9 @@ $category_data = getCategoryData();
                 </div>
                 <div class="popup-footer">
                     <button id="edit-chungloai-btn_popup">Sửa</button>
-                    <button id="btn-xoa-chungloai" style="display: none;">Xóa</button>
+                    <?php if ($canDelete) : ?>
+                        <button id="btn-xoa-chungloai" style="display: none;">Xóa</button>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -114,10 +124,12 @@ $category_data = getCategoryData();
                                 echo "<td>{$rows[0]['tenchungloai']}</td>";
                                 echo "<td colspan='3'>Không có thể loại</td>";
                                 echo "<td>";
-                                echo "<a href='admin.php?page=category&act=edit_chungloai&id={$rows[0]['machungloai']}' 
+                                if ($canUpdate) {
+                                    echo "<a href='admin.php?page=category&act=edit_chungloai&id={$rows[0]['machungloai']}' 
                                         data-machungloai='{$rows[0]['machungloai']}' 
                                         data-tenchungloai='" . htmlspecialchars($rows[0]['tenchungloai'], ENT_QUOTES, 'UTF-8') . "'>
                                         <button class='edit-chungloai-btn'>✏️ Sửa</button></a>";
+                                }
                                 echo "</td>";
                                 echo "</tr>";
                                 continue;
@@ -134,12 +146,14 @@ $category_data = getCategoryData();
                                 echo "<td>{$r['tentheloai']}</td>";
                                 echo "<td>{$r['so_sanpham']}</td>";
                                 if ($first) {
-                                    echo "<td rowspan='{$rowspan}'>
-                                            <a href='admin.php?page=category&act=edit_chungloai&id={$r['machungloai']}' 
-                                            data-machungloai='{$r['machungloai']}' 
-                                            data-tenchungloai='{$r['tenchungloai']}'>
-                                            <button class='edit-chungloai-btn'>✏️ Sửa</button></a>
-                                        </td>";
+                                    echo "<td rowspan='{$rowspan}'>";
+                                    if ($canUpdate) {
+                                        echo "<a href='admin.php?page=category&act=edit_chungloai&id={$r['machungloai']}' 
+                                                 data-machungloai='{$r['machungloai']}' 
+                                                 data-tenchungloai='" . htmlspecialchars($r['tenchungloai'], ENT_QUOTES, 'UTF-8') . "'>
+                                                 <button class='edit-chungloai-btn'>✏️ Sửa</button></a>";
+                                    }
+                                    echo "</td>";
                                     $first = false;
                                 }
                                 echo "</tr>";

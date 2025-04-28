@@ -2,6 +2,12 @@
     require_once './handles/CustomerController.php';
     require_once './handles/AddressController.php';
     require_once './handles/DetailOrderController.php';
+    $funcId = 'donhang';
+    $phanquyenController = new PhanQuyenController();
+    $canUpdate = $phanquyenController->hasPermission($funcId, 'update', $_SESSION['permissions']);
+    $canDelete = $phanquyenController->hasPermission($funcId, 'delete', $_SESSION['permissions']);
+    $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['permissions']);
+
     ?>
     <script src="./js/customer-info.js"></script>
 
@@ -112,7 +118,7 @@
                                     $style = isset($statusStyles[$order['status']]) ? $statusStyles[$order['status']] : 'background-color: rgba(0, 0, 0, 0.2); color: #fff;';
                                     ?>
                                     <div class="status" style="display: inline-block; padding: 4px 8px; font-size: 14px; border-radius: 6px; <?= $style ?>"><?= $order['status'] ?></div>
-                                    <?php if ($order['status'] === 'processing' || $order['status'] === 'shipping'): ?>
+                                    <?php if ($canUpdate && ($order['status'] === 'processing' || $order['status'] === 'shipping')): ?>
                                         <button class="confirm-btn">✅ Xác nhận</button>
                                     <?php endif; ?>
                                 </td>

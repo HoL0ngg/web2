@@ -2,6 +2,12 @@
 require_once "handles/ImportController.php";
 $import_data = getImportData();
 
+$funcId = 'nhaphang';
+$phanquyenController = new PhanQuyenController();
+$canUpdate = $phanquyenController->hasPermission($funcId, 'update', $_SESSION['permissions']);
+$canDelete = $phanquyenController->hasPermission($funcId, 'delete', $_SESSION['permissions']);
+$canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['permissions']);
+
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +24,9 @@ $import_data = getImportData();
     <main class="main-content">
         <header>
             <h1>Quản lý nhập hàng</h1>
-            <button class="add-import-btn_style" id="add-import-btn">➕ Thêm phiếu nhập</button>
+            <?php if ($canAdd): ?>
+                <button class="add-import-btn_style" id="add-import-btn">➕ Thêm phiếu nhập</button>
+            <?php endif; ?>
         </header>
 
         <!-- Popup thêm phiếu nhập -->
@@ -181,7 +189,7 @@ $import_data = getImportData();
                                     }
                                     echo "</span></td>";
                                     echo "<td>";
-                                        if ($r['status'] === 'processing') {
+                                        if ($canUpdate && $r['status'] === 'processing') {
                                             echo "<a href='admin.php?page=import&act=edit&receipt_id={$r['receipt_id']}' 
                                                     data-receipt_id='{$r['receipt_id']}' 
                                                     data-supplier_id='{$r['supplier_id']}' >

@@ -2,6 +2,12 @@
 require_once "handles/SupplierController.php";
 $supplier_data = getSuppliersAndProducts();
 
+$funcId = 'nhacungcap';
+$phanquyenController = new PhanQuyenController();
+$canUpdate = $phanquyenController->hasPermission($funcId, 'update', $_SESSION['permissions']);
+$canDelete = $phanquyenController->hasPermission($funcId, 'delete', $_SESSION['permissions']);
+$canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['permissions']);
+
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +24,10 @@ $supplier_data = getSuppliersAndProducts();
     <main class="main-content">
         <header>
             <h1>Quản Lý Nhà Cung Cấp</h1>
-            <button class="add-supplier-btn_style" id="add-supplier-btn">➕ Thêm nhà cung cấp</button>
+            <?php if ($canAdd) : ?>
+                <button class="add-supplier-btn_style" id="add-supplier-btn">➕ Thêm nhà cung cấp</button>
+            <?php endif; ?>
+
         </header>
 
         <!-- Popup thêm nhà cung cấp -->
@@ -86,8 +95,10 @@ $supplier_data = getSuppliersAndProducts();
                 </div>
                 <div class="popup-footer">
                     <button id="edit-supplier-btn_popup">Sửa</button>
-                    <button id="delete-supplier-btn_popup" style="display: none;">Xóa</button>
-                </div>
+                    <?php if ($canDelete) : ?>
+                        <button id="delete-supplier-btn_popup" style="display: none;">Xóa</button>
+                    <?php endif; ?>
+                </div>                    
             </div>
         </div>
 
@@ -126,11 +137,14 @@ $supplier_data = getSuppliersAndProducts();
                                 echo "<td>" . (empty($rows[0]['address']) ? '' : $rows[0]['address']) . "</td>";
                                 echo "<td colspan='2'>Không có sản phẩm</td>";
                                 echo "<td>";
-                                echo "<a href='admin.php?page=category&act=edit_chungloai&id={$rows[0]['supplier_id']}' 
-                                        data-supplier_id='{$rows[0]['supplier_id']}' 
-                                        data-supplier_name='" . htmlspecialchars($rows[0]['supplier_name'], ENT_QUOTES, 'UTF-8') . "'
-                                        data-address='" . htmlspecialchars($rows[0]['address'] ?? '', ENT_QUOTES, 'UTF-8') . "'>
-                                        <button class='edit-supplier-btn'>✏️ Sửa</button></a>";
+                                if ($canUpdate){
+                                    echo "<a href='admin.php?page=category&act=edit_chungloai&id={$rows[0]['supplier_id']}' 
+                                            data-supplier_id='{$rows[0]['supplier_id']}' 
+                                            data-supplier_name='" . htmlspecialchars($rows[0]['supplier_name'], ENT_QUOTES, 'UTF-8') . "'
+                                            data-address='" . htmlspecialchars($rows[0]['address'] ?? '', ENT_QUOTES, 'UTF-8') . "'>
+                                            <button class='edit-supplier-btn'>✏️ Sửa</button></a>";
+                                }
+                                
                                 echo "</td>";
                                 echo "</tr>";
                                 continue;
@@ -150,13 +164,15 @@ $supplier_data = getSuppliersAndProducts();
                                 echo "<td>{$r['product_name']}</td>";
 
                                 if ($first) {
-                                    echo "<td rowspan='{$rowspan}'>
-                                            <a href='admin.php?page=category&act=add_type&cl_id={$r['supplier_id']}' 
+                                    echo "<td rowspan='{$rowspan}'>";
+                                    if ($canUpdate) {
+                                        echo "<a href='admin.php?page=category&act=add_type&cl_id={$r['supplier_id']}' 
                                             data-supplier_id='{$r['supplier_id']}'
                                             data-supplier_name='{$r['supplier_name']}' 
                                             data-supplier_address='" . htmlspecialchars($r['address'] ?? '', ENT_QUOTES, 'UTF-8') . "'>
-                                            <button class='edit-supplier-btn'>✏️ Sửa</button></a>
-                                        </td>";
+                                            <button class='edit-supplier-btn'>✏️ Sửa</button></a>";
+                                    }
+                                    echo "</td>";
                                     $first = false;
                                 }
 
