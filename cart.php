@@ -138,6 +138,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'getCartCount'
     exit;
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'getItemQuantity') {
+    $productController = new ProductController();
+    $id = $_POST['id'];
+    $product = $productController->getProductById($id);
+    $quantity = $product['quantity'];
+    echo json_encode(['status' => 'success', 'quantity' => $quantity]);
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'UpdateCartSessionToDatabase') {
 
     $user = new TKModel();
