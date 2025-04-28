@@ -443,6 +443,7 @@ if (empty($cart)) {
         border: none;
         border-radius: 4px;
         outline: none;
+        color: black;
     }
 
     .diachi-item select.error {

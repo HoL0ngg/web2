@@ -955,9 +955,25 @@ input[type=email] {
     scale: 1.1;
 }
 
-/* .product-info {
-
-} */
+.product-soldout {
+    position: absolute;
+    top: 100px;
+    right: 0;
+    left: 0;    
+    backdrop-filter: blur(8px);
+    height: 50px;
+    line-height: 50px;
+    /* z-index: 17px; */
+    font-weight: 600;
+    color: #333;     
+    z-index: 7;
+}
+.soldout{
+    color: red;
+    font-weight: bold;
+    font-size: 1.2rem;
+    /* border: 2px solid blue; */
+}
 .product-info div {
     margin: 20px 0;
 }
@@ -1448,7 +1464,7 @@ img {
 
 .price {
     font-size: 18px;
-    margin: 20px 0;
+    margin: 10px 0;
     color: #e91e63;
     padding-left: 7px;
 }

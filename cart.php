@@ -202,5 +202,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'UpdateCartSes
     <?php include("login-wrapper.php") ?>
     <?php include("register-wrapper.php") ?>
     <?php include("changepassword-wrapper.php") ?>
-    <script src="../web2/js/script.js"></script>
+    <script src="js/script.js"></script>
 </body>

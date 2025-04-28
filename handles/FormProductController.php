@@ -62,7 +62,7 @@
             // Kiểm tra hình ảnh
             $imagePath = null;
             if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-                $uploadDir = '../imgs/';
+                $uploadDir = dirname(__DIR__) . '/imgs/';
                 if (!is_dir($uploadDir)) {
                     mkdir($uploadDir, 0755, true);
                 }
@@ -71,7 +71,8 @@
                 $targetFile = $uploadDir . uniqid() . '_' . $filename;
 
                 if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
-                    $imagePath = $targetFile;
+                    // Lưu đường dẫn tương đối để lưu database
+                    $imagePath = 'imgs/' . basename($targetFile);
                 } else {
                     $response["message"] = "Không thể lưu ảnh.";
                     echo json_encode($response);
@@ -127,10 +128,10 @@
             $thuonghieu = $_POST['thuonghieu'] ?? '';
             $status = $_POST['status'] ?? 1;
             $mota = $_POST['mota'] ?? '';
-            $imagePath = null;
 
+            $imagePath = null;
             if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-                $uploadDir = '../imgs/';
+                $uploadDir = dirname(__DIR__) . '/imgs/';
                 if (!is_dir($uploadDir)) {
                     mkdir($uploadDir, 0755, true);
                 }
@@ -139,7 +140,8 @@
                 $targetFile = $uploadDir . uniqid() . '_' . $filename;
 
                 if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
-                    $imagePath = $targetFile;
+                    // Lưu đường dẫn tương đối để lưu database
+                    $imagePath = 'imgs/' . basename($targetFile);
                 } else {
                     $response["message"] = "Không thể lưu ảnh.";
                     echo json_encode($response);

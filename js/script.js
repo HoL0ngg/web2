@@ -186,7 +186,7 @@ function loginNotification() {
                     UpdateCartSessionToDatabase();
                     UpdateWishlistSessionToDatabase();
                     setTimeout(() => {
-                        window.location.href = "../index.php";
+                        window.location.href = "index.php";
                     }, 1000);
                 }
                 else {
@@ -565,6 +565,7 @@ async function loadProducts(pagenum = 1, isLove = false) {
     proContainer.innerHTML = "";
     data.products.forEach(product => {
         s += `<div class="product" data-id="${product.product_id} ">
+        ${(product.quantity == 0) ? '<div class="product-soldout">HẾT HÀNG</div>' : '' }
         <div class="product-img">
             <img src="${product.image_url}" alt="img1" onclick="getInfoProduct(${product.product_id})">
         </div>
@@ -818,7 +819,8 @@ function getInfoProduct(productId) {
             });
 
             // Xử lý nút Thêm vào giỏ
-            document.querySelector("#container-product-detail .add-to-cart").addEventListener("click", () => {
+            const btnAddToCartDeltail = document.querySelector("#container-product-detail .add-to-cart");
+            btnAddToCartDeltail.addEventListener("click", () => {
                 const quantity = parseInt(document.getElementById("quantity").value);
                 console.log("Đã thêm " + quantity + " sản phẩm vào giỏ hàng");
                 addToCart(productId, quantity);

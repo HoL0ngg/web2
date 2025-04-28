@@ -14,7 +14,7 @@
             <div class="form-wrapper-add-product">
                 <div class="image-upload">
                     <div class="preview" id="imagePreview">
-                        <span><img src="../imgs/addImg.png" alt="addImg"></span>
+                        <span><img src="imgs/addImg.png" alt="addImg"></span>
                     </div>
                     <label for="imageInput" class="upload-btn-label"><i class="fa-solid fa-cloud-arrow-up"></i> Chọn hình ảnh</label>
                     <input type="file" id="imageInput" name="image" accept="image/*" onchange="previewImage(event)">
@@ -95,7 +95,7 @@
             reader.readAsDataURL(file);
 
         } else {
-            preview.innerHTML = `<span><img src="../imgs/addImg.png" alt="addImg"></span>`;
+            preview.innerHTML = `<span><img src="imgs/addImg.png" alt="addImg"></span>`;
         }
     }
 </script>

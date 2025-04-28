@@ -110,7 +110,7 @@ if (document.getElementById('cart-thanhtoan')) document.getElementById('cart-tha
         alert('Giỏ hàng của bạn đang trống!');
         return;
     }
-    fetch('/handles/getSession.php')
+    fetch('handles/getSession.php')
         .then(res => res.json())
         .then(data => {
             console.log(data);

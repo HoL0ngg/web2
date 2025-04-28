@@ -74,7 +74,7 @@ if (isset($_SESSION['username'])) {
         ĐẶT HÀNG NGAY
     </div>
 </div>
-<script src="/js/cart.js"></script>
+<script src="js/cart.js"></script>
 <style>
     #cart_empty_container {
         display: none;
