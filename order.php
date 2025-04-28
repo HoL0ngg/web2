@@ -180,7 +180,20 @@
                                 })
                                 .then(res => res.text())
                                 .then(data => {
-                                    statusCell.querySelector('.status').innerText = newStatus;
+                                    const statusElement = statusCell.querySelector('.status');
+                                    statusElement.innerText = newStatus;
+
+                                    const statusStyles = {
+                                        'processing': 'background-color: rgba(218, 174, 0, 0.7); color: #fff;',
+                                        'shipping': 'background-color: rgba(41, 128, 185, 0.7); color: #fff;',
+                                        'delivered': 'background-color: rgba(39, 174, 96, 0.7); color: #fff;',
+                                        'cancelled': 'background-color: rgba(192, 57, 43, 0.7); color: #fff;'
+                                    };
+
+                                    // Update the style based on newStatus
+                                    console.log("New status: " + statusStyles[newStatus]);
+                                    statusElement.style.cssText = statusStyles[newStatus] || 'background-color: rgba(0, 0, 0, 0.2); color: #fff;';
+
                                     if (newStatus === 'delivered' || newStatus === "cancelled") {
                                         confirmBtn.style.display = 'none';
                                     }
@@ -216,14 +229,25 @@
                                 })
                                 .then(res => res.text())
                                 .then(data => {
-                                    console.log(data);
-                                    statusCell.querySelector('.status').innerText = newStatus;
-                                    if (newStatus === 'delivered') {
-                                        this.style.display = 'none';
+                                    const statusElement = statusCell.querySelector('.status');
+                                    statusElement.innerText = newStatus;
 
+                                    const statusStyles = {
+                                        'processing': 'background-color: rgba(218, 174, 0, 0.7); color: #fff;',
+                                        'shipping': 'background-color: rgba(41, 128, 185, 0.7); color: #fff;',
+                                        'delivered': 'background-color: rgba(39, 174, 96, 0.7); color: #fff;',
+                                        'cancelled': 'background-color: rgba(192, 57, 43, 0.7); color: #fff;'
+                                    };
+
+                                    // Update the style based on newStatus
+                                    console.log("New status: " + statusStyles[newStatus]);
+                                    statusElement.style.cssText = statusStyles[newStatus] || 'background-color: rgba(0, 0, 0, 0.2); color: #fff;';
+
+                                    if (newStatus === 'delivered' || newStatus === "cancelled") {
+                                        confirmBtn.style.display = 'none';
                                     }
                                     showToast("Thay đổi thành công", true);
-                                })
+                                });
                         }
                     });
                 });
