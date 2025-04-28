@@ -1,26 +1,43 @@
-document.querySelectorAll('.plus').forEach(button => {
-    button.addEventListener('click', function () {
-
-        const quantityElement = this.previousElementSibling;
-        let currentQuantity = parseInt(quantityElement.textContent);
-        quantityElement.textContent = currentQuantity + 1;
-
-        const id = this.parentElement.dataset.id;
-        const quantity = parseInt(quantityElement.textContent);
-
+async function getItemQuantity(id) {
+    let res = await
         fetch('cart.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: `action=update&id=${id}&quantity=${quantity}`
-        }).then(res => res.text())
-            .then(data => console.log(data));
+            body: `action=getItemQuantity&id=${id}`
+        })
+    let data = await res.json();
+    return data.quantity;
+}
 
-        // Cập nhật giỏ hàng nếu cần
-        updateCart();
+document.querySelectorAll('.plus').forEach(button => {
+    button.addEventListener('click', async function () {
+
+        const quantityElement = this.previousElementSibling;
+        let currentQuantity = parseInt(quantityElement.textContent);
+        const id = this.parentElement.dataset.id;
+        let hihi = await getItemQuantity(id);
+
+        if (currentQuantity < hihi) {
+            quantityElement.textContent = currentQuantity + 1;
+            const quantity = parseInt(quantityElement.textContent);
+
+            fetch('cart.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `action=update&id=${id}&quantity=${quantity}`
+            });
+
+            // Cập nhật giỏ hàng nếu cần
+            updateCart();
+        }
     });
 })
+
+
 
 
 document.querySelectorAll('.minus').forEach(button => {
