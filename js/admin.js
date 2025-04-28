@@ -488,8 +488,9 @@ function themChucNang() {
     .then(response => response.json())
     .then(data =>{
         if(data.success){
-            handleErrorResponse(data);
-            closePopup();            
+            handleSuccessResponse(data);
+            closePopup();        
+            location.reload();    
         }
         else{
             showToast("Loi" + data.message, data.success);

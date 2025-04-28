@@ -8,6 +8,7 @@
         'phanquyen' => ['page' => 'phanquyen&role_id=1', 'icon' => 'fa-users-gear'],
         'thongke' => ['page' => 'thongke', 'icon' => 'fa-chart-simple'],
         'sanpham' => ['page' => 'product', 'icon' => 'fa-cart-plus'],
+        'sukien' => ['page' => 'importbill', 'icon' => 'fa-file-invoice-dollar'],
     ];
 
     ?>
