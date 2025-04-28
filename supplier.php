@@ -189,7 +189,7 @@ $supplier_data = getSuppliersAndProducts();
             const supplier_address = $("#add_supplier_address").val().trim();
 
             if (supplier_name === "") {
-                alert("Vui lòng nhập tên nhà cung cấp");
+                showToast("Vui lòng nhập tên nhà cung cấp");
                 return;
             }
 
@@ -204,13 +204,19 @@ $supplier_data = getSuppliersAndProducts();
                 },
                 success: function (response) {
                     if (response.success) {
-                        location.reload(); // Reload để cập nhật bảng
+                        showToast("Thêm nhà cung cấp thành công!", true);
+                        // Wait for 1 second before reloading
+                        setTimeout(function () {
+                            location.reload(); // Reload để cập nhật bảng
+                        }, 1000);
                     } else {
-                        alert("Thêm thất bại: " + response.error);
+                        showToast("Thêm thất bại: " + response.error);
+                        
                     }
                 },
                 error: function () {
-                    alert("Lỗi khi gửi yêu cầu thêm nhà cung cấp");
+                    showToast("Lỗi khi gửi yêu cầu thêm nhà cung cấp");
+                    
                 }
             });
         });
@@ -255,11 +261,12 @@ $supplier_data = getSuppliersAndProducts();
                         }
                         toggleDeleteButton(); // Cập nhật trạng thái nút Xóa
                     } else {
-                        alert("Lỗi khi lấy danh sách sản phẩm: " + response.error);
+                        showToast("Lỗi khi lấy danh sách sản phẩm: " + response.error);
+                        
                     }
                 },
                 error: function () {
-                    alert("Lỗi khi gửi yêu cầu lấy danh sách sản phẩm");
+                    showToast("Lỗi khi gửi yêu cầu lấy danh sách sản phẩm");
                 }
             });
         });
@@ -277,7 +284,7 @@ $supplier_data = getSuppliersAndProducts();
             const supplier_address = $("#edit_supplier_address").val().trim();
 
             if (supplier_name === "") {
-                alert("Vui lòng nhập tên nhà cung cấp");
+                showToast("Vui lòng nhập tên nhà cung cấp");
                 return;
             }
 
@@ -303,13 +310,17 @@ $supplier_data = getSuppliersAndProducts();
                 },
                 success: function (response) {
                     if (response.success) {
-                        location.reload(); // Reload để cập nhật bảng
+                        showToast("Sửa nhà cung cấp thành công!", true);
+                        // Wait for 1 second before reloading
+                        setTimeout(function () {
+                            location.reload(); // Reload để cập nhật bảng
+                        }, 1000);
                     } else {
-                        alert("Sửa thất bại: " + response.error);
+                        showToast("Sửa thất bại: " + response.error);
                     }
                 },
                 error: function () {
-                    alert("Lỗi khi gửi yêu cầu sửa nhà cung cấp");
+                    showToast("Lỗi khi gửi yêu cầu sửa nhà cung cấp");
                 }
             });
         });
@@ -341,7 +352,7 @@ $supplier_data = getSuppliersAndProducts();
                     if (response.success) {
                         const available_products = response.data;
                         if (available_products.length === 0) {
-                            alert("Không còn sản phẩm nào để thêm!");
+                            showToast("Không còn sản phẩm nào để thêm!");
                             return;
                         }
 
@@ -363,11 +374,11 @@ $supplier_data = getSuppliersAndProducts();
                         `);
                         toggleDeleteButton();
                     } else {
-                        alert("Lỗi khi lấy danh sách sản phẩm: " + response.error);
+                        showToast("Lỗi khi lấy danh sách sản phẩm: " + response.error);
                     }
                 },
                 error: function () {
-                    alert("Lỗi khi gửi yêu cầu lấy danh sách sản phẩm");
+                    showToast("Lỗi khi gửi yêu cầu lấy danh sách sản phẩm");
                 }
             });
         });
@@ -397,27 +408,42 @@ $supplier_data = getSuppliersAndProducts();
         $("#delete-supplier-btn_popup").on("click", function () {
             const supplier_id = $("#edit_supplier_id").val();
 
-            if (confirm("Bạn có chắc muốn xóa nhà cung cấp này không?")) {
-                $.ajax({
-                    url: "handles/SupplierController.php",
-                    method: "POST",
-                    dataType: "json",
-                    data: {
-                        action: "delete_supplier",
-                        supplier_id: supplier_id
-                    },
-                    success: function (response) {
-                        if (response.success) {
-                            location.reload(); // Reload để cập nhật bảng
-                        } else {
-                            alert("Xóa thất bại: " + response.error);
+            Swal.fire({
+                title: "Thông báo",
+                text: "Bạn có chắc muốn xóa nhà cung cấp này không?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Có",
+                cancelButtonText: "Không"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "handles/SupplierController.php",
+                        method: "POST",
+                        dataType: "json",
+                        data: {
+                            action: "delete_supplier",
+                            supplier_id: supplier_id
+                        },
+                        success: function (response) {
+                            if (response.success) {
+                                showToast("Xóa nhà cung cấp thành công!",true);
+                                // Wait for 1 second before reloading
+                                setTimeout(function () {
+                                    location.reload(); // Reload để cập nhật bảng
+                                }, 1000);
+                            } else {
+                                showToast("Xóa thất bại: " + response.error);
+                            }
+                        },
+                        error: function () {
+                            showToast("Lỗi khi gửi yêu cầu xóa nhà cung cấp");
                         }
-                    },
-                    error: function () {
-                        alert("Lỗi khi gửi yêu cầu xóa nhà cung cấp");
-                    }
-                });
-            }
+                    });
+                }
+            })
         });
 
         // Hàm kiểm tra và ẩn/hiện nút Xóa

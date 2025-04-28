@@ -170,41 +170,52 @@
                             showToast('Đơn hàng đã được hủy');
                             return;
                         }
-                        if (confirm("xác nhận đơn hàng")) {
-                            fetch('change_status_order.php', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/x-www-form-urlencoded'
-                                    },
-                                    body: `order_id=${orderId}&status=${newStatus}`
-                                })
-                                .then(res => res.text())
-                                .then(data => {
-                                    const statusElement = statusCell.querySelector('.status');
-                                    statusElement.innerText = newStatus;
+                        Swal.fire({
+                            title: "Thông báo",
+                            text: "Xác nhận hủy đơn hàng!",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#d33",
+                            cancelButtonColor: "#3085d6",
+                            confirmButtonText: "Có",
+                            cancelButtonText: "Không"
+                        }).then((result) => {
+                                if (result.isConfirmed) {
+                                    fetch('change_status_order.php', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/x-www-form-urlencoded'
+                                            },
+                                            body: `order_id=${orderId}&status=${newStatus}`
+                                        })
+                                        .then(res => res.text())
+                                        .then(data => {
+                                            const statusElement = statusCell.querySelector('.status');
+                                            statusElement.innerText = newStatus;
 
-                                    const statusStyles = {
-                                        'processing': 'background-color: rgba(218, 174, 0, 0.7); color: #fff; ',
-                                        'shipping': 'background-color: rgba(41, 128, 185, 0.7); color: #fff;',
-                                        'delivered': 'background-color: rgba(39, 174, 96, 0.7); color: #fff;',
-                                        'cancelled': 'background-color: rgba(192, 57, 43, 0.7); color: #fff;'
-                                    };
+                                            const statusStyles = {
+                                                'processing': 'background-color: rgba(218, 174, 0, 0.7); color: #fff; ',
+                                                'shipping': 'background-color: rgba(41, 128, 185, 0.7); color: #fff;',
+                                                'delivered': 'background-color: rgba(39, 174, 96, 0.7); color: #fff;',
+                                                'cancelled': 'background-color: rgba(192, 57, 43, 0.7); color: #fff;'
+                                            };
 
-                                    // Update the style based on newStatus
-                                    statusElement.style.cssText =  statusStyles[newStatus] + ';display: inline-block; padding: 4px 8px; font-size: 14px; border-radius: 6px;' || 'background-color: rgba(0, 0, 0, 0.2); color: #fff;';
+                                            // Update the style based on newStatus
+                                            statusElement.style.cssText =  statusStyles[newStatus] + ';display: inline-block; padding: 4px 8px; font-size: 14px; border-radius: 6px;' || 'background-color: rgba(0, 0, 0, 0.2); color: #fff;';
 
-                                    if (newStatus === 'delivered' || newStatus === "cancelled") {
-                                        confirmBtn.style.display = 'none';
-                                    }
-                                    showToast("Thay đổi thành công", true);
-                                    // statusCell.querySelector('.status').innerText = newStatus;
-                                    
-                                    // if (newStatus === 'delivered' || newStatus === "cancelled") {
-                                    //     confirmBtn.style.display = 'none';
-                                    // }
-                                    // showToast("Thay đổi thành công", true);
-                                })
-                        }
+                                            if (newStatus === 'delivered' || newStatus === "cancelled") {
+                                                confirmBtn.style.display = 'none';
+                                            }
+                                            showToast("Thay đổi thành công", true);
+                                            // statusCell.querySelector('.status').innerText = newStatus;
+                                            
+                                            // if (newStatus === 'delivered' || newStatus === "cancelled") {
+                                            //     confirmBtn.style.display = 'none';
+                                            // }
+                                            // showToast("Thay đổi thành công", true);
+                                        })
+                                }
+                        })
                     });
 
                 });
@@ -231,13 +242,23 @@
 
                         console.log("New status: " + newStatus);
 
-                        if (confirm("xác nhận đơn hàng")) {
-                            fetch('change_status_order.php', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/x-www-form-urlencoded'
-                                    },
-                                    body: `order_id=${orderId}&status=${newStatus}`
+                        Swal.fire({
+                            title: "Thông báo",
+                            text: "Xác nhận đơn hàng?",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#d33",
+                            cancelButtonColor: "#3085d6",
+                            confirmButtonText: "Có",
+                            cancelButtonText: "Không"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                fetch('change_status_order.php', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/x-www-form-urlencoded'
+                                        },
+                                        body: `order_id=${orderId}&status=${newStatus}`
                                 })
                                 .then(res => res.text())
                                 .then(data => {
@@ -261,7 +282,8 @@
                                     showToast("Thay đổi thành công", true);
 
                                 });
-                        }
+                            }
+                        })
                     });
                 });
             }

@@ -170,7 +170,8 @@ $category_data = getCategoryData();
             $("#btn-them-chungloai").on("click", function () {
                 const tenchungloai = $("#tenchungloai").val().trim();
                 if (tenchungloai === "") {
-                    alert("Vui lòng nhập tên chủng loại");
+                    // alert("Vui lòng nhập tên chủng loại");
+                    showToast("Vui lòng nhập tên chủng loại", false);
                     return;
                 }
 
@@ -188,13 +189,18 @@ $category_data = getCategoryData();
                             $("#tenchungloai").val("");
                             $("tbody").append(response);
                         } else if (response.success) {
-                            location.reload();
+                            showToast("Thêm chủng loại thành công", true);
+                            // Wait for 1 second before reloading
+                            setTimeout(function () {
+                                    location.reload(); // Reload để cập nhật bảng
+                            }, 1000);
                         } else {
-                            alert("Thêm thất bại: " + response.error);
+                            // alert("Thêm thất bại: " + response.error);
+                            showToast("Thêm thất bại: " + response.error, false);
                         }
                     },
                     error: function () {
-                        alert("Lỗi khi gửi yêu cầu thêm chủng loại");
+                        showToast("Lỗi khi gửi yêu cầu thêm chủng loại", false);
                     }
                 });
             });
@@ -238,11 +244,13 @@ $category_data = getCategoryData();
                             }
                             toggleDeleteButton();
                         } else {
-                            alert("Lỗi khi lấy danh sách thể loại: " + response.error);
+                            showToast("Lỗi khi lấy danh sách thể loại: " + response.error, false);
+                            
                         }
                     },
                     error: function () {
-                        alert("Lỗi khi gửi yêu cầu lấy danh sách thể loại");
+                        // alert("Lỗi khi gửi yêu cầu lấy danh sách thể loại");
+                        showToast("Lỗi khi gửi yêu cầu lấy danh sách thể loại", false);
                     }
                 });
             });
@@ -274,7 +282,8 @@ $category_data = getCategoryData();
                 const machungloai = $("#edit_machungloai").val();
 
                 if (tentheloai === "") {
-                    alert("Vui lòng nhập tên thể loại");
+                    showToast("Vui lòng nhập tên thể loại", false);
+                    
                     $row.remove();
                     toggleDeleteButton();
                     return;
@@ -298,12 +307,13 @@ $category_data = getCategoryData();
                             $row.find("td:eq(1)").text(tentheloai);
                             $row.find(".new-theloai-input").replaceWith(tentheloai);
                         } else {
-                            alert("Thêm thể loại thất bại: " + response.error);
+                            showToast("Thêm thể loại thất bại: " + response.error, false);
                             $row.remove();
                         }
                     },
                     error: function () {
-                        alert("Lỗi khi gửi yêu cầu thêm thể loại");
+                        showToast("Lỗi khi gửi yêu cầu thêm thể loại", false);
+                        
                         $row.remove();
                     }
                 });
@@ -316,28 +326,40 @@ $category_data = getCategoryData();
                 const matheloai = $row.data("matheloai");
 
                 if (!isNew) {
-                    if (confirm("Bạn có chắc muốn xóa thể loại này không?")) {
-                        $.ajax({
-                            url: "handles/CategoryController.php",
-                            method: "POST",
-                            dataType: "json",
-                            data: {
-                                action: "delete_theloai",
-                                matheloai: matheloai
-                            },
-                            success: function (response) {
-                                if (response.success) {
-                                    $row.remove();
-                                    toggleDeleteButton();
-                                } else {
-                                    alert("Xóa thất bại: " + response.error);
+                    Swal.fire({
+                    title: "Thông báo",
+                    text: "Bạn có chắc muốn xóa thể loại này không?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Có",
+                    cancelButtonText: "Không"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: "handles/CategoryController.php",
+                                method: "POST",
+                                dataType: "json",
+                                data: {
+                                    action: "delete_theloai",
+                                    matheloai: matheloai
+                                },
+                                success: function (response) {
+                                    if (response.success) {
+                                        $row.remove();
+                                        toggleDeleteButton();
+                                    } else {
+                                        // alert("Xóa thất bại: " + response.error);
+                                        showToast("Xóa thất bại: " + response.error, false);
+                                    }
+                                },
+                                error: function () {
+                                    showToast("Lỗi khi gửi yêu cầu xóa thể loại", false);
                                 }
-                            },
-                            error: function () {
-                                alert("Lỗi khi gửi yêu cầu xóa thể loại");
-                            }
-                        });
-                    }
+                            });
+                        }
+                    })
                 } else {
                     $row.remove();
                     toggleDeleteButton();
@@ -350,13 +372,14 @@ $category_data = getCategoryData();
                 const tenchungloai = $("#edit_tenchungloai").val().trim();
 
                 if (tenchungloai === "") {
-                    alert("Vui lòng nhập tên chủng loại");
+                    showToast("Vui lòng nhập tên chủng loại", false);
+                    
                     return;
                 }
 
                 // Kiểm tra xem có hàng nào chưa được lưu (vẫn là input)
                 if ($(".new-theloai-input").length > 0) {
-                    alert("Vui lòng hoàn tất việc thêm thể loại trước khi lưu!");
+                    showToast("Vui lòng hoàn tất việc thêm thể loại trước khi lưu!", false);
                     return;
                 }
 
@@ -380,13 +403,17 @@ $category_data = getCategoryData();
                     },
                     success: function (response) {
                         if (response.success) {
-                            location.reload();
+                            showToast("Sửa chủng loại thành công", true);
+                            // Wait for 1 second before reloading
+                            setTimeout(function () {
+                                location.reload(); // Reload để cập nhật bảng
+                            }, 1000);
                         } else {
-                            alert("Sửa thất bại: " + response.error);
+                            showToast("Sửa thất bại: " + response.error, false);
                         }
                     },
                     error: function () {
-                        alert("Lỗi khi gửi yêu cầu sửa chủng loại");
+                        showToast("Lỗi khi gửi yêu cầu sửa chủng loại", false);
                     }
                 });
             });
@@ -395,7 +422,17 @@ $category_data = getCategoryData();
             $("#btn-xoa-chungloai").on("click", function () {
                 const machungloai = $("#edit_machungloai").val();
 
-                if (confirm("Bạn có chắc muốn xóa chủng loại này không?")) {
+                Swal.fire({
+                title: "Thông báo",
+                text: "Bạn có chắc muốn xóa thể loại này không?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Có",
+                cancelButtonText: "Không"
+                }).then((result) => {
+                    if (result.isConfirmed) 
                     $.ajax({
                         url: "handles/CategoryController.php",
                         method: "POST",
@@ -406,16 +443,19 @@ $category_data = getCategoryData();
                         },
                         success: function (response) {
                             if (response.success) {
-                                location.reload();
+                                showToast("Xóa chủng loại thành công", true);
+                                setTimeout(function () {
+                                    location.reload(); // Reload để cập nhật bảng
+                                }, 1000);
                             } else {
-                                alert("Xóa thất bại: " + response.error);
+                                showToast("Xóa thất bại: " + response.error, false);
                             }
                         },
                         error: function () {
-                            alert("Lỗi khi gửi yêu cầu xóa chủng loại");
+                            showToast("Lỗi khi gửi yêu cầu xóa chủng loại", false);
                         }
                     });
-                }
+                })
             });
 
             // Hàm kiểm tra và ẩn/hiện nút Xóa chủng loại

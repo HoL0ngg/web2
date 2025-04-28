@@ -227,7 +227,11 @@ $import_data = getImportData();
                 },
                 success: function (response) {
                     if (response.success) {
-                        location.reload(); // Reload để cập nhật bảng
+                        showToast("Thêm phiếu nhập thành công", true);
+                        // Wait for 1 second before reloading
+                        setTimeout(function () {
+                            location.reload(); // Reload để cập nhật bảng
+                        }, 1000);
                     } else {
                         alert("Thêm thất bại: " + response.error);
                     }
@@ -399,7 +403,11 @@ $import_data = getImportData();
                 },
                 success: function (response) {
                     if (response.success) {
-                        location.reload(); // Reload để cập nhật bảng
+                        showToast("Cập nhật phiếu nhập thành công", true);
+                        // Wait for 1 second before reloading
+                        setTimeout(function () {
+                            location.reload(); // Reload để cập nhật bảng
+                        }, 1000);
                     } else {
                         alert("Cập nhật thất bại: " + response.error);
                     }
@@ -508,7 +516,11 @@ $import_data = getImportData();
                     },
                     success: function (response) {
                         if (response.success) {
-                            location.reload(); // Reload để cập nhật bảng
+                            showToast("Xóa nhà cung cấp thành công", true);
+                            // Wait for 1 second before reloading
+                            setTimeout(function () {
+                                location.reload(); // Reload để cập nhật bảng
+                            }, 1000);
                         } else {
                             alert("Xóa thất bại: " + response.error);
                         }
