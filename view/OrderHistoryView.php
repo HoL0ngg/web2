@@ -1,57 +1,58 @@
 <?php
-    require_once './handles/EmployeeController.php';
-    require_once './handles/AddressController.php';
-    require_once './handles/DetailOrderController.php';
-    require_once './handles/CustomerController.php';
-    ?>
+require_once './handles/EmployeeController.php';
+require_once './handles/AddressController.php';
+require_once './handles/DetailOrderController.php';
+require_once './handles/CustomerController.php';
+?>
 <!DOCTYPE html>
-    <html lang="en">
+<html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        <!-- Gọi file CSS -->
-        <link rel="stylesheet" href="css/orderhistory.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Gọi file CSS -->
+    <link rel="stylesheet" href="css/orderhistory.css">
+</head>
+
 <body>
-    
-<main class="main-content">
-    <header>
-        <h1>Lịch Sử Mua Hàng</h1>
-    </header>
-    <div class="filter-form">
-       <div class="filter-form_input">
-        <label>Ngày từ:
-                <input type="date" id="fromDate">
-            </label>
 
-            <label>đến:
-                <input type="date" id="toDate">
-            </label>
+    <main class="main-content">
+        <header>
+            <h1>Lịch Sử Mua Hàng</h1>
+        </header>
+        <div class="filter-form">
+            <div class="filter-form_input">
+                <label>Ngày từ:
+                    <input type="date" id="fromDate">
+                </label>
 
-            <label>Trạng thái:
-                <select id="orderStatus">
-                    <option value="">Tất cả</option>
-                    <option value="processing">processing</option>
-                    <option value="shipping">shipping</option>
-                    <option value="delivered">delivered</option>
-                    <option value="cancelled">cancelled</option>
-                </select>
-            </label>
-       </div>
+                <label>đến:
+                    <input type="date" id="toDate">
+                </label>
 
-        <div class="filter-form_button">
-            <button onclick="filterOrders()">Lọc</button>
-            <button onclick="refreshOrders()">Làm mới</button>
+                <label>Trạng thái:
+                    <select id="orderStatus">
+                        <option value="">Tất cả</option>
+                        <option value="processing">processing</option>
+                        <option value="shipping">shipping</option>
+                        <option value="delivered">delivered</option>
+                        <option value="cancelled">cancelled</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="filter-form_button">
+                <button onclick="filterOrders()">Lọc</button>
+                <button onclick="refreshOrders()">Làm mới</button>
+            </div>
         </div>
-    </div>
 
-    <!-- Danh sách đơn hàng -->
-    <section class="order-list">
-        <table>
-            <thead>
-                <tr>                
+        <!-- Danh sách đơn hàng -->
+        <section class="order-list">
+            <table>
+                <thead>
+                    <tr>
                         <th>Mã hóa đơn</th>
                         <th>Nhân viên</th>
                         <th>Địa chỉ nhận</th>
@@ -60,58 +61,57 @@
                         <th>Trạng thái</th>
                         <th>Chi tiết</th>
                         <th>Hủy đơn</th>
-                </tr>
-            </thead>
-            <tbody id="orderTable">
-                <?php 
-                    foreach($orders as $order):
+                    </tr>
+                </thead>
+                <tbody id="orderTable">
+                    <?php
+                    foreach ($orders as $order):
                         $EmployeeController = new EmployeeController();
                         $AddressController = new AddressController();
                         $name = $EmployeeController->getNameEmployeeByID($order['employee_id']);
                         $address = $AddressController->getAddressByID($order['address_id']);
-                ?>
-                    <tr>
-                        <td><?= $order['order_id'] ?></td>
-                        <td><?= $name ?></td>
-                        <td><?= $address ?></td>
-                        <td><?= $order['orderDate'] ?></td>
-                        <td><?= $order['total'] ?></td>
-                        <td class="status-cell" data-order-id="<?= $order['order_id'] ?>"><?= $order['status'] ?></td>
-                        <td>
-                            <button onclick="showOrderDetail(this)" value="<?= $order['order_id'] ?>">📄 Chi tiết</button>
-                        </td>
-                        <td>
-                            <button class="cancel-btn" value="<?= $order['order_id'] ?>">❌ Hủy đơn </button>
-                        </td>
-                    </tr>
-                <?php endforeach; 
-                 ?>
-            </tbody>
-        </table>
-    </section>
+                    ?>
+                        <tr>
+                            <td><?= $order['order_id'] ?></td>
+                            <td><?= $name ?></td>
+                            <td><?= $address ?></td>
+                            <td><?= $order['orderDate'] ?></td>
+                            <td><?= $order['total'] ?></td>
+                            <td class="status-cell" data-order-id="<?= $order['order_id'] ?>"><?= $order['status'] ?></td>
+                            <td>
+                                <button onclick="showOrderDetail(this)" value="<?= $order['order_id'] ?>">📄 Chi tiết</button>
+                            </td>
+                            <td>
+                                <button class="cancel-btn" value="<?= $order['order_id'] ?>">❌ Hủy đơn </button>
+                            </td>
+                        </tr>
+                    <?php endforeach;
+                    ?>
+                </tbody>
+            </table>
+        </section>
 
 
 
-    <div id="order-detail-popup">
-    <div id="order-detail-content">
-        <h2>Chi tiết đơn hàng</h2>
-        <table id="detail-table">
-            <thead>
-                <tr>
-                    <th>Tên sản phẩm</th>
-                    <th>Số lượng</th>
-                    <th>Đơn giá</th>
-                </tr>
-            </thead>
-            <tbody>
-              
-            </tbody>
-        </table>
-        <button id="close-btn" onclick="hideOrderDetail()">Đóng</button>
-    </div>
-</div>
+        <div id="order-detail-popup">
+            <div id="order-detail-content">
+                <h2>Chi tiết đơn hàng</h2>
+                <table id="detail-table">
+                    <thead>
+                        <tr>
+                            <th>Tên sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Đơn giá</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-</main>
+                    </tbody>
+                </table>
+                <button id="close-btn" onclick="hideOrderDetail()">Đóng</button>
+            </div>
+        </div>
+    </main>
 </body>
 
 <!-- <style>
@@ -150,4 +150,5 @@
     font-size: 14px;
 } 
 </style> -->
-    </html>
+
+</html>
