@@ -14,7 +14,8 @@ document.querySelectorAll('.plus').forEach(button => {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: `action=update&id=${id}&quantity=${quantity}`
-        })
+        }).then(res => res.text())
+            .then(data => console.log(data));
 
         // Cập nhật giỏ hàng nếu cần
         updateCart();

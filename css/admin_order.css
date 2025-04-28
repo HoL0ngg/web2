@@ -4,6 +4,7 @@
     box-sizing: border-box;
     font-family: Arial, sans-serif;
 }
+
 a {
     text-decoration: none;
 }
@@ -15,6 +16,7 @@ a {
     background: #ECF0F1;
     min-height: 100vh;
 }
+
 header {
     display: flex;
     justify-content: space-between;
@@ -32,6 +34,8 @@ header {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    max-height: 550px;
+    overflow-y: auto;
 }
 
 .order-list table {
@@ -65,7 +69,7 @@ header {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.4);
+    background: rgba(0, 0, 0, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -84,7 +88,7 @@ header {
     width: 600px;
     max-height: 80%;
     overflow-y: auto;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     animation: slideDown 0.4s ease;
 }
 
@@ -94,6 +98,7 @@ header {
         transform: translateY(-50px);
         opacity: 0;
     }
+
     to {
         transform: translateY(0);
         opacity: 1;
@@ -148,7 +153,7 @@ header {
 /* Nền */
 
 .order-list button.detail-btn:hover {
-    background-color: #69b7ff; 
+    background-color: #69b7ff;
     color: white;
 }
 
@@ -159,27 +164,36 @@ header {
 }
 
 .order-list button.cancel-btn:hover {
-    background-color: #C0392B; /* Nền đỏ sáng hơn khi hover */
+    background-color: #C0392B;
+    /* Nền đỏ sáng hơn khi hover */
     color: white;
 }
 
 /* Nút Xác nhận */
 .confirm-btn {
     border: none;
-    border-radius: 5px; /* Bo góc nhẹ, giống nút Hủy đơn */
-    padding: 5px; /* Padding nhỏ hơn để nút gọn */
-    width: 95px; /* Chiều rộng vừa phải */
-    font-size: 14px; /* Kích thước chữ giống các nút khác */
+    border-radius: 5px;
+    /* Bo góc nhẹ, giống nút Hủy đơn */
+    padding: 5px;
+    /* Padding nhỏ hơn để nút gọn */
+    width: 95px;
+    /* Chiều rộng vừa phải */
+    font-size: 14px;
+    /* Kích thước chữ giống các nút khác */
     cursor: pointer;
-    margin-top: 8px; /* Khoảng cách phía trên để tách biệt với status */
-    display: inline-flex; /* Đảm bảo căn giữa nội dung */
+    margin-top: 8px;
+    /* Khoảng cách phía trên để tách biệt với status */
+    display: inline-flex;
+    /* Đảm bảo căn giữa nội dung */
     align-items: center;
     justify-content: center;
-    transition: background-color 0.2s ease; /* Hiệu ứng chuyển màu mượt */
+    transition: background-color 0.2s ease;
+    /* Hiệu ứng chuyển màu mượt */
 }
 
 .status-cell .confirm-btn:hover {
-    background-color: #27ae60; /* Màu xanh lá đậm hơn khi hover */
+    background-color: #27ae60;
+    /* Màu xanh lá đậm hơn khi hover */
     color: white
 }
 
@@ -187,9 +201,12 @@ header {
 /* Định dạng chung cho văn bản trạng thái */
 .status-cell .status {
     /* display: inline-block; */
-    padding: 4px 8px; /* Padding nhỏ để tạo không gian quanh text */
-    font-size: 14px; /* Kích thước chữ đồng bộ với các nút */
-    border-radius: 8px; /* Bo góc nhẹ để tạo cảm giác giống nút */
+    padding: 4px 8px;
+    /* Padding nhỏ để tạo không gian quanh text */
+    font-size: 14px;
+    /* Kích thước chữ đồng bộ với các nút */
+    border-radius: 8px;
+    /* Bo góc nhẹ để tạo cảm giác giống nút */
 }
 
 
@@ -197,29 +214,35 @@ header {
 /* Filter form */
 .filter-form {
     display: grid;
-    grid-template-columns: 80% 20%; /* Input section takes 65%, button section takes 35% */
+    grid-template-columns: 80% 20%;
+    /* Input section takes 65%, button section takes 35% */
     align-items: flex-start;
     margin-bottom: 20px;
     background: #fff;
     padding: 5px 0px 10px 20px;
     border-radius: 8px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    min-width: 800px; /* Prevent the form from shrinking too much when zoomed */
+    min-width: 800px;
+    /* Prevent the form from shrinking too much when zoomed */
 }
 
 /* Input section */
 .filter-form_input {
     display: flex;
-    justify-content: space-between; /* Evenly space the inputs */
-    flex-wrap: wrap; /* Allow inputs to wrap if necessary */
+    justify-content: space-between;
+    /* Evenly space the inputs */
+    flex-wrap: wrap;
+    /* Allow inputs to wrap if necessary */
     padding-bottom: 10px;
-    gap: 15px; /* Consistent gap between inputs */
+    gap: 15px;
+    /* Consistent gap between inputs */
 }
 
 /* Button section */
 .filter-form_button {
     display: flex;
-    justify-content: space-evenly; /* Evenly space the buttons */
+    justify-content: space-evenly;
+    /* Evenly space the buttons */
 }
 
 /* Original styling for labels, inputs, selects, and buttons */
@@ -228,22 +251,26 @@ header {
     flex-direction: column;
     color: #333;
     font-size: 14px;
-    flex: 1; /* Allow labels to grow/shrink proportionally */
+    flex: 1;
+    /* Allow labels to grow/shrink proportionally */
 }
 
 .filter-form input,
-.filter-form select{
+.filter-form select {
     margin-top: 5px;
     padding: 8px 10px;
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: 100%; /* Make width responsive */
-    max-width: 150px; /* Maximum width as before */
+    width: 100%;
+    /* Make width responsive */
+    max-width: 150px;
+    /* Maximum width as before */
     /* min-width: 120px;  */
     background: #f5f5f5;
     color: #333;
-    box-sizing: border-box; /* Ensure padding doesn't affect width */
+    box-sizing: border-box;
+    /* Ensure padding doesn't affect width */
 }
 
 .filter-form select {
@@ -253,10 +280,11 @@ header {
 }
 
 .filter-form button {
-    margin-top:30px;
+    margin-top: 30px;
     height: 35px;
     width: 80px;
-    min-width: 70px; /* Prevent buttons from shrinking too much */
+    min-width: 70px;
+    /* Prevent buttons from shrinking too much */
     cursor: pointer;
     background-color: #00aaff;
     border: none;
@@ -291,25 +319,31 @@ header {
 /* Media query for smaller screens or zoomed-in states */
 @media (max-width: 900px) {
     .filter-form {
-        min-width: 600px; /* Adjust minimum width for smaller screens */
+        min-width: 600px;
+        /* Adjust minimum width for smaller screens */
     }
 
     .filter-form_input {
-        flex-wrap: wrap; /* Allow inputs to wrap if necessary */
-        gap: 10px; /* Reduce gap when zoomed */
+        flex-wrap: wrap;
+        /* Allow inputs to wrap if necessary */
+        gap: 10px;
+        /* Reduce gap when zoomed */
     }
 
     .filter-form input,
     .filter-form select {
-        max-width: 130px; /* Slightly reduce max-width to prevent overlap */
+        max-width: 130px;
+        /* Slightly reduce max-width to prevent overlap */
         min-width: 100px;
     }
 
     .filter-form button {
-        min-width: 60px; /* Adjust button size */
+        min-width: 60px;
+        /* Adjust button size */
         width: 70px;
     }
 }
+
 .search-box {
     display: flex;
     align-items: center;
@@ -337,6 +371,7 @@ header {
 
 @media (max-width: 768px) {
     .filter-form label:nth-child(1) {
-        margin-left: 30px; /* Áp dụng margin-left cho "Ngày từ" khi màn hình nhỏ hơn 768px */
+        margin-left: 30px;
+        /* Áp dụng margin-left cho "Ngày từ" khi màn hình nhỏ hơn 768px */
     }
 }
