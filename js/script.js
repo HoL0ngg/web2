@@ -663,9 +663,8 @@ document.getElementById("filters").addEventListener("click", function () {
 });
 
 
-const resetbtn = document.getElementById('reset-filters');
-if (resetbtn) {
-    resetbtn.addEventListener('click', function () {
+
+document.getElementById('reset-filters').addEventListener('click', function () {
         document.getElementById('minprice').value = "";
         document.getElementById('maxprice').value = "";
         document.querySelectorAll(".brandname").forEach(cb => cb.checked = false);
@@ -673,7 +672,7 @@ if (resetbtn) {
         document.getElementById("timkiem").value = "";
         loadProducts(1);
     });
-}
+
 
 document.getElementById("filters").addEventListener('click', function () {
     const url = new URL(window.location.href);
