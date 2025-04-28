@@ -310,23 +310,27 @@
     cursor: pointer;
 }
 
-#left-bot-header>div:hover .icon-up i {
-    /* transform: translate(-2px); */
-    transform: rotate(180deg);
-    content: '\f0dd';
-}
-
-#left-bot-header>div:hover .icon-up {
-    transform: translateY(-2px);
-}
-
-#left-bot-header .icon-up i {
-    transition: transform 0.1s ease;
-}
 
 .icon-up {
     padding: 0;
-    transform: translateY(3px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    transform: translateY(5px); /* Trạng thái ban đầu */
+}
+
+.icon-up.rotated {
+    transform: translateY(0); /* Khi mở menu, kéo lên lại cho ngay ngắn */
+}
+
+.icon-up i {
+    transition: transform 0.3s ease;
+    transform-origin: center center;
+}
+
+.icon-up i.rotated {
+    transform: rotate(180deg);
 }
 
 #right-bot-header {
@@ -1062,10 +1066,15 @@ input[type=email] {
     background-color: white;
 }
 
-#sp:hover #product-menu {
+#product-menu.show{
     opacity: 1;
     visibility: visible;
 }
+
+/* #sp:hover #product-menu {
+    opacity: 1;
+    visibility: visible;
+} */
 
 #product-menu-nav {
     height: 230px;

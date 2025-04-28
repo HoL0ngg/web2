@@ -662,7 +662,14 @@ function scrollToContent() {
 
 }
 
-document.getElementById("timkiem").addEventListener("keyup", () => loadProducts(1));
+// document.getElementById("timkiem").addEventListener("keyup", () => loadProducts(1));
+document.getElementById("find").addEventListener("click", function(){
+    document.getElementById('minprice').value = "";
+    document.getElementById('maxprice').value = "";
+    document.querySelectorAll(".brandname").forEach(cb => cb.checked = false);
+    document.querySelectorAll(".loaisanphamcb").forEach(cb => cb.checked = false);
+    loadProducts(1);
+});
 
 document.getElementById("filters").addEventListener("click", function () {
     const url = new URL(window.location.href);

@@ -163,44 +163,39 @@ if (isset($_SESSION['username'])) {
 </div>
 <div style="height: 139px;"></div>
 <script>
-    function loadCategories(maChungloai) {
-        // Gọi API để lấy các thể loại theo maChungloai
-        fetch(`api.php?maChungloai=${maChungloai}`)
-            .then(response => response.json())
-            .then(data => {
-                // Hiển thị kết quả lên trang
-                const s = document.getElementById('product-menu-nav');
-                s.innerHTML = ''; // Xóa danh sách cũ
+const button = document.getElementById('sp');
+const content = document.getElementById('product-menu');
+const find = document.getElementById('timkiem-header');
+const iconUp = document.querySelector('.icon-up');
+const iconUpI = document.querySelector('.icon-up i');
 
-                if (data.length > 0) {
-                    data.forEach(loaisanpham => {
-                        // Tạo thẻ <li> mới
-                        const li = document.createElement('li');
 
-                        // Tạo thẻ <input> checkbox
-                        const checkbox = document.createElement('input');
-                        checkbox.type = 'checkbox';
-                        checkbox.id = `loaisanpham-${loaisanpham.maLoaisanpham}`;
-                        checkbox.name = `loaisanpham-${loaisanpham.maLoaisanpham}`;
-                        checkbox.value = loaisanpham.maLoaisanpham;
+button.addEventListener('click', (event) => {
+    event.stopPropagation();
+    content.classList.toggle('show');
+    iconUp.classList.toggle('rotated');
+    iconUpI.classList.toggle('rotated');
+});
 
-                        // Tạo thẻ <span> chứa tên thể loại
-                        const span = document.createElement('span');
-                        span.textContent = loaisanpham.ten;
+find.addEventListener('click', (event) => {
+    event.stopPropagation();
+});
 
-                        // Gắn checkbox và span vào thẻ <li>
-                        li.appendChild(checkbox);
-                        li.appendChild(span);
 
-                        // Thêm thẻ <li> vào danh sách
-                        s.appendChild(li);
-                    });
-                } else {
-                    s.innerHTML = '<li>Không có thể loại nào</li>';
-                }
-            })
-            .catch(error => {
-                console.error('Có lỗi khi gọi API:', error);
-            });
+// Ngăn chặn đóng khi click vào bên trong menu
+content.addEventListener('click', (event) => {
+    event.stopPropagation();
+});
+
+// Click ra ngoài thì đóng
+document.addEventListener('click', (e) => {
+    if (!button.contains(e.target) && !content.contains(e.target)) {
+        content.classList.remove('show');
+        iconUp.classList.remove('rotated');
+        iconUpI.classList.remove('rotated');
     }
+});
+
+
+
 </script>
