@@ -188,6 +188,7 @@ $category_data = getCategoryData();
                             $("#popup-add-chungloai").removeClass("active");
                             $("#tenchungloai").val("");
                             $("tbody").append(response);
+                            showToast("Thêm chủng loại thành công", true);
                         } else if (response.success) {
                             showToast("Thêm chủng loại thành công", true);
                             // Wait for 1 second before reloading
