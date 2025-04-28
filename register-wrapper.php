@@ -94,7 +94,7 @@
         </form>
     </div>
 </div>
-<script src="/js/customer-info.js"></script>
+<script src="../web2/js/customer-info.js"></script>
 <style>
     .diachi-container {
         display: flex;

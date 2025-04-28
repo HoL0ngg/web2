@@ -1,21 +1,4 @@
-// BANNER
-// const images = document.querySelectorAll("#banner img");
-// console.log(images);
-// let currentIndex = 0;
-// function showImage(index) {
-//     if (index >= 0 && index < images.length) {
-//         images.forEach(img => img.style.display = 'none');
-//         images[index].style.display = 'block';
-//     }
-// }
-// function startAnimation() {
-//     showImage(currentIndex);
-//     setInterval(() => {
-//         currentIndex = (currentIndex + 1) % images.length;
-//         showImage(currentIndex);
-//     }, 3000);
-// }
-// FORM
+
 function togglePasswordStatus(element) {
     let passwordInput = element.parentElement.querySelector("input");
     // console.log(passwordInput);
@@ -565,7 +548,7 @@ async function loadProducts(pagenum = 1, isLove = false) {
 
 
 
-    const response = await fetch(`../api/pagination_api.php?pagenum=${pagenum}&keyword=${encodeURIComponent(keyword)}&selected_checkboxes_brand=${encodeURIComponent(JSON.stringify(selected_checkboxes_brand))}&selected_checkboxes_loaisanpham=${encodeURIComponent(JSON.stringify(selected_checkboxes_loaisanpham))}&minprice=${minPrice}&maxprice=${maxPrice}&maChungLoai=${maChungLoai}&maTheLoai=${maTheLoai}&isLove=${isLove}`);
+    const response = await fetch(`api/pagination_api.php?pagenum=${pagenum}&keyword=${encodeURIComponent(keyword)}&selected_checkboxes_brand=${encodeURIComponent(JSON.stringify(selected_checkboxes_brand))}&selected_checkboxes_loaisanpham=${encodeURIComponent(JSON.stringify(selected_checkboxes_loaisanpham))}&minprice=${minPrice}&maxprice=${maxPrice}&maChungLoai=${maChungLoai}&maTheLoai=${maTheLoai}&isLove=${isLove}`);
 
     const data = await response.json();
     console.log(data);
