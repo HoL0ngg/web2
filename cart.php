@@ -89,6 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'update') {
         $user = new TKModel();
         $cartController = new CartController();
         $customer_id = $user->getIdByUsername($_SESSION['username']);
+        $customer_id = $user->getCustomerIdByUserId($customer_id);
         $productId = $_POST['id'];
         $quantity = $_POST['quantity'];
         $cartController->updateProductInCart($productId, $quantity, $customer_id);

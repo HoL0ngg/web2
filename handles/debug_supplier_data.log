@@ -462,3 +462,61 @@ Fetched suppliers: Array
 
 )
 
+Fetched suppliers: Array
+(
+    [0] => Array
+        (
+            [supplier_id] => 1
+            [supplier_name] => Nhà cung cấp A
+            [address] => 789 Hai Bà Trưng
+            [product_id] => 1
+            [product_name] => Son Môi MAC Ruby Woo
+        )
+
+    [1] => Array
+        (
+            [supplier_id] => 1
+            [supplier_name] => Nhà cung cấp A
+            [address] => 789 Hai Bà Trưng
+            [product_id] => 3
+            [product_name] => Sữa Rửa Mặt Cetaphil
+        )
+
+    [2] => Array
+        (
+            [supplier_id] => 1
+            [supplier_name] => Nhà cung cấp A
+            [address] => 789 Hai Bà Trưng
+            [product_id] => 5
+            [product_name] => Mặt Nạ Dưỡng Da Innisfree
+        )
+
+    [3] => Array
+        (
+            [supplier_id] => 2
+            [supplier_name] => Nhà cung cấp B
+            [address] => 321 Nguyễn Trãi
+            [product_id] => 2
+            [product_name] => Kem Dưỡng Da Nivea
+        )
+
+    [4] => Array
+        (
+            [supplier_id] => 2
+            [supplier_name] => Nhà cung cấp B
+            [address] => 321 Nguyễn Trãi
+            [product_id] => 4
+            [product_name] => Kem Chống Nắng La Roche-Posay
+        )
+
+    [5] => Array
+        (
+            [supplier_id] => 2
+            [supplier_name] => Nhà cung cấp B
+            [address] => 321 Nguyễn Trãi
+            [product_id] => 8
+            [product_name] => Nước Hoa Chanel No.5
+        )
+
+)
+
