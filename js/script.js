@@ -207,7 +207,7 @@ document.getElementById('cart-container').addEventListener('click', (e) => {
 })
 
 document.getElementById('love-container').addEventListener('click', (e) => {
-    fetch('/handles/getSession.php')
+    fetch('handles/getSession.php')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
