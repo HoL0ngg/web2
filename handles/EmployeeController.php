@@ -13,7 +13,7 @@ class EmployeeController
         return $this->model->getNameEmployeeByID($id);
     }
 
-    public function getNameEmployeeByUserID($id){
-        return $this->model->getNameEmployeeByUserID($id);
+    public function getEmployeeIdByUserID($id){
+        return $this->model->getEmployeeIdByUserID($id);
     }
 }

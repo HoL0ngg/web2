@@ -216,6 +216,7 @@
                                 })
                                 .then(res => res.text())
                                 .then(data => {
+                                    console.log(data);
                                     statusCell.querySelector('.status').innerText = newStatus;
                                     if (newStatus === 'delivered') {
                                         this.style.display = 'none';

@@ -23,15 +23,15 @@ class EmployeeModel
         return $name ? $name['name'] : 'Không rõ';
     }
 
-    public function getNameEmployeeByUserID($id)
+    public function getEmployeeIdByUserID($id)
     {
-        $sql = "SELECT name FROM nhanvien WHERE user_id = ?";
+        $sql = "SELECT employee_id FROM nhanvien WHERE user_id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $result = $stmt->get_result();
-        $name = $result->fetch_assoc();
+        $id = $result->fetch_assoc();
         $stmt->close();
-        return $name ? $name['name'] : 'Không rõ';
+        return $id ? $id['employee_id'] : 'Không tìm thấy id';
     }
 }
