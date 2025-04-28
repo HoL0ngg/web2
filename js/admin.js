@@ -88,7 +88,7 @@ const userFormHandler = function(event) {
     //     ? "admin.php?page=user&act=addUser" 
     //     : "admin.php?page=user&act=updateUser";
     
-    fetch("../api/user_api.php", { 
+    fetch("api/user_api.php", { 
         method: "POST",
         body: formData
     })
