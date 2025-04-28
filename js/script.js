@@ -926,6 +926,9 @@ function refreshOrders() {
     document.getElementById('orderStatus').selectedIndex = 0;
     filterOrders();
 }
+// BEST SELLING
+const containerBestSellingProducts = document.querySelector(".review-swiper");
+console.log(containerBestSellingProducts);
 
 window.onload = function () {
     closeButton();

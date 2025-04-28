@@ -236,4 +236,34 @@ class ProductModel
         $stmt->bind_param("ii", $quantity, $productId);
         return $stmt->execute();
     }
+
+
+    public function bestSellingProducts($limit = 8)
+    {
+        $sql = "SELECT sp.*, ha.image_url
+            FROM sanpham sp
+            JOIN sanphamhinhanh ha ON sp.product_id = ha.product_id
+            WHERE ha.is_main = TRUE 
+              AND sp.status = 1 
+              AND sp.product_id IN (
+                  SELECT product_id 
+                  FROM chitietdonhang 
+                  GROUP BY product_id 
+                  ORDER BY SUM(quantity) DESC 
+                  LIMIT ?
+              )";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $limit);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $products = [];
+        while ($row = $result->fetch_assoc()) {
+            $products[] = $row;
+        }
+        $stmt->close();
+
+        return $products;
+    }
 }

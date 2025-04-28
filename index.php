@@ -38,7 +38,7 @@ session_start();
     <?php include("content.php") ?>
 
     <div style="width: 100%; text-align: center; font-size: 2.6em; font-weight: 700">
-        Đánh giá người sử dụng
+        TOP SẢN PHẨM BÁN CHẠY NHẤT
     </div>
     <div class="swiper review-swiper">
         <!-- <div class="swiper-wrapper">
