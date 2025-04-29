@@ -24,7 +24,11 @@
                         <!-- <div class="heart-icon" onClick="toggleLove(this, <?= htmlspecialchars($product['product_id']) ?>)">
                             <i class="fa-regular fa-heart"></i>
                         </div> -->
-                        <button class="add-to-cart" onClick="addToCart(<?= htmlspecialchars($product['product_id']) ?>, 1)">Thêm vào giỏ</button>
+                        <?php if ($product['quantity'] > 0): ?>
+                            <button class="add-to-cart" onClick="addToCart(<?= htmlspecialchars($product['product_id']) ?>, 1)">Thêm vào giỏ</button>
+                        <?php else: ?>
+                            <button class="add-to-cart" onClick='showToast("Sản phẩm đã hết hàng", false)'>Thêm vào giỏ</button>
+                        <?php endif; ?>
                     </div>
 
                     <div class="product-detail" style="margin-top: 7px;">

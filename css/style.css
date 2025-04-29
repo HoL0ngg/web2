@@ -37,7 +37,7 @@
 #timkiem-header {
     display: flex;
     border: 1px solid rgba(0, 0, 0, 0.3);
-    padding: 8px 12px;
+    padding: 8px 10px;
     border-radius: 20px;
     position: relative;
     flex: 2;
@@ -48,7 +48,7 @@
 #timkiem-header input {
     border: none;
     outline: none;
-    width: 250px;
+    width: 260px;
 }
 
 #find {
@@ -527,24 +527,25 @@ input[type=email] {
     font-size: 1px !important;
     opacity: 0;
     transition: opacity 0.3s ease;
+    font-weight: 900;
 }
 
 .review-swiper {
     width: 80%;
     margin: 32px 0;
     height: 350px;
-    border: 2px solid red;
-    /* position: relative; */
+    /* border: 2px solid red;     */
 }
 
 .review-swiper .swiper-slide {
     background: #fff;
     border: 2px solid #a7a7a7;
     border-radius: 10px;
-    padding: 20px;
+    padding: 15px;
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    height: 100%;
+    height: 98%;
+    width: 250px;
 }
 
 .review-swiper .swiper-slide img {
@@ -563,6 +564,7 @@ input[type=email] {
 .review-swiper .swiper-slide .productArray-info p{
     font-size: 1rem;
     color: black;
+    margin: 7px;
 }
 .review-swiper .swiper-slide .productArray-info .product-price{
     font-size: 1.1rem;

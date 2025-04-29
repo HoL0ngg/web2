@@ -21,7 +21,7 @@ $img_url = $productController->getImgUrlById($product_id);
             </div>
             <div class="mota"><?php echo $product['mota']; ?></div>
 
-            <div class="price"><strong>Giá:</strong> <?php echo number_format($product['price'], 0, ',', '.'); ?> đ</div>
+            <div class="price"><strong>Giá:</strong> <span id="product-price" data-unit-price=<?= $product['price'] ?>> <?php echo number_format($product['price'], 0, ',', '.'); ?> đ</span></div>
 
             <div class="quantity-control">
                 <button>−</button>
@@ -39,3 +39,6 @@ $img_url = $productController->getImgUrlById($product_id);
         </div>
     </div>
 </div>
+<script>
+    const unitPrice = <?php echo $product['price']; ?>;
+</script>
