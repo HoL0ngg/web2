@@ -37,11 +37,11 @@ session_start();
 
     <?php include("content.php") ?>
 
-    <div style="width: 100%; text-align: center; font-size: 2.6em; font-weight: 700">
+    <!-- <div style="width: 100%; text-align: center; font-size: 2.6em; font-weight: 700">
         TOP SẢN PHẨM BÁN CHẠY NHẤT
     </div>
-    <div class="swiper review-swiper">
-        <!-- <div class="swiper-wrapper">
+    <div class="swiper review-swiper"> -->
+    <!-- <div class="swiper-wrapper">
             <div class="swiper-slide">
                 <img src="https://fit.sgu.edu.vn/site/wp-content/uploads/2019/01/thanhsang.jpg" alt="Người 1" />
                 <h3>Nguyễn Thanh Sang</h3>
@@ -73,12 +73,15 @@ session_start();
                 <p>Chất lượng vượt mong đợi.</p>
             </div>
             <div class="swiper-slide">
-                <img src="https://fit.sgu.edu.vn/site/wp-content/uploads/2019/01/thanhsang.jpg" alt="Người 3" />
-                <h3>Nguyễn Thanh Sang</h3>
-                <p>Chất lượng vượt mong đợi.</p>
+                
             </div>
         </div> -->
-    </div>
+    <!-- </div> -->
+    <?php
+    require_once("handles/ProductController.php");
+    $productController = new ProductController();
+    $productController->getBestSellingProducts(8);
+    ?>
     <script>
         const swiper_title = new Swiper(".banner-swiper", {
             grabCursor: true,
@@ -100,29 +103,7 @@ session_start();
             }
         });
     </script>
-    <script>
-        const swiper = new Swiper('.review-swiper', {
-            slidesPerView: 3, // Hiển thị 4 slide cùng lúc
-            spaceBetween: 30, // Khoảng cách giữa các slide
-            grabCursor: true, // Hiển thị con trỏ kéo
-            loop: true, // Lặp lại danh sách
-            autoplay: {
-                delay: 3000, // Tự động chuyển slide sau 3 giây
-            },
-            breakpoints: {
-                // Responsive
-                320: {
-                    slidesPerView: 1, // 1 slide trên màn hình nhỏ
-                },
-                640: {
-                    slidesPerView: 2, // 2 slide trên màn hình vừa
-                },
-                1024: {
-                    slidesPerView: 4, // 4 slide trên màn hình lớn
-                },
-            },
-        });
-    </script>
+
 
     <!-- Footer -->
     <?php include("footer.php") ?>

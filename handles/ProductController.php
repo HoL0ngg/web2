@@ -44,11 +44,11 @@ class ProductController
         return $this->model->removeQuantity($productId, $quantity);
     }
 
-    public function getBestSellingProducts($limit = 8)
+    public function getBestSellingProducts($limit)
     {
-        header('Content-Type: application/json');
+        // header('Content-Type: application/json');
         $products = $this->model->bestSellingProducts($limit);
-        echo json_encode($products);
-        exit();
+        include('view/bestsellingproduct.php');
+        // exit();
     }
 }

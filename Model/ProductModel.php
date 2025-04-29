@@ -238,20 +238,23 @@ class ProductModel
     }
 
 
-    public function bestSellingProducts($limit = 8)
+    public function bestSellingProducts($limit)
     {
+        if (!is_numeric($limit) || $limit <= 0) {
+            $limit = 8; // fallback nếu limit lỗi
+        }
         $sql = "SELECT sp.*, ha.image_url
-            FROM sanpham sp
-            JOIN sanphamhinhanh ha ON sp.product_id = ha.product_id
-            WHERE ha.is_main = TRUE 
-              AND sp.status = 1 
-              AND sp.product_id IN (
-                  SELECT product_id 
-                  FROM chitietdonhang 
-                  GROUP BY product_id 
-                  ORDER BY SUM(quantity) DESC 
-                  LIMIT ?
-              )";
+        FROM sanpham sp
+        JOIN sanphamhinhanh ha ON sp.product_id = ha.product_id
+        JOIN (
+            SELECT product_id
+            FROM chitietdonhang
+            GROUP BY product_id
+            ORDER BY SUM(quantity) DESC
+            LIMIT ?
+        ) AS top_selling ON sp.product_id = top_selling.product_id
+        WHERE ha.is_main = TRUE 
+        AND sp.status = 1;";
 
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('i', $limit);

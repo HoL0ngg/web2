@@ -927,10 +927,10 @@ function refreshOrders() {
     filterOrders();
 }
 // BEST SELLING
-const containerBestSellingProducts = document.querySelector(".review-swiper");
-console.log(containerBestSellingProducts);
 
 window.onload = function () {
+    // const containerBestSellingProducts = document.querySelector(".swiper review-swiper");
+    // console.log(containerBestSellingProducts);
     closeButton();
     loginNotification();
     registerNotification();

@@ -530,9 +530,11 @@ input[type=email] {
 }
 
 .review-swiper {
-    width: 90%;
+    width: 80%;
     margin: 32px 0;
-    height: 300px;
+    height: 350px;
+    border: 2px solid red;
+    /* position: relative; */
 }
 
 .review-swiper .swiper-slide {
@@ -546,20 +548,34 @@ input[type=email] {
 }
 
 .review-swiper .swiper-slide img {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     margin-bottom: 10px;
+    /* border: 2px solid red; */
 }
 
 .review-swiper .swiper-slide h3 {
     margin: 10px 0;
-    font-size: 18px;
+    font-size: 1.2rem;
 }
 
-.review-swiper .swiper-slide p {
-    font-size: 16px;
-    color: #666;
+.review-swiper .swiper-slide .productArray-info p{
+    font-size: 1rem;
+    color: black;
+}
+.review-swiper .swiper-slide .productArray-info .product-price{
+    font-size: 1.1rem;
+    color: black;
+}
+.swiper-horizontal > .swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal,
+.swiper-pagination-custom,
+.swiper-pagination-fraction {
+    bottom: -20px !important; /* ví dụ đổi bottom thành 20px */
+    /* top: auto !important; */
+    left: 0;
+    width: 100%;
 }
 
 .marquee-container {
