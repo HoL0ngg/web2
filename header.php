@@ -31,7 +31,7 @@ if (isset($_SESSION['username'])) {
 <div id="header">
     <div id="top-header">
         <div id="left-header">
-            <div style="flex: 1;height: 100%;margin-right: 10px;">
+            <div style="height: 100%;margin-right: 10px;" class="logo">
                 <img src="imgs/logo3.svg" alt="" style="width: 100%;height: 100%;">
             </div>
             <div id="timkiem-header">
@@ -57,7 +57,7 @@ if (isset($_SESSION['username'])) {
                 </div>
                 <div>
                     <div style="color: #6794c1;">Email:</div>
-                    <div style="color: #5cb3f1;">longcute@gmail.com</div>
+                    <div style="color: #5cb3f1;" class="info-email">longcute@gmail.com</div>
                 </div>
             </div>
         </div>
@@ -112,7 +112,7 @@ if (isset($_SESSION['username'])) {
                 <div><a href="index.php">Trang chủ</a></div>
                 <div>Giới thiệu</div>
                 <div id="sp" style="display: flex; align-items: center; gap: 8px;">
-                    <div>Lọc Sản Phẩm</div>
+                    <div>Lọc sản phẩm</div>
                     <div class="icon-up"><i class="fa-solid fa-sort-up"></i></div>
                     <div id="product-menu">
                         <div id="product-menu-nav">
@@ -163,39 +163,36 @@ if (isset($_SESSION['username'])) {
 </div>
 <div style="height: 139px;"></div>
 <script>
-const button = document.getElementById('sp');
-const content = document.getElementById('product-menu');
-const find = document.getElementById('timkiem-header');
-const iconUp = document.querySelector('.icon-up');
-const iconUpI = document.querySelector('.icon-up i');
+    const button = document.getElementById('sp');
+    const content = document.getElementById('product-menu');
+    const find = document.getElementById('timkiem-header');
+    const iconUp = document.querySelector('.icon-up');
+    const iconUpI = document.querySelector('.icon-up i');
 
 
-button.addEventListener('click', (event) => {
-    event.stopPropagation();
-    content.classList.toggle('show');
-    iconUp.classList.toggle('rotated');
-    iconUpI.classList.toggle('rotated');
-});
+    button.addEventListener('click', (event) => {
+        event.stopPropagation();
+        content.classList.toggle('show');
+        iconUp.classList.toggle('rotated');
+        iconUpI.classList.toggle('rotated');
+    });
 
-find.addEventListener('click', (event) => {
-    event.stopPropagation();
-});
-
-
-// Ngăn chặn đóng khi click vào bên trong menu
-content.addEventListener('click', (event) => {
-    event.stopPropagation();
-});
-
-// Click ra ngoài thì đóng
-document.addEventListener('click', (e) => {
-    if (!button.contains(e.target) && !content.contains(e.target)) {
-        content.classList.remove('show');
-        iconUp.classList.remove('rotated');
-        iconUpI.classList.remove('rotated');
-    }
-});
+    find.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
 
 
+    // Ngăn chặn đóng khi click vào bên trong menu
+    content.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
 
+    // Click ra ngoài thì đóng
+    document.addEventListener('click', (e) => {
+        if (!button.contains(e.target) && !content.contains(e.target)) {
+            content.classList.remove('show');
+            iconUp.classList.remove('rotated');
+            iconUpI.classList.remove('rotated');
+        }
+    });
 </script>
