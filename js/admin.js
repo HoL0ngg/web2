@@ -102,7 +102,7 @@ function checkAddUser() {
     return false;
   }
 
-  if (!validatePassword(password.value)) {
+  if (!(password.value === "") && !validatePassword(password.value)) {
     showToast("Mật khẩu tối thiểu là 8 kí tự!", false);
     return false;
   }
