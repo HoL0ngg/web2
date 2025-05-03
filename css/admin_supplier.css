@@ -5,6 +5,7 @@
     box-sizing: border-box;
     font-family: Arial, sans-serif;
 }
+
 a {
     text-decoration: none;
 }
@@ -32,8 +33,10 @@ header {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    max-height: 550px; /* Giới hạn chiều cao bảng */
-    overflow-y: auto; /* Bật thanh cuộn dọc khi nội dung vượt quá chiều cao */
+    max-height: 550px;
+    /* Giới hạn chiều cao bảng */
+    overflow-y: auto;
+    /* Bật thanh cuộn dọc khi nội dung vượt quá chiều cao */
 
 }
 
@@ -49,7 +52,8 @@ td {
     padding: 10px;
     text-align: center;
 }
-td[rowspan] > a {
+
+td[rowspan]>a {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -62,7 +66,7 @@ th {
 }
 
 /* Nút chỉnh sửa */
-.edit-supplier-btn{
+.edit-supplier-btn {
     border: none;
     width: 70px;
     height: 30px;
@@ -77,12 +81,14 @@ th {
     background: #D4AC0D;
     color: white;
 }
-.delete-product-btn{
+
+.delete-product-btn {
     /* None decoration */
     background: transparent;
     border: none;
     cursor: pointer;
 }
+
 .add-supplier-btn_style {
     background: #3498db;
     color: white;
@@ -93,6 +99,7 @@ th {
     cursor: pointer;
     font-weight: 600;
 }
+
 .add-supplier-btn_style:hover {
     background: #2980b9;
 }
@@ -106,14 +113,16 @@ th {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5);
-    display: none; /* Đừng hiển thị mặc định */
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    /* Đừng hiển thị mặc định */
     justify-content: center;
     align-items: center;
     z-index: 1000;
 }
 
-.popup-overlay.active { /* Class khi muốn hiện */
+.popup-overlay.active {
+    /* Class khi muốn hiện */
     display: flex;
 }
 
@@ -123,7 +132,7 @@ th {
     border-radius: 8px;
     width: auto;
     position: relative;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     text-align: center;
 }
 
@@ -131,10 +140,11 @@ th {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative; /* For absolute positioning of close button */
+    position: relative;
+    /* For absolute positioning of close button */
     padding: 10px 0;
     min-width: 400px;
-} 
+}
 
 .popup-header h2 {
     margin: 0;
@@ -149,20 +159,24 @@ th {
     font-size: 25px;
     color: red;
 }
+
 .popup-body {
     display: flex;
     flex-direction: row;
-    align-items: flex-start; /* Align items to the top */
+    align-items: flex-start;
+    /* Align items to the top */
     padding: 20px 0;
 }
 
 .popup-body .left_info {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Align labels and inputs to the left */
+    align-items: flex-start;
+    /* Align labels and inputs to the left */
     justify-content: flex-start;
     margin: 0 40px 0 0;
-    min-width: 250px; /* Ensure enough space for inputs */
+    min-width: 250px;
+    /* Ensure enough space for inputs */
 }
 
 .popup-body label {
@@ -175,7 +189,8 @@ th {
 .popup-body input {
     flex: 1;
     padding: 8px;
-    width: 100%; /* Ensure inputs take full width */
+    width: 100%;
+    /* Ensure inputs take full width */
     border: 1px solid #BDC3C7;
     border-radius: 4px;
 }
@@ -184,7 +199,8 @@ th {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    flex: 1; /* Take remaining space */
+    flex: 1;
+    /* Take remaining space */
 }
 
 .popup-body .right_table .right_table--header {
@@ -194,6 +210,7 @@ th {
     align-items: center;
     /* margin-bottom: 10px; */
 }
+
 .popup-body .right_table .right_table--header h3 {
     margin-right: 16px;
     /* font-style: italic; */
@@ -229,10 +246,13 @@ th {
 #add-product-btn_supplier:hover {
     background: #219150;
 }
+
 .popup-footer {
     display: flex;
-    justify-content: flex-end; /* Align buttons to the right */
-    gap: 10px; /* Space between buttons */
+    justify-content: flex-end;
+    /* Align buttons to the right */
+    gap: 10px;
+    /* Space between buttons */
     margin-top: 20px;
     padding: 10px 0;
 }
@@ -246,7 +266,8 @@ th {
 }
 
 #edit-supplier-btn_popup {
-    background-color: #3498db; /* Green for "Sửa" */
+    background-color: #3498db;
+    /* Green for "Sửa" */
     color: white;
 }
 
@@ -255,7 +276,8 @@ th {
 }
 
 #delete-supplier-btn_popup {
-    background-color: #C0392B; /* Red for "Xóa" */
+    background-color: #C0392B;
+    /* Red for "Xóa" */
     color: white;
 }
 
@@ -313,4 +335,3 @@ th {
 .input-row span {
     flex: 1;
 }
-

@@ -6,16 +6,16 @@
 
         <div class="footer-item">
             <h4>Thông tin hữu ích</h4>
-            <a href="">Kiểm tra size quạt</a>
+            <a href="">Kiểm tra hạn sử dụng</a>
             <br>
-            <a href="">Hướng dẫn bảo hành</a>
+            <a href="">Hướng dẫn chăm sóc da</a>
             <br>
-            <a href="">Quy định đổi quạt</a>
+            <a href="">Quy định mua hàng</a>
         </div>
 
         <div class="footer-item">
             <h4>Giới thiệu</h4>
-            <a href="">Quan niệm về quạt</a>
+            <a href="">Về chúng tôi</a>
             <br>
             <a href="">Danh sách cửa hàng</a>
             <br>
