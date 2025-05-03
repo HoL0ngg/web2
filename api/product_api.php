@@ -15,6 +15,10 @@
             $product_id = (int)$_POST['product_id'] ?? '';
             $check = $productController->checkProductIsSold($product_id);
             break;
+        case 'checkProductIsImported':
+            $product_id = (int)$_POST['product_id'] ?? '';
+            $check = $productController->checkProductIsImported($product_id);
+            break;
         case 'deleteProduct':
             $product_id = (int)$_POST['product_id'] ?? '';
             $productController->deleteProduct($product_id);

@@ -13,7 +13,7 @@ class AccountFunction
 
         echo '<div class="container-addaccount">
             <h2>' . $title . '</h2>
-            <form method="post" id="' . $id . '">';
+            <form method="post" id="' . $id . '" onsubmit="return checkAddUser()">';
 
         // ID ẩn nếu sửa
         if ($userData) {

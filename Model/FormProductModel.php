@@ -213,4 +213,18 @@ class FormProductModel
         }
         return $products;
     }
+    public function checkProductIsImported($product_id)
+    {
+        $sql = "SELECT 1 FROM chitietphieunhap WHERE product_id = ? LIMIT 1";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $product_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+        if ($result->num_rows > 0) {
+            return true; // Sản phẩm đã được nhập
+        } else {
+            return false; // Sản phẩm chưa được nhập
+        }
+    }
 }

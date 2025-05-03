@@ -190,7 +190,13 @@
             echo json_encode(['success' => $result]);
             exit;
         }
-
+        public function checkProductIsImported($product_id)
+        {
+            header('Content-Type: application/json');
+            $result = $this->model->checkProductIsImported($product_id);
+            echo json_encode(['success' => $result]);
+            exit;
+        }
         public function deleteProduct($product_id)
         {
             header('Content-Type: application/json');
