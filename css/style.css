@@ -302,8 +302,8 @@
 }
 
 #left-bot-header > div {
-  padding: 0 16px;
-  line-height: 55px;
+  padding: 0 10px;
+  line-height: 20px;
   transition: background-color 0.2s ease;
 }
 
@@ -1097,6 +1097,47 @@ input[type="email"] {
   visibility: visible;
 }
 
+#menu{
+  display: none;
+
+}
+#menu:hover #menu-sub{
+  opacity: 1;
+  visibility: visible;
+}
+#menu-sub{
+  position: absolute;
+  height: fit-content;
+  width: fit-content;
+  
+  top: 100%;
+    left: 12px;
+    right: 0; 
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s;
+  width: max-content;
+  list-style-type: none;
+  padding: 10px;
+  background-color: white;
+}
+
+#menu-sub div {
+  padding: 10px 5px;
+  font-size: 1rem;
+  color: #333;
+  background-color: #fff; /* Nền trắng cho mỗi mục */
+  border-radius: 5px;
+  cursor: pointer; /* Con trỏ khi hover */
+  transition: ease 0.3s; /* Hiệu ứng mượt */
+}
+
+/* Hover effect cho submenu */
+#menu-sub div:hover {
+  background-color: #79c7ff; /* Màu nền giống nút #filters */
+  color: white;
+}
+
 /* #sp:hover #product-menu {
     opacity: 1;
     visibility: visible;
@@ -1140,7 +1181,7 @@ input[type="email"] {
 }
 
 #input {
-  margin-left: 40px;
+  transform: translate(5%, 0);
 }
 
 #minprice {
@@ -1157,7 +1198,7 @@ input[type="email"] {
 }
 
 #filters {
-  margin-left: 95px;
+  transform: translate(50%, 0);
   width: 50%;
   height: 50%;
   background-color: #79c7ff;
@@ -1633,18 +1674,18 @@ img {
   .logo {
     flex: 2;
   }
-  #bot-header {
-    justify-content: space-around;
-  }
+ 
   #left-bot-header {
     /* border: 2px solid red; */
+  }
+  #bot-header {
+    justify-content: space-around; 
   }
 
   #left-bot-header > div {
     padding: 7px 10px;
     line-height: 30px;
     font-size: 1rem;
-    /* height: 100%; */
   }
   .fa-heart {
     font-size: 1rem;
@@ -1722,9 +1763,18 @@ img {
   #left-bot-header {
   }
   #bot-header > div {
-    width: 86%;
-    /* display: none; */
+    /* width: 86%; */
+    /* display: none */
   }
+ 
+
+  #menu{
+    display: block;
+  }
+  .hihi{
+    display: none;
+  }
+  
   .banner-swiper {
     width: 85%;
   }
@@ -1747,6 +1797,11 @@ img {
   }
   #register-container {
     width: 97%;
+  }
+  #menu-sub{
+   top: 100%;
+   left: 8%;
+   right: 0;
   }
 }
 @media screen and (max-width: 780px) {
@@ -1786,6 +1841,17 @@ img {
   .banner-swiper {
     width: 100%;
   }
+
+  #input span{
+    display: none;
+  }
+   
+  #menu{
+    display: block;
+  }
+.hihi{
+  display: none;
+}
   #leftmenu_product ul {
     padding: 0px 7px;
   }

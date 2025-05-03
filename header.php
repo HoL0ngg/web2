@@ -31,7 +31,7 @@ if (isset($_SESSION['username'])) {
 <div id="header">
     <div id="top-header">
         <div id="left-header">
-            <div style="height: 100%;margin-right: 10px;" class="logo">
+            <div style="flex: 1;height: 100%;margin-right: 10px;">
                 <img src="imgs/logo3.svg" alt="" style="width: 100%;height: 100%;">
             </div>
             <div id="timkiem-header">
@@ -57,7 +57,7 @@ if (isset($_SESSION['username'])) {
                 </div>
                 <div>
                     <div style="color: #6794c1;">Email:</div>
-                    <div style="color: #5cb3f1;" class="info-email">longcute@gmail.com</div>
+                    <div style="color: #5cb3f1;">longcute@gmail.com</div>
                 </div>
             </div>
         </div>
@@ -109,10 +109,18 @@ if (isset($_SESSION['username'])) {
     <div id="bot-header">
         <div>
             <div id="left-bot-header">
+                <div id="menu">
+                    <div>Menu</div>
+                     <div id="menu-sub">
+                            <div>Giới Thiệu</div>
+                            <div>Liên Hệ</div>
+                            <div>Tin Tức</div>
+                    </div>
+                </div>
                 <div><a href="index.php">Trang chủ</a></div>
-                <div>Giới thiệu</div>
+                <div class="hihi">Giới thiệu</div>
                 <div id="sp" style="display: flex; align-items: center; gap: 8px;">
-                    <div>Lọc sản phẩm</div>
+                    <div>Lọc Sản Phẩm</div>
                     <div class="icon-up"><i class="fa-solid fa-sort-up"></i></div>
                     <div id="product-menu">
                         <div id="product-menu-nav">
@@ -143,8 +151,8 @@ if (isset($_SESSION['username'])) {
                         </div>
                     </div>
                 </div>
-                <div>Tin tức</div>
-                <div>Liên hệ</div>
+                <div class="hihi">Tin tức</div>
+                <div class="hihi">Liên hệ</div>
                 <div>
                     <a href="index.php?orderhistory">Lịch sử mua hàng</a>
                 </div>
@@ -163,36 +171,39 @@ if (isset($_SESSION['username'])) {
 </div>
 <div style="height: 139px;"></div>
 <script>
-    const button = document.getElementById('sp');
-    const content = document.getElementById('product-menu');
-    const find = document.getElementById('timkiem-header');
-    const iconUp = document.querySelector('.icon-up');
-    const iconUpI = document.querySelector('.icon-up i');
+const button = document.getElementById('sp');
+const content = document.getElementById('product-menu');
+const find = document.getElementById('timkiem-header');
+const iconUp = document.querySelector('.icon-up');
+const iconUpI = document.querySelector('.icon-up i');
 
 
-    button.addEventListener('click', (event) => {
-        event.stopPropagation();
-        content.classList.toggle('show');
-        iconUp.classList.toggle('rotated');
-        iconUpI.classList.toggle('rotated');
-    });
+button.addEventListener('click', (event) => {
+    event.stopPropagation();
+    content.classList.toggle('show');
+    iconUp.classList.toggle('rotated');
+    iconUpI.classList.toggle('rotated');
+});
 
-    find.addEventListener('click', (event) => {
-        event.stopPropagation();
-    });
+find.addEventListener('click', (event) => {
+    event.stopPropagation();
+});
 
 
-    // Ngăn chặn đóng khi click vào bên trong menu
-    content.addEventListener('click', (event) => {
-        event.stopPropagation();
-    });
+// Ngăn chặn đóng khi click vào bên trong menu
+content.addEventListener('click', (event) => {
+    event.stopPropagation();
+});
 
-    // Click ra ngoài thì đóng
-    document.addEventListener('click', (e) => {
-        if (!button.contains(e.target) && !content.contains(e.target)) {
-            content.classList.remove('show');
-            iconUp.classList.remove('rotated');
-            iconUpI.classList.remove('rotated');
-        }
-    });
+// Click ra ngoài thì đóng
+document.addEventListener('click', (e) => {
+    if (!button.contains(e.target) && !content.contains(e.target)) {
+        content.classList.remove('show');
+        iconUp.classList.remove('rotated');
+        iconUpI.classList.remove('rotated');
+    }
+});
+
+
+
 </script>
