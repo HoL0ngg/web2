@@ -41,7 +41,7 @@ function hiddenSideBar() {
     hiddenBtn.addEventListener("click", function () {
         let icon = this.querySelector("i");
         let attributeOfIcon = icon.getAttribute("class");
-        if (attributeOfIcon.indexOf("fa-less-than") != -1) {            
+        if (attributeOfIcon.indexOf("fa-less-than") != -1) {
             leftContainer.style.width = '60px';
             rightContainer.style.width = 'calc(100% - 60px)';
             imgLogo.src = "imgs/logomini.svg";
@@ -70,50 +70,50 @@ function showToast(message, isSuccess) {
         color: isSuccess ? "#2d7d46" : "#d33",
     });
 }
- 
+
 // Lấy form element
 // Lấy các form elements
 const addUserFrm = document.getElementById("addUserForm");
 const updateUserFrm = document.getElementById("updateUserForm");
 
 // Định nghĩa handler chung cho cả thêm và sửa user
-const userFormHandler = function(event) {
+const userFormHandler = function (event) {
     event.preventDefault();
-    
+
     const formData = new FormData(this);
-    
+
     // Thêm action vào formData để server biết là thêm hay sửa
     formData.append('action', this.id === 'addUserForm' ? 'add' : 'update');
     // const actionUrl = this.id === 'addUserForm' 
     //     ? "admin.php?page=user&act=addUser" 
     //     : "admin.php?page=user&act=updateUser";
-    
-    fetch("api/user_api.php", { 
+
+    fetch("api/user_api.php", {
         method: "POST",
         body: formData
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        
-        if (data.success) {
-            handleSuccessResponse(data);
-        } else {            
-            handleErrorResponse(data);
-            console.error("Lỗi:", data.message);
-        }
-    })
-    .catch(error => {
-        console.error("Lỗi hệ thống: ", error);
-        showToast("Lỗi hệ thống", false);
-    });
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+
+            if (data.success) {
+                handleSuccessResponse(data);
+            } else {
+                handleErrorResponse(data);
+                console.error("Lỗi:", data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Lỗi hệ thống: ", error);
+            showToast("Lỗi hệ thống", false);
+        });
 };
 
 // Hàm xử lý chung khi thành công
-function handleSuccessResponse(data) {    
+function handleSuccessResponse(data) {
     sessionStorage.setItem("toastMessage", data.message);
     sessionStorage.setItem("toastSuccess", data.success);
-    
+
     if (data.redirect && data.success) {
         window.location.href = data.redirect;
     }
@@ -131,7 +131,7 @@ if (updateUserFrm) {
     updateUserFrm.addEventListener("submit", userFormHandler);
 }
 
-document.addEventListener("click", function(event) {
+document.addEventListener("click", function (event) {
     if (event.target.classList.contains("delete-btn-user")) {
         let userId = event.target.getAttribute("data-id");
 
@@ -154,20 +154,20 @@ document.addEventListener("click", function(event) {
                     method: "POST",
                     body: dataForm
                 })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        Swal.fire("Đã xóa!", "Người dùng đã bị xóa.", "success");
-                        handleSuccessResponse(data);
-                    } else {
-                        Swal.fire("Lỗi!", "Không thể xóa người dùng.", "error");
-                        handleErrorResponse(data);
-                    }
-                })
-                .catch(error => {
-                    console.error("Lỗi hệ thống: ", error);
-                    Swal.fire("Lỗi!", "Có lỗi xảy ra trong hệ thống.", "error");
-                });
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire("Đã xóa!", "Người dùng đã bị xóa.", "success");
+                            handleSuccessResponse(data);
+                        } else {
+                            Swal.fire("Lỗi!", "Không thể xóa người dùng.", "error");
+                            handleErrorResponse(data);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Lỗi hệ thống: ", error);
+                        Swal.fire("Lỗi!", "Có lỗi xảy ra trong hệ thống.", "error");
+                    });
             }
         });
     }
@@ -175,13 +175,13 @@ document.addEventListener("click", function(event) {
 
 // ADD PRODUCT
 const productAddForm = document.getElementById("productAddForm");
-if(productAddForm){
+if (productAddForm) {
     productAddForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-    
-        if(validateProductForm()){
+
+        if (validateProductForm()) {
             let formData = new FormData(e.target); // Sửa ở đây
-            formData.append("action","addProduct");
+            formData.append("action", "addProduct");
             try {
                 const response = await fetch('api/product_api.php', {
                     method: "POST",
@@ -202,19 +202,19 @@ if(productAddForm){
     });
 }
 const productUpdateForm = document.getElementById("productUpdateForm");
-if(productUpdateForm){
+if (productUpdateForm) {
     productUpdateForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-    
-        if(validateProductForm()){
+
+        if (validateProductForm()) {
             let formData = new FormData(e.target); // Sửa ở đây
-            formData.append("action","updateProduct");
+            formData.append("action", "updateProduct");
 
             const urlParams = new URLSearchParams(window.location.search);
             const productId = urlParams.get('id');
             if (productId) {
                 formData.append("product_id", productId);
-            }     
+            }
             try {
                 const response = await fetch('api/product_api.php', {
                     method: "POST",
@@ -235,15 +235,15 @@ if(productUpdateForm){
     });
 }
 function validateProductForm() {
-    let isValid = true;    
-    
+    let isValid = true;
+
     const productName = document.getElementById('productname').value.trim();
     const quantity = document.getElementById('quantity').value.trim();
     const price = document.getElementById('price').value.trim();
     const theloai = document.getElementById('theloai').value.trim();
     const thuonghieu = document.getElementById('thuonghieu').value.trim();
     const mota = document.getElementById('mota').value.trim();
-    const imageInput = document.getElementById('imageInput').files.length;     
+    const imageInput = document.getElementById('imageInput').files.length;
     const previewImage = document.querySelector('#imagePreview img');
     const hasPreviewImage = previewImage && previewImage.getAttribute('src') !== 'imgs/addImg.png';
 
@@ -304,78 +304,78 @@ function fetchData(url, data) {
         method: "POST",
         body: formData
     })
-    .then(response => response.json());
+        .then(response => response.json());
 }
-document.addEventListener("click", function(event){
-    if(event.target.classList.contains("delete-btn-product")){
+document.addEventListener("click", function (event) {
+    if (event.target.classList.contains("delete-btn-product")) {
         let productId = event.target.getAttribute("data-id");
-        fetchData('api/product_api.php', {action: "checkProduct", product_id: productId})
-        .then(data => {
-            // let notification = {success: false, message: ""};
-            if(data.success){
-                Swal.fire({
-                    title: "Thông báo",
-                    text: "Sản phẩm đã được bán ra, bạn có muốn ẩn sản phẩm không?",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#d33",
-                    cancelButtonColor: "#3085d6",
-                    confirmButtonText: "Có",
-                    cancelButtonText: "Không"
-                }).then((result) =>{
-                    if(result.isConfirmed){
-                        fetchData('api/product_api.php', {action: 'hideProduct', product_id: productId})
-                        .then(data => {
-                            if(data.success){                                                                
-                                handleSuccessResponse(data);
-                                location.reload();
-                            }
-                            else{                                
-                                handleErrorResponse(data);
-                                location.reload();
-                            }
-                        })
-                    }
-                })
-            }
-            else{
-                Swal.fire({
-                    title: "Xác nhận xóa",
-                    text: "Bạn có chắc chắn muốn xóa sản phẩm này không?",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#d33",
-                    cancelButtonColor: "#3085d6",
-                    confirmButtonText: "Xóa",
-                    cancelButtonText: "Hủy"
-                }).then((result) =>{
-                    if(result.isConfirmed){
-                        fetchData('api/product_api.php', {action: "deleteProduct", product_id: productId})
-                        .then(data =>{
-                            if(data.success){
-                                // notification.success = true;
-                                // notification.message = "Xóa sản phẩm thành công!";
-                                handleSuccessResponse(data);
-                                location.reload();
-                            }
-                            else{
-                                // notification.message = "Ẩn sản phẩm không thành công";
-                                handleErrorResponse(data);
-                                // this.location.reload();
-                            }
-                        })
-                    }
-                })               
-            }
-        })
-        
+        fetchData('api/product_api.php', { action: "checkProduct", product_id: productId })
+            .then(data => {
+                // let notification = {success: false, message: ""};
+                if (data.success) {
+                    Swal.fire({
+                        title: "Thông báo",
+                        text: "Sản phẩm đã được bán ra, bạn có muốn ẩn sản phẩm không?",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#d33",
+                        cancelButtonColor: "#3085d6",
+                        confirmButtonText: "Có",
+                        cancelButtonText: "Không"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            fetchData('api/product_api.php', { action: 'hideProduct', product_id: productId })
+                                .then(data => {
+                                    if (data.success) {
+                                        handleSuccessResponse(data);
+                                        location.reload();
+                                    }
+                                    else {
+                                        handleErrorResponse(data);
+                                        location.reload();
+                                    }
+                                })
+                        }
+                    })
+                }
+                else {
+                    Swal.fire({
+                        title: "Xác nhận xóa",
+                        text: "Bạn có chắc chắn muốn xóa sản phẩm này không?",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#d33",
+                        cancelButtonColor: "#3085d6",
+                        confirmButtonText: "Xóa",
+                        cancelButtonText: "Hủy"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            fetchData('api/product_api.php', { action: "deleteProduct", product_id: productId })
+                                .then(data => {
+                                    if (data.success) {
+                                        // notification.success = true;
+                                        // notification.message = "Xóa sản phẩm thành công!";
+                                        handleSuccessResponse(data);
+                                        location.reload();
+                                    }
+                                    else {
+                                        // notification.message = "Ẩn sản phẩm không thành công";
+                                        handleErrorResponse(data);
+                                        // this.location.reload();
+                                    }
+                                })
+                        }
+                    })
+                }
+            })
+
     }
 })
 window.onload = function () {
     effectSideBar();
-    hiddenSideBar(); 
+    hiddenSideBar();
     // loadUsers();      
-    
+
     let message = sessionStorage.getItem("toastMessage");
     let success = sessionStorage.getItem("toastSuccess") === "true";
     console.log(message);
@@ -384,10 +384,10 @@ window.onload = function () {
         showToast(message, success); // Chuyển đổi string thành boolean
         sessionStorage.removeItem("toastMessage");
         sessionStorage.removeItem("toastSuccess");
-    }else{
+    } else {
         console.log("Khong tim thay message");
-        
-    }    
+
+    }
 };
 
 
@@ -427,15 +427,15 @@ function closePopup() {
     document.querySelectorAll('.popup-modal').forEach(p => p.classList.add('hidden'));
 }
 const btnRole = document.querySelectorAll('.btn_role')[0];
-if(btnRole){
-    btnRole.addEventListener('click', function(e) {
+if (btnRole) {
+    btnRole.addEventListener('click', function (e) {
         e.preventDefault();
         openPopup('popup-them-nhomquyen');
     });
 }
 const btnFunc = document.querySelectorAll('.btn_role')[1];
-if(btnFunc){
-    btnFunc.addEventListener('click', function(e) {
+if (btnFunc) {
+    btnFunc.addEventListener('click', function (e) {
         e.preventDefault();
         openPopup('popup-them-chucnang');
     });
@@ -443,9 +443,9 @@ if(btnFunc){
 
 function themNhomQuyen() {
     console.log("hihih");
-    
+
     const ten = document.getElementById('ten_nhom_quyen').value;
-    if (!ten){
+    if (!ten) {
         showToast("Vui lòng nhập tên nhóm quyền", false);
         return;
     }
@@ -453,85 +453,86 @@ function themNhomQuyen() {
     formData.append('action', 'addRole');
     formData.append('role_name', ten);
     fetch('api/permission_api.php', {
-        method: "POST",        
+        method: "POST",
         body: formData
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        
-        if(data.success){
-            handleSuccessResponse(data);
-            closePopup();
-            location.reload();
-        }else{
-            showToast("Loi" + data.message, data.success);
-        }
-    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+
+            if (data.success) {
+                handleSuccessResponse(data);
+                closePopup();
+                location.reload();
+            } else {
+                showToast("Loi" + data.message, data.success);
+            }
+        })
 }
 
 function themChucNang() {
     const ten = document.getElementById('ten_chuc_nang').value;
     const ma = document.getElementById('ma_chuc_nang').value;
-    if (!ten || !ma){
+    if (!ten || !ma) {
         showToast("Vui lòng nhập tên và mã chức năng", false);
         return;
     }
     let formData = new FormData();
     formData.append('action', 'addChucNang');
-    formData.append('function_name', ten);  
+    formData.append('function_name', ten);
     formData.append('function_id', ma);
     fetch('api/permission_api.php', {
-        method: "POST",        
+        method: "POST",
         body: formData
     })
-    .then(response => response.json())
-    .then(data =>{
-        if(data.success){
-            handleSuccessResponse(data);
-            closePopup();        
-            location.reload();    
-        }
-        else{
-            showToast("Loi" + data.message, data.success);
-        }
-    })
-    .catch(error => {
-        console.error("Lỗi hệ thống: ", error);
-        showToast("Lỗi hệ thống", false);
-    });
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                handleSuccessResponse(data);
+                closePopup();
+                location.reload();
+            }
+            else {
+                showToast("Loi" + data.message, data.success);
+            }
+        })
+        .catch(error => {
+            console.error("Lỗi hệ thống: ", error);
+            showToast("Lỗi hệ thống", false);
+        });
 }
 
 const permissionForm = document.getElementById("permission-form");
-if(permissionForm){
+if (permissionForm) {
     permissionForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const url = new URL(window.location.href);
         const role_id = url.searchParams.get('role_id');
-        let formData = new FormData(e.target); 
+        let formData = new FormData(e.target);
         formData.append("action", "updatePermission");
         formData.append("role_id", role_id);
-        try{
-            const response = await fetch('api/permission_api.php',{
+        try {
+            const response = await fetch('api/permission_api.php', {
                 method: "POST",
                 body: formData
             })
             const data = await response.json();
-            if(data.success){
-                handleSuccessResponse(data);                
+            if (data.success) {
+                handleSuccessResponse(data);
                 location.reload();
             }
-            else{
+            else {
                 showToast("Loi " + data.message, data.success);
             }
         }
-        catch(error){
+        catch (error) {
             console.error("Lỗi hệ thống: ", error);
             showToast("Lỗi hệ thống", false);
         }
 
     }
-)};
+    )
+};
 // SEARCH PRODUCTS
 const searchInput = document.getElementById("search-input-product");
 const searchCombobox = document.getElementById("search-combobox");
@@ -541,25 +542,25 @@ let typingTimer;
 
 // Thời gian chờ sau khi ngừng gõ (300ms)
 const typingInterval = 300; // milliseconds
-function performSearch(){
+function performSearch() {
     const keyword = searchInput.value;
     const type = searchCombobox.value;
 
-    fetchData('api/product_api.php', {action: 'searchProduct',keyword: keyword, type: type})
-    .then(data => {
-        // console.log(data);    
-        renderProducts(data.products, data.actions.canUpdate, data.actions.canDelete,keyword);
-    })
-    .catch(error => console.error('Error:', error));
+    fetchData('api/product_api.php', { action: 'searchProduct', keyword: keyword, type: type })
+        .then(data => {
+            // console.log(data);    
+            renderProducts(data.products, data.actions.canUpdate, data.actions.canDelete, keyword);
+        })
+        .catch(error => console.error('Error:', error));
 }
-if(searchInput){
-    searchInput.addEventListener('input', function(){        
-        
+if (searchInput) {
+    searchInput.addEventListener('input', function () {
+
         clearTimeout(typingTimer);
         typingTimer = setTimeout(performSearch, typingInterval);
     })
 }
-if(searchCombobox){
+if (searchCombobox) {
     searchCombobox.addEventListener('change', performSearch);
 }
 
@@ -587,7 +588,7 @@ function renderProducts(products, canUpdate, canDelete, keyword) {
         </tr>
     `;
 
-    if(products.length > 0){
+    if (products.length > 0) {
         products.forEach(product => {
             html += `
             <tr class="${product.status == 0 ? 'hidden-product' : ''}">
@@ -599,8 +600,7 @@ function renderProducts(products, canUpdate, canDelete, keyword) {
                 <td>${highlightKeyword(product.price, keyword)}</td>
                 <td><img src="${product.image_url}" alt="product-image" /></td>
                 <td>${product.status == 0 ? '<span class="status-no-complete">Ẩn sản phẩm</span>' : '<span class="status-complete">Hiển thị</span>'}</td>
-                ${
-                    (canUpdate || canDelete) ? `
+                ${(canUpdate || canDelete) ? `
                     <td>
                         ${canUpdate ? `<div><a href="admin.php?page=product&action=edit&id=${product.product_id}" class="btn">✏️ Sửa</a></div>` : ''}
                         ${canDelete ? `<div style="margin-top: 5px;"><button class="delete-btn-product btn" data-id="${product.product_id}">❌ Xóa</button></div>` : ''}
@@ -611,7 +611,7 @@ function renderProducts(products, canUpdate, canDelete, keyword) {
             `;
         });
     }
-    else{
+    else {
         const colspan = (canUpdate || canDelete) ? 9 : 8;
         html += `
             <tr>
@@ -627,28 +627,28 @@ function renderProducts(products, canUpdate, canDelete, keyword) {
 const searchInputUser = document.getElementById("search-input-user");
 const cboUser = document.getElementById("search-combobox-user");
 
-if(searchInputUser){
-    searchInputUser.addEventListener('input', function(){                        
+if (searchInputUser) {
+    searchInputUser.addEventListener('input', function () {
         clearTimeout(typingTimer);
         typingTimer = setTimeout(performSearchUser, typingInterval);
     })
 }
-if(cboUser){
+if (cboUser) {
     cboUser.addEventListener('change', performSearchUser);
 }
 
-function performSearchUser(){
+function performSearchUser() {
     const keyword = searchInputUser.value;
     const type = cboUser.value;
 
-    fetchData('api/user_api.php', {action: 'searchUser',keyword: keyword, type: type})
-    .then(data => {
-        // console.log(data);    
-        renderUsers(data.users, data.actions.canUpdate, data.actions.canDelete,keyword);
-    })
-    .catch(error => console.error('Error:', error));
+    fetchData('api/user_api.php', { action: 'searchUser', keyword: keyword, type: type })
+        .then(data => {
+            // console.log(data);    
+            renderUsers(data.users, data.actions.canUpdate, data.actions.canDelete, keyword);
+        })
+        .catch(error => console.error('Error:', error));
 }
-function renderUsers(users, canUpdate, canDelete, keyword){
+function renderUsers(users, canUpdate, canDelete, keyword) {
     const tableBody = document.querySelector(".user-list table");
     let html = `<thead>
         <th>ID</th>
@@ -660,15 +660,15 @@ function renderUsers(users, canUpdate, canDelete, keyword){
         <th>Vai trò</th>    
         ${(canUpdate || canDelete) ? "<th>Thao tác</th>" : ""}
         </thead>
-    `;    
-    if(users.length == 0){
+    `;
+    if (users.length == 0) {
         const colspan = (canUpdate || canDelete) ? 8 : 7;
         html += `
             <tr>
                 <td colspan="${colspan}" style="text-align: center; font-weight: bold; padding: 17px;">Không tìm thấy người dùng</td>
             </tr>
         `;
-    }else{
+    } else {
         users.forEach(user => {
             html += `
             <tr class="${user.status == 0 ? 'hidden-product' : ''}">
@@ -679,8 +679,7 @@ function renderUsers(users, canUpdate, canDelete, keyword){
                 <td>${user.email}</td>
                 <td>${user.status == 0 ? '<span class="status-no-complete">Bị khóa</span>' : '<span class="status-complete">Hoạt động</span>'}</td>
                 <td>${user.role_name}</td>                
-                ${
-                    (canUpdate || canDelete) ? `
+                ${(canUpdate || canDelete) ? `
                     <td>
                         ${canUpdate ? `<a href="admin.php?page=user&act=update&uid=${user.user_id}}">
                                             <button class="edit-btn">✏️ Sửa</button>

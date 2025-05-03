@@ -166,39 +166,39 @@ function loginNotification() {
     let frmLogin = document.frmLogin;
     frmLogin.addEventListener("submit", function (event) {
         event.preventDefault(); // Ngừng hành động submit mặc định
-        
-        if(checkLogin()){
+
+        if (checkLogin()) {
             let formData = new FormData(this); // Lấy dữ liệu từ form
 
-        // Gửi dữ liệu bằng AJAX với fetch
-        fetch("handles/LoginController.php", {
-            method: "POST",
-            body: formData
-        })
-            .then(response => response.json()) // Parse JSON response từ server            
-
-            .then(data => {
-                console.log(data)
-                // Hiển thị toast thông báo từ phản hồi của server
-                if (data.success) {
-                    showToast(data.message, data.success);
-                    // Cập nhật session cart và wishlist vào database
-                    UpdateCartSessionToDatabase();
-                    UpdateWishlistSessionToDatabase();
-                    setTimeout(() => {
-                        window.location.href = "index.php";
-                    }, 1000);
-                }
-                else {
-                    showToast(data.message, data.success);
-                }
+            // Gửi dữ liệu bằng AJAX với fetch
+            fetch("handles/LoginController.php", {
+                method: "POST",
+                body: formData
             })
-            .catch(error => {
-                console.error("Lỗi:", error);
-                showToast("Có lỗi xảy ra, vui lòng thử lại!", false); // Thông báo lỗi nếu có sự cố
-            });
+                .then(response => response.json()) // Parse JSON response từ server            
+
+                .then(data => {
+                    console.log(data)
+                    // Hiển thị toast thông báo từ phản hồi của server
+                    if (data.success) {
+                        showToast(data.message, data.success);
+                        // Cập nhật session cart và wishlist vào database
+                        UpdateCartSessionToDatabase();
+                        UpdateWishlistSessionToDatabase();
+                        setTimeout(() => {
+                            window.location.href = "index.php";
+                        }, 1000);
+                    }
+                    else {
+                        showToast(data.message, data.success);
+                    }
+                })
+                .catch(error => {
+                    console.error("Lỗi:", error);
+                    showToast("Có lỗi xảy ra, vui lòng thử lại!", false); // Thông báo lỗi nếu có sự cố
+                });
         }
-        
+
     });
 }
 
@@ -522,7 +522,7 @@ async function loadProducts(pagenum = 1, isLove = false) {
     proContainer.innerHTML = "";
     data.products.forEach(product => {
         s += `<div class="product" data-id="${product.product_id} ">
-        ${(product.quantity == 0) ? '<div class="product-soldout">HẾT HÀNG</div>' : '' }
+        ${(product.quantity == 0) ? '<div class="product-soldout">HẾT HÀNG</div>' : ''}
         <div class="product-img">
             <img src="${product.image_url}" alt="img1" onclick="getInfoProduct(${product.product_id})">
         </div>
@@ -533,9 +533,8 @@ async function loadProducts(pagenum = 1, isLove = false) {
         <div class="product-button-container">
             <div class="heart-icon" onClick="toggleLove(this, ${product.product_id})"><i class="fa-regular fa-heart"></i></div>
             <div style="width: 100%; height: 100%;">
-            ${
-                product.quantity == 0 ?
-                `<button class="add-to-cart" onClick='showToast("Sản phẩm đã hết hàng", false)'>Thêm vào giỏ</button>` : 
+            ${product.quantity == 0 ?
+                `<button class="add-to-cart" onClick='showToast("Sản phẩm đã hết hàng", false)'>Thêm vào giỏ</button>` :
                 `<button class="add-to-cart" onClick='addToCart(${product.product_id}, 1)'>Thêm vào giỏ</button>`
             }
             </div>        
@@ -608,7 +607,7 @@ function scrollToContent() {
 }
 
 // document.getElementById("timkiem").addEventListener("keyup", () => loadProducts(1));
-document.getElementById("find").addEventListener("click", function(){
+document.getElementById("find").addEventListener("click", function () {
     document.getElementById('minprice').value = "";
     document.getElementById('maxprice').value = "";
     document.querySelectorAll(".brandname").forEach(cb => cb.checked = false);
@@ -627,13 +626,13 @@ document.getElementById("filters").addEventListener("click", function () {
 
 
 document.getElementById('reset-filters').addEventListener('click', function () {
-        document.getElementById('minprice').value = "";
-        document.getElementById('maxprice').value = "";
-        document.querySelectorAll(".brandname").forEach(cb => cb.checked = false);
-        document.querySelectorAll(".loaisanphamcb").forEach(cb => cb.checked = false);
-        document.getElementById("timkiem").value = "";
-        loadProducts(1);
-    });
+    document.getElementById('minprice').value = "";
+    document.getElementById('maxprice').value = "";
+    document.querySelectorAll(".brandname").forEach(cb => cb.checked = false);
+    document.querySelectorAll(".loaisanphamcb").forEach(cb => cb.checked = false);
+    document.getElementById("timkiem").value = "";
+    loadProducts(1);
+});
 
 
 document.getElementById("filters").addEventListener('click', function () {
@@ -784,44 +783,44 @@ function getInfoProduct(productId) {
             document.querySelector(".quantity-control button:first-child").addEventListener("click", () => {
                 const input = document.getElementById("quantity");
                 const quantity = parseInt(input.value);
-                if (quantity > 1){
+                if (quantity > 1) {
                     input.value = quantity - 1;
-                    updatePriceInProductDetail(document.getElementById("quantity").value,unitPrice,spanProductPrice);  
-                } 
+                    updatePriceInProductDetail(document.getElementById("quantity").value, unitPrice, spanProductPrice);
+                }
             });
 
             document.querySelector(".quantity-control button:last-child").addEventListener("click", () => {
                 const input = document.getElementById("quantity");
-                const quantity = parseInt(input.value);                
+                const quantity = parseInt(input.value);
                 const max = parseInt(input.getAttribute('max'));
-                if (quantity < max){
+                if (quantity < max) {
                     input.value = quantity + 1;
-                    updatePriceInProductDetail(document.getElementById("quantity").value,unitPrice,spanProductPrice);
+                    updatePriceInProductDetail(document.getElementById("quantity").value, unitPrice, spanProductPrice);
                 }
-                
+
 
             });
 
             // Xử lý nút Thêm vào giỏ
             const btnAddToCartDeltail = document.querySelector("#container-product-detail .add-to-cart");
-            if(btnAddToCartDeltail){
+            if (btnAddToCartDeltail) {
                 btnAddToCartDeltail.addEventListener("click", () => {
                     const max = parseInt(document.getElementById("quantity").getAttribute('max'));
                     const quantity = parseInt(document.getElementById("quantity").value);
-                    if(quantity > max){
-                        showToast("Vượt quá số lượng còn lại của sản phẩm",false);
+                    if (quantity > max) {
+                        showToast("Vượt quá số lượng còn lại của sản phẩm", false);
                         return;
                     }
                     console.log("Đã thêm " + quantity + " sản phẩm vào giỏ hàng");
                     addToCart(productId, quantity);
-    
+
                     container.style.display = 'none';
                 });
             }
 
         });
 }
-function updatePriceInProductDetail(quantity,unitprice,container){
+function updatePriceInProductDetail(quantity, unitprice, container) {
     const totalPrice = quantity * unitprice;
     container.innerText = totalPrice.toLocaleString('vi-VN') + " đ";
 }
@@ -950,6 +949,6 @@ window.onload = function () {
     loadproductleftmenu();
     updateCartCount();
     updateLoveCount();
-    
+
 }
 
