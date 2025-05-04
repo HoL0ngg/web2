@@ -63,3 +63,91 @@ const showBieuDo = () => {
     hideAllThongKe();
 
 }
+
+document.getElementById("select-filter").addEventListener("change", function () {
+    var filterValue = this.value;
+    var startDateInput = document.getElementById("startDate");
+    var endDateInput = document.getElementById("endDate");
+
+    if (filterValue === "custom") {
+        startDateInput.readOnly = false; // Cho phép nhập dữ liệu
+        endDateInput.readOnly = false;
+    } else {
+        startDateInput.readOnly = true;  // Ngăn người dùng nhập thủ công
+        endDateInput.readOnly = true;
+    }
+    console.log(filterValue);
+
+    var today = new Date();
+
+    if (filterValue === "30") {
+        var startDate = new Date();
+        startDate.setDate(today.getDate() - 30);
+        startDateInput.value = startDate.toISOString().split("T")[0]; // Định dạng YYYY-MM-DD
+        endDateInput.value = today.toISOString().split("T")[0];
+    } else if (filterValue === "7") {
+        var startDate = new Date();
+        startDate.setDate(today.getDate() - 7);
+        startDateInput.value = startDate.toISOString().split("T")[0];
+        endDateInput.value = today.toISOString().split("T")[0];
+    } else if (filterValue === "custom") {
+        startDateInput.value = ""; // Cho phép nhập thủ công
+        endDateInput.value = "";
+    }
+
+
+    fetch("xulithongke.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: "start=" + startDateInput.value + "&end=" + endDateInput.value
+    })
+        .then(response => response.text()) // Chuyển đổi dữ liệu phản hồi sang dạng text
+        .then(data => {
+            document.querySelector("table").innerHTML = data; // Cập nhật bảng dữ liệu
+        })
+        .catch(error => console.error("Lỗi khi gửi yêu cầu:", error)); // Bắt lỗi nếu có vấn đề
+});
+
+function updateDateInputs() {
+    var filterValue = document.getElementById("select-filter").value;
+    var today = new Date();
+    var startDateInput = document.getElementById("startDate");
+    var endDateInput = document.getElementById("endDate");
+
+    if (filterValue === "30") {
+        var startDate = new Date();
+        startDate.setDate(today.getDate() - 30);
+        startDateInput.value = startDate.toISOString().split("T")[0];
+        endDateInput.value = today.toISOString().split("T")[0];
+    } else if (filterValue === "7") {
+        var startDate = new Date();
+        startDate.setDate(today.getDate() - 7);
+        startDateInput.value = startDate.toISOString().split("T")[0];
+        endDateInput.value = today.toISOString().split("T")[0];
+    } else if (filterValue === "custom") {
+        startDateInput.value = "";
+        endDateInput.value = "";
+    }
+
+    // Đặt các input thành readonly nếu không phải "Tùy chỉnh"
+    startDateInput.readOnly = (filterValue !== "custom");
+    endDateInput.readOnly = (filterValue !== "custom");
+
+    fetch("xulithongke.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: "start=" + startDateInput.value + "&end=" + endDateInput.value
+    })
+        .then(response => response.text()) // Chuyển đổi dữ liệu phản hồi sang dạng text
+        .then(data => {
+            document.querySelector("table").innerHTML = data; // Cập nhật bảng dữ liệu
+        })
+        .catch(error => console.error("Lỗi khi gửi yêu cầu:", error)); // Bắt lỗi nếu có vấn đề
+}
+
+// Gọi hàm khi trang tải xong
+document.addEventListener("DOMContentLoaded", updateDateInputs);

@@ -332,21 +332,35 @@ class TKModel
         $stmt->close();
     }
 
-    public function getTop5KhachHang()
+    public function getTop5KhachHang($startDate = null, $endDate = null)
     {
         $sql = "SELECT kh.customer_id, kh.customer_name, kh.phone, SUM(dh.total) AS order_sum
-                FROM khachhang kh
-                JOIN donhang dh ON kh.customer_id = dh.customer_id
-                GROUP BY kh.customer_id, kh.customer_name, kh.phone
-                ORDER BY order_sum DESC
-                LIMIT 5";
+            FROM khachhang kh
+            JOIN donhang dh ON kh.customer_id = dh.customer_id";
+
+        // Nếu có điều kiện lọc theo ngày, thêm vào truy vấn
+        if ($startDate && $endDate) {
+            $sql .= " WHERE dh.orderDate BETWEEN ? AND ?";
+        }
+
+        $sql .= " GROUP BY kh.customer_id, kh.customer_name, kh.phone
+              ORDER BY order_sum DESC
+              LIMIT 5";
+
         $stmt = $this->conn->prepare($sql);
+
+        // Gán tham số nếu có lọc ngày
+        if ($startDate && $endDate) {
+            $stmt->bind_param("ss", $startDate, $endDate);
+        }
+
         $stmt->execute();
         $result = $stmt->get_result();
         $topCustomers = $result->fetch_all(MYSQLI_ASSOC);
         $stmt->close();
         return $topCustomers;
     }
+
 
     public function getOrderById($id)
     {

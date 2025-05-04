@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <div>
     <!-- tutu chinh tiep -->
     <div class="thongke-container">
@@ -51,49 +55,20 @@
 
     <div class="header">Top 5 khách hàng có hóa đơn cao nhất</div>
     <div class="filter">
-        <select>
-            <option>30 ngày qua</option>
-            <option>7 ngày qua</option>
-            <option>Tùy chỉnh</option>
+        <select id="select-filter">
+            <option value="30">30 ngày qua</option>
+            <option value="7">7 ngày qua</option>
+            <option value="custom">Tùy chỉnh</option>
         </select>
-        <input type="date" placeholder="Từ ngày">
-        <input type="date" placeholder="Đến ngày">
+        <input type="date" placeholder="Từ ngày" id="startDate">
+        <input type="date" placeholder="Đến ngày" id="endDate">
         <a href="#" class="export-btn">Xuất Excel</a>
     </div>
     <table>
-        <?php
-        require_once 'Model/TKModel.php';
-        $tkModel = new TKModel();
-
-        $top5 = $tkModel->getTop5KhachHang();
-        if ($top5) {
-            echo '<tr>';
-            echo '<th>STT</th>';
-            echo '<th>Tên khách hàng</th>';
-            echo '<th>Số điện thoại</th>';
-            // echo '<th>Địa chỉ</th>';
-            echo '<th>Tổng tiền</th>';
-            echo '<th>Hành động</th>';
-            echo '</tr>';
-
-            foreach ($top5 as $index => $khachHang) {
-                echo '<tr>';
-                echo '<td>' . ($index + 1) . '</td>';
-                echo '<td>' . htmlspecialchars($khachHang['customer_name']) . '</td>';
-                echo '<td>' . htmlspecialchars($khachHang['phone']) . '</td>';
-                // echo '<td>' . htmlspecialchars($khachHang['dia_chi']) . '</td>';
-                echo '<td>' . number_format($khachHang['order_sum'], 0, ',', '.') . ' VNĐ</td>';
-                echo '<td><a href="admin.php?page=thongke&id=' . $khachHang['customer_id'] . '">Xem chi tiết</a></td>';
-                echo '</tr>';
-            }
-        } else {
-            echo '<tr><td colspan="5">Không có dữ liệu.</td></tr>';
-        }
-        ?>
     </table>
 
 </div>
-<script src="/js/thongke.js"></script>
+<script src="js/thongke.js"></script>
 <style>
     .header {
         font-size: 24px;
