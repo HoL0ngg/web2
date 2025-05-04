@@ -299,6 +299,8 @@
   text-decoration: none;
   /* border: 2px solid red; */
   display: block;
+  line-height: 50px;
+  height: 100%;
 }
 
 #left-bot-header > div {
@@ -1035,6 +1037,7 @@ input[type="email"] {
   font-size: 1.1rem;
   width: 170px;
   transition: all 0.3s ease;
+  font-weight: bold;
 }
 
 .add-to-cart:hover,
@@ -1097,22 +1100,21 @@ input[type="email"] {
   visibility: visible;
 }
 
-#menu{
+#menu {
   display: none;
-
 }
-#menu:hover #menu-sub{
+#menu:hover #menu-sub {
   opacity: 1;
   visibility: visible;
 }
-#menu-sub{
+#menu-sub {
   position: absolute;
   height: fit-content;
   width: fit-content;
-  
+
   top: 100%;
-    left: 12px;
-    right: 0; 
+  left: 12px;
+  right: 0;
   opacity: 0;
   visibility: hidden;
   transition: all 0.5s;
@@ -1611,6 +1613,9 @@ img {
   #register-container {
     width: 70%;
   }
+  #changepassword-container {
+    width: 40%;
+  }
 }
 
 @media screen and (min-width: 921px) and (max-width: 1094px) {
@@ -1674,12 +1679,12 @@ img {
   .logo {
     flex: 2;
   }
- 
+
   #left-bot-header {
     /* border: 2px solid red; */
   }
   #bot-header {
-    justify-content: space-around; 
+    justify-content: space-around;
   }
 
   #left-bot-header > div {
@@ -1701,6 +1706,9 @@ img {
   }
   #register-container {
     width: 80%;
+  }
+  #changepassword-container {
+    width: 50%;
   }
 }
 @media screen and (min-width: 781px) and (max-width: 920px) {
@@ -1766,15 +1774,14 @@ img {
     /* width: 86%; */
     /* display: none */
   }
- 
 
-  #menu{
+  #menu {
     display: block;
   }
-  .hihi{
+  .hihi {
     display: none;
   }
-  
+
   .banner-swiper {
     width: 85%;
   }
@@ -1784,7 +1791,6 @@ img {
     font-size: 1.1rem;
     /* border: 2px solid red; */
   }
-
   #left-bot-header > div:hover {
     background-color: #2399ed;
     cursor: pointer;
@@ -1798,10 +1804,13 @@ img {
   #register-container {
     width: 97%;
   }
-  #menu-sub{
-   top: 100%;
-   left: 8%;
-   right: 0;
+  #menu-sub {
+    top: 100%;
+    left: 8%;
+    right: 0;
+  }
+  #changepassword-container {
+    width: 50%;
   }
 }
 @media screen and (max-width: 780px) {
@@ -1842,16 +1851,16 @@ img {
     width: 100%;
   }
 
-  #input span{
+  #input span {
     display: none;
   }
-   
-  #menu{
+
+  #menu {
     display: block;
   }
-.hihi{
-  display: none;
-}
+  .hihi {
+    display: none;
+  }
   #leftmenu_product ul {
     padding: 0px 7px;
   }
@@ -1894,5 +1903,44 @@ img {
   }
   #register-container {
     width: 100%;
+  }
+  #left-bot-header a {
+    line-height: 40px;
+    height: 70%;
+    /* border: 2px solid red; */
+  }
+  #changepassword-container {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 600px) {
+  #left-bot-header a {
+    line-height: 20px;
+    height: 90%;
+    /* border: 2px solid red; */
+    padding-top: 4px;
+    width: 80%;
+  }
+  #login-container {
+    width: 100%;
+  }
+  #register-container {
+    width: 100%;
+  }
+  #changepassword-container {
+    width: 100%;
+  }
+  #top-header {
+    width: 100%;
+    justify-content: space-between;
+  }
+  #leftmenu_product ul {
+    padding: 0px;
+  }
+  #leftmenu_product {
+    width: 30%;
+  }
+  #rightmenu_product {
+    width: 70%;
   }
 }
