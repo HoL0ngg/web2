@@ -269,4 +269,20 @@ class ProductModel
 
         return $products;
     }
+
+    public function getMostBuyProduct()
+    {
+        $sql = "SELECT product_id, SUM(quantity) AS total_quantity 
+                FROM ChiTietDonHang 
+                GROUP BY product_id 
+                ORDER BY total_quantity DESC 
+                LIMIT 1";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        return $row['product_id']; // Trả về mảng chứa product_id và total_quantity
+    }
 }

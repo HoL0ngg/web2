@@ -50,4 +50,14 @@ class OrderController
     {
         return $this->model->getOrdersWithFilters($from, $to, $keyword, $status, $thanhpho, $quan, $phuong);
     }
+
+    public function getOrderCount()
+    {
+        return $this->model->getOrderCount();
+    }
+
+    public function getTotalCount()
+    {
+        return $this->model->getTotalCount();
+    }
 }

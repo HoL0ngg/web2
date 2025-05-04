@@ -447,4 +447,14 @@ class TKModel
 
         return $users;
     }
+
+    public function getTotalCustomer()
+    {
+        $sql = "SELECT COUNT(*) FROM KhachHang";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row['COUNT(*)'];
+    }
 }

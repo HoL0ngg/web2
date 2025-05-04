@@ -1,5 +1,15 @@
 <?php
-
+require_once 'handles/OrderController.php';
+require_once 'Model/TKModel.php';
+require_once 'handles/ProductController.php';
+$orderController = new OrderController();
+$tkmodel = new TKModel();
+$productController = new ProductController();
+$totalOrder = $orderController->getOrderCount();
+$totalSumOrder = $orderController->getTotalCount();
+$totalCustomer = $tkmodel->getTotalCustomer();
+$product = $productController->getMostBuyProduct();
+$product = $productController->getNameProductById($product);
 ?>
 
 <div>
@@ -15,7 +25,7 @@
             </div>
             <div class="thongke-title">
                 <p>Tổng doanh thu</p>
-                <div>10.000.000 VNĐ</div>
+                <div><?= number_format($totalSumOrder, 0, ',', '.') ?> VNĐ</div>
             </div>
         </div>
         <div class="thongke-item">
@@ -26,7 +36,7 @@
             </div>
             <div class="thongke-title">
                 <p>Tổng đơn hàng</p>
-                <div>69 Đơn hàng</div>
+                <div><?= $totalOrder ?> đơn hàng</div>
             </div>
         </div>
         <div class="thongke-item">
@@ -37,7 +47,7 @@
             </div>
             <div class="thongke-title">
                 <p>Tổng khách hàng</p>
-                <div>100 Khách hàng</div>
+                <div><?= $totalCustomer ?> Khách hàng</div>
             </div>
         </div>
         <div class="thongke-item">
@@ -48,7 +58,7 @@
             </div>
             <div class="thongke-title">
                 <p>Sản phẩm bán chạy</p>
-                <div>Son bla bla</div>
+                <div><?= $product ?></div>
             </div>
         </div>
     </div>
@@ -94,7 +104,7 @@
         align-items: center;
         border-radius: 6px;
         box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-        cursor: pointer;
+        /* cursor: pointer; */
     }
 
     .thongke-item.hide {

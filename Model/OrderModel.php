@@ -60,10 +60,10 @@ class OrderModel
     {
         $sql = "UPDATE donhang SET status = ?, employee_id = ? WHERE order_id = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("sii", $newStatus,$employee_id, $orderId);
+        $stmt->bind_param("sii", $newStatus, $employee_id, $orderId);
         $stmt->execute();
     }
-    
+
     public function getOrdersByDateRange($from, $to)
     {
         $sql = "SELECT * FROM donhang WHERE orderDate BETWEEN ? AND ?";
@@ -192,5 +192,25 @@ class OrderModel
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
         return $row['AUTO_INCREMENT'];
+    }
+
+    public function getOrderCount()
+    {
+        $sql = "SELECT COUNT(*) AS total_orders FROM DonHang";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row['total_orders'];
+    }
+
+    public function getTotalCount()
+    {
+        $sql = "SELECT SUM(total) AS total_amount FROM DonHang";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row['total_amount'] ?? 0; // Trả về 0 nếu không có đơn hàng nào
     }
 }

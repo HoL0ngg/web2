@@ -51,4 +51,9 @@ class ProductController
         include('view/bestsellingproduct.php');
         // exit();
     }
+
+    public function getMostBuyProduct()
+    {
+        return $this->model->getMostBuyProduct();
+    }
 }
