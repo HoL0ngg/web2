@@ -460,6 +460,13 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                             return;
                         }
 
+                        // Xóa dòng "Không có sản phẩm nào" nếu tồn tại
+                        $("#product-list_supplier tr").each(function () {
+                            if ($(this).find("td").length === 1 && $(this).text().includes("Không có sản phẩm nào")) {
+                                $(this).remove();
+                            }
+                        });
+
                         // Tạo combobox với danh sách sản phẩm
                         let options = '<option value="">Chọn sản phẩm</option>';
                         available_products.forEach(product => {
