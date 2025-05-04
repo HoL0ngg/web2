@@ -10,29 +10,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     switch ($action) {
         case 'add_chungloai':
             $ten = $_POST['tenchungloai'];
-            $new_id = $model->insertChungLoai($ten);
-
+            $hinhanh = isset($_POST['hinhanh']) ? $_POST['hinhanh'] : null;
+        
+            // Kiểm tra định dạng đường dẫn ảnh (nếu cần)
+            if ($hinhanh && !preg_match('/^imgs\/[a-zA-Z0-9_-]+\.(jpg|jpeg|png|gif|webp)$/', $hinhanh)) {
+                http_response_code(400);
+                echo json_encode(["error" => "Đường dẫn ảnh không hợp lệ"]);
+                exit;
+            }
+        
+            $new_id = $model->insertChungLoai($ten, $hinhanh);
+        
             if (!$new_id) {
                 http_response_code(500);
                 echo json_encode(["error" => "Lỗi khi thêm chủng loại"]);
                 exit;
             }
-
-            $html = "
-                <tr>
-                    <td>{$new_id}</td>
-                    <td>{$ten}</td>
-                    <td colspan='3'>Không có thể loại</td>
-                    <td>
-                        <a href='admin.php?page=category&act=edit_chungloai&id={$new_id}' 
-                        data-machungloai='{$new_id}' 
-                        data-tenchungloai='" . htmlspecialchars($ten, ENT_QUOTES, 'UTF-8') . "'>
-                        <button class='edit-chungloai-btn'>✏️ Sửa</button>
-                        </a>
-                    </td>
-                </tr>
-            ";
-            echo json_encode($html);
+        
+            echo json_encode(["success" => true]);
             exit;
 
         case 'delete_chungloai':
@@ -62,6 +57,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             $machungloai = $_POST['machungloai'];
             $tenchungloai = $_POST['tenchungloai'];
             $theloai = isset($_POST['theloai']) ? json_decode($_POST['theloai'], true) : [];
+            $hinhanh = isset($_POST['hinhanh']) ? $_POST['hinhanh'] : null;
+
+            // Kiểm tra định dạng đường dẫn ảnh (nếu cần)
+            if ($hinhanh && !preg_match('/^imgs\/[a-zA-Z0-9_-]+\.(jpg|jpeg|png|gif|webp)$/', $hinhanh)) {
+                http_response_code(400);
+                echo json_encode(["error" => "Đường dẫn ảnh không hợp lệ"]);
+                exit;
+            }
 
             if (!is_array($theloai)) {
                 http_response_code(400);
@@ -69,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 exit;
             }
 
-            $result = $model->updateChungLoaiWithTheLoai($machungloai, $tenchungloai, $theloai);
+            $result = $model->updateChungLoaiWithTheLoai($machungloai, $tenchungloai, $theloai, $hinhanh);
             if (!$result) {
                 http_response_code(500);
                 echo json_encode(["error" => "Lỗi khi cập nhật chủng loại, vui lòng thử lại"]);
@@ -77,7 +80,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             }
             echo json_encode(["success" => true]);
             exit;
-
         case 'add_theloai':
             $ten = $_POST['tentheloai'];
             $maCL = $_POST['machungloai'];

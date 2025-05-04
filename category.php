@@ -34,10 +34,21 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                     <span id="close-popup" class="close-btn">✖</span>
                 </div>
                 <div class="popup-body">
-                    <div class="left_info">
+                    <div class="left-section">
+                        <div class="input-row">
+                            <img id="preview-hinhanh" src="imgs/default.webp" alt="Ảnh xem trước" style="width: 100px; height: 100px; object-fit: cover; border: 1px solid #ddd; border-radius: 4px;">
+                            <input type="file" id="hinhanh-file" accept="image/*" style="display: none;">
+                            <button type="button" id="choose-hinhanh">Chọn ảnh</button>
+                        </div>
+                    </div>
+                    <div class="right-section">
                         <div class="input-row">
                             <label for="tenchungloai">Tên chủng loại:</label>
                             <input type="text" id="tenchungloai" placeholder="Nhập tên chủng loại">
+                        </div>
+                        <div class="input-row">
+                            <label for="hinhanh">Ảnh chủng loại:</label>
+                            <input type="text" id="hinhanh" placeholder="Nhập đường dẫn ảnh (ví dụ: imgs/img1.jpg)" value="imgs/default.webp">
                         </div>
                     </div>
                 </div>
@@ -56,7 +67,7 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                 </div>
                 <div class="popup-body">
                     <div class="left_info">
-                        <input type="hidden" id="edit_machungloai">
+                        <input type="hidden" id="edit_machungloai"> <!-- Thêm input ẩn -->
                         <div class="input-row">
                             <label for="display_machungloai">Mã chủng loại:</label>
                             <input type="text" id="display_machungloai" readonly>
@@ -64,6 +75,15 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                         <div class="input-row">
                             <label for="edit_tenchungloai">Tên chủng loại:</label>
                             <input type="text" id="edit_tenchungloai">
+                        </div>
+                        <div class="input-row">
+                            <label for="edit_hinhanh">Ảnh chủng loại:</label>
+                            <input type="text" id="edit_hinhanh" placeholder="Nhập đường dẫn ảnh (ví dụ: imgs/img1.jpg)" value="imgs/default.webp">
+                            <input type="file" id="edit_hinhanh-file" accept="image/*" style="display: none;">
+                            <img id="edit_preview-hinhanh" src="imgs/default.webp" alt="Ảnh chủng loại" style="width: 100px; height: 100px; object-fit: cover; border: 1px solid #ddd; border-radius: 4px;">
+                        </div>
+                        <div class="input-row">
+                            <button type="button" id="edit_choose-hinhanh">Chọn ảnh</button>    
                         </div>
                     </div>
                     <div class="right_table">
@@ -99,6 +119,7 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                 <thead>
                     <tr>
                         <th>Mã chủng loại</th>
+                        <th>Ảnh</th>
                         <th>Tên chủng loại</th>
                         <th>Mã thể loại</th>
                         <th>Tên thể loại</th>
@@ -121,13 +142,15 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                             if (!$has_theloai) {
                                 echo "<tr>";
                                 echo "<td>{$rows[0]['machungloai']}</td>";
+                                echo "<td><img src='" . ($rows[0]['hinhanh'] ? $rows[0]['hinhanh'] : 'imgs/default.webp') . "' alt='Ảnh chủng loại' style='width: 50px; height: 50px; object-fit: cover;'></td>"; // Thêm ảnh với default nếu không có
                                 echo "<td>{$rows[0]['tenchungloai']}</td>";
                                 echo "<td colspan='3'>Không có thể loại</td>";
                                 echo "<td>";
                                 if ($canUpdate) {
                                     echo "<a href='admin.php?page=category&act=edit_chungloai&id={$rows[0]['machungloai']}' 
                                         data-machungloai='{$rows[0]['machungloai']}' 
-                                        data-tenchungloai='" . htmlspecialchars($rows[0]['tenchungloai'], ENT_QUOTES, 'UTF-8') . "'>
+                                        data-tenchungloai='" . htmlspecialchars($rows[0]['tenchungloai'], ENT_QUOTES, 'UTF-8') . "'
+                                        data-hinhanh='{$rows[0]['hinhanh']}'>
                                         <button class='edit-chungloai-btn'>✏️ Sửa</button></a>";
                                 }
                                 echo "</td>";
@@ -140,6 +163,7 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                                 echo "<tr>";
                                 if ($first) {
                                     echo "<td rowspan='{$rowspan}'>{$r['machungloai']}</td>";
+                                    echo "<td rowspan='{$rowspan}'><img src='" . ($r['hinhanh'] ? $r['hinhanh'] : 'imgs/default.webp') . "' alt='Ảnh chủng loại' style='width: 50px; height: 50px; object-fit: cover;'></td>"; // Thêm ảnh với default nếu không có
                                     echo "<td rowspan='{$rowspan}'>{$r['tenchungloai']}</td>";
                                 }
                                 echo "<td>{$r['matheloai']}</td>";
@@ -149,9 +173,10 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                                     echo "<td rowspan='{$rowspan}'>";
                                     if ($canUpdate) {
                                         echo "<a href='admin.php?page=category&act=edit_chungloai&id={$r['machungloai']}' 
-                                                 data-machungloai='{$r['machungloai']}' 
-                                                 data-tenchungloai='" . htmlspecialchars($r['tenchungloai'], ENT_QUOTES, 'UTF-8') . "'>
-                                                 <button class='edit-chungloai-btn'>✏️ Sửa</button></a>";
+                                                data-machungloai='{$r['machungloai']}' 
+                                                data-tenchungloai='" . htmlspecialchars($r['tenchungloai'], ENT_QUOTES, 'UTF-8') . "'
+                                                data-hinhanh='{$r['hinhanh']}'>
+                                                <button class='edit-chungloai-btn'>✏️ Sửa</button></a>";
                                     }
                                     echo "</td>";
                                     $first = false;
@@ -168,6 +193,49 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
+            // Mở input file khi nhấn nút Chọn ảnh
+            $("#choose-hinhanh").on("click", function () {
+                $("#hinhanh-file").click();
+            });
+
+            // Xem trước ảnh và cập nhật đường dẫn khi chọn file
+            $("#hinhanh-file").on("change", function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const fileName = "imgs/" + file.name;
+                    $("#hinhanh").val(fileName);
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#preview-hinhanh").attr("src", e.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    $("#hinhanh").val("imgs/default.webp");
+                    $("#preview-hinhanh").attr("src", "imgs/default.webp");
+                }
+            });
+            // Mở input file khi nhấn nút Chọn ảnh trong popup Chỉnh sửa
+            $("#edit_choose-hinhanh").on("click", function () {
+                $("#edit_hinhanh-file").click();
+            });
+
+            // Xem trước ảnh và cập nhật đường dẫn khi chọn file trong popup Chỉnh sửa
+            $("#edit_hinhanh-file").on("change", function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const fileName = "imgs/" + file.name;
+                    $("#edit_hinhanh").val(fileName);
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#edit_preview-hinhanh").attr("src", e.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    $("#edit_hinhanh").val("imgs/default.webp");
+                    $("#edit_preview-hinhanh").attr("src", "imgs/default.webp");
+                }
+            });
+
             // Mở popup thêm chủng loại
             $(".add-chungloai-btn").on("click", function (e) {
                 e.preventDefault();
@@ -183,8 +251,9 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
             // Thêm chủng loại
             $("#btn-them-chungloai").on("click", function () {
                 const tenchungloai = $("#tenchungloai").val().trim();
+                const hinhanh = $("#hinhanh").val().trim();
+
                 if (tenchungloai === "") {
-                    // alert("Vui lòng nhập tên chủng loại");
                     showToast("Vui lòng nhập tên chủng loại", false);
                     return;
                 }
@@ -195,22 +264,16 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                     dataType: "json",
                     data: {
                         action: "add_chungloai",
-                        tenchungloai: tenchungloai
+                        tenchungloai: tenchungloai,
+                        hinhanh: hinhanh || null
                     },
                     success: function (response) {
-                        if (typeof response === 'string') {
-                            $("#popup-add-chungloai").removeClass("active");
-                            $("#tenchungloai").val("");
-                            $("tbody").append(response);
+                        if (response.success) {
                             showToast("Thêm chủng loại thành công", true);
-                        } else if (response.success) {
-                            showToast("Thêm chủng loại thành công", true);
-                            // Wait for 1 second before reloading
                             setTimeout(function () {
-                                    location.reload(); // Reload để cập nhật bảng
+                                location.reload(); // Reload để cập nhật bảng
                             }, 1000);
                         } else {
-                            // alert("Thêm thất bại: " + response.error);
                             showToast("Thêm thất bại: " + response.error, false);
                         }
                     },
@@ -226,10 +289,13 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                 const $link = $(this).closest("a");
                 const machungloai = $link.data("machungloai");
                 const tenchungloai = $link.data("tenchungloai");
+                const hinhanh = $link.data("hinhanh") || "imgs/default.webp";
 
                 $("#edit_machungloai").val(machungloai);
                 $("#display_machungloai").val(machungloai);
                 $("#edit_tenchungloai").val(tenchungloai);
+                $("#edit_hinhanh").val(hinhanh);
+                $("#edit_preview-hinhanh").attr("src", hinhanh);
                 $("#popup-edit-chungloai").addClass("active");
 
                 // Lấy danh sách thể loại
@@ -260,11 +326,9 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                             toggleDeleteButton();
                         } else {
                             showToast("Lỗi khi lấy danh sách thể loại: " + response.error, false);
-                            
                         }
                     },
                     error: function () {
-                        // alert("Lỗi khi gửi yêu cầu lấy danh sách thể loại");
                         showToast("Lỗi khi gửi yêu cầu lấy danh sách thể loại", false);
                     }
                 });
@@ -385,10 +449,10 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
             $("#edit-chungloai-btn_popup").on("click", function () {
                 const machungloai = $("#edit_machungloai").val();
                 const tenchungloai = $("#edit_tenchungloai").val().trim();
+                const hinhanh = $("#edit_hinhanh").val().trim();
 
                 if (tenchungloai === "") {
                     showToast("Vui lòng nhập tên chủng loại", false);
-                    
                     return;
                 }
 
@@ -414,12 +478,12 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                         action: "update_chungloai",
                         machungloai: machungloai,
                         tenchungloai: tenchungloai,
-                        theloai: JSON.stringify(theloai_list)
+                        theloai: JSON.stringify(theloai_list),
+                        hinhanh: hinhanh || null
                     },
                     success: function (response) {
                         if (response.success) {
                             showToast("Sửa chủng loại thành công", true);
-                            // Wait for 1 second before reloading
                             setTimeout(function () {
                                 location.reload(); // Reload để cập nhật bảng
                             }, 1000);
@@ -439,7 +503,7 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
 
                 Swal.fire({
                 title: "Thông báo",
-                text: "Bạn có chắc muốn xóa thể loại này không?",
+                text: "Bạn có chắc muốn xóa chủng loại này không?",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#d33",

@@ -120,7 +120,8 @@ th {
     background: white;
     padding: 5px 20px;
     border-radius: 8px;
-    width: auto;
+    width: 80%;
+    max-width: 800px;
     position: relative;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     text-align: center;
@@ -150,13 +151,19 @@ th {
     flex-direction: row;
     align-items: flex-start;
     padding: 20px 0;
+    /* justify-content: space-between; */
+}
+
+.popup-body .left-section,
+.popup-body .right-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 45%;
 }
 
 .popup-body .left_info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
     margin: 0 40px 0 0;
     min-width: 250px;
 }
@@ -185,6 +192,10 @@ th {
     flex-direction: column;
     align-items: flex-start;
     flex: 1;
+    width: 45%;
+    max-height: 60vh;
+    overflow-y: auto;
+
 }
 
 .popup-body .right_table .right_table--header {
@@ -273,18 +284,26 @@ th {
 /* Styling for the "Thêm chủng loại" popup */
 #popup-add-chungloai .popup-body {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    align-items: flex-start;
     padding: 20px 0;
 }
 
-#popup-add-chungloai .left_info {
+#popup-add-chungloai .left-section .input-row {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin: 0;
-    min-width: 300px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#popup-add-chungloai .left-section img {
+    margin-bottom: 10px;
+}
+
+#popup-add-chungloai .right-section .input-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 #popup-add-chungloai .popup-footer {
@@ -304,19 +323,54 @@ th {
     background-color: #2980b9;
 }
 
-.input-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+/* Styling for the "Chỉnh sửa chủng loại" popup */
+#popup-edit-chungloai .popup-body .left_info .input-row:last-child {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#popup-edit-chungloai .popup-body .left_info .input-row:last-child img {
+    margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.input-row label {
-    font-weight: bold;
-    white-space: nowrap;
+#popup-edit-chungloai .popup-body .left_info .input-row:last-child button {
+    margin-top: 10px;
 }
 
-.input-row input,
-.input-row span {
-    flex: 1;
+/* Style cho ảnh trong bảng */
+.chungloai-list img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+/* Style cho ảnh và input trong popup */
+.popup-body .input-row img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.popup-body .input-row input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #BDC3C7;
+    border-radius: 4px;
+}
+
+.popup-body .input-row button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    background: #3498db;
+    color: white;
+    cursor: pointer;
+}
+
+.popup-body .input-row button:hover {
+    background: #2980b9;
 }

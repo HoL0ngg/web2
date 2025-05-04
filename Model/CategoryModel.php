@@ -12,9 +12,9 @@ class CategoryModel {
         }
     }
 
-    public function insertChungLoai($tenchungloai) {
-        $stmt = $this->conn->prepare("INSERT INTO chungloai (tenchungloai) VALUES (?)");
-        $stmt->bind_param("s", $tenchungloai);
+    public function insertChungLoai($tenchungloai, $hinhanh = null) {
+        $stmt = $this->conn->prepare("INSERT INTO chungloai (tenchungloai, hinhanh) VALUES (?, ?)");
+        $stmt->bind_param("ss", $tenchungloai, $hinhanh);
         if ($stmt->execute()) {
             $new_id = $stmt->insert_id;
             $stmt->close();
@@ -40,15 +40,20 @@ class CategoryModel {
         return $result;
     }
 
-    public function updateChungLoaiWithTheLoai($machungloai, $tenchungloai, $theloai) {
+    public function updateChungLoaiWithTheLoai($machungloai, $tenchungloai, $theloai, $hinhanh = null) {
         $this->conn->begin_transaction();
         try {
-            // Update tên chủng loại
-            $stmt = $this->conn->prepare("UPDATE chungloai SET tenchungloai = ? WHERE machungloai = ?");
-            $stmt->bind_param("ss", $tenchungloai, $machungloai);
+            // Update tên chủng loại và hình ảnh (nếu có)
+            if ($hinhanh) {
+                $stmt = $this->conn->prepare("UPDATE chungloai SET tenchungloai = ?, hinhanh = ? WHERE machungloai = ?");
+                $stmt->bind_param("sss", $tenchungloai, $hinhanh, $machungloai);
+            } else {
+                $stmt = $this->conn->prepare("UPDATE chungloai SET tenchungloai = ? WHERE machungloai = ?");
+                $stmt->bind_param("ss", $tenchungloai, $machungloai);
+            }
             $stmt->execute();
             $stmt->close();
-
+    
             // Nếu danh sách thể loại không rỗng, xóa các thể loại không có trong danh sách
             if (!empty($theloai)) {
                 $placeholders = implode(',', array_fill(0, count($theloai), '?'));
@@ -58,7 +63,7 @@ class CategoryModel {
                 $stmt->bind_param($types, ...$params);
                 $stmt->execute();
                 $stmt->close();
-
+    
                 // Cập nhật machungloai cho các thể loại trong danh sách
                 foreach ($theloai as $matheloai) {
                     $stmt = $this->conn->prepare("UPDATE theloai SET machungloai = ? WHERE matheloai = ?");
@@ -73,7 +78,7 @@ class CategoryModel {
                 $stmt->execute();
                 $stmt->close();
             }
-
+    
             $this->conn->commit();
             return true;
         } catch (Exception $e) {
@@ -132,6 +137,7 @@ class CategoryModel {
             SELECT 
                 cl.machungloai,
                 cl.tenchungloai,
+                cl.hinhanh,
                 tl.matheloai,
                 tl.tentheloai,
                 COUNT(sp.product_id) AS so_sanpham
