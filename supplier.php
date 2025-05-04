@@ -385,7 +385,7 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                                 <td>
                                     <select class="product-select">${options}</select>
                                 </td>
-                                <td><button class="delete-product-btn">X</button></td>
+                                <td><button class="delete-product-btn">❌</button></td>
                             </tr>
                         `);
                         toggleDeleteButton();
