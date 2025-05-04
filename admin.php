@@ -100,9 +100,11 @@ $_SESSION['permissions'] = $phanQuyenController->getChiTietNhomQuyen($role_id);
                 } elseif ($page == 'thongke') {
                     if (isset($_GET['id'])) {
                         $id = $_GET['id'];
+                        $sort = $_GET['sort'] ?? 'tang'; // mặc định tăng dần
                         require_once 'handles/TKController.php';
                         $tkController = new TKController();
-                        $orders = $tkController->getOrderById($id);
+                        $isInc = ($sort === 'tang'); // true nếu tăng, false nếu giảm
+                        $orders = $tkController->getOrderById($id, $isInc);
                         require_once 'view/OrderView.php';
                     } else {
                         include('thongke.php');

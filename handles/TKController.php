@@ -146,10 +146,10 @@
             echo json_encode($response);
         }
 
-        public function getOrderById($id)
+        public function getOrderById($id, $isInc)
         {
             $id = (int)$id;
-            $order = $this->tkmodel->getOrderById($id);
+            $order = $this->tkmodel->getOrderById($id, $isInc);
             return $order;
         }
 

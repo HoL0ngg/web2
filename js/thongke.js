@@ -110,6 +110,7 @@ document.getElementById("select-filter").addEventListener("change", function () 
         .catch(error => console.error("Lỗi khi gửi yêu cầu:", error)); // Bắt lỗi nếu có vấn đề
 });
 
+
 function updateDateInputs() {
     var filterValue = document.getElementById("select-filter").value;
     var today = new Date();
@@ -148,6 +149,30 @@ function updateDateInputs() {
         })
         .catch(error => console.error("Lỗi khi gửi yêu cầu:", error)); // Bắt lỗi nếu có vấn đề
 }
+
+function handleCustomDateChange() {
+    var start = document.getElementById("startDate").value;
+    var end = document.getElementById("endDate").value;
+
+    if (start && end) {
+        fetch("xulithongke.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: "start=" + start + "&end=" + end
+        })
+            .then(response => response.text())
+            .then(data => {
+                document.querySelector("table").innerHTML = data;
+            })
+            .catch(error => console.error("Lỗi khi gửi yêu cầu:", error));
+    }
+}
+
+// Khi người dùng chọn ngày trong chế độ "Tùy chỉnh"
+document.getElementById("startDate").addEventListener("change", handleCustomDateChange);
+document.getElementById("endDate").addEventListener("change", handleCustomDateChange);
 
 // Gọi hàm khi trang tải xong
 document.addEventListener("DOMContentLoaded", updateDateInputs);

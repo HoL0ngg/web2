@@ -21,7 +21,7 @@ if ($top5) {
         echo '<td>' . htmlspecialchars($khachHang['customer_name']) . '</td>';
         echo '<td>' . htmlspecialchars($khachHang['phone']) . '</td>';
         echo '<td>' . number_format($khachHang['order_sum'], 0, ',', '.') . ' VNĐ</td>';
-        echo '<td><a href="admin.php?page=thongke&id=' . $khachHang['customer_id'] . '">Xem chi tiết</a></td>';
+        echo '<td><a href="admin.php?page=thongke&id=' . $khachHang['customer_id'] . '$sort=tang">Xem chi tiết</a></td>';
         echo '</tr>';
     }
 } else {

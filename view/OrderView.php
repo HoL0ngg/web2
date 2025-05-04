@@ -1,5 +1,11 @@
+<?php $selectedSort = $_GET['sort'] ?? 'tang'; ?>
 <h2 style="margin-top: 20px">Danh sách đơn hàng của khách hàng <?php echo $orders[0]['customer_name']; ?></h2>
 <div class="back-btn"><i class="fa-solid fa-2x fa-arrow-left"></i></div>
+<label for="sort" style="display: inline;">Sắp xếp theo </label>
+<select name="sort" id="sort" style="padding: 8px; border: 1px solid #E0E0E0; border-radius: 8px; margin-left: 8px;">
+    <option value="tang" <?php if ($selectedSort === 'tang') echo 'selected'; ?>>Tăng dần</option>
+    <option value="giam" <?php if ($selectedSort === 'giam') echo 'selected'; ?>>Giảm dần</option>
+</select>
 <div class="table-container">
     <?php
     if (!empty($orders)) {
@@ -14,7 +20,7 @@
             echo "<tr>
                 <td>{$order['order_id']}</td>
                 <td>{$order['OrderDate']}</td>
-                <td>{$order['total']}</td>
+                <td>" . number_format($order['total'], 0, ',', '.') . " VNĐ</td>
                 <td><button class=\"detail-btn\" value=\"{$order['order_id']}\" onclick=\"showOrderDetail(this)\">📄 Chi tiết</button></td>
               </tr>";
         }
@@ -49,6 +55,15 @@
         console.log('hihihi');
 
     })
+
+    document.getElementById('sort').addEventListener('change', function() {
+        const sortValue = this.value;
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id'); // lấy customer_id từ URL
+
+        // Reload trang với sort mới
+        window.location.href = `admin.php?page=thongke&id=${id}&sort=${sortValue}`;
+    });
 </script>
 
 <style>

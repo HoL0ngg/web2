@@ -362,13 +362,15 @@ class TKModel
     }
 
 
-    public function getOrderById($id)
+    public function getOrderById($id, $isInc)
     {
+        $orderDirection = $isInc ? "ASC" : "DESC";
         $sql = "SELECT khachhang.customer_name, khachhang.phone, khachhang.customer_id, donhang.total, donhang.order_id, donhang.OrderDate
                 FROM donhang 
                 JoIN khachhang 
                 ON donhang.customer_id = khachhang.customer_id 
-                WHERE donhang.customer_id = ?";
+                WHERE donhang.customer_id = ?
+                ORDER BY donhang.total $orderDirection";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();
