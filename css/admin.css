@@ -599,3 +599,32 @@ label {
 .hidden-product {
     opacity: 0.5;
 }
+
+
+@media screen and (max-width: 800px) {
+    #container-left {
+        width: 60px;
+    }
+    #container-right {
+        width: calc(100% - 60px);
+    }
+    #container-left .text {
+        display: none;
+    }
+    #logo {
+        width: 100%;
+    }
+    #logo img {
+        content: url("../imgs/logomini.svg");
+    }
+    #hideSideBar {
+        display: none;
+    }
+    #footer {
+        text-align: center;
+        padding: 5px;
+    }
+    #footer .text {
+        display: none;
+    }
+}

@@ -370,8 +370,31 @@ header {
 }
 
 @media (max-width: 768px) {
-    .filter-form label:nth-child(1) {
-        margin-left: 30px;
-        /* Áp dụng margin-left cho "Ngày từ" khi màn hình nhỏ hơn 768px */
+    .filter-form {
+        grid-template-columns: 100%; /* Stack input and button sections vertically */
+        min-width: auto; /* Remove fixed min-width for better responsiveness */
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+
+    .filter-form_input {
+        display: grid; /* Use grid to match the combobox layout in the image */
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive grid for comboboxes */
+        gap: 10px; /* Maintain spacing between comboboxes */
+        padding-bottom: 15px; /* Add space before buttons */
+    }
+
+    .filter-form_button {
+        justify-content: center; /* Center the buttons */
+        gap: 10px; /* Add spacing between buttons */
+    }
+
+    .filter-form button {
+        margin-top: 0; /* Remove top margin for buttons */
+        width: 100px; /* Slightly larger buttons for better touch targets */
+    }
+
+    .filter-form input,
+    .filter-form select {
+        max-width: 100%; /* Allow inputs to take full width of their grid cell */
     }
 }

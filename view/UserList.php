@@ -172,6 +172,8 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
         padding: 20px;
         border-radius: 10px;
         box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        /* overflow  */
+        overflow-y: auto;
     }
 
     table {
@@ -227,5 +229,25 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
 
     .delete-btn-user:hover {
         background: #C0392B;
+    }
+    @media (max-width: 768px) {
+        header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .search-box {
+            margin-top: 10px;
+        }
+
+        #search-input-user,
+        #search-combobox-user {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .add-user-btn {
+            text-align: center;
+        }
     }
 </style>
