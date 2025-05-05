@@ -97,6 +97,9 @@ updateCart = () => {
 
         const quantity = parseInt(item.querySelector('.cart-quantity').textContent);
         total += price * quantity;
+        console.log(item.querySelector('.new-price'));
+
+        item.querySelector('.new-price').textContent = (price * quantity).toLocaleString('vi-VN') + 'VNĐ';
         cartCount += quantity;
     });
     document.querySelector('#cart-count').textContent = cartCount;

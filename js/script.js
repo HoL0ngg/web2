@@ -923,13 +923,13 @@ function refreshOrders() {
 function updateFilterButtonText() {
     const filterButton = document.getElementById("filters");
     if (window.innerWidth <= 768) {
-      filterButton.textContent = "Lọc";
+        filterButton.textContent = "Lọc";
     } else {
-      filterButton.textContent = "Áp dụng lọc";
+        filterButton.textContent = "Áp dụng lọc";
     }
-  }
-  window.addEventListener("load", updateFilterButtonText);
-  window.addEventListener("resize", updateFilterButtonText);
+}
+window.addEventListener("load", updateFilterButtonText);
+window.addEventListener("resize", updateFilterButtonText);
 
 
 window.onload = function () {
