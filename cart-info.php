@@ -23,7 +23,7 @@ if (isset($_SESSION['username'])) {
 <div id="cart_empty_container">
     <div id="cart_empty_icon"><i class="fa-solid fa-cart-shopping"></i></div>
     <div id="cart_empty_text">Giỏ hàng của bạn đang trống</div>
-    <a href="/products" id="cart_empty_link">Tiếp tục mua sắm</a>
+    <a href="index.php" id="cart_empty_link">Tiếp tục mua sắm</a>
 </div>
 
 <div id="cart-info">

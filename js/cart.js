@@ -93,8 +93,6 @@ updateCart = () => {
 
     cartItems.forEach(item => {
         const price = parseFloat(item.querySelector('.new-price').textContent.replace('VNĐ', '').replace(/\./g, ''));
-        // console.log(item.querySelector('.new-price').textContent.replace('VNĐ', '').replace(/\./g, ''));
-
         const quantity = parseInt(item.querySelector('.cart-quantity').textContent);
         total += price * quantity;
         cartCount += quantity;
