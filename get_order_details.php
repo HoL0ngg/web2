@@ -17,11 +17,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['order_id'])) {
         $productName = $ProductController->getNameProductById($detailorder['product_id']);
         $quantity = $detailorder['quantity'];
         $price = $detailorder['price'];
+        $priceFormatted = number_format($price, 0, ',', '.');
+
 
         echo "<tr>
                 <td>$productName</td>
                 <td>$quantity</td>
-                <td>$price</td>
+                <td>$priceFormatted</td>
               </tr>";
     }
 } else {

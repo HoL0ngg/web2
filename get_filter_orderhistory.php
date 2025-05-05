@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $EmployeeController = new EmployeeController();
     $AddressController = new AddressController();
 
-    $orders = $OrderController->getOrdersWithFilters($from, $to, $customerId, $status);
+    $orders = $OrderController->getOrderHistoriesWithFilters($from, $to, $customerId, $status);
 
     if (!empty($orders)) {
         foreach ($orders as $order) {

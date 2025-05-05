@@ -159,6 +159,59 @@ class OrderModel
     }
 
 
+    public function getOrderHistoriesWithFilters($from = "", $to = "", $customer_id = "", $status = "")
+{
+    // Nếu không có bộ lọc, trả về tất cả đơn hàng
+    if (empty($from) && empty($to) && empty($customer_id) && empty($status)) {
+        return $this->getAllOrder();
+    }
+
+    $sql = "SELECT dh.* FROM donhang dh WHERE 1=1";
+    $params = [];
+    $types = "";
+
+    // Gán luôn customer_id
+    $sql .= " AND customer_id = ?";
+    $types .= "s";
+    $params[] = $customer_id;
+
+    if (!empty($from) && !empty($to)) {
+        $sql .= " AND orderDate BETWEEN ? AND ?";
+        $types .= "ss";
+        $params[] = $from;
+        $params[] = $to;
+    } elseif (!empty($from)) {
+        $sql .= " AND orderDate >= ?";
+        $types .= "s";
+        $params[] = $from;
+    } elseif (!empty($to)) {
+        $sql .= " AND orderDate <= ?";
+        $types .= "s";
+        $params[] = $to;
+    }
+
+    if (!empty($status)) {
+        $sql .= " AND status = ?";
+        $types .= "s";
+        $params[] = $status;
+    }
+
+    $stmt = $this->conn->prepare($sql);
+
+    $stmt->bind_param($types, ...$params);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $orders = [];
+    while ($row = $result->fetch_assoc()) {
+        $orders[] = $row;
+    }
+
+    $stmt->close();
+    return $orders;
+}
+
+
 
     public function addOrder($customer_recipient_name, $phone, $email, $customer_id, $order_date, $total_price, $status, $address_id, $note, $pttt)
     {

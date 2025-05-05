@@ -76,7 +76,7 @@ require_once './handles/CustomerController.php';
                             <td><?= $name ?></td>
                             <td><?= $address ?></td>
                             <td><?= $order['orderDate'] ?></td>
-                            <td><?= $order['total'] ?></td>
+                            <td><?= number_format($order['total'] , 0, ',', '.')?></td>
                             <td class="status-cell" data-order-id="<?= $order['order_id'] ?>"><?= $order['status'] ?></td>
                             <td>
                                 <button onclick="showOrderDetail(this)" value="<?= $order['order_id'] ?>">📄 Chi tiết</button>

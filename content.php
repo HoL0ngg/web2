@@ -4,16 +4,18 @@
     $action = '';
 
     if (isset($_GET['orderhistory'])) {
-        if(isset($_SESSION['username'])){
+        if (isset($_SESSION['username'])) {
             $action = 'orderhistory';   
-        }
-        else{
-            echo'<script>showToast("Bạn chưa đăng nhập");</script>';
+        } else {
+            echo '<script>showToast("Bạn chưa đăng nhập");</script>';
         }
     } else if (isset($_GET['loveProduct'])) {
         $action = 'loveProduct';
-    } else
+    } else if (isset($_GET['gioithieu'])) {
+        $action = 'gioithieu';
+    } else {
         $action = 'default';
+    }
 
     switch ($action) {
         case 'orderhistory':
@@ -26,6 +28,9 @@
             break;
         case 'loveProduct':
             include 'view/LoveProductView.php';
+            break;
+        case 'gioithieu':
+            include 'view/gioithieu.php';
             break;
         default:
             include('left_menu.php');
