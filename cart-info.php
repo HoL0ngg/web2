@@ -55,7 +55,7 @@ if (isset($_SESSION['username'])) {
                 </div>
             </div>
             <div class="cart-price">
-                <div class="new-price"><?php echo number_format($row['price'] * $quantity, 0, ',', '.') ?> VNĐ</div>
+                <div class="new-price"><?php echo number_format($row['price'], 0, ',', '.') ?> VNĐ</div>
                 <!-- <div class="old-price">334.000đ</div> -->
                 <div class="cart-quantity-container" data-id="<?php echo $row['product_id'] ?>">
                     <button class="minus">-</button>
