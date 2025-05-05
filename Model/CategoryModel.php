@@ -1,30 +1,43 @@
 <?php
 require_once __DIR__ . '/../database/connect.php';
 
-class CategoryModel {
+class CategoryModel
+{
     private $conn;
 
-    public function __construct() {
+    public function __construct()
+    {
         $db = new database();
         $this->conn = $db->getConnection();
         if ($this->conn->connect_error) {
             die("Kết nối thất bại: " . $this->conn->connect_error);
         }
     }
+    public function countChungLoai()
+    {
+        $stmt = $this->conn->prepare("SELECT COUNT(*) as count FROM chungloai");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        $stmt->close();
+        return $row['count'];
+    }
+    public function insertChungLoai($ma, $tenchungloai, $hinhanh = null)
+    {
 
-    public function insertChungLoai($tenchungloai, $hinhanh = null) {
-        $stmt = $this->conn->prepare("INSERT INTO chungloai (tenchungloai, hinhanh) VALUES (?, ?)");
-        $stmt->bind_param("ss", $tenchungloai, $hinhanh);
+        $stmt = $this->conn->prepare("INSERT INTO chungloai (machungloai,tenchungloai, hinhanh) VALUES (?, ?,?)");
+        $stmt->bind_param("iss", $ma, $tenchungloai, $hinhanh);
         if ($stmt->execute()) {
-            $new_id = $stmt->insert_id;
+            // $new_id = $stmt->insert_id;
             $stmt->close();
-            return $new_id;
+            return true;
         }
         $stmt->close();
-        return null;
+        return false;
     }
 
-    public function deleteChungLoai($machungloai) {
+    public function deleteChungLoai($machungloai)
+    {
         $stmt = $this->conn->prepare("DELETE FROM chungloai WHERE machungloai = ?");
         $stmt->bind_param("s", $machungloai);
         $result = $stmt->execute();
@@ -32,7 +45,8 @@ class CategoryModel {
         return $result;
     }
 
-    public function updateChungLoai($machungloai, $tenchungloai) {
+    public function updateChungLoai($machungloai, $tenchungloai)
+    {
         $stmt = $this->conn->prepare("UPDATE chungloai SET tenchungloai = ? WHERE machungloai = ?");
         $stmt->bind_param("ss", $tenchungloai, $machungloai);
         $result = $stmt->execute();
@@ -40,7 +54,8 @@ class CategoryModel {
         return $result;
     }
 
-    public function updateChungLoaiWithTheLoai($machungloai, $tenchungloai, $theloai, $hinhanh = null) {
+    public function updateChungLoaiWithTheLoai($machungloai, $tenchungloai, $theloai, $hinhanh = null)
+    {
         $this->conn->begin_transaction();
         try {
             // Update tên chủng loại và hình ảnh (nếu có)
@@ -53,7 +68,7 @@ class CategoryModel {
             }
             $stmt->execute();
             $stmt->close();
-    
+
             // Nếu danh sách thể loại không rỗng, xóa các thể loại không có trong danh sách
             if (!empty($theloai)) {
                 $placeholders = implode(',', array_fill(0, count($theloai), '?'));
@@ -63,7 +78,7 @@ class CategoryModel {
                 $stmt->bind_param($types, ...$params);
                 $stmt->execute();
                 $stmt->close();
-    
+
                 // Cập nhật machungloai cho các thể loại trong danh sách
                 foreach ($theloai as $matheloai) {
                     $stmt = $this->conn->prepare("UPDATE theloai SET machungloai = ? WHERE matheloai = ?");
@@ -78,7 +93,7 @@ class CategoryModel {
                 $stmt->execute();
                 $stmt->close();
             }
-    
+
             $this->conn->commit();
             return true;
         } catch (Exception $e) {
@@ -88,7 +103,8 @@ class CategoryModel {
         }
     }
 
-    public function insertTheLoai($tentheloai, $machungloai) {
+    public function insertTheLoai($tentheloai, $machungloai)
+    {
         $stmt = $this->conn->prepare("INSERT INTO theloai (tentheloai, machungloai) VALUES (?, ?)");
         $stmt->bind_param("si", $tentheloai, $machungloai);
         if ($stmt->execute()) {
@@ -100,7 +116,8 @@ class CategoryModel {
         return null;
     }
 
-    public function updateTheLoai($matheloai, $tentheloai) {
+    public function updateTheLoai($matheloai, $tentheloai)
+    {
         $stmt = $this->conn->prepare("UPDATE theloai SET tentheloai = ? WHERE matheloai = ?");
         $stmt->bind_param("ss", $tentheloai, $matheloai);
         $result = $stmt->execute();
@@ -108,7 +125,8 @@ class CategoryModel {
         return $result;
     }
 
-    public function deleteTheLoai($matheloai) {
+    public function deleteTheLoai($matheloai)
+    {
         // Check if theloai has associated products
         $stmt = $this->conn->prepare("
             SELECT COUNT(*) as count 
@@ -132,7 +150,8 @@ class CategoryModel {
         return $result;
     }
 
-    public function getChungLoaiWithTheLoaiAndProductCount() {
+    public function getChungLoaiWithTheLoaiAndProductCount()
+    {
         $sql = "
             SELECT 
                 cl.machungloai,
@@ -155,7 +174,8 @@ class CategoryModel {
         return $data;
     }
 
-    public function getTheLoaiByChungLoai($machungloai) {
+    public function getTheLoaiByChungLoai($machungloai)
+    {
         $stmt = $this->conn->prepare("
             SELECT 
                 tl.matheloai, 
@@ -177,4 +197,3 @@ class CategoryModel {
         return $theloai;
     }
 }
-?>

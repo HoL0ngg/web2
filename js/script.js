@@ -538,7 +538,9 @@ async function loadProducts(pagenum = 1, isLove = false) {
         </div>
         <div class="productArray-info">
             <p>${product.product_name}</p>
-            <div class="product-price">${product.price} VNĐ</div>
+            <div class="product-price">${product.price.toLocaleString(
+              "vi-VN"
+            )} VNĐ</div>
         </div>
         <div class="product-button-container">
             <div class="heart-icon" onClick="toggleLove(this, ${
@@ -619,97 +621,126 @@ function scrollToContent() {
 
 // document.getElementById("timkiem").addEventListener("keyup", () => loadProducts(1));
 
-
-
-
 // Nút Find: Lọc dựa trên tên (chỉ giữ keyword)
 document.getElementById("find").addEventListener("click", function () {
-    const urlParams = new URLSearchParams(window.location.search);
-    const keyword = document.getElementById("timkiem").value.trim();
+  const urlParams = new URLSearchParams(window.location.search);
+  const keyword = document.getElementById("timkiem").value.trim();
 
-    // Kiểm tra nếu URL có tham số 'gioithieu'
-    if (urlParams.has('gioithieu')) {
-        // Xóa tham số gioithieu
-        urlParams.delete('gioithieu');
-        // Chỉ thêm keyword vào query string nếu có
-        if (keyword) urlParams.set('keyword', keyword);
-        const newUrl = `index.php${urlParams.toString() ? '?' + urlParams.toString() : ''}`;
-        window.location.href = newUrl;
-        return; // Dừng thực thi để đợi reload
-    }
+  // Kiểm tra nếu URL có tham số 'gioithieu'
+  if (urlParams.has("gioithieu")) {
+    // Xóa tham số gioithieu
+    urlParams.delete("gioithieu");
+    // Chỉ thêm keyword vào query string nếu có
+    if (keyword) urlParams.set("keyword", keyword);
+    const newUrl = `index.php${
+      urlParams.toString() ? "?" + urlParams.toString() : ""
+    }`;
+    window.location.href = newUrl;
+    return; // Dừng thực thi để đợi reload
+  }
 
-    // Reset các trường lọc
-    document.getElementById('minprice').value = "";
-    document.getElementById('maxprice').value = "";
-    document.querySelectorAll(".brandname").forEach(cb => cb.checked = false);
-    document.querySelectorAll(".loaisanphamcb").forEach(cb => cb.checked = false);
+  // Reset các trường lọc
+  document.getElementById("minprice").value = "";
+  document.getElementById("maxprice").value = "";
+  document.querySelectorAll(".brandname").forEach((cb) => (cb.checked = false));
+  document
+    .querySelectorAll(".loaisanphamcb")
+    .forEach((cb) => (cb.checked = false));
 
-    // Gọi loadProducts với trang 1
-    loadProducts(1);
+  // Gọi loadProducts với trang 1
+  loadProducts(1);
 });
 
 // Nút Filters: Lọc nâng cao (giữ tất cả bộ lọc)
 document.getElementById("filters").addEventListener("click", function () {
-    const urlParams = new URLSearchParams(window.location.search);
-    const keyword = document.getElementById("timkiem").value.trim();
-    const minPrice = document.getElementById("minprice").value.replace(/,/g, "");
-    const maxPrice = document.getElementById("maxprice").value.replace(/,/g, "");
-    const selectedBrands = Array.from(document.querySelectorAll(".brandname:checked")).map(cb => cb.value);
-    const selectedLoaiSP = Array.from(document.querySelectorAll(".loaisanphamcb:checked")).map(cb => cb.value);
+  const urlParams = new URLSearchParams(window.location.search);
+  const keyword = document.getElementById("timkiem").value.trim();
+  const minPrice = document.getElementById("minprice").value.replace(/,/g, "");
+  const maxPrice = document.getElementById("maxprice").value.replace(/,/g, "");
+  const selectedBrands = Array.from(
+    document.querySelectorAll(".brandname:checked")
+  ).map((cb) => cb.value);
+  const selectedLoaiSP = Array.from(
+    document.querySelectorAll(".loaisanphamcb:checked")
+  ).map((cb) => cb.value);
 
-    // Kiểm tra nếu URL có tham số 'gioithieu'
-    if (urlParams.has('gioithieu')) {
-        // Xóa tham số gioithieu
-        urlParams.delete('gioithieu');
-        // Thêm tất cả giá trị vào query string nếu có
-        if (keyword) urlParams.set('keyword', keyword);
-        if (minPrice) urlParams.set('minprice', minPrice);
-        if (maxPrice) urlParams.set('maxprice', maxPrice);
-        if (selectedBrands.length) urlParams.set('brands', JSON.stringify(selectedBrands));
-        if (selectedLoaiSP.length) urlParams.set('loaisp', JSON.stringify(selectedLoaiSP));
-        const newUrl = `index.php${urlParams.toString() ? '?' + urlParams.toString() : ''}`;
-        window.location.href = newUrl;
-        return; // Dừng thực thi để đợi reload
-    }
+  // Kiểm tra nếu URL có tham số 'gioithieu'
+  if (urlParams.has("gioithieu")) {
+    // Xóa tham số gioithieu
+    urlParams.delete("gioithieu");
+    // Thêm tất cả giá trị vào query string nếu có
+    if (keyword) urlParams.set("keyword", keyword);
+    if (minPrice) urlParams.set("minprice", minPrice);
+    if (maxPrice) urlParams.set("maxprice", maxPrice);
+    if (selectedBrands.length)
+      urlParams.set("brands", JSON.stringify(selectedBrands));
+    if (selectedLoaiSP.length)
+      urlParams.set("loaisp", JSON.stringify(selectedLoaiSP));
+    const newUrl = `index.php${
+      urlParams.toString() ? "?" + urlParams.toString() : ""
+    }`;
+    window.location.href = newUrl;
+    return; // Dừng thực thi để đợi reload
+  }
 
-    // Xóa maChungloai và maTheLoai
-    urlParams.delete("maChungloai");
-    urlParams.delete("maTheLoai");
-    // Cập nhật URL mà không reload
-    window.history.pushState({}, '', `index.php${urlParams.toString() ? '?' + urlParams.toString() : ''}`);
+  // Xóa maChungloai và maTheLoai
+  urlParams.delete("maChungloai");
+  urlParams.delete("maTheLoai");
+  // Cập nhật URL mà không reload
+  window.history.pushState(
+    {},
+    "",
+    `index.php${urlParams.toString() ? "?" + urlParams.toString() : ""}`
+  );
 
-    // Gọi loadProducts với trang 1
-    loadProducts(1);
+  // Gọi loadProducts với trang 1
+  loadProducts(1);
 });
 
 // Khôi phục giá trị input, checkbox và gọi loadProducts khi trang tải
-document.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const keyword = urlParams.get('keyword') || '';
-    const minPrice = urlParams.get('minprice') || '';
-    const maxPrice = urlParams.get('maxprice') || '';
-    const brands = urlParams.get('brands') ? JSON.parse(urlParams.get('brands')) : [];
-    const loaisp = urlParams.get('loaisp') ? JSON.parse(urlParams.get('loaisp')) : [];
+document.addEventListener("DOMContentLoaded", () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const keyword = urlParams.get("keyword") || "";
+  const minPrice = urlParams.get("minprice") || "";
+  const maxPrice = urlParams.get("maxprice") || "";
+  const brands = urlParams.get("brands")
+    ? JSON.parse(urlParams.get("brands"))
+    : [];
+  const loaisp = urlParams.get("loaisp")
+    ? JSON.parse(urlParams.get("loaisp"))
+    : [];
 
-    // Khôi phục giá trị input và checkbox
-    if (document.getElementById('timkiem')) document.getElementById('timkiem').value = keyword;
-    if (document.getElementById('minprice')) document.getElementById('minprice').value = minPrice ? Number(minPrice).toLocaleString() : '';
-    if (document.getElementById('maxprice')) document.getElementById('maxprice').value = maxPrice ? Number(maxPrice).toLocaleString() : '';
-    document.querySelectorAll(".brandname").forEach(cb => cb.checked = brands.includes(cb.value));
-    document.querySelectorAll(".loaisanphamcb").forEach(cb => cb.checked = loaisp.includes(cb.value));
+  // Khôi phục giá trị input và checkbox
+  if (document.getElementById("timkiem"))
+    document.getElementById("timkiem").value = keyword;
+  if (document.getElementById("minprice"))
+    document.getElementById("minprice").value = minPrice
+      ? Number(minPrice).toLocaleString()
+      : "";
+  if (document.getElementById("maxprice"))
+    document.getElementById("maxprice").value = maxPrice
+      ? Number(maxPrice).toLocaleString()
+      : "";
+  document
+    .querySelectorAll(".brandname")
+    .forEach((cb) => (cb.checked = brands.includes(cb.value)));
+  document
+    .querySelectorAll(".loaisanphamcb")
+    .forEach((cb) => (cb.checked = loaisp.includes(cb.value)));
 
-    // Gọi loadProducts với trang 1
-    loadProducts(1);
+  // Gọi loadProducts với trang 1
+  loadProducts(1);
 });
 
-
-document.getElementById('reset-filters').addEventListener('click', function () {
-    document.getElementById('minprice').value = "";
-    document.getElementById('maxprice').value = "";
-    document.querySelectorAll(".brandname").forEach(cb => cb.checked = false);
-    document.querySelectorAll(".loaisanphamcb").forEach(cb => cb.checked = false);
-    document.getElementById("timkiem").value = "";
-    loadProducts(1);
+document.getElementById("reset-filters").addEventListener("click", function () {
+  document.getElementById("minprice").value = "";
+  document.getElementById("maxprice").value = "";
+  document.querySelectorAll(".brandname").forEach((cb) => (cb.checked = false));
+  document
+    .querySelectorAll(".loaisanphamcb")
+    .forEach((cb) => (cb.checked = false));
+  document.getElementById("timkiem").value = "";
+  loadProducts(1);
 });
 
 document.getElementById("filters").addEventListener("click", function () {
@@ -801,169 +832,200 @@ addToCart = (id, quantity) => {
 };
 
 function updateCartCount() {
-    // Cập nhật số lượng sản phẩm trong giỏ hàng
-    fetch('cart.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: `action=getCartCount`
-    })
-        .then(res => res.json())
-        .then(data => {
-            if (data.count < 10)
-                document.getElementById("cart-count").innerText = data.count;
-            else document.getElementById("cart-count").innerText = "9+";
-        })
+  // Cập nhật số lượng sản phẩm trong giỏ hàng
+  fetch("cart.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: `action=getCartCount`,
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.count < 10)
+        document.getElementById("cart-count").innerText = data.count;
+      else document.getElementById("cart-count").innerText = "9+";
+    });
 }
 
 function updateLoveCount() {
-    // Cập nhật số lượng sản phẩm yêu thích
-    fetch('XuLyYeuThich.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: `action=getLoveCount`
-    })
-        .then(res => res.json())
-        .then(data => {
-            if (data.count < 10)
-                document.getElementById("love-count").innerText = data.count;
-            else document.getElementById("love-count").innerText = "9+";
-        })
+  // Cập nhật số lượng sản phẩm yêu thích
+  fetch("XuLyYeuThich.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: `action=getLoveCount`,
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.count < 10)
+        document.getElementById("love-count").innerText = data.count;
+      else document.getElementById("love-count").innerText = "9+";
+    });
 }
 //PRODUCT DETAIL
 function getInfoProduct(productId) {
-    fetch(`view/product_detail.php?productId=${productId}`)
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById("modal-container").innerHTML = html;
+  fetch(`view/product_detail.php?productId=${productId}`)
+    .then((response) => response.text())
+    .then((html) => {
+      document.getElementById("modal-container").innerHTML = html;
 
-            const container = document.getElementById("container-product-detail");
-            // container.style.display = 'flex';
+      const container = document.getElementById("container-product-detail");
+      // container.style.display = 'flex';
 
-            const detail = document.getElementById("product-detail");
+      const detail = document.getElementById("product-detail");
 
-            // Đóng khi click ra ngoài modal
-            document.addEventListener("mousedown", function handler(e) {
-                if (!detail.contains(e.target)) {
-                    container.style.display = 'none';
-                    document.removeEventListener("mousedown", handler); // tránh gắn nhiều lần
-                }
-            });
+      // Đóng khi click ra ngoài modal
+      document.addEventListener("mousedown", function handler(e) {
+        if (!detail.contains(e.target)) {
+          container.style.display = "none";
+          document.removeEventListener("mousedown", handler); // tránh gắn nhiều lần
+        }
+      });
 
-            // Đóng khi nhấn nút close
-            document.querySelector("#product-detail .btn-close").addEventListener("click", () => {
-                container.style.display = 'none';
-            });
-
-            // Gắn lại nút tăng/giảm
-            const unitPrice = document.getElementById("product-price").getAttribute("data-unit-price");
-            const spanProductPrice = document.getElementById("product-price");
-            document.querySelector(".quantity-control button:first-child").addEventListener("click", () => {
-                const input = document.getElementById("quantity");
-                const quantity = parseInt(input.value);
-                if (quantity > 1) {
-                    input.value = quantity - 1;
-                    updatePriceInProductDetail(document.getElementById("quantity").value, unitPrice, spanProductPrice);
-                }
-            });
-
-            document.querySelector(".quantity-control button:last-child").addEventListener("click", () => {
-                const input = document.getElementById("quantity");
-                const quantity = parseInt(input.value);
-                const max = parseInt(input.getAttribute('max'));
-                if (quantity < max) {
-                    input.value = quantity + 1;
-                    updatePriceInProductDetail(document.getElementById("quantity").value, unitPrice, spanProductPrice);
-                }
-
-
-            });
-
-            // Xử lý nút Thêm vào giỏ
-            const btnAddToCartDeltail = document.querySelector("#container-product-detail .add-to-cart");
-            if (btnAddToCartDeltail) {
-                btnAddToCartDeltail.addEventListener("click", () => {
-                    const max = parseInt(document.getElementById("quantity").getAttribute('max'));
-                    const quantity = parseInt(document.getElementById("quantity").value);
-                    if (quantity > max) {
-                        showToast("Vượt quá số lượng còn lại của sản phẩm", false);
-                        return;
-                    }
-                    console.log("Đã thêm " + quantity + " sản phẩm vào giỏ hàng");
-                    addToCart(productId, quantity);
-
-                    container.style.display = 'none';
-                });
-            }
-
+      // Đóng khi nhấn nút close
+      document
+        .querySelector("#product-detail .btn-close")
+        .addEventListener("click", () => {
+          container.style.display = "none";
         });
+
+      // Gắn lại nút tăng/giảm
+      const unitPrice = document
+        .getElementById("product-price")
+        .getAttribute("data-unit-price");
+      const spanProductPrice = document.getElementById("product-price");
+      document
+        .querySelector(".quantity-control button:first-child")
+        .addEventListener("click", () => {
+          const input = document.getElementById("quantity");
+          const quantity = parseInt(input.value);
+          if (quantity > 1) {
+            input.value = quantity - 1;
+            updatePriceInProductDetail(
+              document.getElementById("quantity").value,
+              unitPrice,
+              spanProductPrice
+            );
+          }
+        });
+
+      document
+        .querySelector(".quantity-control button:last-child")
+        .addEventListener("click", () => {
+          const input = document.getElementById("quantity");
+          const quantity = parseInt(input.value);
+          const max = parseInt(input.getAttribute("max"));
+          if (quantity < max) {
+            input.value = quantity + 1;
+            updatePriceInProductDetail(
+              document.getElementById("quantity").value,
+              unitPrice,
+              spanProductPrice
+            );
+          }
+        });
+
+      // Xử lý nút Thêm vào giỏ
+      const btnAddToCartDeltail = document.querySelector(
+        "#container-product-detail .add-to-cart"
+      );
+      if (btnAddToCartDeltail) {
+        btnAddToCartDeltail.addEventListener("click", () => {
+          const max = parseInt(
+            document.getElementById("quantity").getAttribute("max")
+          );
+          const quantity = parseInt(document.getElementById("quantity").value);
+          if (quantity > max) {
+            showToast("Vượt quá số lượng còn lại của sản phẩm", false);
+            return;
+          }
+          console.log("Đã thêm " + quantity + " sản phẩm vào giỏ hàng");
+          addToCart(productId, quantity);
+
+          container.style.display = "none";
+        });
+      }
+    });
 }
 function updatePriceInProductDetail(quantity, unitprice, container) {
-    const totalPrice = quantity * unitprice;
-    container.innerText = totalPrice.toLocaleString('vi-VN') + " đ";
+  const totalPrice = quantity * unitprice;
+  container.innerText = totalPrice.toLocaleString("vi-VN") + " đ";
 }
 
 function showOrderDetail(button) {
-    const orderId = button.value;
-    fetch('get_order_details.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',//dưới dạng html
-        },
-        body: 'order_id=' + encodeURIComponent(orderId)
+  const orderId = button.value;
+  fetch("get_order_details.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded", //dưới dạng html
+    },
+    body: "order_id=" + encodeURIComponent(orderId),
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      // Đổ dữ liệu vào bảng chi tiết
+      document
+        .getElementById("detail-table")
+        .getElementsByTagName("tbody")[0].innerHTML = data;
+      // Hiển thị popup
+      document.getElementById("order-detail-popup").classList.add("show");
     })
-        .then(response => response.text())
-        .then(data => {
-            // Đổ dữ liệu vào bảng chi tiết
-            document.getElementById("detail-table").getElementsByTagName("tbody")[0].innerHTML = data;
-            // Hiển thị popup
-            document.getElementById("order-detail-popup").classList.add("show");
-        })
-        .catch(error => {
-            console.error('Lỗi khi lấy chi tiết đơn hàng:', error);
-        });
+    .catch((error) => {
+      console.error("Lỗi khi lấy chi tiết đơn hàng:", error);
+    });
 }
 function hideOrderDetail() {
-    const popup = document.getElementById("order-detail-popup");
-    popup.classList.remove("show");
+  const popup = document.getElementById("order-detail-popup");
+  popup.classList.remove("show");
 }
 
 function HuyDonHang() {
-    const cancelButtons = document.querySelectorAll('.cancel-btn');
-    cancelButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            const row = this.closest('tr');
-            const statusCell = row.querySelector('.status-cell');
-            const orderId = statusCell.dataset.orderId;
-            const currentStatus = statusCell.innerText.trim();
-            let newStatus = "cancelled";
-            if (currentStatus === 'shipping' || currentStatus === 'delivered') {
-                showToast('Đơn hàng đã được xử lý không thể hủy');
-                return;
-            }
-            if (currentStatus === 'cancelled') {
-                showToast('Đơn hàng đã được hủy');
-                return;
-            }
-            if (confirm("xác nhận đơn hàng")) {
-                fetch('change_status_order.php', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: `order_id=${orderId}&status=${newStatus}`
-                })
-                    .then(res => res.text())
-                    .then(data => {
-                        console.log(data);
-                        statusCell.innerText = newStatus;
-                        showToast("Hủy thành công", true);
-                    })
-            }
-        });
+  const cancelButtons = document.querySelectorAll(".cancel-btn");
+  cancelButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      const row = this.closest("tr");
+      const statusCell = row.querySelector(".status-cell");
+      const orderId = statusCell.dataset.orderId;
+      const currentStatus = statusCell.innerText.trim();
+      let newStatus = "cancelled";
+      if (currentStatus === "shipping" || currentStatus === "delivered") {
+        showToast("Đơn hàng đã được xử lý không thể hủy");
+        return;
+      }
+      if (currentStatus === "cancelled") {
+        showToast("Đơn hàng đã được hủy");
+        return;
+      }
+      console.log("hihih");
 
+      Swal.fire({
+        title: "Xác nhận hủy",
+        text: "Bạn có chắc chắn hủy đơn hàng không?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Có",
+        cancelButtonText: "Hủy",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          fetch("change_status_order.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: `order_id=${orderId}&status=${newStatus}`,
+          })
+            .then((res) => res.text())
+            .then((data) => {
+              console.log(data);
+              statusCell.innerText = newStatus;
+              showToast("Hủy thành công", true);
+            });
+        }
+      });
     });
+  });
 }
 
 function updateLoveCount() {
@@ -1108,38 +1170,38 @@ function hideOrderDetail() {
   popup.classList.remove("show");
 }
 
-function HuyDonHang() {
-  const cancelButtons = document.querySelectorAll(".cancel-btn");
-  cancelButtons.forEach((button) => {
-    button.addEventListener("click", function () {
-      const row = this.closest("tr");
-      const statusCell = row.querySelector(".status-cell");
-      const orderId = statusCell.dataset.orderId;
-      const currentStatus = statusCell.innerText.trim();
-      let newStatus = "cancelled";
-      if (currentStatus === "shipping" || currentStatus === "delivered") {
-        showToast("Đơn hàng đã được xử lý không thể hủy");
-        return;
-      }
-      if (currentStatus === "cancelled") {
-        showToast("Đơn hàng đã được hủy");
-        return;
-      }
-      if (confirm("xác nhận đơn hàng")) {
-        fetch("change_status_order.php", {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: `order_id=${orderId}&status=${newStatus}`,
-        })
-          .then((res) => res.text())
-          .then((data) => {
-            statusCell.innerText = newStatus;
-            showToast("Hủy thành công", true);
-          });
-      }
-    });
-  });
-}
+// function HuyDonHang() {
+//   const cancelButtons = document.querySelectorAll(".cancel-btn");
+//   cancelButtons.forEach((button) => {
+//     button.addEventListener("click", function () {
+//       const row = this.closest("tr");
+//       const statusCell = row.querySelector(".status-cell");
+//       const orderId = statusCell.dataset.orderId;
+//       const currentStatus = statusCell.innerText.trim();
+//       let newStatus = "cancelled";
+//       if (currentStatus === "shipping" || currentStatus === "delivered") {
+//         showToast("Đơn hàng đã được xử lý không thể hủy");
+//         return;
+//       }
+//       if (currentStatus === "cancelled") {
+//         showToast("Đơn hàng đã được hủy");
+//         return;
+//       }
+//       if (confirm("xác nhận đơn hàng")) {
+//         fetch("change_status_order.php", {
+//           method: "POST",
+//           headers: { "Content-Type": "application/x-www-form-urlencoded" },
+//           body: `order_id=${orderId}&status=${newStatus}`,
+//         })
+//           .then((res) => res.text())
+//           .then((data) => {
+//             statusCell.innerText = newStatus;
+//             showToast("Hủy thành công", true);
+//           });
+//       }
+//     });
+//   });
+// }
 
 function filterOrders() {
   const from = document.getElementById("fromDate").value;

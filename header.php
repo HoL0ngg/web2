@@ -111,10 +111,10 @@ if (isset($_SESSION['username'])) {
             <div id="left-bot-header">
                 <div id="menu">
                     <div>Menu</div>
-                     <div id="menu-sub">
-                            <div><a href="index.php?gioithieu">Giới Thiệu</a></div>
-                            <div>Liên Hệ</div>
-                            <div>Tin Tức</div>
+                    <div id="menu-sub">
+                        <div><a href="index.php?gioithieu">Giới Thiệu</a></div>
+                        <div>Liên Hệ</div>
+                        <div>Tin Tức</div>
                     </div>
                 </div>
                 <div><a href="index.php">Trang chủ</a></div>
@@ -159,51 +159,48 @@ if (isset($_SESSION['username'])) {
             </div>
 
             <div id="right-bot-header">
-                <div>
-                    <i class="fa-solid fa-bolt-lightning"></i>
-                </div>
-                <div>
-                    Flash Sale
-                </div>
+                <!-- <div> -->
+                <!-- <i class="fa-solid fa-bolt-lightning"></i> -->
             </div>
+            <!-- <div>
+                    Flash Sale
+                </div> -->
         </div>
     </div>
 </div>
+</div>
 <div style="height: 139px;"></div>
 <script>
-const button = document.getElementById('sp');
-const content = document.getElementById('product-menu');
-const find = document.getElementById('timkiem-header');
-const iconUp = document.querySelector('.icon-up');
-const iconUpI = document.querySelector('.icon-up i');
+    const button = document.getElementById('sp');
+    const content = document.getElementById('product-menu');
+    const find = document.getElementById('timkiem-header');
+    const iconUp = document.querySelector('.icon-up');
+    const iconUpI = document.querySelector('.icon-up i');
 
 
-button.addEventListener('click', (event) => {
-    event.stopPropagation();
-    content.classList.toggle('show');
-    iconUp.classList.toggle('rotated');
-    iconUpI.classList.toggle('rotated');
-});
+    button.addEventListener('click', (event) => {
+        event.stopPropagation();
+        content.classList.toggle('show');
+        iconUp.classList.toggle('rotated');
+        iconUpI.classList.toggle('rotated');
+    });
 
-find.addEventListener('click', (event) => {
-    event.stopPropagation();
-});
-
-
-// Ngăn chặn đóng khi click vào bên trong menu
-content.addEventListener('click', (event) => {
-    event.stopPropagation();
-});
-
-// Click ra ngoài thì đóng
-document.addEventListener('click', (e) => {
-    if (!button.contains(e.target) && !content.contains(e.target)) {
-        content.classList.remove('show');
-        iconUp.classList.remove('rotated');
-        iconUpI.classList.remove('rotated');
-    }
-});
+    find.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
 
 
+    // Ngăn chặn đóng khi click vào bên trong menu
+    content.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
 
+    // Click ra ngoài thì đóng
+    document.addEventListener('click', (e) => {
+        if (!button.contains(e.target) && !content.contains(e.target)) {
+            content.classList.remove('show');
+            iconUp.classList.remove('rotated');
+            iconUpI.classList.remove('rotated');
+        }
+    });
 </script>
