@@ -305,7 +305,7 @@
 
 #left-bot-header > div {
   padding: 0 10px;
-  line-height: 20px;
+  /* line-height: 20px; */
   transition: background-color 0.2s ease;
 }
 
@@ -1145,6 +1145,10 @@ input[type="email"] {
     visibility: visible;
 } */
 
+#sp{
+  height: 100%;
+}
+
 #product-menu-nav {
   height: 230px;
   background-color: gainsboro;
@@ -1185,6 +1189,10 @@ input[type="email"] {
 #input {
   transform: translate(5%, 0);
 }
+#input input {
+  height: 30px;
+  border-radius: 10px;
+  margin-top: 10px;}
 
 #minprice {
   width: 40%;
@@ -1200,13 +1208,13 @@ input[type="email"] {
 }
 
 #filters {
-  transform: translate(50%, 0);
+  transform: translate(50%,50%);
   width: 50%;
   height: 50%;
   background-color: #79c7ff;
   color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 155px;
   cursor: pointer;
   transition: ease 0.4s;
 }
@@ -1219,13 +1227,14 @@ input[type="email"] {
   background-color: #f44f44;
   color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 15px;
   cursor: pointer;
   float: right;
-  position: absolute;
-  bottom: 10%;
-  height: 30%;
-  right: 0;
+  /* position: absolute;
+  bottom: 10%;*/
+  height: 30%; 
+  transform: translate(-100%,250%);
+  /* right: 0; */
   transition: ease 0.4s;
 }
 
@@ -1562,6 +1571,11 @@ img {
   text-align: center;
 }
 
+.hihi{
+  height: 100%;
+  align-items: center;
+  line-height: 50px;
+}
 /* RESPONSIVE */
 @media screen and (min-width: 1095px) and (max-width: 1440px) {
   #top-header {
@@ -1689,7 +1703,7 @@ img {
 
   #left-bot-header > div {
     padding: 7px 10px;
-    line-height: 30px;
+    line-height: 40px;
     font-size: 1rem;
   }
   .fa-heart {
@@ -1786,10 +1800,14 @@ img {
     width: 85%;
   }
   #left-bot-header > div {
-    padding: 7px 10px;
+    /* padding: 7px 10px; */
     line-height: 25px;
     font-size: 1.1rem;
     /* border: 2px solid red; */
+  }
+  #menu>div{
+    height: 100%;
+    line-height: 50px;
   }
   #left-bot-header > div:hover {
     background-color: #2399ed;
@@ -1890,7 +1908,6 @@ img {
   }
   #left-bot-header > div {
     /* padding: 7px 10px; */
-    line-height: 20px;
     font-size: 1.1rem;
   }
 
@@ -1912,7 +1929,26 @@ img {
   #changepassword-container {
     width: 80%;
   }
+  #filters{
+    height: 40%;
+  }
+
+  #reset-filters{
+    height: 30%;
+    transform: translate(-40%, 100%);
+  }
 }
+@media screen and (max-width: 768px){
+  #filters{
+    height: 40%;
+  }
+
+  #reset-filters{
+    height: 30%;
+    transform: translate(-55%, 210%);
+  }
+}
+
 @media screen and (max-width: 600px) {
   #left-bot-header a {
     line-height: 20px;
@@ -1943,4 +1979,6 @@ img {
   #rightmenu_product {
     width: 70%;
   }
+
+  
 }
