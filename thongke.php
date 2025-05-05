@@ -72,7 +72,7 @@ $product = $productController->getNameProductById($product);
         </select>
         <input type="date" placeholder="Từ ngày" id="startDate">
         <input type="date" placeholder="Đến ngày" id="endDate">
-        <a href="#" class="export-btn">Xuất Excel</a>
+        <!-- <a href="#" class="export-btn">Xuất Excel</a> -->
     </div>
     <table>
     </table>

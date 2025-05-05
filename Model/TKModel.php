@@ -338,9 +338,11 @@ class TKModel
             FROM khachhang kh
             JOIN donhang dh ON kh.customer_id = dh.customer_id";
 
+        $sql .= " WHERE  dh.status IN ('shipping', 'delivered')";
         // Nếu có điều kiện lọc theo ngày, thêm vào truy vấn
         if ($startDate && $endDate) {
-            $sql .= " WHERE dh.orderDate BETWEEN ? AND ?";
+            //check status shipping or delevered
+            $sql .= " AND dh.orderDate BETWEEN ? AND ?";
         }
 
         $sql .= " GROUP BY kh.customer_id, kh.customer_name, kh.phone

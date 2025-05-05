@@ -1,0 +1,2608 @@
+Fetched data from DB: Array
+(
+    [0] => Array
+        (
+            [receipt_id] => 1
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-03-28
+            [total] => 500000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [1] => Array
+        (
+            [receipt_id] => 5
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [2] => Array
+        (
+            [receipt_id] => 6
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [3] => Array
+        (
+            [receipt_id] => 7
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [4] => Array
+        (
+            [receipt_id] => 8
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [5] => Array
+        (
+            [receipt_id] => 10
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-04
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [6] => Array
+        (
+            [receipt_id] => 2
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-04-01
+            [total] => 800000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [7] => Array
+        (
+            [receipt_id] => 3
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 300000
+            [confirm_time] => 2025-04-28
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [8] => Array
+        (
+            [receipt_id] => 4
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [9] => Array
+        (
+            [receipt_id] => 9
+            [employee_id] => 1
+            [supplier_id] => 3
+            [create_time] => 2025-05-03
+            [total] => 2000000
+            [confirm_time] => 2025-05-03
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Nguyễn Văn A
+        )
+
+)
+
+Fetched data from DB: Array
+(
+    [0] => Array
+        (
+            [receipt_id] => 1
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-03-28
+            [total] => 500000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [1] => Array
+        (
+            [receipt_id] => 5
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [2] => Array
+        (
+            [receipt_id] => 6
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [3] => Array
+        (
+            [receipt_id] => 7
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [4] => Array
+        (
+            [receipt_id] => 8
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [5] => Array
+        (
+            [receipt_id] => 10
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-04
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [6] => Array
+        (
+            [receipt_id] => 2
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-04-01
+            [total] => 800000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [7] => Array
+        (
+            [receipt_id] => 11
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [8] => Array
+        (
+            [receipt_id] => 3
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 300000
+            [confirm_time] => 2025-04-28
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [9] => Array
+        (
+            [receipt_id] => 4
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [10] => Array
+        (
+            [receipt_id] => 9
+            [employee_id] => 1
+            [supplier_id] => 3
+            [create_time] => 2025-05-03
+            [total] => 2000000
+            [confirm_time] => 2025-05-03
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Nguyễn Văn A
+        )
+
+)
+
+Fetched data from DB: Array
+(
+    [0] => Array
+        (
+            [receipt_id] => 1
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-03-28
+            [total] => 500000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [1] => Array
+        (
+            [receipt_id] => 5
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [2] => Array
+        (
+            [receipt_id] => 6
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [3] => Array
+        (
+            [receipt_id] => 7
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [4] => Array
+        (
+            [receipt_id] => 8
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [5] => Array
+        (
+            [receipt_id] => 10
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-04
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [6] => Array
+        (
+            [receipt_id] => 2
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-04-01
+            [total] => 800000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [7] => Array
+        (
+            [receipt_id] => 11
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [8] => Array
+        (
+            [receipt_id] => 3
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 300000
+            [confirm_time] => 2025-04-28
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [9] => Array
+        (
+            [receipt_id] => 4
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [10] => Array
+        (
+            [receipt_id] => 9
+            [employee_id] => 1
+            [supplier_id] => 3
+            [create_time] => 2025-05-03
+            [total] => 2000000
+            [confirm_time] => 2025-05-03
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Nguyễn Văn A
+        )
+
+)
+
+Fetched data from DB: Array
+(
+    [0] => Array
+        (
+            [receipt_id] => 1
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-03-28
+            [total] => 500000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [1] => Array
+        (
+            [receipt_id] => 5
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [2] => Array
+        (
+            [receipt_id] => 6
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [3] => Array
+        (
+            [receipt_id] => 7
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [4] => Array
+        (
+            [receipt_id] => 8
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [5] => Array
+        (
+            [receipt_id] => 10
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-04
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [6] => Array
+        (
+            [receipt_id] => 2
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-04-01
+            [total] => 800000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [7] => Array
+        (
+            [receipt_id] => 11
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [8] => Array
+        (
+            [receipt_id] => 12
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [9] => Array
+        (
+            [receipt_id] => 3
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 300000
+            [confirm_time] => 2025-04-28
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [10] => Array
+        (
+            [receipt_id] => 4
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [11] => Array
+        (
+            [receipt_id] => 9
+            [employee_id] => 1
+            [supplier_id] => 3
+            [create_time] => 2025-05-03
+            [total] => 2000000
+            [confirm_time] => 2025-05-03
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Nguyễn Văn A
+        )
+
+)
+
+Fetched data from DB: Array
+(
+    [0] => Array
+        (
+            [receipt_id] => 1
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-03-28
+            [total] => 500000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [1] => Array
+        (
+            [receipt_id] => 5
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [2] => Array
+        (
+            [receipt_id] => 6
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [3] => Array
+        (
+            [receipt_id] => 7
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [4] => Array
+        (
+            [receipt_id] => 8
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [5] => Array
+        (
+            [receipt_id] => 10
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-04
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [6] => Array
+        (
+            [receipt_id] => 2
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-04-01
+            [total] => 800000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [7] => Array
+        (
+            [receipt_id] => 11
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [8] => Array
+        (
+            [receipt_id] => 12
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [9] => Array
+        (
+            [receipt_id] => 3
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 300000
+            [confirm_time] => 2025-04-28
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [10] => Array
+        (
+            [receipt_id] => 4
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [11] => Array
+        (
+            [receipt_id] => 9
+            [employee_id] => 1
+            [supplier_id] => 3
+            [create_time] => 2025-05-03
+            [total] => 2000000
+            [confirm_time] => 2025-05-03
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Nguyễn Văn A
+        )
+
+)
+
+Fetched data from DB: Array
+(
+    [0] => Array
+        (
+            [receipt_id] => 1
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-03-28
+            [total] => 500000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [1] => Array
+        (
+            [receipt_id] => 5
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [2] => Array
+        (
+            [receipt_id] => 6
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [3] => Array
+        (
+            [receipt_id] => 7
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [4] => Array
+        (
+            [receipt_id] => 8
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [5] => Array
+        (
+            [receipt_id] => 10
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-04
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [6] => Array
+        (
+            [receipt_id] => 2
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-04-01
+            [total] => 800000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [7] => Array
+        (
+            [receipt_id] => 11
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [8] => Array
+        (
+            [receipt_id] => 12
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [9] => Array
+        (
+            [receipt_id] => 3
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 300000
+            [confirm_time] => 2025-04-28
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [10] => Array
+        (
+            [receipt_id] => 4
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [11] => Array
+        (
+            [receipt_id] => 9
+            [employee_id] => 1
+            [supplier_id] => 3
+            [create_time] => 2025-05-03
+            [total] => 2000000
+            [confirm_time] => 2025-05-03
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Nguyễn Văn A
+        )
+
+)
+
+Fetched data from DB: Array
+(
+    [0] => Array
+        (
+            [receipt_id] => 1
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-03-28
+            [total] => 500000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [1] => Array
+        (
+            [receipt_id] => 5
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [2] => Array
+        (
+            [receipt_id] => 6
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [3] => Array
+        (
+            [receipt_id] => 7
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [4] => Array
+        (
+            [receipt_id] => 8
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [5] => Array
+        (
+            [receipt_id] => 10
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-04
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [6] => Array
+        (
+            [receipt_id] => 2
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-04-01
+            [total] => 800000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [7] => Array
+        (
+            [receipt_id] => 11
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [8] => Array
+        (
+            [receipt_id] => 12
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [9] => Array
+        (
+            [receipt_id] => 3
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 300000
+            [confirm_time] => 2025-04-28
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [10] => Array
+        (
+            [receipt_id] => 4
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [11] => Array
+        (
+            [receipt_id] => 9
+            [employee_id] => 1
+            [supplier_id] => 3
+            [create_time] => 2025-05-03
+            [total] => 2000000
+            [confirm_time] => 2025-05-03
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Nguyễn Văn A
+        )
+
+)
+
+Fetched data from DB: Array
+(
+    [0] => Array
+        (
+            [receipt_id] => 1
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-03-28
+            [total] => 500000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [1] => Array
+        (
+            [receipt_id] => 5
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [2] => Array
+        (
+            [receipt_id] => 6
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [3] => Array
+        (
+            [receipt_id] => 7
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [4] => Array
+        (
+            [receipt_id] => 8
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [5] => Array
+        (
+            [receipt_id] => 10
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-04
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [6] => Array
+        (
+            [receipt_id] => 2
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-04-01
+            [total] => 800000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [7] => Array
+        (
+            [receipt_id] => 11
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [8] => Array
+        (
+            [receipt_id] => 12
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [9] => Array
+        (
+            [receipt_id] => 3
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 300000
+            [confirm_time] => 2025-04-28
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [10] => Array
+        (
+            [receipt_id] => 4
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [11] => Array
+        (
+            [receipt_id] => 9
+            [employee_id] => 1
+            [supplier_id] => 3
+            [create_time] => 2025-05-03
+            [total] => 2000000
+            [confirm_time] => 2025-05-03
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Nguyễn Văn A
+        )
+
+    [12] => Array
+        (
+            [receipt_id] => 13
+            [employee_id] => 6
+            [supplier_id] => 3
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => trnghia
+        )
+
+)
+
+Fetched data from DB: Array
+(
+    [0] => Array
+        (
+            [receipt_id] => 1
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-03-28
+            [total] => 500000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [1] => Array
+        (
+            [receipt_id] => 5
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [2] => Array
+        (
+            [receipt_id] => 6
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [3] => Array
+        (
+            [receipt_id] => 7
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [4] => Array
+        (
+            [receipt_id] => 8
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [5] => Array
+        (
+            [receipt_id] => 10
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-04
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [6] => Array
+        (
+            [receipt_id] => 14
+            [employee_id] => 2
+            [supplier_id] => 1
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [7] => Array
+        (
+            [receipt_id] => 2
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-04-01
+            [total] => 800000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [8] => Array
+        (
+            [receipt_id] => 11
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [9] => Array
+        (
+            [receipt_id] => 12
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [10] => Array
+        (
+            [receipt_id] => 3
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 300000
+            [confirm_time] => 2025-04-28
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [11] => Array
+        (
+            [receipt_id] => 4
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [12] => Array
+        (
+            [receipt_id] => 9
+            [employee_id] => 1
+            [supplier_id] => 3
+            [create_time] => 2025-05-03
+            [total] => 2000000
+            [confirm_time] => 2025-05-03
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Nguyễn Văn A
+        )
+
+    [13] => Array
+        (
+            [receipt_id] => 13
+            [employee_id] => 6
+            [supplier_id] => 3
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => trnghia
+        )
+
+)
+
+Fetched data from DB: Array
+(
+    [0] => Array
+        (
+            [receipt_id] => 1
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-03-28
+            [total] => 500000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [1] => Array
+        (
+            [receipt_id] => 5
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [2] => Array
+        (
+            [receipt_id] => 6
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [3] => Array
+        (
+            [receipt_id] => 7
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [4] => Array
+        (
+            [receipt_id] => 8
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [5] => Array
+        (
+            [receipt_id] => 10
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-04
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [6] => Array
+        (
+            [receipt_id] => 14
+            [employee_id] => 2
+            [supplier_id] => 1
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [7] => Array
+        (
+            [receipt_id] => 2
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-04-01
+            [total] => 800000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [8] => Array
+        (
+            [receipt_id] => 11
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [9] => Array
+        (
+            [receipt_id] => 12
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [10] => Array
+        (
+            [receipt_id] => 3
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 300000
+            [confirm_time] => 2025-04-28
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [11] => Array
+        (
+            [receipt_id] => 4
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [12] => Array
+        (
+            [receipt_id] => 9
+            [employee_id] => 1
+            [supplier_id] => 3
+            [create_time] => 2025-05-03
+            [total] => 2000000
+            [confirm_time] => 2025-05-03
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Nguyễn Văn A
+        )
+
+    [13] => Array
+        (
+            [receipt_id] => 13
+            [employee_id] => 6
+            [supplier_id] => 3
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => trnghia
+        )
+
+)
+
+Fetched data from DB: Array
+(
+    [0] => Array
+        (
+            [receipt_id] => 1
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-03-28
+            [total] => 500000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [1] => Array
+        (
+            [receipt_id] => 5
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [2] => Array
+        (
+            [receipt_id] => 6
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [3] => Array
+        (
+            [receipt_id] => 7
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [4] => Array
+        (
+            [receipt_id] => 8
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [5] => Array
+        (
+            [receipt_id] => 10
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-04
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [6] => Array
+        (
+            [receipt_id] => 14
+            [employee_id] => 2
+            [supplier_id] => 1
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [7] => Array
+        (
+            [receipt_id] => 2
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-04-01
+            [total] => 800000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [8] => Array
+        (
+            [receipt_id] => 11
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [9] => Array
+        (
+            [receipt_id] => 12
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [10] => Array
+        (
+            [receipt_id] => 3
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 300000
+            [confirm_time] => 2025-04-28
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [11] => Array
+        (
+            [receipt_id] => 4
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [12] => Array
+        (
+            [receipt_id] => 9
+            [employee_id] => 1
+            [supplier_id] => 3
+            [create_time] => 2025-05-03
+            [total] => 2000000
+            [confirm_time] => 2025-05-03
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Nguyễn Văn A
+        )
+
+    [13] => Array
+        (
+            [receipt_id] => 13
+            [employee_id] => 6
+            [supplier_id] => 3
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => trnghia
+        )
+
+)
+
+Fetched data from DB: Array
+(
+    [0] => Array
+        (
+            [receipt_id] => 1
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-03-28
+            [total] => 500000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [1] => Array
+        (
+            [receipt_id] => 5
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [2] => Array
+        (
+            [receipt_id] => 6
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [3] => Array
+        (
+            [receipt_id] => 7
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [4] => Array
+        (
+            [receipt_id] => 8
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [5] => Array
+        (
+            [receipt_id] => 10
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-04
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [6] => Array
+        (
+            [receipt_id] => 14
+            [employee_id] => 2
+            [supplier_id] => 1
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [7] => Array
+        (
+            [receipt_id] => 2
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-04-01
+            [total] => 800000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [8] => Array
+        (
+            [receipt_id] => 11
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [9] => Array
+        (
+            [receipt_id] => 12
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [10] => Array
+        (
+            [receipt_id] => 15
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [11] => Array
+        (
+            [receipt_id] => 3
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 300000
+            [confirm_time] => 2025-04-28
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [12] => Array
+        (
+            [receipt_id] => 4
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [13] => Array
+        (
+            [receipt_id] => 9
+            [employee_id] => 1
+            [supplier_id] => 3
+            [create_time] => 2025-05-03
+            [total] => 2000000
+            [confirm_time] => 2025-05-03
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Nguyễn Văn A
+        )
+
+    [14] => Array
+        (
+            [receipt_id] => 13
+            [employee_id] => 6
+            [supplier_id] => 3
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => trnghia
+        )
+
+)
+
+Fetched data from DB: Array
+(
+    [0] => Array
+        (
+            [receipt_id] => 1
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-03-28
+            [total] => 500000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [1] => Array
+        (
+            [receipt_id] => 5
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [2] => Array
+        (
+            [receipt_id] => 6
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [3] => Array
+        (
+            [receipt_id] => 7
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [4] => Array
+        (
+            [receipt_id] => 8
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [5] => Array
+        (
+            [receipt_id] => 10
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-04
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [6] => Array
+        (
+            [receipt_id] => 14
+            [employee_id] => 2
+            [supplier_id] => 1
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [7] => Array
+        (
+            [receipt_id] => 2
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-04-01
+            [total] => 800000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [8] => Array
+        (
+            [receipt_id] => 11
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [9] => Array
+        (
+            [receipt_id] => 12
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [10] => Array
+        (
+            [receipt_id] => 15
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [11] => Array
+        (
+            [receipt_id] => 3
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 300000
+            [confirm_time] => 2025-04-28
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [12] => Array
+        (
+            [receipt_id] => 4
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [13] => Array
+        (
+            [receipt_id] => 9
+            [employee_id] => 1
+            [supplier_id] => 3
+            [create_time] => 2025-05-03
+            [total] => 2000000
+            [confirm_time] => 2025-05-03
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Nguyễn Văn A
+        )
+
+    [14] => Array
+        (
+            [receipt_id] => 13
+            [employee_id] => 6
+            [supplier_id] => 3
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => trnghia
+        )
+
+)
+
+Fetched data from DB: Array
+(
+    [0] => Array
+        (
+            [receipt_id] => 1
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-03-28
+            [total] => 500000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [1] => Array
+        (
+            [receipt_id] => 5
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [2] => Array
+        (
+            [receipt_id] => 6
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [3] => Array
+        (
+            [receipt_id] => 7
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [4] => Array
+        (
+            [receipt_id] => 8
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [5] => Array
+        (
+            [receipt_id] => 10
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-04
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [6] => Array
+        (
+            [receipt_id] => 14
+            [employee_id] => 2
+            [supplier_id] => 1
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [7] => Array
+        (
+            [receipt_id] => 2
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-04-01
+            [total] => 800000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [8] => Array
+        (
+            [receipt_id] => 11
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [9] => Array
+        (
+            [receipt_id] => 12
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [10] => Array
+        (
+            [receipt_id] => 15
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [11] => Array
+        (
+            [receipt_id] => 3
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 300000
+            [confirm_time] => 2025-04-28
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [12] => Array
+        (
+            [receipt_id] => 4
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [13] => Array
+        (
+            [receipt_id] => 9
+            [employee_id] => 1
+            [supplier_id] => 3
+            [create_time] => 2025-05-03
+            [total] => 2000000
+            [confirm_time] => 2025-05-03
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Nguyễn Văn A
+        )
+
+    [14] => Array
+        (
+            [receipt_id] => 13
+            [employee_id] => 6
+            [supplier_id] => 3
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => trnghia
+        )
+
+)
+
+Fetched data from DB: Array
+(
+    [0] => Array
+        (
+            [receipt_id] => 1
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-03-28
+            [total] => 500000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [1] => Array
+        (
+            [receipt_id] => 5
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [2] => Array
+        (
+            [receipt_id] => 6
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [3] => Array
+        (
+            [receipt_id] => 7
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [4] => Array
+        (
+            [receipt_id] => 8
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-03
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [5] => Array
+        (
+            [receipt_id] => 10
+            [employee_id] => 1
+            [supplier_id] => 1
+            [create_time] => 2025-05-04
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Nguyễn Văn A
+        )
+
+    [6] => Array
+        (
+            [receipt_id] => 14
+            [employee_id] => 2
+            [supplier_id] => 1
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp A
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [7] => Array
+        (
+            [receipt_id] => 2
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-04-01
+            [total] => 800000
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [8] => Array
+        (
+            [receipt_id] => 11
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [9] => Array
+        (
+            [receipt_id] => 12
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [10] => Array
+        (
+            [receipt_id] => 15
+            [employee_id] => 1
+            [supplier_id] => 2
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp B
+            [name] => Nguyễn Văn A
+        )
+
+    [11] => Array
+        (
+            [receipt_id] => 3
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 300000
+            [confirm_time] => 2025-04-28
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [12] => Array
+        (
+            [receipt_id] => 4
+            [employee_id] => 2
+            [supplier_id] => 3
+            [create_time] => 2025-04-27
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bùi Nguyễn Trọng Nghĩa
+        )
+
+    [13] => Array
+        (
+            [receipt_id] => 9
+            [employee_id] => 1
+            [supplier_id] => 3
+            [create_time] => 2025-05-03
+            [total] => 2000000
+            [confirm_time] => 2025-05-03
+            [status] => confirmed
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Nguyễn Văn A
+        )
+
+    [14] => Array
+        (
+            [receipt_id] => 13
+            [employee_id] => 6
+            [supplier_id] => 3
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => trnghia
+        )
+
+    [15] => Array
+        (
+            [receipt_id] => 16
+            [employee_id] => 3
+            [supplier_id] => 3
+            [create_time] => 2025-05-05
+            [total] => 
+            [confirm_time] => 
+            [status] => processing
+            [supplier_name] => Nhà cung cấp SGU
+            [name] => Bui nguyen trong nghia
+        )
+
+)
+

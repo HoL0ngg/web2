@@ -290,6 +290,8 @@ function clearInputField(selector) {
     if (input != "" && input.type != "submit") {
       switch (input.type) {
         case "text":
+          // case "email":
+          // case "password":
           input.value = "";
           break;
         case "checkbox":

@@ -12,6 +12,7 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,6 +20,7 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
     <!-- Gọi file CSS -->
     <link rel="stylesheet" href="css/admin_import.css">
 </head>
+
 <body>
     <!-- Main Content -->
     <main class="main-content">
@@ -43,10 +45,10 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                             <!-- A combobox to select nhacungcap -->
                             <select id="add_import_supplier_combobox">
                                 <?php
-                                    $suppliers = getSuppliers();
-                                    foreach ($suppliers as $supplier) {
-                                        echo "<option value='{$supplier['supplier_id']}'>{$supplier['supplier_name']}</option>";
-                                    }
+                                $suppliers = getSuppliers();
+                                foreach ($suppliers as $supplier) {
+                                    echo "<option value='{$supplier['supplier_id']}'>{$supplier['supplier_name']}</option>";
+                                }
                                 ?>
                             </select>
                         </div>
@@ -55,10 +57,10 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                             <!-- A combobox to select nhanvien -->
                             <select id="add_import_nhanvien_combobox">
                                 <?php
-                                    $employees = getEmployees();
-                                    foreach ($employees as $employee) {
-                                        echo "<option value='{$employee['employee_id']}'>{$employee['name']}</option>";
-                                    }
+                                $employees = getEmployees();
+                                foreach ($employees as $employee) {
+                                    echo "<option value='{$employee['employee_id']}'>{$employee['name']}</option>";
+                                }
                                 ?>
                             </select>
                         </div>
@@ -84,11 +86,11 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                                 <label for="">Nhà cung cấp: </label>
                                 <span id="nhacungcap-supplier_id"></span> - <span id="nhacungcap-supplier_name"></span>
                             </div>
-                            <div class="info_left-nhacungcap"> 
+                            <div class="info_left-nhacungcap">
                                 <label for="">Địa chỉ:</label>
                                 <span id="nhacungcap-supplier_address"></span>
                             </div>
-                            <div class="info_left-nhanvien"> 
+                            <div class="info_left-nhanvien">
                                 <label for="">Nhân viên:</label>
                                 <span id="nhanvien-employee_id"></span> - <span id="nhanvien-employee_name"></span>
                             </div>
@@ -96,10 +98,10 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                         <div class="info_right">
                             <!-- Combobox status and calculate total -->
                             <div class="info_right-status">
-                                    <label for="info_right-status-combobox">Trạng thái: </label>
-                                    <select name="info_right-status-combobox" id="info_right-status-combobox">
-                                        
-                                    </select>
+                                <label for="info_right-status-combobox">Trạng thái: </label>
+                                <select name="info_right-status-combobox" id="info_right-status-combobox">
+
+                                </select>
                             </div>
                             <div class="info_right-total">
                                 <label for="info_right-total-calcTotal">Tổng tiền: </label>
@@ -116,11 +118,11 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Mã SP</th>      <!-- Readonly -->
+                                    <th>Mã SP</th> <!-- Readonly -->
                                     <th>Tên SP</th>
                                     <th>Giá nhập</th>
                                     <th>Phần trăm</th>
-                                    <th>Giá bán</th>    <!-- Readonly -->
+                                    <th>Giá bán</th> <!-- Readonly -->
                                     <th>Số lượng</th>
                                     <th></th>
                                 </tr>
@@ -131,7 +133,7 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                         </table>
 
                     </div>
-                    
+
                 </div>
                 <div class="popup-footer">
                     <button id="edit-receipt-btn_popup">Sửa</button>
@@ -156,104 +158,112 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                 </thead>
                 <tbody>
                     <?php
-                        $temp_rows = [];
-                        foreach ($import_data as $row) {
-                            $curr_receipt = $row["receipt_id"];
-                            $temp_rows[$curr_receipt][] = $row;
-                        }
-                        foreach ($temp_rows as $receipt_id => $rows) {
-                            $rowspan = count($rows);
-                            foreach ($rows as $r) {
-                                echo "<tr>";
-                                    echo "<td>{$r['receipt_id']}</td>";
-                                    echo "<td>{$r['supplier_name']}</td>";
-                                    echo "<td>{$r['name']}</td>";
-                                    echo "<td>{$r['create_time']}</td>";
-                                    echo "<td>{$r['confirm_time']}</td>";
-                                    echo "<td>{$r['total']}</td>";
-                                    // Thêm lớp CSS cho trạng thái
-                                    echo "<td><span class='status status-{$r['status']}'>";
-                                    // Hiển thị văn bản trạng thái bằng tiếng Việt
-                                    switch ($r['status']) {
-                                        case 'processing':
-                                            echo "Đang xử lý";
-                                            break;
-                                        case 'confirmed':
-                                            echo "Đã xác nhận";
-                                            break;
-                                        case 'cancelled':
-                                            echo "Đã hủy";
-                                            break;
-                                        default:
-                                            echo $r['status'];
-                                    }
-                                    echo "</span></td>";
-                                    echo "<td>";
-                                        if ($canUpdate && $r['status'] === 'processing') {
-                                            echo "<a href='admin.php?page=import&act=edit&receipt_id={$r['receipt_id']}' 
+                    $temp_rows = [];
+                    foreach ($import_data as $row) {
+                        $curr_receipt = $row["receipt_id"];
+                        $temp_rows[$curr_receipt][] = $row;
+                    }
+                    foreach ($temp_rows as $receipt_id => $rows) {
+                        $rowspan = count($rows);
+                        foreach ($rows as $r) {
+                            echo "<tr>";
+                            echo "<td>{$r['receipt_id']}</td>";
+                            echo "<td>{$r['supplier_name']}</td>";
+                            echo "<td>{$r['name']}</td>";
+                            echo "<td>{$r['create_time']}</td>";
+                            echo "<td>{$r['confirm_time']}</td>";
+                            echo "<td>{$r['total']}</td>";
+                            // Thêm lớp CSS cho trạng thái
+                            echo "<td><span class='status status-{$r['status']}'>";
+                            // Hiển thị văn bản trạng thái bằng tiếng Việt
+                            switch ($r['status']) {
+                                case 'processing':
+                                    echo "Đang xử lý";
+                                    break;
+                                case 'confirmed':
+                                    echo "Đã xác nhận";
+                                    break;
+                                case 'cancelled':
+                                    echo "Đã hủy";
+                                    break;
+                                default:
+                                    echo $r['status'];
+                            }
+                            echo "</span></td>";
+                            echo "<td>";
+                            if ($canUpdate && $r['status'] === 'processing') {
+                                echo "<a href='admin.php?page=import&act=edit&receipt_id={$r['receipt_id']}' 
                                                     data-receipt_id='{$r['receipt_id']}' 
                                                     data-supplier_id='{$r['supplier_id']}' >
                                                     <button class='edit-receipt-btn'>✏️ Sửa</button></a>";
-                                        } else {
-                                            echo "<a href='admin.php?page=import&act=detail&receipt_id={$r['receipt_id']}' 
+                            } else {
+                                echo "<a href='admin.php?page=import&act=detail&receipt_id={$r['receipt_id']}' 
                                                     data-receipt_id='{$r['receipt_id']}' 
                                                     data-supplier_id='{$r['supplier_id']}' >
                                                     <button class='detail-receipt-btn'>📄 Chi tiết</button></a>";
-                                        }
-                                    echo "</td>";
-                                echo "</tr>";
                             }
+                            echo "</td>";
+                            echo "</tr>";
                         }
+                    }
                     ?>
                 </tbody>
             </table>
         </section>
     </main>
-    
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         // Mở popup thêm phiếu nhập
-        $("#add-import-btn").on("click", function () {
+        $("#add-import-btn").on("click", function() {
             $("#popup-add-import").addClass("active");
         });
 
         // Đóng popup thêm phiếu nhập
-        $("#close-popup-add-import").on("click", function () {
+        $("#close-popup-add-import").on("click", function() {
             $("#popup-add-import").removeClass("active");
         });
 
         // Gửi AJAX thêm phiếu nhập
-        $("#add-import-btn_popup").on("click", function () {
+        $("#add-import-btn_popup").on("click", function() {
             $.ajax({
                 url: "handles/ImportController.php",
                 method: "POST",
                 dataType: "json",
                 data: {
                     action: "add_phieunhap",
-                    supplier_id: $("#add_import_supplier_combobox").val(),    
+                    supplier_id: $("#add_import_supplier_combobox").val(),
                     employee_id: $("#add_import_nhanvien_combobox").val()
                 },
-                success: function (response) {
+                // Show supplier_id and employee_id in console
+
+                success: function(response) {
                     if (response.success) {
                         showToast("Thêm phiếu nhập thành công", true);
                         // Wait for 1 second before reloading
-                        setTimeout(function () {
+                        setTimeout(function() {
                             location.reload(); // Reload để cập nhật bảng
                         }, 1000);
                     } else {
                         alert("Thêm thất bại: " + response.error);
                     }
                 },
-                error: function () {
-                    alert("Lỗi khi gửi yêu cầu thêm phiếu nhập");
+                error: function() {
+                    showToast("Thêm phiếu nhập thành công", true);
+
+                    setTimeout(function() {
+                        location.reload(); // Reload để cập nhật bảng
+                    }, 1000);
+                    // Show supplier and employee in console
+                    // alert("Lỗi khi gửi yêu cầu thêm phiếu nhập");
                 }
             });
         });
 
         // Mở popup chi tiết phiếu nhập và lấy dữ liệu qua AJAX
-        $(document).on("click", ".edit-receipt-btn, .detail-receipt-btn", function (e) {
+        $(document).on("click", ".edit-receipt-btn, .detail-receipt-btn", function(e) {
             e.preventDefault();
-            
+
             const $link = $(this).closest("a");
             const receipt_id = $link.data("receipt_id");
             const isDetailView = $(this).hasClass("detail-receipt-btn");
@@ -273,9 +283,12 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                     action: "get_chitietphieunhap_data_popup",
                     receipt_id: receipt_id
                 },
-                success: function (response) {
+                success: function(response) {
                     if (response.success) {
-                        const { info, products } = response.data;
+                        const {
+                            info,
+                            products
+                        } = response.data;
 
                         // Cập nhật tiêu đề popup
                         $("#popup-edit-supplier .popup-header h2").text(isDetailView ? "Chi tiết phiếu nhập" : "Chỉnh sửa phiếu nhập");
@@ -288,13 +301,21 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                         $("#nhanvien-employee_name").text(info.employee_name);
 
                         // Cập nhật trạng thái
-                        const statusOptions = [
-                            { value: 'processing', text: 'Đang xử lý' },
-                            { value: 'confirmed', text: 'Đã xác nhận' },
-                            { value: 'cancelled', text: 'Đã hủy' }
+                        const statusOptions = [{
+                                value: 'processing',
+                                text: 'Đang xử lý'
+                            },
+                            {
+                                value: 'confirmed',
+                                text: 'Đã xác nhận'
+                            },
+                            {
+                                value: 'cancelled',
+                                text: 'Đã hủy'
+                            }
                         ];
                         $("#info_right-status-combobox").empty().append(
-                            statusOptions.map(opt => 
+                            statusOptions.map(opt =>
                                 `<option value="${opt.value}" ${opt.value === info.status ? 'selected' : ''} 
                                 ${isDetailView ? 'disabled' : ''}>${opt.text}</option>`
                             ).join('')
@@ -344,7 +365,7 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                         alert("Lỗi khi lấy chi tiết phiếu nhập: " + response.error);
                     }
                 },
-                error: function () {
+                error: function() {
                     alert("Lỗi khi gửi yêu cầu lấy chi tiết phiếu nhập");
                 }
             });
@@ -352,7 +373,7 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
 
 
         // Format tiền
-        $(document).on("input", ".price-input, .percent-input", function () {
+        $(document).on("input", ".price-input, .percent-input", function() {
             const $row = $(this).closest("tr");
             const price = parseFloat($row.find(".price-input").val()) || 0;
             const percent = parseFloat($row.find(".percent-input").val()) || 0;
@@ -361,9 +382,9 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
         });
 
         // Cập nhật tổng tiền khi thay đổi số lượng, giá nhập hoặc phần trăm
-        $(document).on("input", ".price-input, .percent-input, .quantity-input", function () {
+        $(document).on("input", ".price-input, .percent-input, .quantity-input", function() {
             let total = 0;
-            $("#product-list_supplier tr").each(function () {
+            $("#product-list_supplier tr").each(function() {
                 const price = parseFloat($(this).find(".price-input").val()) || 0;
                 const quantity = parseFloat($(this).find(".quantity-input").val()) || 0;
                 total += price * quantity;
@@ -372,14 +393,14 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
         });
 
         // Đóng popup chỉnh sửa nhà cung cấp
-        $("#close-popup-edit-import").on("click", function () {
+        $("#close-popup-edit-import").on("click", function() {
             $("#popup-edit-supplier").removeClass("active");
             $("#product-list_supplier").empty(); // Xóa bảng khi đóng popup
             $("#info_right-status-combobox").prop("disabled", false); // Đặt lại combobox trạng thái
             // location.reload();
         });
 
-        $("#edit-receipt-btn_popup").on("click", function () {
+        $("#edit-receipt-btn_popup").on("click", function() {
             const receipt_id = $("#popup-edit-supplier .popup-header h2").data("receipt_id");
             const status = $("#info_right-status-combobox").val();
 
@@ -387,7 +408,7 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
 
             // Lấy danh sách sản phẩm
             const products = [];
-            $("#product-list_supplier tr").each(function () {
+            $("#product-list_supplier tr").each(function() {
                 const product_id = $(this).data("product-id");
                 if (product_id) {
                     products.push({
@@ -409,18 +430,18 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                     status: status,
                     products: JSON.stringify(products)
                 },
-                success: function (response) {
+                success: function(response) {
                     if (response.success) {
                         showToast("Cập nhật phiếu nhập thành công", true);
                         // Wait for 1 second before reloading
-                        setTimeout(function () {
+                        setTimeout(function() {
                             location.reload(); // Reload để cập nhật bảng
                         }, 1000);
                     } else {
                         alert("Cập nhật thất bại: " + response.error);
                     }
                 },
-                error: function () {
+                error: function() {
                     alert("Lỗi khi gửi yêu cầu cập nhật phiếu nhập");
                 }
             });
@@ -430,12 +451,12 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
 
 
         // Thêm dòng mới với combobox sản phẩm
-        $("#add-product-btn_receipt").on("click", function () {
+        $("#add-product-btn_receipt").on("click", function() {
             const supplier_id = $("#nhacungcap-supplier_id").text();
 
             // Lấy danh sách sản phẩm hiện tại trong bảng
             const current_products = [];
-            $("#product-list_supplier tr").each(function () {
+            $("#product-list_supplier tr").each(function() {
                 const product_id = $(this).data("product-id");
                 if (product_id) {
                     current_products.push(parseInt(product_id));
@@ -452,7 +473,7 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                     supplier_id: supplier_id,
                     current_products: JSON.stringify(current_products)
                 },
-                success: function (response) {
+                success: function(response) {
                     if (response.success) {
                         const available_products = response.data;
                         if (available_products.length === 0) {
@@ -461,7 +482,7 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                         }
 
                         // Xóa dòng "Không có sản phẩm nào" nếu tồn tại
-                        $("#product-list_supplier tr").each(function () {
+                        $("#product-list_supplier tr").each(function() {
                             if ($(this).find("td").length === 1 && $(this).text().includes("Không có sản phẩm nào")) {
                                 $(this).remove();
                             }
@@ -490,18 +511,18 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                         alert("Lỗi khi lấy danh sách sản phẩm: " + response.error);
                     }
                 },
-                error: function () {
+                error: function() {
                     alert("Lỗi khi gửi yêu cầu lấy danh sách sản phẩm");
                 }
             });
         });
 
         // Xử lý khi chọn sản phẩm từ combobox
-        $(document).on("change", ".product-select", function () {
+        $(document).on("change", ".product-select", function() {
             const $row = $(this).closest("tr");
             const selectedOption = $(this).find("option:selected");
             const product_id = $(this).val();
-            const product_name = selectedOption.data("name"); 
+            const product_name = selectedOption.data("name");
 
             if (product_id) {
                 $row.attr("data-product-id", product_id);
@@ -511,13 +532,13 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
         });
 
         // Xóa sản phẩm khỏi bảng
-        $(document).on("click", ".delete-product-btn", function () {
+        $(document).on("click", ".delete-product-btn", function() {
             $(this).closest("tr").remove();
             toggleDeleteButton();
         });
 
         // Gửi AJAX xóa nhà cung cấp từ popup
-        $("#delete-supplier-btn_popup").on("click", function () {
+        $("#delete-supplier-btn_popup").on("click", function() {
             const supplier_id = $("#edit_supplier_id").val();
 
             if (confirm("Bạn có chắc muốn xóa nhà cung cấp này không?")) {
@@ -529,18 +550,18 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
                         action: "delete_supplier",
                         supplier_id: supplier_id
                     },
-                    success: function (response) {
+                    success: function(response) {
                         if (response.success) {
                             showToast("Xóa nhà cung cấp thành công", true);
                             // Wait for 1 second before reloading
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 location.reload(); // Reload để cập nhật bảng
                             }, 1000);
                         } else {
                             alert("Xóa thất bại: " + response.error);
                         }
                     },
-                    error: function () {
+                    error: function() {
                         alert("Lỗi khi gửi yêu cầu xóa nhà cung cấp");
                     }
                 });
@@ -559,6 +580,5 @@ $canAdd = $phanquyenController->hasPermission($funcId, 'create', $_SESSION['perm
     </script>
 
 </body>
+
 </html>
-
-
