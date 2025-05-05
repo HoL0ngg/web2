@@ -890,6 +890,8 @@ function filterOrders() {
     const to = document.getElementById('toDate').value;
     const status = document.getElementById('orderStatus').value;
 
+    console.log(from,to,status);
+
 
     const formData = new URLSearchParams();
     formData.append('from', from);
@@ -905,6 +907,7 @@ function filterOrders() {
     })
         .then(res => res.text())
         .then(data => {
+            console.log(data);
             const tbody = document.getElementById('orderTable');
             tbody.innerHTML = data;
             HuyDonHang();

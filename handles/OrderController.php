@@ -51,6 +51,10 @@ class OrderController
         return $this->model->getOrdersWithFilters($from, $to, $keyword, $status, $thanhpho, $quan, $phuong);
     }
 
+    public function getOrderHistoriesWithFilters($from = "", $to = "", $customer_id = "", $status = ""){
+        return $this->model->getOrderHistoriesWithFilters($from, $to,$customer_id,$status);
+}
+    
     public function getOrderCount()
     {
         return $this->model->getOrderCount();
