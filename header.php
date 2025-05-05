@@ -113,7 +113,7 @@ if (isset($_SESSION['username'])) {
                     <div>Menu</div>
                     <div id="menu-sub">
                         <div><a href="index.php?gioithieu">Giới Thiệu</a></div>
-                        <div>Liên Hệ</div>
+                        <div><a href="index.php?lienhe">Liên Hệ</a></div>
                         <div>Tin Tức</div>
                     </div>
                 </div>
@@ -152,7 +152,7 @@ if (isset($_SESSION['username'])) {
                     </div>
                 </div>
                 <div class="hihi">Tin tức</div>
-                <div class="hihi">Liên hệ</div>
+                <div class="hihi"><a href="index.php?lienhe">Liên Hệ</a></div>
                 <div>
                     <a href="index.php?orderhistory">Lịch sử mua hàng</a>
                 </div>

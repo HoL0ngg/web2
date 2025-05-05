@@ -13,7 +13,10 @@
         $action = 'loveProduct';
     } else if (isset($_GET['gioithieu'])) {
         $action = 'gioithieu';
-    } else {
+    }else if (isset($_GET['lienhe'])) {
+        $action = 'lienhe';
+    }
+     else {
         $action = 'default';
     }
 
@@ -31,6 +34,9 @@
             break;
         case 'gioithieu':
             include 'view/gioithieu.php';
+            break;
+        case 'lienhe':
+            include 'view/lienhe.php';
             break;
         default:
             include('left_menu.php');
