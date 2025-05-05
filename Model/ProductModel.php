@@ -273,7 +273,7 @@ class ProductModel
     public function getMostBuyProduct()
     {
         $sql = "SELECT product_id, SUM(quantity) AS total_quantity 
-                FROM ChiTietDonHang 
+                FROM chitietdonhang 
                 GROUP BY product_id 
                 ORDER BY total_quantity DESC 
                 LIMIT 1";
