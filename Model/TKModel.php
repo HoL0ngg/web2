@@ -450,7 +450,7 @@ class TKModel
 
     public function getTotalCustomer()
     {
-        $sql = "SELECT COUNT(*) FROM KhachHang";
+        $sql = "SELECT COUNT(*) FROM khachhang";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();

@@ -248,7 +248,7 @@ class OrderModel
 
     public function getAutoIncrementId()
     {
-        $sql = "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'webbanhang' AND TABLE_NAME = 'DonHang'";
+        $sql = "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'webbanhang' AND TABLE_NAME = 'donhang'";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -258,7 +258,7 @@ class OrderModel
 
     public function getOrderCount()
     {
-        $sql = "SELECT COUNT(*) AS total_orders FROM DonHang";
+        $sql = "SELECT COUNT(*) AS total_orders FROM donhang";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -268,7 +268,7 @@ class OrderModel
 
     public function getTotalCount()
     {
-        $sql = "SELECT SUM(total) AS total_amount FROM DonHang";
+        $sql = "SELECT SUM(total) AS total_amount FROM donhang";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();
