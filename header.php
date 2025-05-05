@@ -112,13 +112,13 @@ if (isset($_SESSION['username'])) {
                 <div id="menu">
                     <div>Menu</div>
                      <div id="menu-sub">
-                            <div>Giới Thiệu</div>
+                            <div><a href="index.php?gioithieu">Giới Thiệu</a></div>
                             <div>Liên Hệ</div>
                             <div>Tin Tức</div>
                     </div>
                 </div>
                 <div><a href="index.php">Trang chủ</a></div>
-                <div class="hihi">Giới thiệu</div>
+                <div class="hihi"><a href="index.php?gioithieu">Giới Thiệu</a></div>
                 <div id="sp" style="display: flex; align-items: center; gap: 8px;">
                     <div>Lọc Sản Phẩm</div>
                     <div class="icon-up"><i class="fa-solid fa-sort-up"></i></div>
