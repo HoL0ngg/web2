@@ -607,22 +607,89 @@ function scrollToContent() {
 }
 
 // document.getElementById("timkiem").addEventListener("keyup", () => loadProducts(1));
+
+
+
+
+// Nút Find: Lọc dựa trên tên (chỉ giữ keyword)
 document.getElementById("find").addEventListener("click", function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const keyword = document.getElementById("timkiem").value.trim();
+
+    // Kiểm tra nếu URL có tham số 'gioithieu'
+    if (urlParams.has('gioithieu')) {
+        // Xóa tham số gioithieu
+        urlParams.delete('gioithieu');
+        // Chỉ thêm keyword vào query string nếu có
+        if (keyword) urlParams.set('keyword', keyword);
+        const newUrl = `index.php${urlParams.toString() ? '?' + urlParams.toString() : ''}`;
+        window.location.href = newUrl;
+        return; // Dừng thực thi để đợi reload
+    }
+
+    // Reset các trường lọc
     document.getElementById('minprice').value = "";
     document.getElementById('maxprice').value = "";
     document.querySelectorAll(".brandname").forEach(cb => cb.checked = false);
     document.querySelectorAll(".loaisanphamcb").forEach(cb => cb.checked = false);
+
+    // Gọi loadProducts với trang 1
     loadProducts(1);
 });
 
+// Nút Filters: Lọc nâng cao (giữ tất cả bộ lọc)
 document.getElementById("filters").addEventListener("click", function () {
-    const url = new URL(window.location.href);
-    url.searchParams.delete("maChungloai");
-    url.searchParams.delete("maTheLoai");
-    window.history.pushState({}, '', url);
+    const urlParams = new URLSearchParams(window.location.search);
+    const keyword = document.getElementById("timkiem").value.trim();
+    const minPrice = document.getElementById("minprice").value.replace(/,/g, "");
+    const maxPrice = document.getElementById("maxprice").value.replace(/,/g, "");
+    const selectedBrands = Array.from(document.querySelectorAll(".brandname:checked")).map(cb => cb.value);
+    const selectedLoaiSP = Array.from(document.querySelectorAll(".loaisanphamcb:checked")).map(cb => cb.value);
+
+    // Kiểm tra nếu URL có tham số 'gioithieu'
+    if (urlParams.has('gioithieu')) {
+        // Xóa tham số gioithieu
+        urlParams.delete('gioithieu');
+        // Thêm tất cả giá trị vào query string nếu có
+        if (keyword) urlParams.set('keyword', keyword);
+        if (minPrice) urlParams.set('minprice', minPrice);
+        if (maxPrice) urlParams.set('maxprice', maxPrice);
+        if (selectedBrands.length) urlParams.set('brands', JSON.stringify(selectedBrands));
+        if (selectedLoaiSP.length) urlParams.set('loaisp', JSON.stringify(selectedLoaiSP));
+        const newUrl = `index.php${urlParams.toString() ? '?' + urlParams.toString() : ''}`;
+        window.location.href = newUrl;
+        return; // Dừng thực thi để đợi reload
+    }
+
+    // Xóa maChungloai và maTheLoai
+    urlParams.delete("maChungloai");
+    urlParams.delete("maTheLoai");
+    // Cập nhật URL mà không reload
+    window.history.pushState({}, '', `index.php${urlParams.toString() ? '?' + urlParams.toString() : ''}`);
+
+    // Gọi loadProducts với trang 1
     loadProducts(1);
 });
 
+// Khôi phục giá trị input, checkbox và gọi loadProducts khi trang tải
+document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const keyword = urlParams.get('keyword') || '';
+    const minPrice = urlParams.get('minprice') || '';
+    const maxPrice = urlParams.get('maxprice') || '';
+    const brands = urlParams.get('brands') ? JSON.parse(urlParams.get('brands')) : [];
+    const loaisp = urlParams.get('loaisp') ? JSON.parse(urlParams.get('loaisp')) : [];
+
+    // Khôi phục giá trị input và checkbox
+    if (document.getElementById('timkiem')) document.getElementById('timkiem').value = keyword;
+    if (document.getElementById('minprice')) document.getElementById('minprice').value = minPrice ? Number(minPrice).toLocaleString() : '';
+    if (document.getElementById('maxprice')) document.getElementById('maxprice').value = maxPrice ? Number(maxPrice).toLocaleString() : '';
+    document.querySelectorAll(".brandname").forEach(cb => cb.checked = brands.includes(cb.value));
+    document.querySelectorAll(".loaisanphamcb").forEach(cb => cb.checked = loaisp.includes(cb.value));
+
+    // Gọi loadProducts với trang 1
+    loadProducts(1);
+});
 
 
 document.getElementById('reset-filters').addEventListener('click', function () {
@@ -875,6 +942,7 @@ function HuyDonHang() {
                 })
                     .then(res => res.text())
                     .then(data => {
+                        console.log(data);
                         statusCell.innerText = newStatus;
                         showToast("Hủy thành công", true);
                     })

@@ -56,4 +56,8 @@ class ProductController
     {
         return $this->model->getMostBuyProduct();
     }
+
+    public function addQuantity($productId, $quantity){
+        return $this->model->addQuantity($productId,$quantity);
+    }
 }
