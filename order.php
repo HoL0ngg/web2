@@ -104,7 +104,7 @@
                                 <td><?= $phone ?></td>
                                 <td><?= $address ?></td>
                                 <td><?= $order['orderDate'] ?></td>
-                                <td><?= $order['total'] ?></td>
+                                <td><?=number_format($order['total'] , 0, ',', '.') ?></td>
                                 <td class="status-cell" data-order-id="<?= $order['order_id'] ?>">
                                     <?php
                                     // Định nghĩa màu nền và kiểu dáng cho từng trạng thái
