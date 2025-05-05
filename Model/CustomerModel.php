@@ -42,4 +42,15 @@
             $stmt->close();
             return $phone ? $phone['phone'] : 'Không rõ';
         }
+
+        public function getCustomerIdByID($id){
+            $sql = "SELECT customer_id FROM  khachhang WHERE user_id = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $id = $result->fetch_assoc();
+            $stmt->close();
+            return $id ? $id['customer_id'] : 'Không rõ';
+        }
 }

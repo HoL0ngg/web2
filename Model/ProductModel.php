@@ -236,6 +236,13 @@ class ProductModel
         $stmt->bind_param("ii", $quantity, $productId);
         return $stmt->execute();
     }
+    public function addQuantity($productId, $quantity)
+    {
+        $stmt = $this->conn->prepare("UPDATE sanpham SET quantity = quantity + ? WHERE product_id = ?");
+        $stmt->bind_param("ii", $quantity, $productId);
+        return $stmt->execute();
+    }
+
 
 
     public function bestSellingProducts($limit)

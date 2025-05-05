@@ -56,13 +56,22 @@ class OrderModel
         return $order;
     }
 
-    public function changeStatusById($orderId, $newStatus, $employee_id)
+    public function changeStatusByEmployeeId($orderId, $newStatus, $employee_id)
     {
         $sql = "UPDATE donhang SET status = ?, employee_id = ? WHERE order_id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("sii", $newStatus, $employee_id, $orderId);
         $stmt->execute();
     }
+
+    public function changeStatusByCustomerId($orderId, $newStatus, $customer_id)
+    {
+        $sql = "UPDATE donhang SET status = ?, customer_id = ? WHERE order_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("sii", $newStatus, $customer_id, $orderId);
+        $stmt->execute();
+    }
+
 
     public function getOrdersByDateRange($from, $to)
     {
