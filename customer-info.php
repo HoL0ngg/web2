@@ -74,7 +74,7 @@ if (empty($cart)) {
                     </select>
                 </div>
                 <div class="diachi-item">
-                    <input type="text" name="diachi" id="diachi" placeholder="Nhập số nhà, tên đường">
+                    <input type="text" name="diachi" id="diachi" placeholder="Nhập số nhà, tên đường" disabled>
                 </div>
             </div>
             <div class="note">

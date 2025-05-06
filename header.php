@@ -114,7 +114,7 @@ if (isset($_SESSION['username'])) {
                     <div id="menu-sub">
                         <div><a href="index.php?gioithieu">Giới Thiệu</a></div>
                         <div><a href="index.php?lienhe">Liên Hệ</a></div>
-                        <div>Tin Tức</div>
+                        <!-- <div>Tin Tức</div> -->
                     </div>
                 </div>
                 <div><a href="index.php">Trang chủ</a></div>
@@ -151,7 +151,7 @@ if (isset($_SESSION['username'])) {
                         </div>
                     </div>
                 </div>
-                <div class="hihi">Tin tức</div>
+                <!-- <div class="hihi">Tin tức</div> -->
                 <div class="hihi"><a href="index.php?lienhe">Liên Hệ</a></div>
                 <div>
                     <a href="index.php?orderhistory">Lịch sử mua hàng</a>

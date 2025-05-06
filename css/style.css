@@ -107,7 +107,7 @@
   top: 100%;
   background-color: white;
   z-index: 10;
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
   overflow: hidden;
   transition: height 0.5s ease-in-out;
 }
@@ -301,6 +301,7 @@
   display: block;
   line-height: 50px;
   height: 100%;
+  cursor: pointer;
 }
 
 #left-bot-header > div {
@@ -1145,7 +1146,7 @@ input[type="email"] {
     visibility: visible;
 } */
 
-#sp{
+#sp {
   height: 100%;
 }
 
@@ -1192,7 +1193,8 @@ input[type="email"] {
 #input input {
   height: 30px;
   border-radius: 10px;
-  margin-top: 10px;}
+  margin-top: 10px;
+}
 
 #minprice {
   width: 40%;
@@ -1208,7 +1210,7 @@ input[type="email"] {
 }
 
 #filters {
-  transform: translate(50%,50%);
+  transform: translate(50%, 50%);
   width: 50%;
   height: 50%;
   background-color: #79c7ff;
@@ -1232,8 +1234,8 @@ input[type="email"] {
   float: right;
   /* position: absolute;
   bottom: 10%;*/
-  height: 30%; 
-  transform: translate(-100%,250%);
+  height: 30%;
+  transform: translate(-100%, 250%);
   /* right: 0; */
   transition: ease 0.4s;
 }
@@ -1318,7 +1320,7 @@ img {
 
 /* Submenu - thể loại */
 .sub-loai {
-  display: none;
+  /* display: none; */
   /* Canh submenu theo chiều ngang của chủng loại */
   min-width: 180px;
   background-color: #fff;
@@ -1330,7 +1332,7 @@ img {
   padding: 10px;
   background-color: #fff;
   transition: 0.4s ease;
-  list-style-type: none;
+  /* list-style-type: none; */
 }
 
 .sub-loai .loaisanpham:hover {
@@ -1571,7 +1573,7 @@ img {
   text-align: center;
 }
 
-.hihi{
+.hihi {
   height: 100%;
   align-items: center;
   line-height: 50px;
@@ -1805,7 +1807,7 @@ img {
     font-size: 1.1rem;
     /* border: 2px solid red; */
   }
-  #menu>div{
+  #menu > div {
     height: 100%;
     line-height: 50px;
   }
@@ -1929,21 +1931,21 @@ img {
   #changepassword-container {
     width: 80%;
   }
-  #filters{
+  #filters {
     height: 40%;
   }
 
-  #reset-filters{
+  #reset-filters {
     height: 30%;
     transform: translate(-40%, 100%);
   }
 }
-@media screen and (max-width: 768px){
-  #filters{
+@media screen and (max-width: 768px) {
+  #filters {
     height: 40%;
   }
 
-  #reset-filters{
+  #reset-filters {
     height: 30%;
     transform: translate(-55%, 210%);
   }
@@ -1979,6 +1981,4 @@ img {
   #rightmenu_product {
     width: 70%;
   }
-
-  
 }

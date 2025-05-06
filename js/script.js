@@ -1248,6 +1248,7 @@ function updateFilterButtonText() {
     filterButton.textContent = "Áp dụng lọc";
   }
 }
+
 window.addEventListener("load", updateFilterButtonText);
 window.addEventListener("resize", updateFilterButtonText);
 
